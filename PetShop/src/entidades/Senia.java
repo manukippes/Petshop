@@ -1,6 +1,8 @@
 package entidades;
 
-public class Senia {
+import java.io.Serializable;
+
+public class Senia implements Serializable{
 	private int idSenia;
 	private Double monto;
 	private LineaVenta lineaVenta;

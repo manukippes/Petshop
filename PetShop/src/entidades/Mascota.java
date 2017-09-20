@@ -1,8 +1,9 @@
 package entidades;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Mascota {
+public class Mascota implements Serializable {
 	private int idMascota;
 	private String nombre;
 	private Date fechaNacimiento;

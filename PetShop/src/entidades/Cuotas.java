@@ -1,6 +1,8 @@
 package entidades;
 
-public class Cuotas {
+import java.io.Serializable;
+
+public class Cuotas implements Serializable{
 	private int idCuota;
 	private int cantCuotas;
 	private Double recargo;

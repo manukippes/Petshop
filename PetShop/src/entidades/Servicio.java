@@ -1,6 +1,8 @@
 package entidades;
 
-public class Servicio {
+import java.io.Serializable;
+
+public class Servicio implements Serializable{
 	private int idServicio;
 	private String tipo;
 	

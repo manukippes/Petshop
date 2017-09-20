@@ -1,9 +1,10 @@
 package entidades;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
-public class Turno {
+public class Turno implements Serializable{
 	private int idTurno;
 	private Date fecha;
 	private Time hora;

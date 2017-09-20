@@ -1,6 +1,8 @@
 package entidades;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable{
 	private int idUsuario;
 	private String usuarioLogin;
 	private String password;

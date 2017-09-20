@@ -1,8 +1,9 @@
 package entidades;
 
+import java.io.Serializable;
 import java.sql.Time;
 
-public class TipoMascotaServicio {
+public class TipoMascotaServicio implements Serializable{
 	private int idTMascServ;
 	private Time tiempo;
 	private Double precio;

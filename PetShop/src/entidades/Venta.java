@@ -1,8 +1,9 @@
 package entidades;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Venta {
+public class Venta implements Serializable{
 	private int idVenta;
 	private Double total;
 	private String estado;

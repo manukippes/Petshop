@@ -1,6 +1,8 @@
 package entidades;
 
-public class Subcategoria {
+import java.io.Serializable;
+
+public class Subcategoria implements Serializable{
 	private int idSubCategoria;
 	private Categoria categoria;
 	private String nombre;

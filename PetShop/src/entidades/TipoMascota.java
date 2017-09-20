@@ -1,6 +1,8 @@
 package entidades;
 
-public class TipoMascota {
+import java.io.Serializable;
+
+public class TipoMascota implements Serializable{
 	private int idTipoMascota;
 	private String pelo;
 	private String tamanio;

@@ -1,6 +1,8 @@
 package entidades;
 
-public class MedioPago {
+import java.io.Serializable;
+
+public class MedioPago implements Serializable{
 	private int idMedioPago;
 	private String tipo;
 	private Tarjeta tarjeta;

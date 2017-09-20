@@ -1,6 +1,8 @@
 package entidades;
 
-public class Tarjeta {
+import java.io.Serializable;
+
+public class Tarjeta implements Serializable {
 	private int idTarjeta;
 	private String nombre;
 	

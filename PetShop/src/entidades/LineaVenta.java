@@ -1,6 +1,8 @@
 package entidades;
 
-public class LineaVenta {
+import java.io.Serializable;
+
+public class LineaVenta implements Serializable{
 	private int idLineaVenta;
 	private String tipoLineaVta;
 	private Double precioUnitario;

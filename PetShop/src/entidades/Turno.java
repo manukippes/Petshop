@@ -1,13 +1,12 @@
 package entidades;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
+
 
 public class Turno implements Serializable{
 	private int idTurno;
-	private Date fecha;
-	private Time hora;
+	private String fecha;
+	private String hora;
 	private String repetir;
 	private Boolean retiroDom;
 	private String estado;
@@ -20,16 +19,16 @@ public class Turno implements Serializable{
 	public void setIdTurno(int idTurno) {
 		this.idTurno = idTurno;
 	}
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	public Time getHora() {
+	public String getHora() {
 		return hora;
 	}
-	public void setHora(Time hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 	public String getRepetir() {

@@ -23,18 +23,17 @@ public class DatosTurno {
 			pstm.setInt(1, turno.getIdTurno());
 			pstm.setInt(2, turno.getMascota().getIdMascota());
 			pstm.setInt(3, turno.getServicio().getIdServicio());
-			pstm.setDate(4, turno.getFecha());
-			pstm.setTime(5, turno.getHora());
+			pstm.setString(4, turno.getFecha());
+			pstm.setString(5, turno.getHora());
 			pstm.setString(6, turno.getRepetir());
-			pstm.setBoolean(6, turno.getRetiroDom());
-			pstm.setString(6, turno.getEstado());
+			pstm.setBoolean(7, false);//turno.getRetiroDom());
+			pstm.setString(8, turno.getEstado());
 			pstm.executeUpdate();
 			rs=pstm.getGeneratedKeys();
 			if(rs!=null && rs.next()){
 				turno.setIdTurno(rs.getInt(1));
 			}
 		} catch (Exception e) {
-			
 			throw e;
 		}
 		
@@ -56,10 +55,10 @@ public class DatosTurno {
 					"UPDATE turno SET idMascota=?,idServicio=?,fecha=?,hora=?,repetir=?,retiroDom=?,estado=? WHERE idTurno=?");
 			pstm.setInt(1, turno.getMascota().getIdMascota());
 			pstm.setInt(2, turno.getServicio().getIdServicio());
-			pstm.setDate(3, turno.getFecha());
-			pstm.setTime(4, turno.getHora());
+			pstm.setString(3, turno.getFecha());
+			pstm.setString(4, turno.getHora());
 			pstm.setString(5, turno.getRepetir());
-			pstm.setBoolean(6, turno.getRetiroDom());
+			pstm.setBoolean(6, false);//turno.getRetiroDom());
 			pstm.setString(7, turno.getEstado());
 			pstm.setInt(8, turno.getIdTurno());
 			pstm.executeUpdate();

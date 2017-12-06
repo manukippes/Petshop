@@ -2,7 +2,9 @@ package datos;
 import java.io.Serializable;
 import java.sql.*;
 
-import utilidades.ExcepcionesEscritorio;
+import org.apache.logging.log4j.Level;
+
+import utilidades.ExcepcionEspecial;
 
 public class FactoryConnection implements Serializable{
 	private String driver="com.mysql.jdbc.Driver";
@@ -20,7 +22,7 @@ public class FactoryConnection implements Serializable{
 	{
 		try 
 		{
-			//para definir un drier y despues usarlo en una conexion.  
+			//para definir un driver y despues usarlo en una conexion.  
 			//poder usar distintos driver solo cambiando el string entre las comillas.
 			Class.forName(driver); 
 		} 
@@ -37,7 +39,7 @@ public class FactoryConnection implements Serializable{
 	} 
 	
 	
-	public Connection getConn() throws SQLException, ExcepcionesEscritorio
+	public Connection getConn() throws SQLException, ExcepcionEspecial
 	{
 		
 		try 
@@ -47,7 +49,7 @@ public class FactoryConnection implements Serializable{
 		} 
 		catch (SQLException e) 
 		{
-			throw new ExcepcionesEscritorio(e,"Error al intentar conectarse a la Base de Datos");
+			throw new ExcepcionEspecial("Error al intentar conectarse a la Base de Datos", Level.ERROR);
 		}
 		cantConn++;
 		return conn;

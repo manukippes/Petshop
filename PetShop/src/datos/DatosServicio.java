@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import entidades.Servicio;
 import entidades.TipoMascota;
-import utilidades.ExcepcionesEscritorio;
 
 public class DatosServicio {
 //			METODOS IMPLEMENTADOS:
@@ -35,11 +34,6 @@ public class DatosServicio {
 		catch (SQLException e) 
 		{
 			throw e;
-		}
-		
-		catch (ExcepcionesEscritorio excep) 
-		{
-			throw excep;
 		}
 		
 		try {

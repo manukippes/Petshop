@@ -2,14 +2,19 @@ package datos;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.apache.logging.log4j.Level;
 
 import entidades.Usuario;
+import utilidades.ExcepcionEspecial;
 
 public class DatosUsuario {
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR USUARIO
 	//						MODIFICAR USUARIO
+	//						RECUPERAR USUARIO
 	
 
 	public void agregarUsuario (Usuario user) throws Exception
@@ -90,5 +95,55 @@ public class DatosUsuario {
 			}	
 		}
 		
+	}
+	public Usuario recuperarUsuario(Usuario user) throws Exception, ExcepcionEspecial{
+		
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Usuario usuario=null;
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM usuario WHERE usuarioLogin=? AND password=?");
+			pstm.setString(1, user.getUsuarioLogin());
+			pstm.setString(2, user.getPassword());
+			rs=pstm.executeQuery();
+			if(rs!=null)
+			{	rs.next();
+					usuario = new Usuario();
+					usuario.setIdUsuario(rs.getInt("idUsuario"));
+					usuario.setUsuarioLogin(rs.getString("usuarioLogin"));
+					usuario.setPassword(rs.getString("password"));
+					usuario.setNombre(rs.getString("nombre"));
+					usuario.setApellido(rs.getString("apellido"));
+					usuario.setEstado(rs.getInt("estado"));
+					usuario.setTipoUsuario(rs.getString("tipoUsuario"));
+					usuario.setDni(rs.getInt("dni"));
+					usuario.setDireccion(rs.getString("direccion"));
+					usuario.setTelefono(rs.getInt("telefono"));
+					usuario.setEmail(rs.getString("email"));
+					usuario.setLegajo(rs.getInt("legajo"));
+					usuario.setTipoEmpleado(rs.getString("tipoEmpleado"));
+					System.out.println(usuario.getDireccion());
+			}
+			else{
+				throw new Exception();
+				
+			}
+		} catch (SQLException exc) {
+			
+			throw new ExcepcionEspecial(exc,"No es posible buscar una persona en la base de datos", Level.ERROR);	
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(pstm!=null)pstm.close();
+			if(rs!=null)rs.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return usuario;
 	}
 }

@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import entidades.TipoMascota;
 
-import utilidades.ExcepcionesEscritorio;
 
 public class DatosTipoMascota {
 //			METODOS IMPLEMENTADOS:
@@ -37,10 +36,6 @@ public class DatosTipoMascota {
 			throw e;
 		}
 		
-		catch (ExcepcionesEscritorio excep) 
-		{
-			throw excep;
-		}
 		
 		try {
 			if(rs!=null) rs.close();

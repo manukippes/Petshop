@@ -23,6 +23,7 @@
 				  	<div class="input-group-addon">
 				  		<i class="fa fa-user" aria-hidden="true"></i>
 				  	</div>
+				  	
 				  	<input type="text" class="form-control warning" name="Username" placeholder="Ingres&aacute tu usuario" required="" autofocus="" />
 				  </div>
 				  
@@ -36,11 +37,15 @@
 			</form>	
 			
 			<br/>
-			   		    	
-		    <div class="alert alert-danger confirmacion"><%=(String)session.getAttribute("mensaje")%></div>
+			<div class="alert alert-danger confirmacion"><%=(String)session.getAttribute("mensaje")%>
+		    	<button class="close" data-dismiss="alert"><span>&times;</span></button>
+		    </div>    	
+		    
 		    	
 	    	
 		</div>
 	</div>
+<script src="js/jquery-2.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

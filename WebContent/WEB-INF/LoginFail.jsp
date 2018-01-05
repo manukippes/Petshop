@@ -29,7 +29,7 @@
 				  
 				  <div class="input-group mb-2 mr-sm-2 mb-sm-2 has-danger">
 				  	<div class="input-group-addon">
-				  		<i class="fa fa-unlock" aria-hidden="true"></i>
+				  		<i class="fa fa-lock" aria-hidden="true"></i>
 				  	</div>
 				  	<input type="password" class="form-control has-error " name="Password" placeholder="Ingres&aacute tu contraseña" value="<%=(String) session.getAttribute("passError")%>" required=""/>    		  
 				  </div>

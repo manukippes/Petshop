@@ -23,14 +23,14 @@ public class ExcepcionEspecial extends Exception implements Serializable  {
 		super(msg);
 		this.originalExepcion = e;
 		this.setMensaje(msg);
-		Logger logger = LogManager.getLogger(getClass());
-		logger.log(errorLevel,msg);
+		//Logger logger = LogManager.getLogger(getClass());
+		//logger.log(errorLevel,msg);
     }	
 	
 	public ExcepcionEspecial(String msg, Level errorLevel) {
 		super(msg);
 		this.setMensaje(msg);
-		Logger logger = LogManager.getLogger(getClass());
-		logger.log(errorLevel,msg);
+		//Logger logger = LogManager.getLogger(getClass());
+		//logger.log(errorLevel,msg);
     }	
 }

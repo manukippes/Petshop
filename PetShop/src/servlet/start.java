@@ -31,7 +31,7 @@ public class start extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -39,10 +39,12 @@ public class start extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
+				String user=request.getParameter("Username"); //recupero user
+				String pass=request.getParameter("Password");	//recupero pass (todos los parametros vienen como string)
+				
 				try {
-					String user=request.getParameter("Username"); //recupero user
-					String pass=request.getParameter("Password");	//recupero pass (todos los parametros vienen como string)
-					
+
+	
 					Usuario usuario=new Usuario();
 					usuario.setUsuarioLogin(user);
 					usuario.setPassword(pass);
@@ -51,21 +53,27 @@ public class start extends HttpServlet {
 					usuario = ctrlUsuario.recuperarUsuario(usuario);
 					
 					if(usuario.getEstado()==1){
-						request.getSession().setAttribute("user", usuario); //crea o recupera una sesion si ya esta creada			
+						request.getSession().setAttribute("user", usuario); //crea o recupera una sesion si ya esta creada	
 						request.getRequestDispatcher("WEB-INF/Principal.jsp").forward(request, response);							
 					}
 					else {
 						if(usuario.getNombre().equals("null")){
 							request.getSession().setAttribute("mensaje", "Error, Usuario o contraseña incorrectos");
+							request.getSession().setAttribute("userError", user);
+							request.getSession().setAttribute("passError", pass);
 							request.getRequestDispatcher("WEB-INF/LoginFail.jsp").forward(request, response);
 						}else{
+							request.getSession().setAttribute("userError", user);
+							request.getSession().setAttribute("passError", pass);
 							request.getSession().setAttribute("mensaje", "El usuario ingresado se encuentra deshabilitado, por favor póngase en contacto con un administrador");
 							request.getRequestDispatcher("WEB-INF/LoginFail.jsp").forward(request, response);
 						}
 					}
 								
 				} catch (Exception e) {
-					
+					request.getSession().setAttribute("error", "Error");
+					request.getSession().setAttribute("userError", user);
+					request.getSession().setAttribute("passError", pass);
 					request.getSession().setAttribute("mensaje", "Usuario o contraseña incorrectos, intentá nuevamente");
 					request.getRequestDispatcher("WEB-INF/LoginFail.jsp").forward(request, response);
 				}

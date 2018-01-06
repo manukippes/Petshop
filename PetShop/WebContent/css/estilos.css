@@ -1,0 +1,16 @@
+body {
+  background-color: #EEEEEE;
+}
+
+/* Color de fondo del navbar*/
+.navbar-default {
+  background-color:#adbcf1;
+}
+
+
+/* Color del texto de botones del navbar*/
+
+.navbar-default .navbar-nav>li>a {
+	color:#f2f2f2;
+	
+}

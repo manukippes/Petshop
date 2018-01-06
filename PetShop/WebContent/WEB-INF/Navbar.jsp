@@ -1,3 +1,4 @@
+<%@page import="entidades.Usuario"%>
 	<div class="container">
 		<br>
 		<header>
@@ -25,7 +26,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-									<span class="glyphicon glyphicon-user"></span> Usuario <span class="caret"></span>
+									<span class="glyphicon glyphicon-user"></span> <%= ((Usuario) session.getAttribute("user")).getNombre() %> <span class="caret"></span>
 								</a>
 							
 								<ul class="dropdown-menu" role="menu">

@@ -123,7 +123,6 @@ public class DatosUsuario {
 					usuario.setEmail(rs.getString("email"));
 					usuario.setLegajo(rs.getInt("legajo"));
 					usuario.setTipoEmpleado(rs.getString("tipoEmpleado"));
-					System.out.println(usuario.getDireccion());
 			}
 			else{
 				throw new Exception();

@@ -17,11 +17,11 @@
 						
 					<div class="collapse navbar-collapse" id="navbar-1">
 						<ul class="nav navbar-nav">
-							<li><a href="">Ventas</a></li>
-							<li><a href="">Clientes</a></li>
-							<li><a href="">Turnos</a></li>
-							<li><a href="">Consultas</a></li>
-							<li><a href="">Administracion</a></li>
+							<li id="ventasTab" class=""><a href="Ventas">Ventas</a></li>
+							<li id="clientesTab" class=""><a href="">Clientes</a></li>
+							<li id="turnosTab" class=""><a href="">Turnos</a></li>
+							<li id="consultasTab" class=""><a href="">Consultas</a></li>
+							<li id="administracionTab" class=""><a href="">Administracion</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">
@@ -33,12 +33,13 @@
 									<li><a href="#"> Mis Compras </a></li>
 									<li><a href="#"> Editar Perfil </a></li>
 									<li class="divider"></li>
-									<li><a href="index.html"> Salir </a></li>
+									<li>
+										<a href="#confirmacion" class="" data-toggle="modal"> Salir </a>
+									</li>
 								</ul>
 							</li>
 						</ul>
-						
-					</div>
+					</div>	
 				</div>
 			</nav>
 		</header>

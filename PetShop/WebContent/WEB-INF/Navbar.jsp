@@ -11,7 +11,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>						
 					</button>
-					<a href="#" class="hidden-xs hidden-sm navbar-brand"><b>S</b>istema de <b>G</b>estion de <b>P</b>et <b>S</b>hops</a>
+					<a href="#" class="hidden-xs hidden-sm navbar-brand"><b>S</b>istema de <b>G</b>esti&oacute;n de <b>P</b>et <b>S</b>hops</a>
 					<span class="hidden-md hidden-lg navbar-brand negrita">SGPS</span>
 				</div>
 				
@@ -22,7 +22,16 @@
 						<li id="clientesTab" class=""><a href="Clientes">Clientes</a></li>
 						<li id="turnosTab" class=""><a href="Turnos">Turnos</a></li>
 						<li id="consultasTab" class=""><a href="Consultas">Consultas</a></li>
-						<li id="administracionTab" class=""><a href="Administracion">Administraci&oacute;n</a></li>
+						<li class="dropdown" id="administracionTab">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+								</span>Administraci&oacute;n <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="MantenimientoProductos" class="" aria-hidden="true"> Mantenimiento de Productos </a></li>
+								<li><a href="#"> Mantenimiento de Usuarios </a></li>
+								</li>
+							</ul>
+						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">

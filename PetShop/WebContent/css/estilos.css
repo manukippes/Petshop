@@ -17,3 +17,9 @@ body {
 .negrita{
 	font-weight:bold;
 }
+
+/*Divisor entre partes del form*/
+
+hr{
+	border-top: 2px solid #c4c4c4;
+}

@@ -35,6 +35,8 @@ $(function() {
 					if(presentacion.length >3 && presentacion.length <= 30){
 						if($.isNumeric(precio)){
 							
+							//Validar archivo
+							
 						}else{alert("Ups! Ingresaste un precio no v\u00e1lido, pod\u00e9s usar n\u00fameros enteros o decimales")}
 					}else{alert("Ups! Ingresaste una presentaci\u00f3n no v\u00e1lida, debe tener entre 4 y 30 caracteres")}
 				}else{alert("Ups! Ingresaste un nombre no v\u00e1lido, debe tener entre 4 y 30 caracteres")}

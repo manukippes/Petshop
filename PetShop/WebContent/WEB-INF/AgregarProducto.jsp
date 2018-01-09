@@ -96,7 +96,27 @@
 					    	<input type="number" min="0"class="form-control" name="stock" id="stock" aria-describedby="stockHelp" placeholder="Ingres&aacute; la presentaci&oacute;n del producto a dar de alta" required>
 						</div>
 					</div>
-					<hr>			
+					
+					<hr>	
+					
+					<div class="form-group row">
+	            	
+	            	<!-- Input de archivo de imagen-->
+	            		<label class="sr-only">Imagen de producto</label>
+					    <div class="col-lg-6 col-md-12">
+					    	<small id="archivoHelp" class="form-text text-muted">Agreg&aacute; una imagen del producto en formato JPEG</small>
+					    	<div style="position:relative;">
+						        <a class='btn btn-primary' href="#">
+						            Buscar archivo en la PC...
+						            <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
+						        </a>
+						        &nbsp;
+						        <span class='label label-info' id="upload-file-info"></span>
+							</div>
+						</div>
+					</div>
+					<hr>		
+					
 					<div class="form-group row">		
 						<div class="col-lg-12">
 							<input type="submit" id="btnAgregarProducto" value="Agregar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">

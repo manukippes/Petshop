@@ -9,22 +9,11 @@
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
-
-	<script type="text/javascript">
-
-    	function iniciar(){
-    		ventasTab.className += " active";
-    		}
-    	
-    	function listadoElementos(){
-    		
-    		
-    	}
-    	
-	</script>
+	<script type="text/javascript" src="js/main.js"></script>
+	
 	<title>SGPS - Ventas</title>
 </head>
-<body onload="iniciar();">
+<body onload="iniciar('ventas');">
 	<jsp:include page="Navbar.jsp" />
 	
 	<div class="container">

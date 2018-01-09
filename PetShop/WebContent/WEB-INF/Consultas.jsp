@@ -9,22 +9,12 @@
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
-
-	<script type="text/javascript">
-
-    	function iniciar(){
-    		consultasTab.className += " active";
-    		}
-    	
-    	function listadoElementos(){
-    		
-    		
-    	}
-    	
+	<script type="text/javascript" src="js/main.js"></script>
+	
 	</script>
 	<title>SGPS - Consultas</title>
 </head>
-<body onload="iniciar();">
+<body onload="iniciar('consultas');">
 	<jsp:include page="Navbar.jsp" />
 	
 		

@@ -20,7 +20,8 @@ public class DatosProducto implements Serializable{
 	//						GET CATEGORIAS
 	//						OBTENER PRODUCTOS DE UNA CATEGORIA
 	//						OBTENER TODOS LOS PRODUCTOS
-	//						OBTENER LOS DATOS DE UNA CATEGORIA 
+	//						COMPLETAR LOS DATOS DE UNA CATEGORIA 
+	//						COMPLETAR LOS DATOS DE UNA SUBCATEGORIA 
 	
 	public Boolean agregarProducto (Producto producto) throws Exception
 	{
@@ -93,6 +94,7 @@ public class DatosProducto implements Serializable{
 			}	
 		}
 	}
+	
 	
 	public ArrayList<Categoria> getCategorias() throws ExcepcionEspecial, Exception{
 		
@@ -312,6 +314,35 @@ public class DatosProducto implements Serializable{
 		}
 		return subcategoriaActual;
 	
+	}
+	public Boolean eliminarProducto(Producto producto) throws Exception
+	{
+		PreparedStatement pstm = null;
+		Boolean bandera = false;
+				
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"delete from producto where idproducto=?");
+			pstm.setInt(1, producto.getIdProducto());
+			if (pstm.executeUpdate() ==1){
+				bandera=true;
+			}
+		} 
+		catch (Exception e) 
+		{
+			throw e;
+		}
+		
+		finally
+		{
+			try {
+				if(pstm!=null)pstm.close();
+				FactoryConnection.getinstancia().releaseConn();
+			} catch (Exception e) {
+				throw e;
+			}	
+		}
+		return bandera;
 	}
 }
 	

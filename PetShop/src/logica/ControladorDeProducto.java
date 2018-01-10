@@ -17,6 +17,7 @@ public class ControladorDeProducto implements Serializable{
 		//	Devolver una categoria (No se implementa controlador de categoria)
 		//	Devolver una subcategoria (No se implementa controlador de subcategoria)
 		//	Agregar un Producto
+		//	Eliminar un producto
 
 	public ArrayList<Categoria> getCategorias()throws ExcepcionEspecial, Exception{
 		
@@ -54,5 +55,9 @@ public class ControladorDeProducto implements Serializable{
 		System.out.println(bandera);
 		return bandera;
 		
+	}
+	public boolean eliminarProducto(Producto prod) throws Exception{
+		DatosProducto baseProducto = new DatosProducto();
+		return baseProducto.eliminarProducto(prod);
 	}
 }

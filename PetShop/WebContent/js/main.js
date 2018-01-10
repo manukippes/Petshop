@@ -27,7 +27,7 @@ function iniciar(parametro){
 
 
 $(function() {
-
+	
 	function validarCampos(nombre, presentacion, precio,categoria,subcategoria){
 		if(categoria!="categoria"){
 			if(subcategoria!="subcategoria"){	
@@ -80,9 +80,6 @@ $(function() {
 				}
 			});
 		}
-		
-		
-		
 	});
 	
 });

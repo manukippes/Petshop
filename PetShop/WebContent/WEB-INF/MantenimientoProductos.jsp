@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="entidades.Usuario"%>
+<%@page import="entidades.Producto"%>
+<%@page import="logica.ControladorDeProducto"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +12,9 @@
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/listadoProductos.js"></script>
 	
 	<title>SGPS - Mantenimiento de Productos</title>
 </head>
@@ -29,6 +34,40 @@
 		</div>
 		<hr>
 		<h5>Para consultar o modificar un producto:</h5>
+		<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+		ArrayList<Producto> productos = ctrlProducto.getProductos(); %>
+		
+		<div class="table-responsive">
+			<table id="tabla" class="table table-striped">
+				<thead>
+				  <tr class="active">
+				    <th>C&oacute;digo</th>
+				    <th>Nombre</th>
+				    <th>Presentaci&oacute;n</th>
+				    <th>Precio</th>
+				    <th>Stock</th>
+				    <th>Acciones</th>
+				  </tr>
+				</thead>
+				<tbody>
+		 		<% 	int i=0;
+				for(Producto produ : productos){
+				i++;
+				%>
+					<tr id=<%=i%>>
+						<td id="idProducto"><%=produ.getIdProducto()%></td>
+						<td id="nombreProducto"><%=produ.getNombre()%></td>
+						<td id="presentacionProducto"><%=produ.getPresentacion()%></td>
+						<td><%=produ.getPrecio()%></td>
+						<td><%=produ.getStock()%></td>
+						<td><a class="btn btn-danger" id="btnEliminarProducto" href="\">Eliminar</a> <a id="btnModificarProducto" class="btn btn-primary" href="\">Modificar</a>
+					</tr>
+				<%
+				} 
+				%>
+		 		</tbody>
+			</table>
+		
 	</div>
 	
 		

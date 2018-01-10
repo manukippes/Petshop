@@ -27,7 +27,7 @@
 		<h4><strong>ALTA DE PRODUCTO NUEVO</strong></h4>
 		<hr>
 		<div class="container-fluid">
-			<form class="form" action="ConfirmarAltaProducto" method="post">
+			<form class="form" action="AgregarProducto" method="post" enctype="multipart/form-data" id="form_nuevo_producto">
 	            	
 	            	<!-- Combobox de categoria -->
 	            	<div class="form-group row">
@@ -52,8 +52,8 @@
 						    <select class="form-control" name="subcategoria" id="subcategoria" aria-describedby="subcategoriaHelp" required>
 								     <option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>
 								     <% 
-						      	 	 for(Categoria cate : categorias){ %>  -->
-						      	<option value="<%=(cate.getIdCategoria())%>"><%=cate.getNombre()%></option>						    
+						      	 	 for(Categoria cate : categorias){ %>
+						      	 	 <option value="<%=(cate.getIdCategoria())%>"><%=cate.getNombre()%></option>						    
 						      <%} %>
 						    </select>
 						</div>
@@ -93,7 +93,15 @@
 						<label class="sr-only">Stock inicial</label>
 					    <div class="col-lg-6 col-md-12">
 					    	<small id="stockHelp" class="form-text text-muted">Ingres&aacute; el stock inicial del producto</small>
-					    	<input type="number" min="0"class="form-control" name="stock" id="stock" aria-describedby="stockHelp" placeholder="Ingres&aacute; la presentaci&oacute;n del producto a dar de alta" required>
+					    	<input type="number" min="0"class="form-control" name="stock" id="stock" aria-describedby="stockHelp" placeholder="Ingres&aacute; el stock inicial del producto a dar de alta" required>
+						</div>
+					
+					
+					<!-- Input de stock inicial -->
+						<label class="sr-only">Stock minimo</label>
+					    <div class="col-lg-6 col-md-12">
+					    	<small id="stockMinimoHelp" class="form-text text-muted">Ingres&aacute; el stock m&iacute;nimo deseado del producto</small>
+					    	<input type="number" min="0"class="form-control" name="stockminimo" id="stockminimo" aria-describedby="stockMinimoHelp" placeholder="Ingres&aacute; el stock m&iacute;nimo deseado del producto a dar de alta" required>
 						</div>
 					</div>
 					
@@ -103,17 +111,12 @@
 	            	
 	            	<!-- Input de archivo de imagen-->
 	            		<label class="sr-only">Imagen de producto</label>
-					    <div class="col-lg-6 col-md-12">
+					    <div class="col-lg-6 col-md-12 form-group">
 					    	<small id="archivoHelp" class="form-text text-muted">Agreg&aacute; una imagen del producto en formato JPEG</small>
-					    	<div style="position:relative;">
-						        <a class='btn btn-primary' href="#">
-						            Buscar archivo en la PC...
-						            <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
-						        </a>
-						        &nbsp;
-						        <span class='label label-info' id="upload-file-info"></span>
-							</div>
-						</div>
+					    	<div class="input-group">
+						    	<input type="file" class="form-control" name="file[]" id="imagenes" multiple>
+					    	</div>
+					    </div>
 					</div>
 					<hr>		
 					

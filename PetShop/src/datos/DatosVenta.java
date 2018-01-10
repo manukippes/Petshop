@@ -1,11 +1,12 @@
 package datos;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import entidades.Venta;
 
-public class DatosVenta {
+public class DatosVenta implements Serializable{
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR VENTA

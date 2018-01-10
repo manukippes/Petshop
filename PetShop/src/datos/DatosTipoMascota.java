@@ -1,5 +1,6 @@
 package datos;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import entidades.TipoMascota;
 
 
-public class DatosTipoMascota {
+public class DatosTipoMascota implements Serializable{
 //			METODOS IMPLEMENTADOS:
 //								DEVOLVER TODOS LOS TIPOS DE MASCOTA
 

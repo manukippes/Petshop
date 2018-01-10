@@ -1,5 +1,6 @@
 package datos;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import entidades.Servicio;
 import entidades.TipoMascota;
 
-public class DatosServicio {
+public class DatosServicio implements Serializable{
 //			METODOS IMPLEMENTADOS:
 //					DEVOLVER TODOS LOS SERVICIOS
 

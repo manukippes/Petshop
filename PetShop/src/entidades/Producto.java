@@ -10,7 +10,15 @@ public class Producto implements Serializable{
 	private String presentacion;
 	private double precio;
 	private Subcategoria subcategoria;
+	private String imagen;
 	
+	
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	public int getIdProducto() {
 		return idProducto;
 	}

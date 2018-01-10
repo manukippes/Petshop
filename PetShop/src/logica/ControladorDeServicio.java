@@ -1,5 +1,7 @@
 package logica;
 
-public class ControladorDeServicio {
+import java.io.Serializable;
+
+public class ControladorDeServicio implements Serializable{
 
 }

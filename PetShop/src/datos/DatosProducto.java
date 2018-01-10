@@ -1,5 +1,6 @@
 package datos;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import entidades.Subcategoria;
 import utilidades.ExcepcionEspecial;
 import entidades.Categoria;
 
-public class DatosProducto {
+public class DatosProducto implements Serializable{
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR PRODUCTO
@@ -19,29 +20,34 @@ public class DatosProducto {
 	//						GET CATEGORIAS
 	//						OBTENER PRODUCTOS DE UNA CATEGORIA
 	//						OBTENER TODOS LOS PRODUCTOS
+	//						OBTENER LOS DATOS DE UNA CATEGORIA 
 	
-	public void agregarProducto (Producto producto) throws Exception
+	public Boolean agregarProducto (Producto producto) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		Boolean bandera = false;
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"INSERT INTO producto(idProducto,idSubCategoria,nombre,stockMinimo,presentacion,precio) VALUES (?,?,?,?,?,?)",
+					"INSERT INTO producto(idSubCategoria,nombre,stockMinimo,presentacion,precio,imagen) VALUES (?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			pstm.setInt(1, producto.getIdProducto());
-			pstm.setInt(2, producto.getSubcategoria().getIdSubCategoria());
-			pstm.setString(3, producto.getNombre());
-			pstm.setInt(4, producto.getStockMinimo());
-			pstm.setString(5, producto.getPresentacion());
-			pstm.setDouble(6, producto.getPrecio());
+			pstm.setInt(1, producto.getSubcategoria().getIdSubCategoria());
+			pstm.setString(2, producto.getNombre());
+			pstm.setInt(3, producto.getStockMinimo());
+			pstm.setString(4, producto.getPresentacion());
+			pstm.setDouble(5, producto.getPrecio());
+			pstm.setString(6, producto.getImagen());
 			pstm.executeUpdate();
 			rs=pstm.getGeneratedKeys();
+			
 			if(rs!=null && rs.next()){
+				bandera = true;
 				producto.setIdProducto(rs.getInt(1));
 			}
-		} catch (Exception e) {
 			
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 		
@@ -49,9 +55,12 @@ public class DatosProducto {
 			if(rs!=null)rs.close();
 			if(pstm!=null)pstm.close();
 			FactoryConnection.getinstancia().releaseConn();
+			
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
+		return bandera;
 		
 	}
 	public void modificarProducto(Producto producto) throws Exception
@@ -227,7 +236,83 @@ public class DatosProducto {
 		}
 		return productos;
 	}
+	public Categoria getCategoria(Categoria cate) throws Exception{   //ESTE METODO PODRIA ESTAR EN UNA BASE DE CATEGORIA
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Categoria categoriaActual= new Categoria();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM CATEGORIA WHERE idCategoria=?");
+			pstm.setInt(1, cate.getIdCategoria());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					categoriaActual.setIdCategoria(rs.getInt("idCategoria"));		//SETEO ID CATEGORIA
+					categoriaActual.setNombre(rs.getString("nombre"));				//SETEO NOMBRE DE LA CATEGORIA
+				}
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return categoriaActual;
 	
+	}
+	public Subcategoria getSubcategoria(Subcategoria subcate) throws Exception{   //ESTE METODO PODRIA ESTAR EN UNA BASE DE CATEGORIA
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Subcategoria subcategoriaActual= new Subcategoria();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM SUBCATEGORIA WHERE idSubCategoria=?");
+			pstm.setInt(1, subcate.getIdSubCategoria());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					subcategoriaActual.setIdSubCategoria(rs.getInt("idSubCategoria"));		//SETEO ID SUBCATEGORIA
+					subcategoriaActual.setNombre(rs.getString("nombre"));				//SETEO NOMBRE DE LA SUBCATEGORIA
+					
+					DatosProducto baseProducto = new DatosProducto();
+					Categoria cate = new Categoria();
+					cate.setIdCategoria(rs.getInt("idCategoria"));
+					cate = baseProducto.getCategoria(cate);
+					
+					subcategoriaActual.setCategoria(cate);								//SETEO LA CATEGORIA A LA QUE PERTENECE
+				}
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return subcategoriaActual;
+	
+	}
 }
 	
 

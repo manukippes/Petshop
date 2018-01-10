@@ -1,11 +1,12 @@
 package datos;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import entidades.Mascota;
 
-public class DatosMascota {
+public class DatosMascota implements Serializable{
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR MASCOTA

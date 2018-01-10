@@ -1,9 +1,12 @@
 package logica;
 
 import entidades.Usuario;
+
+import java.io.Serializable;
+
 import datos.DatosUsuario;
 
-public class ControladorDeUsuario {
+public class ControladorDeUsuario implements Serializable{
 	private DatosUsuario baseUsuario = new DatosUsuario();
 	public Usuario recuperarUsuario(Usuario user) throws Exception
 	{

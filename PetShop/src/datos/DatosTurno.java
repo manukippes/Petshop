@@ -1,11 +1,12 @@
 package datos;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import entidades.Turno;
 
-public class DatosTurno {
+public class DatosTurno implements Serializable{
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR TURNO

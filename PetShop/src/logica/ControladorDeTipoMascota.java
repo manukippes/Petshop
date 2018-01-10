@@ -1,5 +1,7 @@
 package logica;
 
-public class ControladorDeTipoMascota {
+import java.io.Serializable;
+
+public class ControladorDeTipoMascota implements Serializable{
 
 }

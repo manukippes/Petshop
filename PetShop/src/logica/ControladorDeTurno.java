@@ -1,5 +1,7 @@
 package logica;
 
-public class ControladorDeTurno {
+import java.io.Serializable;
+
+public class ControladorDeTurno implements Serializable{
 
 }

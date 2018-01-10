@@ -1,5 +1,6 @@
 package datos;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import org.apache.logging.log4j.Level;
 import entidades.Usuario;
 import utilidades.ExcepcionEspecial;
 
-public class DatosUsuario {
+public class DatosUsuario implements Serializable{
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR USUARIO

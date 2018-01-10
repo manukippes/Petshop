@@ -60,7 +60,7 @@
 						<td id="presentacionProducto"><%=produ.getPresentacion()%></td>
 						<td><%=produ.getPrecio()%></td>
 						<td><%=produ.getStock()%></td>
-						<td><a class="btn btn-danger" id="btnEliminarProducto" href="\">Eliminar</a> <a id="btnModificarProducto" class="btn btn-primary" href="\">Modificar</a>
+						<td><a class="btn btn-danger" id="btnEliminarProducto" href="\">Eliminar</a> <a id="btnModificarProducto" class="btn btn-primary" href="ModificarProducto?id=<%=produ.getIdProducto()%>">Modificar</a>
 					</tr>
 				<%
 				} 

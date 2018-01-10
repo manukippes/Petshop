@@ -22,6 +22,7 @@ public class DatosProducto implements Serializable{
 	//						OBTENER TODOS LOS PRODUCTOS
 	//						COMPLETAR LOS DATOS DE UNA CATEGORIA 
 	//						COMPLETAR LOS DATOS DE UNA SUBCATEGORIA 
+	//						COMPLETAR LOS DATOS DE UN PRODUCTO
 	
 	public Boolean agregarProducto (Producto producto) throws Exception
 	{
@@ -343,6 +344,52 @@ public class DatosProducto implements Serializable{
 			}	
 		}
 		return bandera;
+	}
+	public Producto getProducto(Producto produ) throws Exception{
+		
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Producto productoActual= new Producto();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM PRODUCTO where idProducto =?");
+			pstm.setInt(1, produ.getIdProducto());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					productoActual.setIdProducto(rs.getInt("idProducto"));			//SETEO ID PRODUCTO DEL PRODUCTO
+					productoActual.setNombre(rs.getString("nombre"));				//SETEO NOMBRE DEL PRODUCTO
+					productoActual.setStock(rs.getInt("stock"));					//SETEO STOCK ACTUAL DEL PRODUCTO
+					productoActual.setStockMinimo(rs.getInt("stockMinimo"));		//SETEO STOCK MINIMO DEL PRODUCTO
+					productoActual.setPresentacion(rs.getString("presentacion"));	//SETEO PRESENTACION DEL PRODUCTO
+					productoActual.setPrecio(rs.getDouble("precio"));				//SETEO PRECIO DEL PRODUCTO
+					
+					//CREO LA SUBCATEGORIA
+					Subcategoria subcat = new Subcategoria();	
+					subcat.setIdSubCategoria(rs.getInt("idSubCategoria"));
+					DatosProducto baseProducto = new DatosProducto();
+					subcat = baseProducto.getSubcategoria(subcat);
+					
+					productoActual.setSubcategoria(subcat);  						//SETEO LA SUBCATEGORIA DEL PRODUCTO
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return productoActual;
 	}
 }
 	

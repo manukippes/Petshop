@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="entidades.Usuario"%>
 <%@page import="entidades.Categoria"%>
+<%@page import="entidades.Producto"%>
 <%@page import="logica.ControladorDeProducto"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
@@ -27,14 +28,23 @@
 		<h4><strong>MODIFICAR PRODUCTO</strong></h4>
 		<hr>
 		<div class="container-fluid">
-			<form class="form" action="ModificarProducto" method="post" enctype="multipart/form-data" id="form_nuevo_producto">
+			<form class="form" action="" method="post" enctype="multipart/form-data" id="form_nuevo_producto">
+	            	
+	            	<div class="form-group row">
+	            	
+	            	<!-- Input de id -->
+	            		<label class="sr-only">Nombre</label>
+					    <div class="col-lg-6 col-md-12">
+					    	<label id="nombreHelp" class="form-text text-muted"><strong>ID PRODUCTO: <%= ((Producto) session.getAttribute("producto")).getIdProducto() %></strong></label>
+						</div>
+					</div>
 	            	
 	            	<!-- Combobox de categoria -->
 	            	<div class="form-group row">
 		    			<div class=" selectContainer col-lg-6 col-md-12">
 		    				<label class="sr-only">Categoria</label>
 						    <small id="categoriaHelp" class="form-text text-muted">Seleccion&aacute; una categor&iacute;a.</small>
-						    <select class="form-control" name="categoria" id="categoria" aria-describedby="categoriaHelp" required>
+						    <select class="form-control" name="categoria" id="categoria" aria-describedby="categoriaHelp" selected="2" required>
 						    	<option value="categoria">Seleccion&aacute; una categor&iacute;a</option>
 								     <% ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 						      		 ArrayList<Categoria> categorias = ctrlProducto.getCategorias();
@@ -67,14 +77,14 @@
 	            		<label class="sr-only">Nombre</label>
 					    <div class="col-lg-6 col-md-12">
 					    	<small id="nombreHelp" class="form-text text-muted">Ingres&aacute; el nombre del producto</small>
-					    	<input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="nombreHelp" placeholder="Ingres&aacute; el nombre de producto a dar de alta" required>
+					    	<input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="nombreHelp" placeholder="Ingres&aacute; el nombre de producto a dar de alta" value="<%= ((Producto) session.getAttribute("producto")).getNombre() %>" required>
 						</div>
 						
 					<!-- Input de presentacion -->
 						<label class="sr-only">Presentacion</label>
 					    <div class="col-lg-6 col-md-12">
 					    	<small id="presentacionHelp" class="form-text text-muted">Ingres&aacute; la presentaci&oacute;n del producto</small>
-					    	<input type="text" class="form-control" name="presentacion" id="presentacion" aria-describedby="presentacionHelp" placeholder="Ingres&aacute; la presentaci&oacute;n del producto a dar de alta" required>
+					    	<input type="text" class="form-control" name="presentacion" id="presentacion" aria-describedby="presentacionHelp" placeholder="Ingres&aacute; la presentaci&oacute;n del producto a dar de alta" value="<%= ((Producto) session.getAttribute("producto")).getPresentacion() %>" required>
 						</div>
 					</div>
 					
@@ -86,14 +96,14 @@
 	            		<label class="sr-only">Precio</label>
 					    <div class="col-lg-6 col-md-12">
 					    	<small id="precioHelp" class="form-text text-muted">Ingres&aacute; el precio del producto</small>
-					    	<input type="text" class="form-control" name="precio" id="precio" aria-describedby="precioHelp" placeholder="Ingres&aacute; el precio actual del producto a dar de alta" required>
+					    	<input type="text" class="form-control" name="precio" id="precio" aria-describedby="precioHelp" placeholder="Ingres&aacute; el precio actual del producto a dar de alta" value="<%= ((Producto) session.getAttribute("producto")).getPrecio()%>"required>
 						</div>
 						
 					<!-- Input de stock inicial -->
 						<label class="sr-only">Stock inicial</label>
 					    <div class="col-lg-6 col-md-12">
 					    	<small id="stockHelp" class="form-text text-muted">Ingres&aacute; el stock inicial del producto</small>
-					    	<input type="number" min="0"class="form-control" name="stock" id="stock" aria-describedby="stockHelp" placeholder="Ingres&aacute; el stock inicial del producto a dar de alta" required>
+					    	<input type="number" min="0"class="form-control" name="stock" id="stock" aria-describedby="stockHelp" placeholder="Ingres&aacute; el stock inicial del producto a dar de alta" value="<%= ((Producto) session.getAttribute("producto")).getStock()%>"required>
 						</div>
 					
 					
@@ -101,7 +111,7 @@
 						<label class="sr-only">Stock minimo</label>
 					    <div class="col-lg-6 col-md-12">
 					    	<small id="stockMinimoHelp" class="form-text text-muted">Ingres&aacute; el stock m&iacute;nimo deseado del producto</small>
-					    	<input type="number" min="0"class="form-control" name="stockminimo" id="stockminimo" aria-describedby="stockMinimoHelp" placeholder="Ingres&aacute; el stock m&iacute;nimo deseado del producto a dar de alta" required>
+					    	<input type="number" min="0"class="form-control" name="stockminimo" id="stockminimo" aria-describedby="stockMinimoHelp" placeholder="Ingres&aacute; el stock m&iacute;nimo deseado del producto a dar de alta" value="<%= ((Producto) session.getAttribute("producto")).getStockMinimo()%>" required>
 						</div>
 					</div>
 					
@@ -133,4 +143,6 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-</body>html>
+</body>
+
+</html>

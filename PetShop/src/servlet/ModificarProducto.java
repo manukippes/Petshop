@@ -42,26 +42,22 @@ public class ModificarProducto extends HttpServlet {
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	response.getWriter().println("HOLA");
-    	//request.getRequestDispatcher("WEB-INF/Principal.jsp").forward(request, response);
-    	/*
-    	response.setContentType("text/html;charset=UTF-8");
-        
-        int idProducto = Integer.parseInt(request.getParameter("idProducto"));
-        ControladorDeProducto ctrlProducto = new ControladorDeProducto();
-        Producto prod = new Producto();
-        prod.setIdProducto(idProducto);
-        
-        try{
-        	if(ctrlProducto.eliminarProducto(prod)){
-                response.getWriter().println("Producto eliminado exitosamente");
-            }else{
-                response.getWriter().println("ERROR al eliminar el producto");
-            }
-        }catch (Exception e){
-        	e.printStackTrace();
-        }
-     */   
+    	
+    	String idProducto = request.getParameter("id");
+    	
+    	ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+    	Producto productoActual = new Producto();
+    	
+    	productoActual.setIdProducto(Integer.parseInt(idProducto));
+    	
+    	try {
+			productoActual = ctrlProducto.getProducto(productoActual);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	request.getSession().setAttribute("producto", productoActual);    	
+    	request.getRequestDispatcher("WEB-INF/ModificarProducto.jsp").forward(request, response);
+    	
     }
 
 }

@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/combobox.js"></script>
 		
 	
 	<title>SGPS - Modificar producto</title>
@@ -48,8 +49,15 @@
 						    	<option value="categoria">Seleccion&aacute; una categor&iacute;a</option>
 								     <% ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 						      		 ArrayList<Categoria> categorias = ctrlProducto.getCategorias();
-						      	 	 for(Categoria cate : categorias){ %>
-						      	<option value="<%=(cate.getIdCategoria())%>"><%=cate.getNombre()%></option>						    
+						      		 String seleccionado = "";
+						      	 	 for(Categoria cate : categorias){ 
+						      	 	 	if (cate.getIdCategoria()==((Producto) session.getAttribute("producto")).getSubcategoria().getCategoria().getIdCategoria()){
+						      	 	 	seleccionado="selected";	
+						      	 	 	}else{
+						      	 	 		seleccionado="";
+						      	 	 	}
+						      	 	 	%>
+						      	<option value="<%=(cate.getIdCategoria())%>"<%=seleccionado %>><%=cate.getNombre()%></option>						    
 						      <%} %>
 						    </select>
 						</div>
@@ -61,10 +69,6 @@
 						    <small id="subcategoriaHelp" class="form-text text-muted">Seleccion&aacute; una subcategor&iacute;a.</small>
 						    <select class="form-control" name="subcategoria" id="subcategoria" aria-describedby="subcategoriaHelp" required>
 								     <option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>
-								     <% 
-						      	 	 for(Categoria cate : categorias){ %>
-						      	 	 <option value="<%=(cate.getIdCategoria())%>"><%=cate.getNombre()%></option>						    
-						      <%} %>
 						    </select>
 						</div>
 					</div>

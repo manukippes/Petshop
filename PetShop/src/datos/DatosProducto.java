@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import entidades.Producto;
 import entidades.Subcategoria;
+import logica.ControladorDeProducto;
 import utilidades.ExcepcionEspecial;
 import entidades.Categoria;
 
@@ -23,6 +24,7 @@ public class DatosProducto implements Serializable{
 	//						COMPLETAR LOS DATOS DE UNA CATEGORIA 
 	//						COMPLETAR LOS DATOS DE UNA SUBCATEGORIA 
 	//						COMPLETAR LOS DATOS DE UN PRODUCTO
+	//						OBTENER LAS SUBCATEGORIAS DE UNA CATEGORIA
 	
 	public Boolean agregarProducto (Producto producto) throws Exception
 	{
@@ -390,6 +392,47 @@ public class DatosProducto implements Serializable{
 			throw e;
 		}
 		return productoActual;
+	}
+	public ArrayList<Subcategoria> getSubcategorias(Categoria categoria) throws Exception{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		ArrayList<Subcategoria> subcategorias = new ArrayList<>();
+		
+		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+		Categoria categoriaActual = new Categoria();
+		categoriaActual = ctrlProducto.getCategoria(categoria);					//COMPLETO LOS DATOS DE LA CATEGORIA
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM SUBCATEGORIA where idCategoria=?");
+			pstm.setInt(1, categoria.getIdCategoria());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					Subcategoria subcat = new Subcategoria();
+					subcat.setIdSubCategoria(rs.getInt("idSubCategoria"));			//SETEO ID DE SUBCATEGORIA
+					subcat.setNombre(rs.getString("nombre"));						//SETEO NOMBRE DE LA SUBCATEGORIA
+									
+					subcat.setCategoria(categoriaActual);									//SETEO LA CATEGORIA A LA QUE PERTENECE					
+					subcategorias.add(subcat);
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return subcategorias;
 	}
 }
 	

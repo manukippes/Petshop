@@ -36,6 +36,12 @@ public class AgregarProducto extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			
+			
+			//SOLO LLAMA A LA VENTANA AGREGAR PRODUCTO
+			
+			
+			
 			request.getRequestDispatcher("WEB-INF/AgregarProducto.jsp").forward(request, response);
 				
 		} catch (Exception e) {

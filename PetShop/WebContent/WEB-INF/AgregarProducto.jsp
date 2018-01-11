@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/combobox.js"></script>
 		
 	
 	<title>SGPS - Alta nuevo producto</title>
@@ -51,10 +52,6 @@
 						    <small id="subcategoriaHelp" class="form-text text-muted">Seleccion&aacute; una subcategor&iacute;a.</small>
 						    <select class="form-control" name="subcategoria" id="subcategoria" aria-describedby="subcategoriaHelp" required>
 								     <option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>
-								     <% 
-						      	 	 for(Categoria cate : categorias){ %>
-						      	 	 <option value="<%=(cate.getIdCategoria())%>"><%=cate.getNombre()%></option>						    
-						      <%} %>
 						    </select>
 						</div>
 					</div>
@@ -134,3 +131,5 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 </body>
+
+</html>

@@ -81,26 +81,37 @@ public class ConfirmarAltaProducto extends HttpServlet {
 		}
 		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 		
+		
 		Subcategoria subcate = new Subcategoria();
 		subcate.setIdSubCategoria(Integer.parseInt(campos.get(1)));
 		
 		try{
+
 			subcate = ctrlProducto.getSubcategoria(subcate);
 		
 			Producto productoNuevo = new Producto();
 			productoNuevo.setNombre(campos.get(2));
 			productoNuevo.setPresentacion(campos.get(3));
-			productoNuevo.setPrecio(Float.parseFloat(campos.get(4)));
+			productoNuevo.setPrecio(Double.parseDouble(campos.get(4)));
 			productoNuevo.setStock(Integer.parseInt(campos.get(5)));
 			productoNuevo.setStockMinimo(Integer.parseInt(campos.get(6)));
 			productoNuevo.setSubcategoria(subcate);
 			productoNuevo.setImagen(imgs.get(0));
 			
-			if(ctrlProducto.agregarProducto(productoNuevo)){
-				response.getWriter().println("Producto creado exitosamente");
+			if (campos.size()==8){		//SI HAY 7 CAMPOS ES PORQUE HAY UN ID
+				productoNuevo.setIdProducto(Integer.parseInt(campos.get(7)));
+				if(ctrlProducto.modificarProducto(productoNuevo)){
+					response.getWriter().println("Producto modificado exitosamente");
+				}else{
+					response.getWriter().println("Error al modificar el producto");
+				};
 			}else{
-				response.getWriter().println("Error en la creacion del producto");
-			};			
+				if(ctrlProducto.agregarProducto(productoNuevo)){
+					response.getWriter().println("Producto creado exitosamente");
+				}else{
+					response.getWriter().println("Error en la creacion del producto");
+				};			
+			};
 			
 		}
 		catch (Exception ex){

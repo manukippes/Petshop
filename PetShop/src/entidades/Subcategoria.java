@@ -3,15 +3,15 @@ package entidades;
 import java.io.Serializable;
 
 public class Subcategoria implements Serializable{
-	private int idSubCategoria;
+	private int idSubcategoria;
 	private Categoria categoria;
 	private String nombre;
 	
 	public int getIdSubCategoria() {
-		return idSubCategoria;
+		return idSubcategoria;
 	}
 	public void setIdSubCategoria(int idSubCategoria) {
-		this.idSubCategoria = idSubCategoria;
+		this.idSubcategoria = idSubCategoria;
 	}
 	public Categoria getCategoria() {
 		return categoria;

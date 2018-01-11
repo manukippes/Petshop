@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +19,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class subcategoria
  */
-@WebServlet({ "/subcategoria", "/Subcategoria" })
+@WebServlet({ "/Combosubcategoria", "/ComboSubcategoria" })
 public class ComboSubcategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,35 +36,42 @@ public class ComboSubcategoria extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+				
 		String idCategoria = request.getParameter("idCategoria");
-		System.out.println(idCategoria);
 		
 		ArrayList<Subcategoria> subcategorias = new ArrayList<>();
 		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 		
-		Categoria cate = new Categoria();   //Creo una instancia de Categoria
-		cate.setIdCategoria(Integer.parseInt(idCategoria)); //Seteo el Id de la categoria
-				
+		Categoria cate = new Categoria();   						 	//Creo una instancia de Categoria
+		cate.setIdCategoria(Integer.parseInt(idCategoria));				//Seteo el Id de la categoria
+			
 		try {
-			subcategorias = ctrlProducto.getSubcategorias(cate);    //Consigo las subcategorias de la categoria
-			if(!subcategorias.isEmpty()){
-				response.setContentType("application/json");
-				new Gson().toJson(subcategorias,response.getWriter());
-			}
+			subcategorias = ctrlProducto.getSubcategorias(cate);    	//Consigo las subcategorias de la categoria
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}			
+		}
+		
+		List<Subcategoria> lista = new ArrayList<>();  //convierto el arraylist en list
+		for(Subcategoria subcat : subcategorias){
+			lista.add(subcat);
+		}
+		String json = new Gson().toJson(lista);
 
-		return;
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(json);
+
+
+		//return;
 	}
 
 }

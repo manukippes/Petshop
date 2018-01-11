@@ -34,14 +34,15 @@ public class DatosProducto implements Serializable{
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"INSERT INTO producto(idSubCategoria,nombre,stockMinimo,presentacion,precio,imagen) VALUES (?,?,?,?,?,?)",
+					"INSERT INTO producto(idSubCategoria,nombre,stock,stockMinimo,presentacion,precio,imagen) VALUES (?,?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			pstm.setInt(1, producto.getSubcategoria().getIdSubCategoria());
 			pstm.setString(2, producto.getNombre());
-			pstm.setInt(3, producto.getStockMinimo());
-			pstm.setString(4, producto.getPresentacion());
-			pstm.setDouble(5, producto.getPrecio());
-			pstm.setString(6, producto.getImagen());
+			pstm.setInt(3, producto.getStock());
+			pstm.setInt(4, producto.getStockMinimo());
+			pstm.setString(5, producto.getPresentacion());
+			pstm.setDouble(6, producto.getPrecio());
+			pstm.setString(7, producto.getImagen());
 			pstm.executeUpdate();
 			rs=pstm.getGeneratedKeys();
 			
@@ -65,22 +66,27 @@ public class DatosProducto implements Serializable{
 			throw e;
 		}
 		return bandera;
-		
 	}
-	public void modificarProducto(Producto producto) throws Exception
+	public Boolean modificarProducto(Producto producto) throws Exception
 	{
 		PreparedStatement pstm = null;
+		Boolean bandera = false;
 				
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"UPDATE producto SET idSubCategoria=?,nombre=?,stockMinimo=?,presentacion=?,precio=? WHERE idProducto=?");
+					"UPDATE producto SET idSubCategoria=?,nombre=?,stock=?,stockMinimo=?,presentacion=?,precio=?,imagen=? WHERE idProducto=?");
 			pstm.setInt(1, producto.getSubcategoria().getIdSubCategoria());
 			pstm.setString(2, producto.getNombre());
-			pstm.setInt(3, producto.getStockMinimo());
-			pstm.setString(4, producto.getPresentacion());
-			pstm.setDouble(5, producto.getPrecio());
-			pstm.setInt(6, producto.getIdProducto());
-			pstm.executeUpdate();
+			pstm.setInt(3, producto.getStock());
+			pstm.setInt(4, producto.getStockMinimo());
+			pstm.setString(5, producto.getPresentacion());
+			pstm.setDouble(6, producto.getPrecio());
+			pstm.setString(7, producto.getImagen());
+			pstm.setInt(8, producto.getIdProducto());
+			
+			if(pstm.executeUpdate()==1){
+				bandera = true;
+			}
 		} 
 		catch (Exception e) 
 		{
@@ -96,6 +102,7 @@ public class DatosProducto implements Serializable{
 				throw e;
 			}	
 		}
+		return bandera;
 	}
 	
 	

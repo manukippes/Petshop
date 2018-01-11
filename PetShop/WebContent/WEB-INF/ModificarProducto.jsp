@@ -29,14 +29,14 @@
 		<h4><strong>MODIFICAR PRODUCTO</strong></h4>
 		<hr>
 		<div class="container-fluid">
-			<form class="form" action="" method="post" enctype="multipart/form-data" id="form_nuevo_producto">
+			<form class="form" action="ModificarProducto" method="post" enctype="multipart/form-data" id="form_modificar_producto">
 	            	
 	            	<div class="form-group row">
 	            	
 	            	<!-- Input de id -->
 	            		<label class="sr-only">Nombre</label>
 					    <div class="col-lg-6 col-md-12">
-					    	<label id="nombreHelp" class="form-text text-muted"><strong>ID PRODUCTO: <%= ((Producto) session.getAttribute("producto")).getIdProducto() %></strong></label>
+					    	<label id="idProductoHelp" class="form-text text-muted"><strong>ID PRODUCTO: <%= ((Producto) session.getAttribute("producto")).getIdProducto() %></strong></label>
 						</div>
 					</div>
 	            	
@@ -45,7 +45,7 @@
 		    			<div class=" selectContainer col-lg-6 col-md-12">
 		    				<label class="sr-only">Categoria</label>
 						    <small id="categoriaHelp" class="form-text text-muted">Seleccion&aacute; una categor&iacute;a.</small>
-						    <select class="form-control" name="categoria" id="categoria" aria-describedby="categoriaHelp" selected="2" required>
+						    <select class="form-control" name="categoria" id="categoria" aria-describedby="categoriaHelp" required>
 						    	<option value="categoria">Seleccion&aacute; una categor&iacute;a</option>
 								     <% ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 						      		 ArrayList<Categoria> categorias = ctrlProducto.getCategorias();
@@ -133,10 +133,12 @@
 					    </div>
 					</div>
 					<hr>		
+					<!-- Agrego el campo id oculto -->
 					
+					<input type="hidden" name="idProducto" id="idProducto" value="<%= ((Producto) session.getAttribute("producto")).getIdProducto()%>">
 					<div class="form-group row">		
 						<div class="col-lg-12">
-							<input type="submit" id="btnModificarProducto" value="Modificar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">
+							<input type="submit" id="btnGuardarModificacionProducto" value="Modificar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">
 						</div>
 					</div>
 	            </form> 

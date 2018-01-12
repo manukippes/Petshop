@@ -14,7 +14,6 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-	<script type="text/javascript" src="js/combobox.js"></script>
 		
 	
 	<title>SGPS - Alta nuevo producto</title>
@@ -30,9 +29,14 @@
 		<div class="container-fluid">
 			<form class="form" action="AgregarProducto" method="post" enctype="multipart/form-data" id="form_nuevo_producto">
 	            	
+	            		
+	            	<!-- Campo de modificacion / alta -->
+	            	<input type="hidden"  name="alta" id="alta" value="alta">
+	            	
+	            	
 	            	<!-- Combobox de categoria -->
 	            	<div class="form-group row">
-		    			<div class=" selectContainer col-lg-6 col-md-12">
+		    			<div class=" selectContainer col-lg-6 col-md-12"id="categoriaGroup">
 		    				<label class="sr-only">Categoria</label>
 						    <small id="categoriaHelp" class="form-text text-muted">Seleccion&aacute; una categor&iacute;a.</small>
 						    <select class="form-control" name="categoria" id="categoria" aria-describedby="categoriaHelp" required>
@@ -47,7 +51,7 @@
 					
 					
 					<!-- Combobox de subcategoria -->
-		    			<div class=" selectContainer col-lg-6 col-md-12">
+		    			<div class=" selectContainer col-lg-6 col-md-12" id="subcategoriaGroup">
 		    				<label class="sr-only">Subcategoria</label>
 						    <small id="subcategoriaHelp" class="form-text text-muted">Seleccion&aacute; una subcategor&iacute;a.</small>
 						    <select class="form-control" name="subcategoria" id="subcategoria" aria-describedby="subcategoriaHelp" required>
@@ -62,14 +66,14 @@
 	            	
 	            	<!-- Input de nombre -->
 	            		<label class="sr-only">Nombre</label>
-					    <div class="col-lg-6 col-md-12">
+					    <div class="col-lg-6 col-md-12" id="nombreGroup">
 					    	<small id="nombreHelp" class="form-text text-muted">Ingres&aacute; el nombre del producto</small>
 					    	<input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="nombreHelp" placeholder="Ingres&aacute; el nombre de producto a dar de alta" required>
 						</div>
 						
 					<!-- Input de presentacion -->
 						<label class="sr-only">Presentacion</label>
-					    <div class="col-lg-6 col-md-12">
+					    <div class="col-lg-6 col-md-12" id="presentacionGroup">
 					    	<small id="presentacionHelp" class="form-text text-muted">Ingres&aacute; la presentaci&oacute;n del producto</small>
 					    	<input type="text" class="form-control" name="presentacion" id="presentacion" aria-describedby="presentacionHelp" placeholder="Ingres&aacute; la presentaci&oacute;n del producto a dar de alta" required>
 						</div>
@@ -81,26 +85,31 @@
 	            	
 	            	<!-- Input de precio-->
 	            		<label class="sr-only">Precio</label>
-					    <div class="col-lg-6 col-md-12">
+					    <div class="col-lg-6 col-md-12" id="precioGroup">
 					    	<small id="precioHelp" class="form-text text-muted">Ingres&aacute; el precio del producto</small>
-					    	<input type="text" class="form-control" name="precio" id="precio" aria-describedby="precioHelp" placeholder="Ingres&aacute; el precio actual del producto a dar de alta" required>
+					    	<div class="input-group">
+					    		<span class="input-group-addon">$</span>
+					    		<input type="text" class="form-control" name="precio" id="precio" aria-describedby="precioHelp" placeholder="Ingres&aacute; el precio actual del producto a dar de alta" required>
+					    	</div>
+					    	
 						</div>
 						
 					<!-- Input de stock inicial -->
 						<label class="sr-only">Stock inicial</label>
-					    <div class="col-lg-6 col-md-12">
+					    <div class="col-lg-6 col-md-12" id="stockGroup">
 					    	<small id="stockHelp" class="form-text text-muted">Ingres&aacute; el stock inicial del producto</small>
-					    	<input type="number" min="0"class="form-control" name="stock" id="stock" aria-describedby="stockHelp" placeholder="Ingres&aacute; el stock inicial del producto a dar de alta" required>
-						</div>
-					
-					
-					<!-- Input de stock inicial -->
-						<label class="sr-only">Stock minimo</label>
-					    <div class="col-lg-6 col-md-12">
-					    	<small id="stockMinimoHelp" class="form-text text-muted">Ingres&aacute; el stock m&iacute;nimo deseado del producto</small>
-					    	<input type="number" min="0"class="form-control" name="stockminimo" id="stockminimo" aria-describedby="stockMinimoHelp" placeholder="Ingres&aacute; el stock m&iacute;nimo deseado del producto a dar de alta" required>
+					    	<input type="number" min="0"class="form-control" name="stock" id="stock" aria-describedby="stockHelp" value="1" placeholder="Ingres&aacute; el stock inicial del producto a dar de alta" required>
 						</div>
 					</div>
+					<div class="form-group row">
+					<!-- Input de stock minimo -->
+						<label class="sr-only">Stock minimo</label>
+					    <div class="col-lg-6 col-md-12" id="stockMinimoGroup">
+					    	<small id="stockMinimoHelp" class="form-text text-muted">Ingres&aacute; el stock m&iacute;nimo deseado del producto</small>
+					    	<input type="number" min="0"class="form-control" name="stockminimo" id="stockminimo" aria-describedby="stockMinimoHelp" value="0"placeholder="Ingres&aacute; el stock m&iacute;nimo deseado del producto a dar de alta" required>
+						</div>
+					</div>
+					
 					
 					<hr>	
 					
@@ -108,9 +117,9 @@
 	            	
 	            	<!-- Input de archivo de imagen-->
 	            		<label class="sr-only">Imagen de producto</label>
-					    <div class="col-lg-6 col-md-12 form-group">
+					    <div class="col-md-12 form-group">
 					    	<small id="archivoHelp" class="form-text text-muted">Agreg&aacute; una imagen del producto en formato JPEG</small>
-					    	<div class="input-group">
+					    	<div class="input-group" id="imagenGroup">
 						    	<input type="file" class="form-control" name="file[]" id="imagenes" multiple>
 					    	</div>
 					    </div>

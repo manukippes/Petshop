@@ -63,7 +63,13 @@ public class ConfirmarAltaProducto extends HttpServlet {
 		ArrayList<String> campos = new ArrayList<>();
 		ArrayList<String> imgs = new ArrayList<>();
 		
-		try{
+		Producto productoActual = new Producto();								//CREO UNA INSTANCIA DE PRODUCTO
+		ControladorDeProducto ctrlProducto = new ControladorDeProducto();		//CREO UNA INSTANCIA DE CONTROLADOR DE PRODUCTO
+		Subcategoria subcate = new Subcategoria();								//CREO UNA INSTANCIA DE SUBCATEGORIA (DE PRODUCTO)
+		
+		//OBTENGO TODOS LOS PARAMETROS DEL FORM ENVIADO
+		
+		try{ 			
 			List items = sfu.parseRequest(request);
 			
 			for (int i=0; i<items.size();i++){
@@ -79,34 +85,45 @@ public class ConfirmarAltaProducto extends HttpServlet {
 		}catch (Exception ex){
 			ex.printStackTrace();
 		}
-		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 		
+		//MUESTRO TODOS LOS PARAMETROS DEL FORM ENVIADO
 		
-		Subcategoria subcate = new Subcategoria();
-		subcate.setIdSubCategoria(Integer.parseInt(campos.get(1)));
-		
+		int i=0;
+		for (String item : campos){
+			System.out.println(i+":"+item);
+			i++;
+		}
+				
 		try{
-
-			subcate = ctrlProducto.getSubcategoria(subcate);
-		
-			Producto productoNuevo = new Producto();
-			productoNuevo.setNombre(campos.get(2));
-			productoNuevo.setPresentacion(campos.get(3));
-			productoNuevo.setPrecio(Double.parseDouble(campos.get(4)));
-			productoNuevo.setStock(Integer.parseInt(campos.get(5)));
-			productoNuevo.setStockMinimo(Integer.parseInt(campos.get(6)));
-			productoNuevo.setSubcategoria(subcate);
-			productoNuevo.setImagen(imgs.get(0));
+			subcate.setIdSubCategoria(Integer.parseInt(campos.get(2)));			//SETEO LA ID DE LA SUBCATEGORIA
+			subcate = ctrlProducto.getSubcategoria(subcate);					//COMPLETO LOS DATOS DE LA SUBCATEGORIA
 			
-			if (campos.size()==8){		//SI HAY 7 CAMPOS ES PORQUE HAY UN ID
-				productoNuevo.setIdProducto(Integer.parseInt(campos.get(7)));
-				if(ctrlProducto.modificarProducto(productoNuevo)){
+			productoActual.setNombre(campos.get(3));
+			productoActual.setPresentacion(campos.get(4));
+			productoActual.setPrecio(Double.parseDouble(campos.get(5)));
+			productoActual.setStock(Integer.parseInt(campos.get(6)));
+			productoActual.setStockMinimo(Integer.parseInt(campos.get(7)));
+			productoActual.setSubcategoria(subcate);							//SETEO LA SUBCATEGORIA A LA QUE PERTENECE EL PRODUCTO
+			
+			if(imgs.size() == 1){
+				productoActual.setImagen(imgs.get(0));							//SI VIENE IMAGEN, LA AGREGO AL PRODUCTO
+			}else{					
+				Producto temp = new Producto();									//SINO RECUPERO LA QUE ESTABA EN LA BD
+				temp.setIdProducto(Integer.parseInt(campos.get(9)));
+				temp= ctrlProducto.getProducto(temp);
+				productoActual.setImagen(temp.getImagen()); 						//SETEO LA IMAGEN QUE EL PRODUCTO TENIA ALMACENADA
+			}
+			
+			if (campos.get(0).equals("modificacion")){									//DETERMINO SI ES ALTA O MODIFICACION
+				productoActual.setIdProducto(Integer.parseInt(campos.get(9)));	//LE SETEO LA ID QUE VIENE COMO PARAMETRO AL PRODUCTO
+				if(ctrlProducto.modificarProducto(productoActual)){
 					response.getWriter().println("Producto modificado exitosamente");
 				}else{
 					response.getWriter().println("Error al modificar el producto");
 				};
+				
 			}else{
-				if(ctrlProducto.agregarProducto(productoNuevo)){
+				if(ctrlProducto.agregarProducto(productoActual)){
 					response.getWriter().println("Producto creado exitosamente");
 				}else{
 					response.getWriter().println("Error en la creacion del producto");

@@ -50,6 +50,15 @@
 				  </tr>
 				</thead>
 				<tbody>
+				<tr>
+					<td><input type="text" class="form-control"></input></td>
+					<td><input type="text" class="form-control"></input></td>
+					<td><input type="text" class="form-control"></input></td>
+					<td><input type="text" class="form-control"></input></td>
+					<td><input type="text" class="form-control"></input></td>
+					<td><input type="text" class="form-control"></input></td>
+					
+				</tr>
 		 		<% 	int i=0;
 				for(Producto produ : productos){
 				i++;
@@ -60,7 +69,14 @@
 						<td id="presentacionProducto"><%=produ.getPresentacion()%></td>
 						<td><%=produ.getPrecio()%></td>
 						<td><%=produ.getStock()%></td>
-						<td><a class="btn btn-danger" id="btnEliminarProducto" href="\">Eliminar</a> <a id="btnModificarProducto" class="btn btn-primary" href="ModificarProducto?id=<%=produ.getIdProducto()%>">Modificar</a>
+						<td>
+							<div>
+								<div class="">
+									<a class="btn btn-danger" id="btnEliminarProducto" href="\">Eliminar</a>
+									<a id="btnModificarProducto" class="btn btn-primary" href="ModificarProducto?id=<%=produ.getIdProducto()%>">Modificar</a>
+								</div>
+							</div>
+						</td>
 					</tr>
 				<%
 				} 

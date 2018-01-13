@@ -188,5 +188,33 @@ $(document).ready(function() {
 			});	
 		}
 	});
+	
+	$('#filtrarNombre').change(function(e){
+		var nombre = $('#filtrarNombre').val();
+		var codigo = $('#filtrarCodigo').val();
+		var presentacion = $('#filtrarPresentacion').val();
+		var precioDesde = $('#filtrarPrecioDesde').val();
+		var precioHasta = $('#filtrarPrecioHasta').val();
+		var stockDesde = $('#filtrarStockDesde').val();
+		var stockHasta = $('#filtrarStockHasta').val();
+		var parametro = {
+						nombre : filtrarNombre,
+						codigo : filtrarCodigo,
+						presentacion : filtrarPresentacion,
+						precioDesde : filtrarPrecioDesde,
+						precioHasta : filtrarPrecioHasta,
+						stockDesde : filtrarStockDesde,
+						stockHasta : filtrarStockHasta,
+						};
+		
+		$.post("FiltraProductos",$.param(parametro),function(responseJson){
+			$(this).parent().parent().parent().remove();  //ELIMINO LA TABLA QUE EXISTE EN ESTE MOMENTO
+			
+			$.each(responseJson,function(index, productos){
+				//$('#subcategoria').append($('<option value="'+subcat.idSubcategoria+'">'+subcat.nombre+'</option>'));
+				alert("hola");
+			});
+		});
+	});
 });
 

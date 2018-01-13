@@ -21,6 +21,7 @@ public class ControladorDeProducto implements Serializable{
 		// 	Devolver un producto
 		// 	Devolver todas las subcategorias de una categoria
 		//	Modificar un producto
+		//	Crear tabla html de productos
 
 	public ArrayList<Categoria> getCategorias()throws ExcepcionEspecial, Exception{
 		
@@ -75,4 +76,33 @@ public class ControladorDeProducto implements Serializable{
 		DatosProducto baseProducto = new DatosProducto();
 		return baseProducto.modificarProducto(producto);
 	}
+	public String getHtml(){
+		ArrayList<Producto> productos = new ArrayList<>();
+		String codigoHtml = "";
+		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+		try {
+			productos = ctrlProducto.getProductos();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(Producto produ : productos){
+		codigoHtml += "<tr id=''>"
+						+ "<td id="+produ.getIdProducto()+">"+produ.getIdProducto()+"</td>"
+						+ "<td id="+produ.getNombre()+">"+produ.getNombre()+"</td>"
+						+ "<td id="+produ.getPresentacion()+">"+produ.getPresentacion()+"</td>"
+						+ "<td>"+produ.getPrecio()+"</td>"
+						+ "<td>"+produ.getStock()+"</td>"
+						+ "<td>"
+							+ "<div class=''>"
+								+ "<a class='btn btn-danger' id='btnEliminarProducto' href='\'>Eliminar</a>"
+								+ "<a id='btnModificarProducto' class='btn btn-primary' href='ModificarProducto?id="+produ.getIdProducto()+"'>Modificar</a>"
+							+ "</div>"
+						+ "</td>"
+					+ "</tr> ";
+		}
+																		
+		return codigoHtml;
+	}	
 }

@@ -56,60 +56,40 @@
 						<td>
 							<div class="">
 								<label class="sr-only">Filtrar por codigo</label>
-								<input type="text" data-toggle="tooltip" data-placement="right" title="Filtrar por codigo" class="form-control" aria-describedby="codigoHelp" placeholder="C&oacute;odigo"></input>
+								<input type="text" id="filtrarCodigo" name="filtrarCodigo" title="Filtrar por codigo" class="form-control" aria-describedby="codigoHelp" placeholder="C&oacute;digo"></input>
 							</div>
 						</td>
 						
-						<td><input type="text" class="form-control" placeholder="Nombre"></input></td>
-						<td><input type="text" class="form-control" placeholder="Presentaci&oacute;n"></input></td>
+						<td><input type="text" id="filtrarNombre" name="filtrarNombre" title="Filtrar por nombre" class="form-control" placeholder="Nombre"></input></td>
+						<td><input type="text" id="filtrarPresentacion" name="filtrarPresentacion" title="Filtrar por presentaci&oacute;n" class="form-control" placeholder="Presentaci&oacute;n"></input></td>
 						<td>
 							<div class="">
 								<div class="input group input-group-sm">
-									<input type="text" class="form-control" placeholder="Desde"></input>
-									<input type="text" class="form-control" placeholder="Hasta"></input>
+									<input type="text" id="filtrarPrecioDesde" name="filtrarPrecioDesde" class="form-control" title="Filtrar precios desde" placeholder="Desde"></input>
+									<input type="text" id="filtrarPrecioHasta" name="filtrarPrecioHasta" class="form-control" title="Filtrar precios hasta"placeholder="Hasta"></input>
 								</div>
 							</div>
 						</td>
 						<td>
 							<div class="">
 								<div class="input group input-group-sm">
-									<input type="text" class="form-control col-lg-2" placeholder="Desde"></input>
-									<input type="text" class="form-control" placeholder="Hasta"></input>
+									<input type="text" id="filtrarStockDesde" name="filtrarStockDesde" title="Filtrar stock desde" class="form-control col-lg-2" placeholder="Desde"></input>
+									<input type="text" id="filtrarStockHasta" name="filtrarStockHasta" title="Filtrar stock hasta" class="form-control" placeholder="Hasta"></input>
 								</div>
 							</div>
 						</td>
 						<td></td>
 					</tr>
-		 		<% 	int i=0;
-				for(Producto produ : productos){
-				i++;
-				%>
-					<tr id=<%=i%>>
-						<td id="idProducto"><%=produ.getIdProducto()%></td>
-						<td id="nombreProducto"><%=produ.getNombre()%></td>
-						<td id="presentacionProducto"><%=produ.getPresentacion()%></td>
-						<td><%=produ.getPrecio()%></td>
-						<td><%=produ.getStock()%></td>
-						<td>
-							<div>
-								<div class="">
-									<a class="btn btn-danger" id="btnEliminarProducto" href="\">Eliminar</a>
-									<a id="btnModificarProducto" class="btn btn-primary" href="ModificarProducto?id=<%=produ.getIdProducto()%>">Modificar</a>
-								</div>
-							</div>
-						</td>
-					</tr>
-				<%
-				} 
-				%>
+		 		<%=ctrlProducto.getHtml() %>	
+				
 		 		</tbody>
 			</table>
-		
+			
+			
 	</div>
 	
 		
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 </body>

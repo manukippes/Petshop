@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="entidades.Usuario"%>
 <%@page import="entidades.Categoria"%>
+<%@page import="entidades.Subcategoria"%>
 <%@page import="entidades.Producto"%>
 <%@page import="logica.ControladorDeProducto"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,6 +16,7 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/alertnuevo.js"></script>
 	
 	<title>SGPS - Modificar producto</title>
 </head>
@@ -70,6 +72,18 @@
 						    <small id="subcategoriaHelp" class="form-text text-muted">Seleccion&aacute; una subcategor&iacute;a.</small>
 						    <select class="form-control" name="subcategoria" id="subcategoria" aria-describedby="subcategoriaHelp" required>
 								     <option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>
+								     <% 
+						      		 ArrayList<Subcategoria> subcat = ctrlProducto.getSubcategorias(produ.getSubcategoria().getCategoria());
+						      		 seleccionado = "";
+						      	 	 for(Subcategoria subcate : subcat){ 
+						      	 	 	if (subcate.getIdSubCategoria()== produ.getSubcategoria().getIdSubCategoria()){
+						      	 	 	seleccionado="selected";	
+						      	 	 	}else{
+						      	 	 		seleccionado="";
+						      	 	 	}
+						      	 	 	%>
+						      	<option value="<%=(subcate.getIdSubCategoria())%>"<%=seleccionado %>><%=subcate.getNombre()%></option>						    
+						      <%} %>
 						    </select>
 						</div>
 					</div>

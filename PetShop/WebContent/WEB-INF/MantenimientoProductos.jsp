@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/listadoProductos.js"></script>
+	<script type="text/javascript" src="js/alertnuevo.js"></script>
 	
 	<title>SGPS - Mantenimiento de Productos</title>
 </head>
@@ -51,7 +52,7 @@
 				</thead>
 				<tbody>
 				<tr>
-					<td><input type="text" class="form-control"></input></td>
+					<td><input type="text" class="form-control" placeholder="Ingresa codigo"></input></td>
 					<td><input type="text" class="form-control"></input></td>
 					<td><input type="text" class="form-control"></input></td>
 					<td><input type="text" class="form-control"></input></td>

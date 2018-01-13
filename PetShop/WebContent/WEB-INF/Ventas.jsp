@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 	<meta charset="UTF-8">
 	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="js/main.js"></script>
 	
@@ -19,9 +19,11 @@
 	<div class="container">
 		<br>
 		<br>
+		<h4><strong>Nueva venta</strong> - Paso 1 de 2</h4>
+		<hr>
 		
 		<form action="" method="post" class="form-horizontal">
-			<h4><strong>Nueva venta</strong> - Paso 1 de 2</h4>
+			
 			<br>
 			<h5>Buscar productos</h5>
 			
@@ -36,6 +38,7 @@
 					<button class="btn btn-default" onclick = "this.form.action = 'listadoProductos';  this.form.submit();" > Listado <span class="glyphicon glyphicon-th-list"></span> </button>
 				</div>
 			</div>
+			<hr>
 		</form>
 	</div>
 	
@@ -43,3 +46,4 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 </body>
+</html>

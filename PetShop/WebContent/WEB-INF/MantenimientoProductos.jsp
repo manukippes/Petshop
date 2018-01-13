@@ -10,12 +10,13 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 	<meta charset="UTF-8">
 	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="css/estilos.css" type="text/css">
+	
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/listadoProductos.js"></script>
-	<script type="text/javascript" src="js/alertnuevo.js"></script>
+
 	
 	<title>SGPS - Mantenimiento de Productos</title>
 </head>
@@ -45,21 +46,40 @@
 				    <th>C&oacute;digo</th>
 				    <th>Nombre</th>
 				    <th>Presentaci&oacute;n</th>
-				    <th>Precio</th>
-				    <th>Stock</th>
-				    <th>Acciones</th>
+				    <th class="col-sm-1">Precio</th>
+				    <th class="col-sm-1">Stock</th>
+				    <th class="col-sm-3 col-lg-2">Acciones</th>
 				  </tr>
 				</thead>
 				<tbody>
-				<tr>
-					<td><input type="text" class="form-control" placeholder="Ingresa codigo"></input></td>
-					<td><input type="text" class="form-control"></input></td>
-					<td><input type="text" class="form-control"></input></td>
-					<td><input type="text" class="form-control"></input></td>
-					<td><input type="text" class="form-control"></input></td>
-					<td><input type="text" class="form-control"></input></td>
-					
-				</tr>
+					<tr>
+						<td>
+							<div class="">
+								<label class="sr-only">Filtrar por codigo</label>
+								<input type="text" data-toggle="tooltip" data-placement="right" title="Filtrar por codigo" class="form-control" aria-describedby="codigoHelp" placeholder="C&oacute;odigo"></input>
+							</div>
+						</td>
+						
+						<td><input type="text" class="form-control" placeholder="Nombre"></input></td>
+						<td><input type="text" class="form-control" placeholder="Presentaci&oacute;n"></input></td>
+						<td>
+							<div class="">
+								<div class="input group input-group-sm">
+									<input type="text" class="form-control" placeholder="Desde"></input>
+									<input type="text" class="form-control" placeholder="Hasta"></input>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="">
+								<div class="input group input-group-sm">
+									<input type="text" class="form-control col-lg-2" placeholder="Desde"></input>
+									<input type="text" class="form-control" placeholder="Hasta"></input>
+								</div>
+							</div>
+						</td>
+						<td></td>
+					</tr>
 		 		<% 	int i=0;
 				for(Producto produ : productos){
 				i++;
@@ -89,6 +109,7 @@
 	
 		
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+	<script src="js/bootstrap.min.js"></script>
 
 </body>

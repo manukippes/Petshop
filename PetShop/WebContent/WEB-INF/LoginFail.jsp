@@ -4,8 +4,8 @@
 <html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="css/estilos.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="css/estilos.css" type="text/css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <script src="style/ie-emulation-modes-warning.js"></script>
     <title>Log In</title>

@@ -191,28 +191,63 @@ $(document).ready(function() {
 	
 	$('#filtrarNombre').change(function(e){
 		var nombre = $('#filtrarNombre').val();
-		var codigo = $('#filtrarCodigo').val();
+		var idProducto = $('#filtrarIdProducto').val();
 		var presentacion = $('#filtrarPresentacion').val();
 		var precioDesde = $('#filtrarPrecioDesde').val();
 		var precioHasta = $('#filtrarPrecioHasta').val();
 		var stockDesde = $('#filtrarStockDesde').val();
 		var stockHasta = $('#filtrarStockHasta').val();
-		var parametro = {
-						nombre : filtrarNombre,
-						codigo : filtrarCodigo,
-						presentacion : filtrarPresentacion,
-						precioDesde : filtrarPrecioDesde,
-						precioHasta : filtrarPrecioHasta,
-						stockDesde : filtrarStockDesde,
-						stockHasta : filtrarStockHasta,
-						};
 		
+		var parametro = {
+						idProducto : idProducto,		
+						nombre : nombre,
+						presentacion : presentacion,
+						precioDesde : precioDesde,
+						precioHasta : precioHasta,
+						stockDesde : stockDesde,
+						stockHasta : stockHasta,
+						};
+		alert(idProducto);
+		$(this).parent().parent().parent().remove(); //ELIMINO LA TABLA QUE EXISTE EN ESTE MOMENTO
+		$('#tabla').append($("<tr>" +
+				"<td>" +
+				"	<div class=''>" +
+				"		<label class='sr-only'>Filtrar por codigo</label>" +
+				"		<input type='text' id='filtrarCodigo' name='filtrarCodigo' title='Filtrar por codigo' class='form-control' aria-describedby='codigoHelp' placeholder='C&oacute;digo'></input>" +
+				" 	</div>" +
+				"</td>" +
+				"<td>" +
+				"	<input type='text' id='filtrarNombre' name='filtrarNombre' title='Filtrar por nombre' class='form-control' placeholder='Nombre'></input>" +
+				"</td>" +
+				"<td>" +
+				"	<input type='text' id='filtrarPresentacion' name='filtrarPresentacion' title='Filtrar por presentaci&oacute;n' class='form-control' placeholder='Presentaci&oacute;n'></input>" +
+				"</td>" +
+				"<td>" +
+				"	<div class=''>" +
+				"		<div class='input group input-group-sm'>" +
+				"			<input type='text' id='filtrarPrecioDesde' name='filtrarPrecioDesde' class='form-control' title='Filtrar precios desde' placeholder='Desde'></input>" +
+				"			<input type='text' id='filtrarPrecioHasta' name='filtrarPrecioHasta' class='form-control' title='Filtrar precios hasta'placeholder='Hasta'></input>" +
+				"		</div>" +
+				"	</div>" +
+				"</td>" +
+				"<td>" +
+				"	<div class=''>" +
+				"		<div class='input group input-group-sm'>" +
+				"			<input type='text' id='filtrarStockDesde' name='filtrarStockDesde' title='Filtrar stock desde' class='form-control col-lg-2' placeholder='Desde'></input>" +
+				"			<input type='text' id='filtrarStockHasta' name='filtrarStockHasta' title='Filtrar stock hasta' class='form-control' placeholder='Hasta'></input>" +
+				"		</div>" +
+				"	</div>" +
+				"</td>" +
+				"<td></td>" +
+				"</tr>"));
+		
+		//alert("hola");
 		$.post("FiltraProductos",$.param(parametro),function(responseJson){
-			$(this).parent().parent().parent().remove();  //ELIMINO LA TABLA QUE EXISTE EN ESTE MOMENTO
+			
 			
 			$.each(responseJson,function(index, productos){
-				//$('#subcategoria').append($('<option value="'+subcat.idSubcategoria+'">'+subcat.nombre+'</option>'));
-				alert("hola");
+				$('#tabla').append($("<tr><td id="+productos.idProducto+">"+productos.idProducto+"</td><td>"+productos.nombre+"</td><td>"+productos.presentacion+"</td><td>"+productos.precio+"</td><td>"+productos.stock+"</td><td><div class=''><a class='btn btn-danger' id='btnEliminarProducto' href='\'>Eliminar</a><a id='btnModificarProducto' class='btn btn-primary' href='ModificarProducto?id="+productos.idProducto+"'>Modificar</a></div></td></tr>"));
+				//alert(productos.idProducto);
 			});
 		});
 	});

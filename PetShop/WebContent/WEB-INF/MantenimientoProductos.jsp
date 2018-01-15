@@ -10,7 +10,6 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 	<meta charset="UTF-8">
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	
@@ -40,7 +39,7 @@
 		ArrayList<Producto> productos = ctrlProducto.getProductos(); %>
 		
 		<div class="table-responsive">
-			<table id="tabla" class="table table-striped">
+			<table id="tabla" name="tabla" class="table table-striped">
 				<thead>
 				  <tr class="active">
 				    <th>C&oacute;digo</th>
@@ -55,8 +54,8 @@
 					<tr>
 						<td>
 							<div class="">
-								<label class="sr-only">Filtrar por codigo</label>
-								<input type="text" id="filtrarCodigo" name="filtrarCodigo" title="Filtrar por codigo" class="form-control" aria-describedby="codigoHelp" placeholder="C&oacute;digo"></input>
+								<label class="sr-only">Filtrar por Id</label>
+								<input type="text" id="filtrarIdProducto" name="filtrarIdProducto" title="Filtrar por Id" class="form-control" aria-describedby="idHelp" placeholder="Id de Producto"></input>
 							</div>
 						</td>
 						
@@ -80,7 +79,7 @@
 						</td>
 						<td></td>
 					</tr>
-		 		<%=ctrlProducto.getHtml() %>	
+		 			
 				
 		 		</tbody>
 			</table>
@@ -89,7 +88,8 @@
 	</div>
 	
 		
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="js/bootstrap.min.js"></script>
 
 </body>

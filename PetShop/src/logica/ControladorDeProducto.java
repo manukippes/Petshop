@@ -2,6 +2,7 @@ package logica;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import datos.DatosProducto;
 import entidades.Categoria;
@@ -105,4 +106,8 @@ public class ControladorDeProducto implements Serializable{
 																		
 		return codigoHtml;
 	}	
+	public ArrayList<Producto> getProductos(Hashtable<String, String> parametros)throws Exception{
+		DatosProducto baseProducto = new DatosProducto();
+		return baseProducto.getProductos(parametros);
+	}
 }

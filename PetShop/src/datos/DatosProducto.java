@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import entidades.Producto;
 import entidades.Subcategoria;
@@ -443,17 +444,27 @@ public class DatosProducto implements Serializable{
 		}
 		return subcategorias;
 	}
-	/*
 
-	 public ArrayList<Producto> getProductos(ArrayList<String> campos) throws Exception{
+	 public ArrayList<Producto> getProductos(Hashtable<String, String> parametros) throws Exception{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		ArrayList<Producto> productos= new ArrayList<Producto>();
+		String where="";
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"SELECT * FROM PRODUCTO p INNER JOIN subcategoria sc ON p.idSubCategoria = sc.idSubCategoria INNER JOIN categoria c ON sc.idCategoria = c.idCategoria where c.idCategoria=?");
-			pstm.setInt(1, categoria.getIdCategoria());
+					"SELECT * FROM PRODUCTO ?");
+			/*
+			if (parametros.get("idProducto").equals(null)){
+				if(where==""){
+					where += "where idProducto="+parametros.get("idProducto");
+					pstm.setString(1, where);
+				}else{
+					where += "and idProducto="+parametros.get("idProducto");
+				}
+			}*/
+			pstm.setString(1,";");
+			//pstm.setString(1, where);
 			rs=pstm.executeQuery();
 			
 			if(rs!=null)
@@ -497,7 +508,7 @@ public class DatosProducto implements Serializable{
 			throw e;
 		}
 		return productos;
-	}*/
+	}
 }
 	
 

@@ -10,12 +10,12 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 	<meta charset="UTF-8">
 	
+	
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
-	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/listadoProductos.js"></script>
-
 	
 	<title>SGPS - Mantenimiento de Productos</title>
 </head>
@@ -34,62 +34,96 @@
 			<a href="AgregarProducto" type="button" class="btn btn-primary">ALTA NUEVO PRODUCTO</a>
 		</div>
 		<hr>
-		<h5>Para consultar o modificar un producto:</h5>
+		<h5>Para modificar o eliminar un producto existente:</h5>
 		<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 		ArrayList<Producto> productos = ctrlProducto.getProductos(); %>
 		
+		
+		
+		<div class="panel-group visible-xs" id="acordeon" role="tablist">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="heading1">
+					<h4 class="panel-title">
+						<button href="#collapse1" data-toggle="collapse" data-parent="#accordion" class="btn btn-default">
+							<span>Filtrar Listado de Productos</span>
+						</button>
+					</h4>
+				</div>
+				<div id="collapse1" class="panel-collapse collapse">
+					<div class="panel-body">
+						<div class="input-group">
+							<input type="number" min="1" id="filtrarIdProductoxs" name="filtrarIdProductoxs" title="Filtrar por Id" class="form-control" aria-describedby="idHelp" placeholder="Filtrar por Id de Producto"></input>
+							<input type="text" id="filtrarNombrexs" name="filtrarNombrexs" title="Filtrar por nombre" class="form-control" placeholder="Filtrar por Nombre"></input>
+							<input type="text" id="filtrarPresentacionxs" name="filtrarPresentacionxs" title="Filtrar por presentacion" class="form-control" placeholder="Filtrar por Presentaci&oacute;n"></input>
+							<input type="text" id="filtrarPrecioDesdexs" name="filtrarPrecioDesdexs" class="form-control" title="Filtrar precios desde" placeholder="Filtrar Precios Desde"></input>
+							<input type="text" id="filtrarPrecioHastaxs" name="filtrarPrecioHastaxs" class="form-control" title="Filtrar precios hasta"placeholder="Filtrar Precios Hasta"></input>
+							<input type="number" id="filtrarStockDesdexs" name="filtrarStockDesdexs" title="Filtrar stock desde" class="form-control" placeholder="Filtrar Stock Desde"></input>
+							<input type="number" id="filtrarStockHastaxs" name="filtrarStockHastaxs" title="Filtrar stock hasta" class="form-control" placeholder="Filtrar Stock Hasta"></input>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			
 		<div class="table-responsive">
-			<table id="tabla" name="tabla" class="table table-striped">
+			<table id="tabla" class="table table-striped table-hover">
 				<thead>
-				  <tr class="active">
-				    <th>C&oacute;digo</th>
-				    <th>Nombre</th>
-				    <th>Presentaci&oacute;n</th>
-				    <th class="col-sm-1">Precio</th>
-				    <th class="col-sm-1">Stock</th>
-				    <th class="col-sm-3 col-lg-2">Acciones</th>
-				  </tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
+					<tr class="active">
+						<th>
 							<div class="">
 								<label class="sr-only">Filtrar por Id</label>
-								<input type="text" id="filtrarIdProducto" name="filtrarIdProducto" title="Filtrar por Id" class="form-control" aria-describedby="idHelp" placeholder="Id de Producto"></input>
+								<input type="number" min="1" id="filtrarIdProducto" name="filtrarIdProducto" title="Filtrar por Id" class="form-control hidden-xs" aria-describedby="idHelp" placeholder="Filtrar..."></input>
+								<hr class="hidden-xs">
+								<span>Id Producto</span>
 							</div>
-						</td>
-						
-						<td><input type="text" id="filtrarNombre" name="filtrarNombre" title="Filtrar por nombre" class="form-control" placeholder="Nombre"></input></td>
-						<td><input type="text" id="filtrarPresentacion" name="filtrarPresentacion" title="Filtrar por presentaci&oacute;n" class="form-control" placeholder="Presentaci&oacute;n"></input></td>
-						<td>
+						</th>
+						<th>
+							<input type="text" id="filtrarNombre" name="filtrarNombre" title="Filtrar por nombre" class="form-control hidden-xs" placeholder="Filtrar..."></input>
+							<hr class="hidden-xs">
+							<span>Nombre</span>
+						</th>
+						<th>
+							<input type="text" id="filtrarPresentacion" name="filtrarPresentacion" title="Filtrar por presentacion" class="form-control hidden-xs" placeholder="Filtrar..."></input>
+							<hr class="hidden-xs">
+							<div>Presentaci&oacute;n</div>
+						<th>
 							<div class="">
 								<div class="input group input-group-sm">
-									<input type="text" id="filtrarPrecioDesde" name="filtrarPrecioDesde" class="form-control" title="Filtrar precios desde" placeholder="Desde"></input>
-									<input type="text" id="filtrarPrecioHasta" name="filtrarPrecioHasta" class="form-control" title="Filtrar precios hasta"placeholder="Hasta"></input>
+									<input type="text" id="filtrarPrecioDesde" name="filtrarPrecioDesde" class="form-control hidden-xs" title="Filtrar precios desde" placeholder="Desde"></input>
+									<input type="text" id="filtrarPrecioHasta" name="filtrarPrecioHasta" class="form-control hidden-xs" title="Filtrar precios hasta"placeholder="Hasta"></input>
+									<hr class="hidden-xs">
+									<div>Precio</div>
 								</div>
 							</div>
-						</td>
-						<td>
+						</th>
+						<th>
 							<div class="">
 								<div class="input group input-group-sm">
-									<input type="text" id="filtrarStockDesde" name="filtrarStockDesde" title="Filtrar stock desde" class="form-control col-lg-2" placeholder="Desde"></input>
-									<input type="text" id="filtrarStockHasta" name="filtrarStockHasta" title="Filtrar stock hasta" class="form-control" placeholder="Hasta"></input>
+									<input type="number" id="filtrarStockDesde" name="filtrarStockDesde" title="Filtrar stock desde" class="form-control hidden-xs" placeholder="Desde"></input>
+									<input type="number" id="filtrarStockHasta" name="filtrarStockHasta" title="Filtrar stock hasta" class="form-control hidden-xs" placeholder="Hasta"></input>
+									<hr class="hidden-xs">
+									<div>Stock&nbsp;</div>
 								</div>
+							</div>							
+						</th>
+						<th class="col-sm-3 col-lg-2"> 
+							<div class="input-group">
+								<span>Acciones </span>
 							</div>
-						</td>
-						<td></td>
+						</th>
 					</tr>
-		 			
-				
+				</thead>
+				<tbody>
+					<!-- <%=ctrlProducto.getHtml() %> -->
+					<%=ctrlProducto.getHtml() %>
 		 		</tbody>
 			</table>
+		</div>
+			<script src="http://code.jquery.com/jquery-latest.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+			<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+			<!-- <script src="js/bootstrap.min.js"></script> -->
 			
-			
-	</div>
-	
-		
-		<script src="js/jquery-3.2.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="js/bootstrap.min.js"></script>
-
-</body>
+		</div>
+	</body>
+</html>

@@ -449,22 +449,115 @@ public class DatosProducto implements Serializable{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		ArrayList<Producto> productos= new ArrayList<Producto>();
-		String where="";
+		int i = 0;
+		ArrayList<String> campos = new ArrayList();
 		
 		try {
-			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"SELECT * FROM PRODUCTO ?");
-			/*
-			if (parametros.get("idProducto").equals(null)){
-				if(where==""){
-					where += "where idProducto="+parametros.get("idProducto");
-					pstm.setString(1, where);
-				}else{
-					where += "and idProducto="+parametros.get("idProducto");
+			//IDPRODUCTO
+			String sql="select * from producto";
+			if(!parametros.get("idProducto").equals("")){		//Si viene id Producto lo agrego como primer filtro
+				sql += " Where idProducto = ?";
+				campos.add("idProducto");
+				i++;
 				}
-			}*/
-			pstm.setString(1,";");
-			//pstm.setString(1, where);
+			//NOMBRE
+			if(!parametros.get("nombre").equals("")){ //si viene nombre lo agrego como primer filtro
+				if (i==0){
+					sql += " Where nombre like ?";
+					campos.add("nombre");
+					i++;
+				}else{					//si ya hay un filtro anterior agrego la condicion nombre
+					sql += " and nombre like ?";
+					campos.add("nombre");
+					i++;
+					}
+				}
+			//PRESENTACION
+			if(!parametros.get("presentacion").equals("")){ 
+				if (i==0){
+					sql += " Where presentacion like ?";
+					campos.add("presentacion");
+					i++;
+				}else{				
+					sql += " and presentacion like ?";
+					campos.add("presentacion");
+					i++;
+					}
+				}
+			//PRECIO DESDE
+			if(!parametros.get("precioDesde").equals("")){ 
+				if (i==0){
+					sql += " Where precio > ?";
+					campos.add("precioDesde");
+					i++;
+				}else{					
+					sql += " and precio > ?";
+					campos.add("precioDesde");
+					i++;
+					}
+				}
+			//PRECIO HASTA
+			if(!parametros.get("precioHasta").equals("")){ 
+				if (i==0){
+					sql += " Where precio < ?";
+					campos.add("precioHasta");
+					i++;
+				}else{					
+					sql += " and precio < ?";
+					campos.add("precioHasta");
+					i++;
+					}
+				}
+			//STOCK DESDE
+			if(!parametros.get("stockDesde").equals("")){ 
+				if (i==0){
+					sql += " Where stock > ?";
+					campos.add("stockDesde");
+					i++;
+				}else{					
+					sql += " and stock > ?";
+					campos.add("stockDesde");
+					i++;
+					}
+				}
+			//STOCK HASTA
+			if(!parametros.get("stockHasta").equals("")){ 
+				if (i==0){
+					sql += " Where stock < ?";
+					campos.add("stockHasta");
+					i++;
+				}else{					
+					sql += " and stock < ?";
+					campos.add("stockHasta");
+					i++;
+					}
+				}
+
+			//CREO UN PREPARESTATEMENT
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					sql);
+			
+			//SETEO LOS VALORES DE ACUERDO A CUALES SE CARGARON EN EL ARRAYLIST CAMPOS
+			for (int j=0;j<i;j++){
+				switch (campos.get(j)){
+				case "idProducto":
+					pstm.setInt(j+1, Integer.parseInt(parametros.get(campos.get(j))));
+					break;
+				case "precioDesde":
+				case "precioHasta":
+					pstm.setDouble(j+1, Double.parseDouble(parametros.get(campos.get(j))));
+					break;
+				case "stockDesde":
+				case "stockHasta":
+					pstm.setInt(j+1, Integer.parseInt(parametros.get(campos.get(j))));
+					break;
+				default:
+					String like = "%"+parametros.get(campos.get(j))+"%";
+					pstm.setString(j+1, like);
+					break;		
+				}
+			}
+			//EJECUTO LA CONSULTA
 			rs=pstm.executeQuery();
 			
 			if(rs!=null)
@@ -477,19 +570,8 @@ public class DatosProducto implements Serializable{
 					productoActual.setStock(rs.getInt("stock"));					//SETEO STOCK ACTUAL DEL PRODUCTO
 					productoActual.setStockMinimo(rs.getInt("stockMinimo"));		//SETEO STOCK MINIMO DEL PRODUCTO
 					productoActual.setPresentacion(rs.getString("presentacion"));	//SETEO PRESENTACION DEL PRODUCTO
-					productoActual.setPrecio(rs.getDouble("precio"));				//SETEO PRECIO DEL PRODUCTO
+					productoActual.setPrecio(rs.getDouble("precio"));				//SETEO PRECIO DEL PRODUCTO	
 					
-					//CREO LA CATEGORIA
-					Categoria cate = new Categoria();
-					cate.setIdCategoria(rs.getInt("c.idCategoria"));
-					cate.setNombre(rs.getString("c.nombre"));
-					
-					//CREO LA SUBCATEGORIA
-					Subcategoria subcat = new Subcategoria();	
-					subcat.setIdSubCategoria(rs.getInt("idSubCategoria"));
-					subcat.setCategoria(cate);  //SETEO LA CATEGORIA			
-					
-					productoActual.setSubcategoria(subcat);  					//SETEO LA SUBCATEGORIA DEL PRODUCTO
 					
 					productos.add(productoActual);								//AGREGO EL PRODUCTO AL ARRAYLIST
 				}

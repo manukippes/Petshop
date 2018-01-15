@@ -57,10 +57,10 @@ public class FiltraProductos extends HttpServlet {
         parametros.put("stockDesde", "");
         parametros.put("stockHasta", "");
          
-        /*
+        
         if(!request.getParameter("idProducto").equals("null")){
         	parametros.put("idProducto", request.getParameter("idProducto"));
-        }*/
+        }
         if(!request.getParameter("nombre").equals(null)){
         	parametros.put("nombre", request.getParameter("nombre"));
         }
@@ -79,18 +79,11 @@ public class FiltraProductos extends HttpServlet {
         if(!request.getParameter("stockHasta").equals(null)){
         	parametros.put("stockHasta", request.getParameter("stockHasta"));
         }
-        System.out.println("el id del producto es:"+parametros.get("idProducto"));
-        System.out.println(parametros.get("nombre"));
-        System.out.println(parametros.get("presentacion"));
-        System.out.println(parametros.get("precioDesde"));
-        System.out.println(parametros.get("precioHasta"));
-        System.out.println(parametros.get("stockDesde"));
-        
-        
+    
         ArrayList<Producto> productos = new ArrayList<>();
 		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 		try {
-			productos = ctrlProducto.getProductos();
+			productos = ctrlProducto.getProductos(parametros);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

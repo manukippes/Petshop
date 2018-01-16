@@ -94,7 +94,26 @@ function validarCampos(nombre, presentacion, precio,categoria,subcategoria){
 		}	
 	
 	return false;
-}
+	}
+
+function eliminarFila(e){
+	e.preventDefault();  //detiene la accion del boton (VIDEO 10)
+	
+	var nombreProducto = $(this).parent().parent().parent().find('#nombreProducto').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
+	var opcion = confirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
+	if (opcion){
+		var fila =$(this).parent().parent().parent()
+		var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
+		alert(idProducto);
+		
+		var data={idProducto : idProducto};
+		$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
+			//alert(res);    //Muestra la respuesta de ejecutar EliminarProducto
+			fila.remove();
+			})
+		}
+	
+	}
 
 function filtrarTabla(dispositivo){
 	
@@ -123,8 +142,7 @@ function filtrarTabla(dispositivo){
 		break;
 		}
 	}
-	
-	alert("dispositivo")
+
 	var parametro = {
 					idProducto : idProducto,		
 					nombre : nombre,
@@ -137,14 +155,30 @@ function filtrarTabla(dispositivo){
 	$('#tabla > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
 	
 	$.post("FiltraProductos",$.param(parametro),function(responseJson){
-		
-		
 		$.each(responseJson,function(index, productos){
-			$('#tabla').append($("<tr><td id="+productos.idProducto+">"+productos.idProducto+"</td><td>"+productos.nombre+"</td><td>"+productos.presentacion+"</td><td>"+productos.precio+"</td><td>"+productos.stock+"</td><td class='col-sm-3 col-lg-2'><div class='input-group'><a class='btn btn-danger' id='btnEliminarProducto' href='#'>Eliminar</a><a id='btnModificarProducto' class='btn btn-primary' href='ModificarProducto?id="+productos.idProducto+"'>Modificar</a></div></td></tr>"));
-			//alert(productos.idProducto);
-			});
-	});
-}
+			$('<tr>',{
+				'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
+				"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
+				"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
+				"			<td>"+productos.precio+"</td>" +
+				"			<td>"+productos.stock+"</td>" +
+				"			<td class='col-sm-3 col-lg-2'>" +
+				"				<div class='input-group'>" +
+				"					<a class='btn btn-danger btnEliminarProducto' href='\'>Eliminar</a>" +
+				"					<a class='btn btn-primary' id='btnModificarProducto'  href='ModificarProducto?id="+productos.idProducto+"'>Modificar</a>" +
+				"				</div>" +
+				"			</td>"
+				}).appendTo("table > tbody");
+			
+			
+			})
+		})
+	}
+/*
+ *  
+ */
+
+
 $(document).ready(function() {
 
 	$('#btnGuardarModificacionProducto').click(function(e){
@@ -211,6 +245,44 @@ $(document).ready(function() {
 					$('#subcategoria').append($('<option value="'+subcat.idSubcategoria+'">'+subcat.nombre+'</option>'));
 				});
 			});	
+		}
+	});
+	
+	//FUNCION POSIBLEMENTE INNECESARIA
+	
+	$('tr #btnEliminarProducto').click(function(e){
+		e.preventDefault();  //detiene la accion del boton (VIDEO 10)
+		
+		var nombreProducto = $(this).parent().parent().parent().find('#nombreProducto').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
+		var opcion = confirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
+		if (opcion){
+			var fila =$(this).parent().parent().parent()
+			var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
+			alert(idProducto);
+			
+			var data={idProducto : idProducto};
+			$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
+				//alert(res);    //Muestra la respuesta de ejecutar EliminarProducto
+				fila.remove();
+			});
+		}
+	});
+	
+	// FIN FUNCION POSIBLEMENTE INNECESARIA
+	
+	$(document).on('click','.btnEliminarProducto',function(e){
+		e.preventDefault();  //detiene la accion del boton (VIDEO 10)
+		
+		var nombreProducto = $(this).parent().parent().parent().find('#nombreProducto').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
+		var opcion = confirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
+		if (opcion){
+			var fila =$(this).parent().parent().parent()
+			var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
+			var data={idProducto : idProducto};
+			$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
+				//alert(res);    //Muestra la respuesta de ejecutar EliminarProducto
+				fila.remove();
+			});
 		}
 	});
 	
@@ -288,4 +360,5 @@ $(document).ready(function() {
 		filtrarTabla("smartphone");
 	});
 });
+
 

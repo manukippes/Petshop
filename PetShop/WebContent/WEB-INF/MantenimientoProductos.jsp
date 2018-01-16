@@ -15,7 +15,6 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-	<script type="text/javascript" src="js/listadoProductos.js"></script>
 	
 	<title>SGPS - Mantenimiento de Productos</title>
 </head>
@@ -44,14 +43,16 @@
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="heading1">
 					<h4 class="panel-title">
-						<button href="#collapse1" data-toggle="collapse" data-parent="#accordion" class="btn btn-default">
-							<span>Filtrar Listado de Productos</span>
-						</button>
+						<div class="container">
+							<button href="#collapse1" data-toggle="collapse" data-parent="#accordion" class="col-xs-12 btn btn-default">
+								<span>Filtrar Listado</span>
+							</button>
+						</div>	
 					</h4>
 				</div>
 				<div id="collapse1" class="panel-collapse collapse">
 					<div class="panel-body">
-						<div class="input-group">
+						<div class="input-group input-group-sm">
 							<input type="number" min="1" id="filtrarIdProductoxs" name="filtrarIdProductoxs" title="Filtrar por Id" class="form-control" aria-describedby="idHelp" placeholder="Filtrar por Id de Producto"></input>
 							<input type="text" id="filtrarNombrexs" name="filtrarNombrexs" title="Filtrar por nombre" class="form-control" placeholder="Filtrar por Nombre"></input>
 							<input type="text" id="filtrarPresentacionxs" name="filtrarPresentacionxs" title="Filtrar por presentacion" class="form-control" placeholder="Filtrar por Presentaci&oacute;n"></input>
@@ -77,12 +78,12 @@
 								<span>Id Producto</span>
 							</div>
 						</th>
-						<th>
+						<th id="nombreProducto">
 							<input type="text" id="filtrarNombre" name="filtrarNombre" title="Filtrar por nombre" class="form-control hidden-xs" placeholder="Filtrar..."></input>
 							<hr class="hidden-xs">
 							<span>Nombre</span>
 						</th>
-						<th>
+						<th id="presentacionProducto">
 							<input type="text" id="filtrarPresentacion" name="filtrarPresentacion" title="Filtrar por presentacion" class="form-control hidden-xs" placeholder="Filtrar..."></input>
 							<hr class="hidden-xs">
 							<div>Presentaci&oacute;n</div>
@@ -114,8 +115,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!-- <%=ctrlProducto.getHtml() %> -->
-					<%=ctrlProducto.getHtml() %>
 		 		</tbody>
 			</table>
 		</div>

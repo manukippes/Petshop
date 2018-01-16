@@ -89,16 +89,16 @@ public class ControladorDeProducto implements Serializable{
 		}
 		
 		for(Producto produ : productos){
-		codigoHtml += "<tr id=''>"
-						+ "<td id="+produ.getIdProducto()+">"+produ.getIdProducto()+"</td>"
-						+ "<td id="+produ.getNombre()+">"+produ.getNombre()+"</td>"
-						+ "<td id="+produ.getPresentacion()+">"+produ.getPresentacion()+"</td>"
+		codigoHtml += "<tr>"
+						+ "<td id='idProducto'>"+produ.getIdProducto()+"</td>"
+						+ "<td id='nombreProducto'>"+produ.getNombre()+"</td>"
+						+ "<td id='presentacionProducto'>"+produ.getPresentacion()+"</td>"
 						+ "<td>"+produ.getPrecio()+"</td>"
 						+ "<td>"+produ.getStock()+"</td>"
 						+ "<td>"
-							+ "<div class=''>"
+							+ "<div class='input-group'>"
 								+ "<a class='btn btn-danger' id='btnEliminarProducto' href='\'>Eliminar</a>"
-								+ "<a id='btnModificarProducto' class='btn btn-primary' href='ModificarProducto?id="+produ.getIdProducto()+"'>Modificar</a>"
+								+ "<a class='btn btn-primary' id='btnModificarProducto'  href='ModificarProducto?id="+produ.getIdProducto()+"'>Modificar</a>"
 							+ "</div>"
 						+ "</td>"
 					+ "</tr> ";
@@ -111,3 +111,6 @@ public class ControladorDeProducto implements Serializable{
 		return baseProducto.getProductos(parametros);
 	}
 }
+
+
+

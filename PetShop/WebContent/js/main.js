@@ -1,6 +1,10 @@
 /**
  * 
  */
+											//-----------------------------------
+											//FUNCIONES GENERALES A TODOS LOS JSP
+											//-----------------------------------
+
 function iniciar(parametro){
     		switch(parametro){
     		case 'administracion':
@@ -23,6 +27,9 @@ function iniciar(parametro){
     		}
     	
     	}
+											//-----------------------------------------------
+											//FUNCIONES DE MODULO ADMINISTRACION DE PRODUCTOS
+											//-----------------------------------------------
 
 function validarCampos(nombre, presentacion, precio,categoria,subcategoria){
 	
@@ -174,13 +181,52 @@ function filtrarTabla(dispositivo){
 			})
 		})
 	}
-/*
- *  
- */
 
+//FUNCIONES DE MODULO VENTAS
+
+function buscarProductosVenta(inputProducto){
+	
+
+	//var inputProducto = $('#buscarProductoVenta').text();
+
+	var parametro = {
+					inputProducto : inputProducto,		
+					};
+	$('#tabla > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
+	
+	$.post("buscaProductosVenta",$.param(parametro),function(responseJson){
+		$.each(responseJson,function(index, productos){
+			$('<tr>',{
+				'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
+				"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
+				"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
+				"			<td>"+productos.precio+"</td>" +
+				"			<td>" +
+				"				<input type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
+				"			</td>" +
+				"			<td class='col-sm-3 col-lg-2'>" +
+				"				<div class='input-group'>" +
+				"					<a class='btn btn-info btnAgregarProductoVenta' href='\'>Agregar</a>" +
+				"				</div>" +
+				"			</td>"
+				}).appendTo("table > tbody");
+			
+			})
+		})
+	}
+
+
+
+												//---------------
+												//JQUERY GENERAL
+												//---------------
 
 $(document).ready(function() {
 
+												//-----------------------------------------
+												//JQUERY MODULO ADMINISTRACION DE PRODUCTOS
+												//----------------------------------------- 
+	
 	$('#btnGuardarModificacionProducto').click(function(e){
 		e.preventDefault();
 		var categoria = $('#categoria').val();
@@ -359,6 +405,36 @@ $(document).ready(function() {
 	$('#filtrarStockHastaxs').change(function(e){
 		filtrarTabla("smartphone");
 	});
+	
+													//-----------------------
+													//	JQUERY MODULO VENTAS
+													//-----------------------
+	
+	
+	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR NOMBRE
+	$('#buscarProductosVenta').click(function(e){
+		e.preventDefault();
+		buscarProductosVenta($('#inputProducto').val());
+	});
+	
+	$(document).on('click','.btnAgregarProductoVenta',function(e){
+		e.preventDefault();
+		alert("agregar");
+		/*
+		var nombreProducto = $(this).parent().parent().parent().find('#nombreProducto').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
+		var opcion = confirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
+		if (opcion){
+			var fila =$(this).parent().parent().parent()
+			var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
+			var data={idProducto : idProducto};
+			$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
+				//alert(res);    //Muestra la respuesta de ejecutar EliminarProducto
+				fila.remove();
+			});
+		}*/
+	});
+	
+	
 });
 
 

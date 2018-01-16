@@ -23,6 +23,7 @@ public class ControladorDeProducto implements Serializable{
 		// 	Devolver todas las subcategorias de una categoria
 		//	Modificar un producto
 		//	Crear tabla html de productos
+		//  Obtener productos con un parametro string
 
 	public ArrayList<Categoria> getCategorias()throws ExcepcionEspecial, Exception{
 		
@@ -109,6 +110,11 @@ public class ControladorDeProducto implements Serializable{
 	public ArrayList<Producto> getProductos(Hashtable<String, String> parametros)throws Exception{
 		DatosProducto baseProducto = new DatosProducto();
 		return baseProducto.getProductos(parametros);
+	}
+	
+	public ArrayList<Producto> getProductos(String inputProducto)throws Exception{
+		DatosProducto baseProducto = new DatosProducto();
+		return baseProducto.getProductos(inputProducto);
 	}
 }
 

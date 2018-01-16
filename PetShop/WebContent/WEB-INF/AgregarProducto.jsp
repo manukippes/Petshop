@@ -12,8 +12,9 @@
 	
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>		
+			
 	
 	<title>SGPS - Alta nuevo producto</title>
 </head>

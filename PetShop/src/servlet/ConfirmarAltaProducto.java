@@ -84,16 +84,7 @@ public class ConfirmarAltaProducto extends HttpServlet {
 			}
 		}catch (Exception ex){
 			ex.printStackTrace();
-		}
-		
-		//MUESTRO TODOS LOS PARAMETROS DEL FORM ENVIADO
-		
-		int i=0;
-		for (String item : campos){
-			System.out.println(i+":"+item);
-			i++;
-		}
-				
+		}				
 		try{
 			subcate.setIdSubCategoria(Integer.parseInt(campos.get(2)));			//SETEO LA ID DE LA SUBCATEGORIA
 			subcate = ctrlProducto.getSubcategoria(subcate);					//COMPLETO LOS DATOS DE LA SUBCATEGORIA

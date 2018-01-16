@@ -27,6 +27,7 @@ public class DatosProducto implements Serializable{
 	//						COMPLETAR LOS DATOS DE UN PRODUCTO
 	//						OBTENER LAS SUBCATEGORIAS DE UNA CATEGORIA
 	// 						OBTENER PRODUCTOS FILTRADOS SEGUN CRITERIOS
+	//						OBTENER PRODUCTOS SEGUN UN STRING 
 	
 	public Boolean agregarProducto (Producto producto) throws Exception
 	{
@@ -591,6 +592,54 @@ public class DatosProducto implements Serializable{
 		}
 		return productos;
 	}
+	 public ArrayList<Producto> getProductos(String inputProducto) throws Exception{
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			ArrayList<Producto> productos= new ArrayList<Producto>();
+			inputProducto='%'+inputProducto+'%';
+			
+			try {
+				//CREO UN PREPARESTATEMENT
+				pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+						"select * from producto where idProducto like ? or nombre like ? or presentacion like ?");
+				
+						pstm.setString(1, inputProducto);
+						pstm.setString(2, inputProducto);
+						pstm.setString(3, inputProducto);
+		
+				//EJECUTO LA CONSULTA
+				rs=pstm.executeQuery();
+				
+				if(rs!=null)
+				{
+					while(rs.next())
+					{
+						Producto productoActual= new Producto();
+						productoActual.setIdProducto(rs.getInt("idProducto"));			//SETEO ID PRODUCTO DEL PRODUCTO
+						productoActual.setNombre(rs.getString("nombre"));				//SETEO NOMBRE DEL PRODUCTO
+						productoActual.setStock(rs.getInt("stock"));					//SETEO STOCK ACTUAL DEL PRODUCTO
+						productoActual.setStockMinimo(rs.getInt("stockMinimo"));		//SETEO STOCK MINIMO DEL PRODUCTO
+						productoActual.setPresentacion(rs.getString("presentacion"));	//SETEO PRESENTACION DEL PRODUCTO
+						productoActual.setPrecio(rs.getDouble("precio"));				//SETEO PRECIO DEL PRODUCTO	
+						
+						productos.add(productoActual);								//AGREGO EL PRODUCTO AL ARRAYLIST
+					}
+					
+				}
+			} catch (Exception e) {
+				throw e;
+			}
+			
+			try {
+				if(rs!=null)rs.close();
+				if(pstm!=null)pstm.close();
+				FactoryConnection.getinstancia().releaseConn();
+			} 
+			catch (Exception e) {
+				throw e;
+			}
+			return productos;
+		}
 }
 	
 

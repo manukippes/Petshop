@@ -185,9 +185,6 @@ function filtrarTabla(dispositivo){
 //FUNCIONES DE MODULO VENTAS
 
 function buscarProductosVenta(inputProducto){
-	
-
-	//var inputProducto = $('#buscarProductoVenta').text();
 
 	var parametro = {
 					inputProducto : inputProducto,		
@@ -200,19 +197,59 @@ function buscarProductosVenta(inputProducto){
 				'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
 				"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 				"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
-				"			<td>"+productos.precio+"</td>" +
+				"			<td id='precioProducto'>"+productos.precio+"</td>" +
 				"			<td>" +
-				"				<input type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
+				"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
 				"			</td>" +
 				"			<td class='col-sm-3 col-lg-2'>" +
 				"				<div class='input-group'>" +
 				"					<a class='btn btn-info btnAgregarProductoVenta' href='\'>Agregar</a>" +
 				"				</div>" +
 				"			</td>"
-				}).appendTo("table > tbody");
+				}).appendTo("#tabla > tbody");
 			
 			})
 		})
+	}
+
+function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
+	
+		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		var bandera = false;
+		//RECORRO LA TABLA 	VERIFICANDO QUE NO ESTE AGREGADO EL PRODUCTO
+		$.each(filas,function(i,fila){
+			if (i>0){
+				if (fila.cells[0].innerHTML==idProducto){
+					bandera=true;
+					alert("Este elemento ya esta en la venta");
+				}
+			}			
+		})
+		
+		
+		
+		if (!bandera){
+			//AGREGA EL PRODUCTO A LA TABLA DE VENTA SI SE INGRESO UNA CANTIDAD
+			if (cantidad.length != 0){
+				$('<tr>',{
+					'html' : "<td id='idProducto'>"+idProducto+"</td>" +
+					"			<td id='nombreProducto'>"+nombre+"</td>" +
+					"			<td id='presentacionProducto'>"+presentacion+"</td>" +
+					"			<td>"+precio+"</td>" +
+					"			<td>"+cantidad+"</td>" +
+					"			<td class='col-sm-3 col-lg-2'>" +
+					"				<div class='input-group'>" +
+					"					<a class='btn btn-info btnEliminarProductoVenta' href='\'>Quitar</a>" +
+					"				</div>" +
+					"			</td>"
+					}).appendTo(".tablaVentaActual > tbody");
+				
+				//var subtotal = $(document.getElementById('subtotal'));
+				//subtotal.val() += (precio*cantidad);
+			}else{
+				alert("Para agregar un producto debes ingresar la cantidad");
+			}
+		}
 	}
 
 
@@ -417,22 +454,32 @@ $(document).ready(function() {
 		buscarProductosVenta($('#inputProducto').val());
 	});
 	
+	//DETECTO EL CLICK EN BUSCAR PRODUCTOS
 	$(document).on('click','.btnAgregarProductoVenta',function(e){
 		e.preventDefault();
-		alert("agregar");
-		/*
-		var nombreProducto = $(this).parent().parent().parent().find('#nombreProducto').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
-		var opcion = confirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
-		if (opcion){
-			var fila =$(this).parent().parent().parent()
-			var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
-			var data={idProducto : idProducto};
-			$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
-				//alert(res);    //Muestra la respuesta de ejecutar EliminarProducto
-				fila.remove();
-			});
-		}*/
+		
+		var fila =$(this).parent().parent().parent()
+		
+		var idAgregar = fila.find('#idProducto').text();
+		var nombreAgregar = fila.find('#nombreProducto').text();
+		var presentacionAgregar = fila.find('#presentacionProducto').text();
+		var cantidadAgregar = fila.find('#cantidad').val();
+		var precioAgregar = fila.find('#precioProducto').text();
+
+		// Mostrar todos los campos
+		//alert("id: "+idAgregar+" \n nombre: "+nombreAgregar+" \n presentacion: "+presentacionAgregar+" \n cantidad: "+cantidadAgregar+" \n precio: "+precioAgregar)
+		
+		agregarProductoVenta(idAgregar,nombreAgregar,presentacionAgregar,precioAgregar,cantidadAgregar);
+		
 	});
+	
+	//CAPTURO EL CLICK EN QUITAR PRODUCTO DE LA VENTA
+	$(document).on('click','.btnEliminarProductoVenta',function(e){
+		e.preventDefault();
+		
+		var fila =$(this).parent().parent().parent()
+		fila.remove();
+		});
 	
 	
 });

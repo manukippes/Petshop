@@ -26,7 +26,7 @@
 		<br>	
 		<h4><strong>ALTA DE PRODUCTO NUEVO</strong></h4>
 		<hr>
-		<div class="container-fluid">
+		<div class="container">
 			<form class="form" action="AgregarProducto" method="post" enctype="multipart/form-data" id="form_nuevo_producto">
 	            	
 	            		

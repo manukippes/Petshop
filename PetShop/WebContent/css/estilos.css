@@ -8,9 +8,17 @@ body {
   background-color: #EEEEEE;
 }
 
-/*login */
+/* Pantalla de login */
+
 .login{
 	float: none;
+	margin-top: 3em;
+}
+
+/* Color de Todos los paneles */
+.colorPanel{
+	background-color: #F5F5F5;
+	border-radius:10px;
 }
 
 /* Color de fondo del navbar*/

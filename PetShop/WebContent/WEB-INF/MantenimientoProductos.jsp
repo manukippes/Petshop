@@ -21,7 +21,8 @@
 <body onload="iniciar('administracion');">
 	<jsp:include page="Navbar.jsp" />
 	
-	<div class="container">
+	<div class="container panel panel-default colorPanel">
+	 <div class="panel-body">">
 		<br>
 		<br>	
 		<h4><strong>M&Oacute;DULO DE MANTENIMIENTO DE PRODUCTOS</strong></h4>
@@ -124,5 +125,6 @@
 			<!-- <script src="js/bootstrap.min.js"></script> -->
 			
 		</div>
+	  </div>
 	</body>
 </html>

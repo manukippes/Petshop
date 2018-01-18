@@ -17,7 +17,8 @@
 <body onload="iniciar('ventas');">
 	<jsp:include page="Navbar.jsp" />
 	
-	<div class="container">
+	<div class="container panel panel-default colorPanel">
+	 <div class="panel-body">">
 		<br>
 		<br>
 		<h4><strong>Nueva venta</strong> - Paso 1 de 2</h4>
@@ -139,6 +140,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
 		<!-- <script src="js/bootstrap.min.js"></script> -->
+	  </div>
 	</div>
 </body>
 </html>

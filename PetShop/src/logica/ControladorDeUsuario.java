@@ -8,6 +8,7 @@ import datos.DatosUsuario;
 
 public class ControladorDeUsuario implements Serializable{
 	private DatosUsuario baseUsuario = new DatosUsuario();
+	
 	public Usuario recuperarUsuario(Usuario user) throws Exception
 	{
 		Usuario usuario = new Usuario();
@@ -22,5 +23,16 @@ public class ControladorDeUsuario implements Serializable{
 		}
 		return usuario;
 	}
-
+	
+	public void agregarUsuario(Usuario user) throws Exception{
+		baseUsuario.agregarUsuario(user);
+	}
+	
+	public void modificarUsuario(Usuario user) throws Exception{
+		baseUsuario.modificarUsuario(user);
+	}
+	
+	public void eliminarUsuario(Usuario user) throws Exception{
+		baseUsuario.eliminarUsuario(user);
+	}
 }

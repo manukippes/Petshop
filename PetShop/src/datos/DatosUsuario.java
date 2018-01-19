@@ -146,4 +146,29 @@ public class DatosUsuario implements Serializable{
 		
 		return usuario;
 	}
+	
+	public void eliminarUsuario(Usuario user) throws Exception{
+		 PreparedStatement ps = null;
+		 ResultSet rs = null;
+		 try {
+			ps = FactoryConnection.getinstancia().getConn().prepareStatement("DELETE FROM usuario WHERE idUsuario = ?");
+			ps.setInt(1, user.getIdUsuario());
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			throw new ExcepcionEspecial(e, "No es posible eliminar el usuario", Level.ERROR);
+			
+		}
+		 catch (Exception e) {
+			 throw e;
+		}
+		 
+		try {
+			if(ps!=null)ps.close();
+			if(rs!=null)ps.close();
+			FactoryConnection.getinstancia().releaseConn();	
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
 }

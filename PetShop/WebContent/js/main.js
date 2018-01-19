@@ -226,8 +226,6 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
 			}			
 		})
 		
-		
-		
 		if (!bandera){
 			//AGREGA EL PRODUCTO A LA TABLA DE VENTA SI SE INGRESO UNA CANTIDAD
 			if (cantidad.length != 0){
@@ -235,25 +233,27 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
 					'html' : "<td id='idProducto'>"+idProducto+"</td>" +
 					"			<td id='nombreProducto'>"+nombre+"</td>" +
 					"			<td id='presentacionProducto'>"+presentacion+"</td>" +
-					"			<td>"+precio+"</td>" +
-					"			<td>"+cantidad+"</td>" +
+					"			<td id='precioProducto'>"+precio+"</td>" +
+					"			<td id='cantidadProducto'>"+cantidad+"</td>" +
 					"			<td class='col-sm-3 col-lg-2'>" +
 					"				<div class='input-group'>" +
-					"					<a class='btn btn-info btnEliminarProductoVenta' href='\'>Quitar</a>" +
+					"					<a class='btn btn-danger btnEliminarProductoVenta' href='\'>Quitar</a>" +
 					"				</div>" +
 					"			</td>"
 					}).appendTo(".tablaVentaActual > tbody");
 				
-				//var subtotal = $(document.getElementById('subtotal'));
-				//subtotal.val() += (precio*cantidad);
+				
+				var subtotal = parseFloat($("#subtotal").val());
+				
+				subtotal += ((cantidad*1)*(precio*1));
+				
+				$("#subtotal").val(subtotal);
+
 			}else{
 				alert("Para agregar un producto debes ingresar la cantidad");
 			}
 		}
 	}
-
-
-
 												//---------------
 												//JQUERY GENERAL
 												//---------------
@@ -477,11 +477,92 @@ $(document).ready(function() {
 	$(document).on('click','.btnEliminarProductoVenta',function(e){
 		e.preventDefault();
 		
+		//OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
 		var fila =$(this).parent().parent().parent()
+		//OBTENGO EL SUBTOTAL ACTUAL
+		var subtotal = parseFloat($("#subtotal").val());
+		
+		//OBTENGO PRECIO Y CANTIDAD DEL PRODUCTO A BORRAR
+		var precio = fila.find("#precioProducto").text();
+		var cantidad = fila.find("#cantidadProducto").text();
+		
+		//RESTO AL SUBTOTAL EL IMPORTE CALCULADO
+		subtotal -= ((precio*1)*(cantidad*1));
+		
+		$("#subtotal").val(subtotal);
+		
 		fila.remove();
 		});
 	
+	//CAPTURO EL CLICK EN CONTINUAR (VENTA PASO 1)
+	$(document).on('click','#btnContinuar',function(e){
+		e.preventDefault();
+		
 	
+		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		if (filas.length == 1){
+			alert("No seleccionaste ningun producto");
+		}else{
+			var arregloProductos = [];
+			$.each(filas,function(i,fila){
+				if(i>0){
+					//OBTENGO DE CADA ARTICULO EL ID Y LA CANTIDAD A COMPRAR
+					var idProducto = fila.cells[0].innerHTML;
+					var cantidad = fila.cells[4].innerHTML;
+					var elemento = {idProducto,cantidad};
+					arregloProductos.push(elemento); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
+					}
+				})
+			var parametro = JSON.stringify(arregloProductos);
+			
+				alert(parametro);
+			$.ajax({
+				type : "post",
+				url : "CargarProductosVenta",
+				data : {jsonData : parametro},
+				success : function(respuesta){
+					//alert(respuesta);
+					$(location).attr('href',"VentasPaso2");
+					
+				}
+					
+				})
+			}
+		 })
+		 
+	//CAPTURO EL CAMBIO DEL COMBO DE MEDIO DE PAGO
+		 
+	$("select[name=medioPago]").change(function(){
+		
+		var idMedioPago = $('#medioPago').val();
+		
+		switch(idMedioPago){
+		
+		case "seleccione un medio":
+			$('#tarjeta').prop('disabled',true);
+			break;
+		case "1":
+			$('#tarjeta').prop('disabled',true);
+			break;
+		case "2":
+			$('#tarjeta').prop('disabled',false);
+			break;
+		case "3":
+			$('#tarjeta').prop('disabled',false);
+			break;
+				
+		}
+			/*var parametro = {idCategoria : idCategoria };
+			if(idCategoria!="categoria"){
+				$.post("ComboSubcategoria",$.param(parametro),function(responseJson){
+					$('#subcategoria').empty();
+					$('#subcategoria').append($('<option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>'));
+					$.each(responseJson,function(index, subcat){
+						$('#subcategoria').append($('<option value="'+subcat.idSubcategoria+'">'+subcat.nombre+'</option>'));
+					});
+				});	
+			}
+		
+		*/
+	});
 });
-
-

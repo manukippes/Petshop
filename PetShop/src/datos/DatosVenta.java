@@ -3,14 +3,27 @@ package datos;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
+import entidades.Categoria;
+import entidades.MedioPago;
+import entidades.Producto;
+import entidades.Subcategoria;
+import entidades.Tarjeta;
 import entidades.Venta;
+import logica.ControladorDeVenta;
+import utilidades.ExcepcionEspecial;
 
 public class DatosVenta implements Serializable{
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR VENTA
 	//						MODIFICAR VENTA
+	//						GET TARJETA
+	//						GET MEDIO DE PAGO (COMPLETAR DATOS)
+	//						GET MEDIOS DE PAGO
 	
 	public void agregarVenta (Venta venta) throws Exception
 	{
@@ -83,4 +96,117 @@ public class DatosVenta implements Serializable{
 		}
 		
 	}
+	public Tarjeta getTarjeta(Tarjeta tarjeta)throws Exception{
+			
+			PreparedStatement pstm = null;
+			ResultSet rs = null;
+			Tarjeta tarjetaActual = new Tarjeta();
+			ControladorDeVenta ctrlVenta = new ControladorDeVenta();
+			
+			try {
+				pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+						"SELECT * FROM Tarjeta where idTarjeta =?");
+				pstm.setInt(1, tarjeta.getIdTarjeta());
+				rs=pstm.executeQuery();
+				
+				if(rs!=null)
+				{
+					while(rs.next())
+					{
+						tarjetaActual.setIdTarjeta(rs.getInt("idTarjeta"));				//SETEO ID TARJETA
+						tarjetaActual.setNombre(rs.getString("nombre"));				//SETEO NOMBRE DE LA TARJETA
+						MedioPago medioPago = new MedioPago();
+						medioPago.setIdMedioPago(rs.getInt("idMedioPago"));
+						medioPago = ctrlVenta.getMedioPago(medioPago);
+					}
+				}
+			} catch (Exception e) {
+				throw e;
+			}
+			
+			try {
+				if(rs!=null)rs.close();
+				if(pstm!=null)pstm.close();
+				FactoryConnection.getinstancia().releaseConn();
+			} 
+			catch (Exception e) {
+				throw e;
+			}
+			return tarjetaActual;
+		
+	}
+	
+	public MedioPago getMedioPago(MedioPago medioPago)throws Exception{
+		
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		MedioPago medioPagoActual = new MedioPago();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM medio_pago where idMedioPago =?");
+			pstm.setInt(1, medioPago.getIdMedioPago());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					medioPagoActual.setIdMedioPago(rs.getInt("idMedioPago"));
+					medioPagoActual.setTipo(rs.getString("tipo"));
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return medioPagoActual;
+	
+}
+	
+	public ArrayList<MedioPago> getMediosPago() throws ExcepcionEspecial, Exception{
+		
+		Statement stm=null;
+		ResultSet rs=null;
+		ArrayList<MedioPago> mediosPago = new ArrayList<MedioPago>();
+		
+		try {
+			stm = FactoryConnection.getinstancia().getConn().createStatement();
+			rs = stm.executeQuery("SELECT * FROM medio_pago");
+					
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					MedioPago medioPagoActual=new MedioPago();
+					medioPagoActual.setIdMedioPago(rs.getInt("idMedioPago"));
+					medioPagoActual.setTipo(rs.getString("tipo"));
+					
+					mediosPago.add(medioPagoActual);
+				}
+			}
+		}
+		catch (SQLException e) {
+			throw e;
+		} 
+		
+		try {
+			if(rs!=null)rs.close();
+			if(stm!=null)stm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (SQLException e) {
+			throw e;
+		}
+		
+		return mediosPago;
+	}
+
 }

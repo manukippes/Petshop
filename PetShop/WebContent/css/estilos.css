@@ -8,11 +8,19 @@ body {
   background-color: #EEEEEE;
 }
 
-/* Pantalla de login */
+/*Imagen de fondo del login*/
+.bodyLogin{
+	background-image: url("../imgs/perroGato.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size:cover;
+}
 
+/* Pantalla de login */
 .login{
 	float: none;
 	margin-top: 3em;
+	opacity:0.9;
 }
 
 /* Color de Todos los paneles */

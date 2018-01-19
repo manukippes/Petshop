@@ -11,7 +11,7 @@
     <title>Log In</title>
   </head>
 
-  <body>
+  <body class="bodyLogin">
     <div class = "container col-lg-6 login">
 		<div class="wrapper panel panel-default colorPanel">
 			<div class="panel-body">

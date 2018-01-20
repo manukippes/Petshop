@@ -618,7 +618,7 @@ $(document).ready(function() {
 $("select[name=tarjeta]").change(function(){
 		
 		var idMedioPago = $('#medioPago').val();
-		var idTarjeta ) $('#tarjeta').val();
+		var idTarjeta = $('#tarjeta').val();
 		if (idMedioPago == 3){
 			$('#cuotas').prop('disabled',false);
 			var parametro = {idTarjeta : idTarjeta};
@@ -629,8 +629,6 @@ $("select[name=tarjeta]").change(function(){
 					$('#cuotas ').append($('<option value="'+tarjeta.idTarjeta+'">'+tarjeta.nombre+'</option>'));
 				});
 			});	
-			
-			
 		}
 		});
 });

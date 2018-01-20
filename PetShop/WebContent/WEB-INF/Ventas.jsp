@@ -24,7 +24,7 @@
 			<h4><strong>NUEVA VENTA</strong> - Paso 1 de 2</h4>
 			<hr>
 			
-			<form action="VentasPaso2" method="post" class="form-horizontal"  id="formVentas">
+			<form action="#" method="post" class="form-horizontal"  id="formVentas">
 			
 				<h4>Buscar productos</h4>
 				

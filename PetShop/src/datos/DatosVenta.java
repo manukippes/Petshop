@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import entidades.Categoria;
+import entidades.Cuotas;
 import entidades.MedioPago;
 import entidades.Producto;
 import entidades.Subcategoria;
@@ -247,5 +248,45 @@ public ArrayList<Tarjeta> getTarjetas(MedioPago medioPago) throws Exception{
 		}
 		return tarjetas;
 	
-}
+	}
+public ArrayList<Cuotas> getCuotas(Tarjeta tarjeta) throws Exception{
+	
+	PreparedStatement pstm = null;
+	ResultSet rs = null;
+	ArrayList<Cuotas> cuotasTarjeta = new ArrayList<>();
+	
+	try {
+		pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+				"SELECT * FROM cuotas where idTarjeta =?");
+		pstm.setInt(1, tarjeta.getIdTarjeta());
+		rs=pstm.executeQuery();
+		
+		if(rs!=null)
+		{
+			while(rs.next())
+			{
+				Cuotas cuotaActual = new Cuotas();
+				cuotaActual.setIdCuota(rs.getInt("idCuota"));
+				cuotaActual.setCantCuotas(rs.getInt("cantCuotas"));
+				cuotaActual.setRecargo(rs.getDouble("recargo"));
+				cuotaActual.setTarjeta(tarjeta);
+				
+				cuotasTarjeta.add(cuotaActual);
+			}
+		}
+	} catch (Exception e) {
+		throw e;
+	}
+	
+	try {
+		if(rs!=null)rs.close();
+		if(pstm!=null)pstm.close();
+		FactoryConnection.getinstancia().releaseConn();
+	} 
+	catch (Exception e) {
+		throw e;
+	}
+	return cuotasTarjeta;
+
+	}
 }

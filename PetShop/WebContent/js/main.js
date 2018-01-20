@@ -620,15 +620,21 @@ $("select[name=tarjeta]").change(function(){
 		var idMedioPago = $('#medioPago').val();
 		var idTarjeta = $('#tarjeta').val();
 		if (idMedioPago == 3){
-			$('#cuotas').prop('disabled',false);
-			var parametro = {idTarjeta : idTarjeta};
-			$.post("ComboCuotas",$.param(parametro),function(responseJson){
-				$('#cuotas').empty();
-				$('#cuotas').append($('<option value="cuotas">Cantidad de cuotas</option>'));
-				$.each(responseJson,function(index, cuotas){
-					$('#cuotas ').append($('<option value="'+tarjeta.idTarjeta+'">'+tarjeta.nombre+'</option>'));
-				});
-			});	
+			if(idTarjeta!="tarjeta"){
+				$('#cuotas').prop('disabled',false);
+				var parametro = {idTarjeta : idTarjeta};
+				$.post("ComboCuotas",$.param(parametro),function(responseJson){
+					$('#cuotas').empty();
+					$('#cuotas').append($('<option value="cuotas">Cantidad de cuotas</option>'));
+					$.each(responseJson,function(index, cuotas){
+						var interes = parseFloat(cuotas.recargo) *100;
+						$('#cuotas').append($('<option value="'+cuotas.idCuota+'">'+cuotas.cantCuotas+' - Interes: '+interes+'%</option>'));
+					});
+				});	
+			}else{
+				$('#cuotas').prop('disabled',true);
+			}
+			
 		}
 		});
 });

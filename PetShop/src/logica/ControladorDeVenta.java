@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import datos.DatosVenta;
+import entidades.Cuotas;
 import entidades.MedioPago;
 import entidades.Tarjeta;
 
@@ -15,6 +16,7 @@ public class ControladorDeVenta implements Serializable{
 	// 					GET MEDIO DE PAGO (COMPLETAR LOS DATOS)
 	//					GET MEDIOS DE PAGO
 	//					GET TARJETAS (SEGUN MEDIO DE PAGO)
+	//					GET CUOTAS DE LA TARJETA
 	
 	public Tarjeta getTarjeta(Tarjeta tarjeta)throws Exception{
 		DatosVenta baseVenta = new DatosVenta();
@@ -36,5 +38,9 @@ public class ControladorDeVenta implements Serializable{
 		DatosVenta baseVenta = new DatosVenta();
 		return baseVenta.getTarjetas(medioPago);
 	}
-	
+		
+	public ArrayList<Cuotas> getCuotas(Tarjeta tarjeta) throws Exception{
+		DatosVenta baseVenta = new DatosVenta();
+		return baseVenta.getCuotas(tarjeta);
+	}
 }

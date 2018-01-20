@@ -162,12 +162,31 @@
 						</div>
 					</div>
 					<hr class="divisor">
+					<div class="input-group">
+						<h4>Seleccionar un Cliente (Opcional)</h4>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3 col-xs-12 pull-right">
+							<button class="btn btn-primary form-control" id="agregarCliente"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </button>
+						</div>
+					</div>
+					
+					<hr class="divisor">
+					<div class="input-group">
+						<h4>Observaciones</h4>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9 col-xs-12">
+							<textarea class="form-control" rows="5" id="observaciones"></textarea>
+						</div>
+					</div>
+					<hr class="divisor">
 					<div class="form-group ">
 						<div class="col-sm-3 col-xs-12 pull-right">
 							<button class="btn btn-primary form-control" id="confirmarVenta"> Finalizar </button>
 						</div>	
 						<div class="col-sm-3 col-xs-12 pull-right">
-							<button class="btn btn-default form-control" id="volverPaso1"> Volver </button>
+							<button class="btn btn-default form-control" id="volverPaso1" onclick="this.form.action='Ventas';this.form.submit();"> Volver </button>
 						</div>
 					</div>
 				</form>

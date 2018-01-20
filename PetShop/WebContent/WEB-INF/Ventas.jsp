@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="entidades.Usuario"%>
+<%@page import="entidades.Producto"%>
+<%@page import="logica.ControladorDeProducto"%>
+<%@page import="logica.ControladorDeVenta"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,6 +119,7 @@
 							</tr>
 						</thead>
 						<tbody>
+						
 				 		</tbody>
 					</table>
 				</div>

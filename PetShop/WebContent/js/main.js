@@ -571,29 +571,66 @@ $(document).ready(function() {
 		
 		case "seleccione un medio":
 			$('#tarjeta').prop('disabled',true);
+			$('#cuotasGroup').hide();
+			$('#tarjetaGroup').hide();
 			break;
 		case "1":
+			//Codigo 1 es efectivo
 			$('#tarjeta').prop('disabled',true);
+			$('#tarjetaGroup').hide();
+			$('#cuotasGroup').hide();
 			break;
 		case "2":
+			//Codigo 2 es Debito
+			$('#tarjetaGroup').removeClass("hidden");
+			$('#tarjetaGroup').show();
+			$('#cuotasGroup').hide();
 			$('#tarjeta').prop('disabled',false);
+			
+			var parametro = {idMedioPago : idMedioPago};
+			$.post("ComboTarjetas",$.param(parametro),function(responseJson){
+				$('#tarjeta').empty();
+				$('#tarjeta').append($('<option value="tarjeta">Seleccion&aacute; una tarjeta</option>'));
+				$.each(responseJson,function(index, tarjeta){
+					$('#tarjeta').append($('<option value="'+tarjeta.idTarjeta+'">'+tarjeta.nombre+'</option>'));
+				});
+			});	
 			break;
 		case "3":
+			//Codigo 3 es Credito
+			$('#tarjetaGroup').removeClass("hidden");
+			$('#cuotasGroup').removeClass("hidden");
+			$('#tarjetaGroup').show();
+			$('#cuotasGroup').show();
 			$('#tarjeta').prop('disabled',false);
-			break;
-				
+			var parametro = {idMedioPago : idMedioPago};
+			$.post("ComboTarjetas",$.param(parametro),function(responseJson){
+				$('#tarjeta').empty();
+				$('#tarjeta').append($('<option value="tarjeta">Seleccion&aacute; una tarjeta</option>'));
+				$.each(responseJson,function(index, tarjeta){
+					$('#tarjeta').append($('<option value="'+tarjeta.idTarjeta+'">'+tarjeta.nombre+'</option>'));
+				});
+			});	
+			break;		
 		}
-			/*var parametro = {idCategoria : idCategoria };
-			if(idCategoria!="categoria"){
-				$.post("ComboSubcategoria",$.param(parametro),function(responseJson){
-					$('#subcategoria').empty();
-					$('#subcategoria').append($('<option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>'));
-					$.each(responseJson,function(index, subcat){
-						$('#subcategoria').append($('<option value="'+subcat.idSubcategoria+'">'+subcat.nombre+'</option>'));
-					});
-				});	
-			}
-		
-		*/
 	});
+	//CAPTURO LA TARJETA DE CREDITO QUE SE SELECCIONO
+$("select[name=tarjeta]").change(function(){
+		
+		var idMedioPago = $('#medioPago').val();
+		var idTarjeta ) $('#tarjeta').val();
+		if (idMedioPago == 3){
+			$('#cuotas').prop('disabled',false);
+			var parametro = {idTarjeta : idTarjeta};
+			$.post("ComboCuotas",$.param(parametro),function(responseJson){
+				$('#cuotas').empty();
+				$('#cuotas').append($('<option value="cuotas">Cantidad de cuotas</option>'));
+				$.each(responseJson,function(index, cuotas){
+					$('#cuotas ').append($('<option value="'+tarjeta.idTarjeta+'">'+tarjeta.nombre+'</option>'));
+				});
+			});	
+			
+			
+		}
+		});
 });

@@ -14,6 +14,7 @@ public class ControladorDeVenta implements Serializable{
 	//					GET TARJETA
 	// 					GET MEDIO DE PAGO (COMPLETAR LOS DATOS)
 	//					GET MEDIOS DE PAGO
+	//					GET TARJETAS (SEGUN MEDIO DE PAGO)
 	
 	public Tarjeta getTarjeta(Tarjeta tarjeta)throws Exception{
 		DatosVenta baseVenta = new DatosVenta();
@@ -29,6 +30,11 @@ public class ControladorDeVenta implements Serializable{
 	public ArrayList<MedioPago> getMediosPago() throws Exception{
 		DatosVenta baseVenta = new DatosVenta();
 		return baseVenta.getMediosPago();
+	}
+	
+	public ArrayList<Tarjeta> getTarjetas(MedioPago medioPago) throws Exception{
+		DatosVenta baseVenta = new DatosVenta();
+		return baseVenta.getTarjetas(medioPago);
 	}
 	
 }

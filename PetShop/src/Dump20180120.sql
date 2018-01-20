@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categoria` (
-  `idCategoria` int(11) NOT NULL,
+  `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idCategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `cuotas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cuotas` (
-  `idCuota` int(11) NOT NULL,
+  `idCuota` int(11) NOT NULL AUTO_INCREMENT,
   `idTarjeta` int(11) NOT NULL,
   `cantCuotas` int(11) DEFAULT NULL,
   `recargo` double DEFAULT NULL,
@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS `linea_venta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `linea_venta` (
-  `idLineaVenta` int(11) NOT NULL,
+  `idLineaVenta` int(11) NOT NULL AUTO_INCREMENT,
   `idVenta` int(11) DEFAULT NULL,
   `idProducto` int(11) DEFAULT NULL,
   `idTMascServ` int(11) DEFAULT NULL,
@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `mascota`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mascota` (
-  `idMascota` int(11) NOT NULL,
+  `idMascota` int(11) NOT NULL AUTO_INCREMENT,
   `idUsuario` int(11) NOT NULL,
   `idTipoMascota` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
@@ -140,13 +140,10 @@ DROP TABLE IF EXISTS `medio_pago`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `medio_pago` (
-  `idMedioPago` int(11) NOT NULL,
-  `idTarjeta` int(11) DEFAULT NULL,
+  `idMedioPago` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idMedioPago`),
-  KEY `idTarjeta_fk_idx` (`idTarjeta`),
-  CONSTRAINT `idTarjeta_fk` FOREIGN KEY (`idTarjeta`) REFERENCES `tarjeta` (`idTarjeta`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idMedioPago`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,6 +152,7 @@ CREATE TABLE `medio_pago` (
 
 LOCK TABLES `medio_pago` WRITE;
 /*!40000 ALTER TABLE `medio_pago` DISABLE KEYS */;
+INSERT INTO `medio_pago` VALUES (1,'Efectivo'),(2,'Debito'),(3,'Credito');
 /*!40000 ALTER TABLE `medio_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,10 +171,10 @@ CREATE TABLE `producto` (
   `stockMinimo` int(11) DEFAULT NULL,
   `presentacion` varchar(45) DEFAULT NULL,
   `precio` double DEFAULT NULL,
-  `imagen` varchar(45) DEFAULT NULL,
+  `imagen` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`idProducto`),
   KEY `idSubCategoria_idx` (`idSubCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +183,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (3,1,'Shampoo',NULL,10,'2 litros',56.9900016784668,'img/productos/all_glyphicons.jpg'),(4,1,'Shampoo',NULL,10,'2 litros',56.9900016784668,'img/productos/all_glyphicons.jpg'),(5,1,'Eukanuba Premium',NULL,2,'Bolsa 20Kg',1300,'img/productos/all_glyphicons.jpg'),(6,3,'1111|1',NULL,1,'1111',1,'img/productos/all_glyphicons - copia.jpg');
+INSERT INTO `producto` VALUES (11,5,'Correa',56,2,'1,5 Metros',156.5500030517578,'imgs/productos/all_glyphicons adsdasdllaksjdklasldasdasd.jpg'),(24,4,'Abrigo Estampado',6,1,'Perro Chico',15.15,'imgs/productos/all_glyphicons.jpg'),(25,9,'Abrigo Estampado',0,1,'Perro Chico Chico',349.99,'imgs/productos/all_glyphicons.jpg'),(26,3,'Abrigo Estampado',0,1,'Perro Chico',299.989990234375,'imgs/productos/all_glyphicons - copia.jpg'),(28,3,'Correa',56,2,'1,5 Metros',156.5500030517578,'imgs/productos/all_glyphicons - copia.jpg'),(29,3,'Correa',56,2,'1,5 Metros',156.55,'imgs/productos/all_glyphicons - copia.jpg'),(30,1,'Correa Magica',56,2,'1,5 Metros',156.5500030517578,'imgs/productos/all_glyphicons - copia.jpg'),(31,2,'Eukanuba Plus',5,1,'22 Kilogramos',10,'imgs/productos/all_glyphicons - copia.jpg'),(32,2,'Eukanuba Plus',5,1,'22 Kilogramos',2605,'imgs/productos/all_glyphicons - copia.jpg'),(33,2,'Abrigo Estampado',6,1,'Perro Chico',15.15,'imgs/productos/all_glyphicons.jpg'),(34,5,'Pipetua',1,0,'55ml',120,'imgs/productos/all_glyphicons - copia.jpg'),(35,5,'1111',1,0,'1111',123.5,'imgs/productos/all_glyphicons - copia.jpg');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +195,7 @@ DROP TABLE IF EXISTS `senia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `senia` (
-  `idsenia` int(11) NOT NULL,
+  `idsenia` int(11) NOT NULL AUTO_INCREMENT,
   `idLineaVenta` int(11) DEFAULT NULL,
   `idVenta` int(11) DEFAULT NULL,
   `monto` double DEFAULT NULL,
@@ -226,7 +224,7 @@ DROP TABLE IF EXISTS `servicio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `servicio` (
-  `idServicio` int(11) NOT NULL,
+  `idServicio` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idServicio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -249,13 +247,13 @@ DROP TABLE IF EXISTS `subcategoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `subcategoria` (
-  `idSubCategoria` int(11) NOT NULL,
+  `idSubCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `idCategoria` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idSubCategoria`),
   KEY `idCategoria_idx` (`idCategoria`),
   CONSTRAINT `idCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +262,7 @@ CREATE TABLE `subcategoria` (
 
 LOCK TABLES `subcategoria` WRITE;
 /*!40000 ALTER TABLE `subcategoria` DISABLE KEYS */;
-INSERT INTO `subcategoria` VALUES (1,3,'Shampoo'),(2,3,'Acondicionador'),(3,5,'Correa Extensible');
+INSERT INTO `subcategoria` VALUES (1,3,'Shampoo'),(2,3,'Acondicionador'),(3,5,'Correa Extensible'),(4,1,'Perro Adulto'),(5,2,'Pipeta'),(6,2,'Pastilla'),(7,5,'Colchon'),(8,5,'Juguete'),(9,5,'Abrigo');
 /*!40000 ALTER TABLE `subcategoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,11 +274,13 @@ DROP TABLE IF EXISTS `tarjeta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tarjeta` (
-  `idTarjeta` int(11) NOT NULL,
+  `idTarjeta` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
+  `idMedioPago` int(11) NOT NULL,
   PRIMARY KEY (`idTarjeta`),
-  UNIQUE KEY `idTarjeta_UNIQUE` (`idTarjeta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `idMedioPago_idx` (`idMedioPago`),
+  CONSTRAINT `idMedioPago_idx` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pago` (`idMedioPago`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,6 +289,7 @@ CREATE TABLE `tarjeta` (
 
 LOCK TABLES `tarjeta` WRITE;
 /*!40000 ALTER TABLE `tarjeta` DISABLE KEYS */;
+INSERT INTO `tarjeta` VALUES (1,'Maestro / LINK',2),(2,'VISA Electron / Banelco',2),(3,'Nativa Mastercard',3),(4,'Naranja',3),(5,'CMR',3);
 /*!40000 ALTER TABLE `tarjeta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +301,7 @@ DROP TABLE IF EXISTS `tipo_mascota`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tipo_mascota` (
-  `idTipoMascota` int(11) NOT NULL,
+  `idTipoMascota` int(11) NOT NULL AUTO_INCREMENT,
   `pelo` varchar(20) DEFAULT NULL,
   `tamanio` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`idTipoMascota`)
@@ -324,7 +325,7 @@ DROP TABLE IF EXISTS `tipo_mascota_servicio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tipo_mascota_servicio` (
-  `idTMascServ` int(11) NOT NULL,
+  `idTMascServ` int(11) NOT NULL AUTO_INCREMENT,
   `idServicio` int(11) DEFAULT NULL,
   `idTipoMascota` int(11) DEFAULT NULL,
   `tiempo` time DEFAULT NULL,
@@ -355,7 +356,7 @@ DROP TABLE IF EXISTS `turno`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `turno` (
-  `idTurno` int(11) NOT NULL,
+  `idTurno` int(11) NOT NULL AUTO_INCREMENT,
   `idMascota` int(11) NOT NULL,
   `idServicio` int(11) NOT NULL,
   `fecha` date DEFAULT NULL,
@@ -388,7 +389,7 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
-  `idUsuario` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `usuarioLogin` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `nombre` varchar(30) NOT NULL,
@@ -402,7 +403,7 @@ CREATE TABLE `usuario` (
   `legajo` int(11) DEFAULT NULL,
   `tipoEmpleado` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -423,7 +424,7 @@ DROP TABLE IF EXISTS `venta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `venta` (
-  `idVenta` int(11) NOT NULL,
+  `idVenta` int(11) NOT NULL AUTO_INCREMENT,
   `idUsuario` int(11) NOT NULL,
   `idMedioPago` int(11) DEFAULT NULL,
   `total` double DEFAULT NULL,
@@ -466,4 +467,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-09 23:34:33
+-- Dump completed on 2018-01-20 11:37:02

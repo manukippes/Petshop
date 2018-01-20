@@ -129,7 +129,7 @@
 					</div>
 					<div class="form-group row">
 	            		<!-- Combobox de Medio de pago -->
-		    			<div class=" selectContainer col-md-6 col-sm-12"id="medioPagoGroup">
+		    			<div class=" selectContainer col-md-4 col-sm-12"id="medioPagoGroup">
 		    				<label class="sr-only">Medio de pago</label>
 						    <small id="medioPagoHelp" class="form-text text-muted">Seleccion&aacute; un medio de pago.</small>
 						    <select class="form-control" name="medioPago" id="medioPago" aria-describedby="medioPagoHelp" required>
@@ -145,10 +145,18 @@
 						    </select>
 						</div>
 						<!-- Combobox de Tarjeta -->
-		    			<div class=" selectContainer col-md-6 col-sm-12"id="tarjetaGroup">
+		    			<div class=" selectContainer col-md-4 col-sm-12 hidden" id="tarjetaGroup">
 		    				<label class="sr-only">Tarjeta</label>
 						    <small id="tarjetaPagoHelp" class="form-text text-muted">Seleccion&aacute; una tarjeta.</small>
 						    <select class="form-control" name="tarjeta" id="tarjeta" aria-describedby="tarjetaHelp" required disabled>
+						    
+						    </select>
+						</div>
+						<!-- Combobox de -cuotas -->
+		    			<div class=" selectContainer col-md-2 col-sm-12 hidden" id="cuotasGroup">
+		    				<label class="sr-only">Cuotas</label>
+						    <small id="cuotasHelp" class="form-text text-muted">Cantidad de Cuotas</small>
+						    <select class="form-control" name="cuotas" id="cuotas" aria-describedby="cuotasHelp" required disabled>
 						    	
 						    </select>
 						</div>
@@ -156,11 +164,11 @@
 					<hr class="divisor">
 					<div class="form-group ">
 						<div class="col-sm-3 col-xs-12 pull-right">
-							<button class="btn btn-primary form-control" id="volverPaso1"> Volver </button>
-						</div>
-						<div class="col-sm-3 col-xs-12 pull-right">
-							<button class="btn btn-default form-control" id="confirmarVenta"> Finalizar </button>
+							<button class="btn btn-primary form-control" id="confirmarVenta"> Finalizar </button>
 						</div>	
+						<div class="col-sm-3 col-xs-12 pull-right">
+							<button class="btn btn-default form-control" id="volverPaso1"> Volver </button>
+						</div>
 					</div>
 				</form>
 			</div>

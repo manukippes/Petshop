@@ -209,4 +209,43 @@ public class DatosVenta implements Serializable{
 		return mediosPago;
 	}
 
+public ArrayList<Tarjeta> getTarjetas(MedioPago medioPago) throws Exception{
+		
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		ArrayList<Tarjeta> tarjetas = new ArrayList<>();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM tarjeta where idMedioPago =?");
+			pstm.setInt(1, medioPago.getIdMedioPago());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					Tarjeta tarjetaActual = new Tarjeta();
+					tarjetaActual.setIdTarjeta(rs.getInt("idTarjeta"));
+					tarjetaActual.setNombre(rs.getString("nombre"));
+					tarjetaActual.setMedioPago(medioPago);
+					
+					tarjetas.add(tarjetaActual);
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return tarjetas;
+	
+}
 }

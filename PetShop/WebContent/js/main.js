@@ -5,6 +5,7 @@
 											//FUNCIONES GENERALES A TODOS LOS JSP
 											//-----------------------------------
 
+ 
 function iniciar(parametro){
     		switch(parametro){
     		case 'administracion':
@@ -615,7 +616,7 @@ $(document).ready(function() {
 		}
 	});
 	//CAPTURO LA TARJETA DE CREDITO QUE SE SELECCIONO
-$("select[name=tarjeta]").change(function(){
+	$("select[name=tarjeta]").change(function(){
 		
 		var idMedioPago = $('#medioPago').val();
 		var idTarjeta = $('#tarjeta').val();
@@ -636,5 +637,132 @@ $("select[name=tarjeta]").change(function(){
 			}
 			
 		}
-		});
+	})	
+	
+	
+	
+//CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL
+	$(this).on("click", "#btnBuscarCliente", function(e){
+        e.preventDefault();
+    	
+    	var inputCliente = $('#inputCliente').val();
+    	var parametro = {inputCliente : inputCliente};
+    	$.post("ComboClientes",$.param(parametro),function(responseJson){
+    		$('#cliente').empty();
+    		$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
+    		$.each(responseJson,function(index, usuarios){
+    			$('#cliente').append($('<option value="'+usuarios.idUsuario+'">'+usuarios.apellido+', '+usuarios.nombre+'</option>'));
+    		});
+    	});
+    }); 
+	
+	
+	$(this).on("click", "#btnAgregarClienteSeleccionado", function(e){
+        e.preventDefault();
+        if($('#cliente').val() == "seleccione un cliente"){
+			alert("no seleccionaste nada");
+		}else{
+			$('#buscarCliente').modal('toggle');
+	        $('#btnQuitarClienteVenta').removeClass("hidden");
+	        $('#btnQuitarClienteVenta').show();
+	        $('#btnAgregarClienteVenta').hide();
+	        $('#btnQuitarClienteVenta').add();
+	        $('#tablaClienteSeleccionado').removeClass("hidden");
+	        
+	        var idCliente = $('#cliente').val();
+	        
+	        parametro = {idCliente : idCliente};
+	        $.post("ObtenerCliente",$.param(parametro),function(responseJson){
+				$.each(responseJson,function(index, cliente){
+					$('#idUsuario').val(cliente.idUsuario); 			
+			        $('#nombreApellidoCliente').text(cliente.nombre+", "+cliente.apellido);
+			        $('#telefonoCliente').text(cliente.telefono);
+			        $('#direccionCliente').text(cliente.direccion);
+				});
+			});	   
+		}
+    }); 
+	
+	
+	$(this).on("click", "#btnQuitarClienteVenta", function(e){
+        e.preventDefault();
+        
+        $('#btnQuitarClienteVenta').addClass("hidden");
+        $('#btnQuitarClienteVenta').hide();
+        $('#btnAgregarClienteVenta').show();
+        $('#tablaClienteSeleccionado').addClass("hidden");
+        $('#idUsuario').val("");								//borro el id del usuario
+        $('#nombreApellidoCliente').text("");
+        $('#telefonoCliente').text("");
+        $('#direccionCliente').text("");
+    	
+    }); 
+	
+	//COMBO CATEGORIA DE PANEL MODAL DE LISTADO DE PRODUCTOS
+	$(this).on("change", "#categoria", function(e){
+        e.preventDefault();
+        var idCategoria = $('#categoria').val();
+		var parametro = {idCategoria : idCategoria };
+		if(idCategoria!="categoria"){
+			
+			$.post("ComboSubcategoria",$.param(parametro),function(responseJson){
+				$('#subcategoria').empty();
+				$('#subcategoria').append($('<option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>'));
+				$('#subcategoria').prop("disabled",false);
+				$.each(responseJson,function(index, subcat){
+					$('#subcategoria').append($('<option value="'+subcat.idSubcategoria+'">'+subcat.nombre+'</option>'));
+				});
+			});	
+		}else{
+			$('#subcategoria').attr('disabled',true);
+			$('#subcategoria').empty();
+			$('#subcategoria').append($('<option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>'));
+		}    	
+    }); 
+	
+	$(this).on("change", "#subcategoria", function(e){
+        e.preventDefault();
+        var idSubcategoria = $('#subcategoria').val();
+        if ($('#soloStock').is(":checked")){
+        	var soloStock = true;
+        }else{
+        	var soloStock = false;
+        }
+        alert(soloStock);
+		var parametro = {idSubcategoria : idSubcategoria,
+						soloStock : soloStock
+						};
+		$.post("ProductosSubcategoria",$.param(parametro),function(responseJson){
+			$.each(responseJson,function(index, productos){
+				$('<tr>',{
+					'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
+					"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
+					"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
+					"			<td id='precioProducto'>"+productos.precio+"</td>" +
+					"			<td>" +
+					"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
+					"			</td>" +
+					"			<td class='col-sm-3 col-lg-2'>" +
+					"				<div class='input-group'>" +
+					"					<a class='btn btn-info btnAgregarProductoVenta' href='\'>Agregar</a>" +
+					"				</div>" +
+					"			</td>"
+					}).appendTo('#tablaAgregarProducto > tbody');
+				
+				})
+			})
+		})
+/*
+		$('#tablaAgregarProducto > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
+		$('#tablaAgregarProducto > tbody').html("<tr>" +
+				"<td>lista</td>" +
+				"<td>campo2</td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"</tr>");
+		
+		*/
 });
+

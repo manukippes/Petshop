@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="entidades.Usuario"%>
 <%@page import="entidades.Producto"%>
+<%@page import="entidades.Categoria"%>
 <%@page import="logica.ControladorDeProducto"%>
 <%@page import="logica.ControladorDeVenta"%>
 <%@page import="java.util.ArrayList"%>
@@ -41,7 +42,8 @@
 						<button class="btn btn-primary form-control" id="buscarProductosVenta"> <span class="glyphicon glyphicon-search" ></span> Buscar </button>
 					</div>
 					<div class="col-sm-3 col-xs-12 ">
-						<button class="btn btn-default form-control" onclick = "this.form.action = 'listadoProductos';  this.form.submit();" > Listado <span class="glyphicon glyphicon-th-list"></span> </button>
+						<a href="#listadoProductos" class="btn btn-default form-control" data-toggle="modal"> Listado <span class="glyphicon glyphicon-th-list"></span> </a>
+					
 					</div>		
 				</div>
 				<hr>
@@ -63,6 +65,7 @@
 								<th id="presentacionProducto">
 									<label class="sr-only">Presentacion</label>
 									<span>Presentaci&oacute;n</span>
+								</th>
 								<th>
 									<label class="sr-only">Precio</label>
 									<span>Precio</span>	
@@ -134,6 +137,97 @@
 					</div>
 				</div>
 				
+				<!-- PANEL MODAL DE LISTADO DE PRODUCTOS -->
+					<div class="modal fade" id="listadoProductos">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<strong>LISTADO GENERAL DE PRODUCTOS</strong>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									
+									<div class="container-fluid">
+										<div class="selectContainer col-xs-12 col-sm-8" id="categoriaGroup">
+						    				<label class="sr-only">Selecciona una categoria</label>
+										    <select class="form-control" name="categoriaSeleccionada" id="categoria" aria-describedby="categoriaHelp" required>
+										    	<option value="categoria">Seleccion&aacute; una categor&iacute;a</option>
+										    	<% ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+										    		ArrayList<Categoria> categorias = ctrlProducto.getCategorias();
+										    		for(Categoria cate : categorias){
+										    			%>
+										    			
+										    			<option value="<%= cate.getIdCategoria()%>"><%=cate.getNombre()%></option>			    			
+											   			
+											   			<%
+											    		}
+												    	%>
+										    </select>
+										</div>
+										<br>
+										<br>
+										<div class="selectContainer col-xs-12 col-sm-8" id="subcategoriaGroup">
+						    				<label class="sr-only">Selecciona una subcategoria</label>
+										    <select class="form-control" name="subcategoriaSeleccionada" id="subcategoria" aria-describedby="subcategoriaHelp" disabled>
+										    	<option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>
+										    </select>
+										</div>
+										<div class="col-xs-12 checkbox">
+											<input type="checkbox" id="soloStock" >Mostrar solo productos con stock</input>
+										</div>								
+									</div>
+									<br>
+
+									<div class="table-responsive">
+										<table id="tablaAgregarProducto" class="table table-striped table-hover tablaAgregarProducto">
+											<thead>
+												<tr class="active">
+													<th>
+														<div class="idProducto">
+															<label class="sr-only">Id Producto</label>
+															<span>Id Producto</span>
+														</div>
+													</th>
+													<th id="nombreProducto">
+														<label class="sr-only">Nombre de Producto</label>
+														<span>Nombre</span>
+													</th>
+													<th id="presentacionProducto">
+														<label class="sr-only">Presentacion</label>
+														<span>Presentaci&oacute;n</span>
+													</th>
+													<th>
+														<label class="sr-only">Precio</label>
+														<span>Precio</span>	
+													</th>
+													<th>
+														<label class="sr-only">Cantidad</label>
+														<span>Cantidad</span>				
+													</th>
+													<th> 
+														<div class="'col-sm-3 col-lg-2 input-group">
+															<span>Eliminar </span>
+														</div>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												
+									 		</tbody>
+										</table>
+									</div>
+									<div class="container-fluid">
+									<br>
+										<div class="col-xs-12 col-sm-4">
+											<button class="btn btn-primary" id="btnAgregarProductoListado"><span class="glyphicon glyphicon-plus"></span> Agregar a la Venta</button>
+										</div>								
+									</div>
+									
+									<br>
+								</div>								
+							</div>
+						</div>
+					</div>
 				
 				<div class="form-group col-sm-3 col-xs-12 pull-right">
 					<button class="btn btn-primary btn-lg btn-group-justified" type="submit" id="btnContinuar"> Continuar </button>

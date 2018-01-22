@@ -28,6 +28,7 @@ public class DatosProducto implements Serializable{
 	//						OBTENER LAS SUBCATEGORIAS DE UNA CATEGORIA
 	// 						OBTENER PRODUCTOS FILTRADOS SEGUN CRITERIOS
 	//						OBTENER PRODUCTOS SEGUN UN STRING 
+	//						OBTENER PRODUCTOS DE UNA SUBCATEGORIA CON O SIN STOCK
 	
 	public Boolean agregarProducto (Producto producto) throws Exception
 	{
@@ -621,6 +622,65 @@ public class DatosProducto implements Serializable{
 						productoActual.setStockMinimo(rs.getInt("stockMinimo"));		//SETEO STOCK MINIMO DEL PRODUCTO
 						productoActual.setPresentacion(rs.getString("presentacion"));	//SETEO PRESENTACION DEL PRODUCTO
 						productoActual.setPrecio(rs.getDouble("precio"));				//SETEO PRECIO DEL PRODUCTO	
+						
+						productos.add(productoActual);								//AGREGO EL PRODUCTO AL ARRAYLIST
+					}
+					
+				}
+			} catch (Exception e) {
+				throw e;
+			}
+			
+			try {
+				if(rs!=null)rs.close();
+				if(pstm!=null)pstm.close();
+				FactoryConnection.getinstancia().releaseConn();
+			} 
+			catch (Exception e) {
+				throw e;
+			}
+			return productos;
+		}
+	 
+	 public ArrayList<Producto> getProductos(Subcategoria subcat, Boolean soloStock) throws Exception{
+			
+		 PreparedStatement pstm = null;
+			ResultSet rs = null;
+			ArrayList<Producto> productos= new ArrayList<Producto>();
+			ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+			
+			try {
+				if (soloStock){
+					pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+							"SELECT * FROM PRODUCTO where idSubcategoria = ? and stock > '0'");
+					pstm.setInt(1, subcat.getIdSubCategoria());
+				}else{
+					pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+							"SELECT * FROM PRODUCTO where idSubcategoria = ?");
+					pstm.setInt(1, subcat.getIdSubCategoria());
+				}
+				
+				rs=pstm.executeQuery();
+				
+				if(rs!=null)
+				{
+					while(rs.next())
+					{
+						Producto productoActual= new Producto();
+						productoActual.setIdProducto(rs.getInt("idProducto"));			//SETEO ID PRODUCTO DEL PRODUCTO
+						productoActual.setNombre(rs.getString("nombre"));				//SETEO NOMBRE DEL PRODUCTO
+						productoActual.setStock(rs.getInt("stock"));					//SETEO STOCK ACTUAL DEL PRODUCTO
+						productoActual.setStockMinimo(rs.getInt("stockMinimo"));		//SETEO STOCK MINIMO DEL PRODUCTO
+						productoActual.setPresentacion(rs.getString("presentacion"));	//SETEO PRESENTACION DEL PRODUCTO
+						productoActual.setPrecio(rs.getDouble("precio"));				//SETEO PRECIO DEL PRODUCTO
+						
+						
+						//CREO LA SUBCATEGORIA
+						Subcategoria subcateg = new Subcategoria();	
+						subcateg.setIdSubCategoria(rs.getInt("idSubCategoria"));
+						subcateg = ctrlProducto.getSubcategoria(subcateg);
+						
+						productoActual.setSubcategoria(subcateg);  					//SETEO LA SUBCATEGORIA DEL PRODUCTO
 						
 						productos.add(productoActual);								//AGREGO EL PRODUCTO AL ARRAYLIST
 					}

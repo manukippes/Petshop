@@ -50,7 +50,7 @@ public class Start extends HttpServlet {
 					usuario.setPassword(pass);
 					
 					ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
-					usuario = ctrlUsuario.recuperarUsuario(usuario);
+					usuario = ctrlUsuario.obtenerUsuario(usuario);
 					
 					if(usuario.getEstado()==1){
 						request.getSession().setAttribute("user", usuario); //crea o recupera una sesion si ya esta creada	

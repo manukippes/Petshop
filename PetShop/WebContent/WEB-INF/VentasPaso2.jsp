@@ -165,19 +165,30 @@
 					<div class="input-group">
 						<h4>Seleccionar un Cliente (Opcional)</h4>
 					</div>
+					<div class="table-responsive col-sm-9 hidden" id="tablaClienteSeleccionado">
+						<table class="table table-bordered active" >
+							<tr id="idUsuario">
+								<td id="nombreApellidoCliente"></td>
+								<td id="telefonoCliente"></td>
+								<td id="direccionCliente"></td>
+							</tr>
+						</table>
+					</div>
 					<div class="form-group">
 						<div class="col-sm-3 col-xs-12 pull-right">
-							<button class="btn btn-primary form-control" id="agregarCliente"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </button>
+							<a href="#buscarCliente" class="btn btn-primary form-control" id="btnAgregarClienteVenta" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </a>
+						</div>
+						<div class="col-sm-3 col-xs-12 pull-right">
+							<a href="#quitarCliente" class="btn btn-danger form-control hidden" id="btnQuitarClienteVenta" > <span class="glyphicon glyphicon-remove "> </span><span class="glyphicon glyphicon-user"></span> Quitar Cliente </a>
 						</div>
 					</div>
-					
 					<hr class="divisor">
 					<div class="input-group">
 						<h4>Observaciones</h4>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-9 col-xs-12">
-							<textarea class="form-control" rows="5" id="observaciones"></textarea>
+							<textarea class="form-control" rows="5" id="observaciones" placeholder="Escrib&iacute; ac&aacute; los datos adicionales de ser necesarios"></textarea>
 						</div>
 					</div>
 					<hr class="divisor">
@@ -186,9 +197,48 @@
 							<button class="btn btn-primary form-control" id="confirmarVenta"> Finalizar </button>
 						</div>	
 						<div class="col-sm-3 col-xs-12 pull-right">
-							<button class="btn btn-default form-control" id="volverPaso1" onclick="this.form.action='Ventas';this.form.submit();"> Volver </button>
+							<button class="btn btn-default form-control" id="volverPaso1"> Volver </button>
 						</div>
 					</div>
+					
+				<!-- PANEL MODAL DE BUSQUEDA DE CLIENTE -->
+					<div class="modal fade" id="buscarCliente">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<strong>BUSQUEDA DE CLIENTES</strong>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="container-fluid">
+									<br>
+										<div class="col-xs-12 col-sm-8">
+											<input class="form-control" placeholder="Ingres&aacute; nombre o apellido" id="inputCliente"></input>
+										</div>
+										<div class="col-xs-12 col-sm-4">
+											<button class="btn btn-primary" id="btnBuscarCliente"><span class="glyphicon glyphicon-search"></span> Buscar</button>
+										</div>								
+									</div>
+									
+									<br>
+									<div class="container-fluid">
+										<div class="selectContainer col-xs-12 col-sm-8" id="clienteGroup">
+						    				<label class="sr-only">Seleccione un cliente</label>
+										    <select class="form-control" name="clienteSeleccionado" id="cliente" aria-describedby="clienteHelp" required>
+										    	<option value="seleccione un cliente">Seleccion&aacute; un cliente</option>
+										    </select>
+										</div>
+										<div class="col-xs-12 col-sm-4">
+											<button class="btn btn-primary" id="btnAgregarClienteSeleccionado"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </button>
+										</div>								
+									</div>
+									<br>
+									<br>
+								</div>								
+							</div>
+						</div>
+					</div>
+					
 				</form>
 			</div>
 		</div>

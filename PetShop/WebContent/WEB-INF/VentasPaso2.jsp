@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="css/estilos.css" type="text/css">
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/ventas.js"></script>
 		
 		<title>Sistema de Gestion de Pet Shops</title>
 	</head>
@@ -80,32 +81,12 @@
 									total += prod.getPrecio()*cantidad;
 								%>
 								<tr class="">
-									<td>
-										<div class="idProducto">
-											<label class="sr-only">Id Producto</label>
-											<span><%=prod.getIdProducto() %></span>
-										</div>
-									</td>
-									<td id="nombreProducto">
-										<label class="sr-only">Nombre de Producto</label>
-										<span><%=prod.getNombre() %></span>
-									</td>
-									<td id="presentacionProducto">
-										<label class="sr-only">Presentacion</label>
-										<span><%=prod.getPresentacion() %></span>
-									<td>
-										<label class="sr-only">Precio</label>
-										<span><%=prod.getPrecio() %></span>	
-									</td>
-									<td>
-										<label class="sr-only">Cantidad</label>
-										<span><%=producto.get(1) %> </span>				
-									</td>
-									<td> 
-										<div class="'col-sm-3 col-lg-2 input-group">
-											<span><%=prod.getPrecio()*cantidad %></span>
-										</div>
-									</td>
+									<td><%=prod.getIdProducto() %></td>
+									<td><%=prod.getNombre() %></td>
+									<td><%=prod.getPresentacion() %></td>
+									<td><%=prod.getPrecio() %></td>
+									<td><%=producto.get(1) %></td>
+									<td><%=prod.getPrecio()*cantidad %></td>
 								</tr>
 								<%
 								}

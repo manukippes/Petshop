@@ -2,6 +2,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Venta implements Serializable{
 	private int idVenta;
@@ -13,6 +14,10 @@ public class Venta implements Serializable{
 	private String domicilio;
 	private Usuario usuario;
 	private MedioPago medioPago;
+	private Tarjeta tarjeta;
+	private Cuotas cuotas;
+	private ArrayList<LineaVenta> lineas;
+	
 	
 	public int getIdVenta() {
 		return idVenta;
@@ -67,5 +72,23 @@ public class Venta implements Serializable{
 	}
 	public void setMedioPago(MedioPago medioPago) {
 		this.medioPago = medioPago;
+	}
+	public Tarjeta getTarjeta() {
+		return tarjeta;
+	}
+	public void setTarjeta(Tarjeta tarjeta) {
+		this.tarjeta = tarjeta;
+	}
+	public Cuotas getCuotas() {
+		return cuotas;
+	}
+	public void setCuotas(Cuotas cuotas) {
+		this.cuotas = cuotas;
+	}
+	public ArrayList<LineaVenta> getLineas() {
+		return lineas;
+	}
+	public void setLineas(ArrayList<LineaVenta> lineas) {
+		this.lineas = lineas;
 	}
 }

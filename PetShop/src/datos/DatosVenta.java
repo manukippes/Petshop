@@ -25,11 +25,13 @@ public class DatosVenta implements Serializable{
 	//						GET TARJETA
 	//						GET MEDIO DE PAGO (COMPLETAR DATOS)
 	//						GET MEDIOS DE PAGO
+	// 						GET CUOTAS (COMPLETAR DATOS)
 	
-	public void agregarVenta (Venta venta) throws Exception
+	public Boolean agregarVenta (Venta venta) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		Boolean bandera=false;
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
@@ -48,6 +50,7 @@ public class DatosVenta implements Serializable{
 			rs=pstm.getGeneratedKeys();
 			if(rs!=null && rs.next()){
 				venta.setIdVenta(rs.getInt(1));
+				bandera = true;
 			}
 		} catch (Exception e) {
 			
@@ -61,7 +64,7 @@ public class DatosVenta implements Serializable{
 		} catch (Exception e) {
 			throw e;
 		}
-		
+		return bandera;
 	}
 	public void modificarVenta(Venta venta) throws Exception
 	{
@@ -95,6 +98,7 @@ public class DatosVenta implements Serializable{
 				throw e;
 			}	
 		}
+		
 		
 	}
 	public Tarjeta getTarjeta(Tarjeta tarjeta)throws Exception{
@@ -289,4 +293,49 @@ public ArrayList<Cuotas> getCuotas(Tarjeta tarjeta) throws Exception{
 	return cuotasTarjeta;
 
 	}
+
+public Cuotas getCuotas(Cuotas cuotas)throws Exception{
+	
+	PreparedStatement pstm = null;
+	ResultSet rs = null;
+	Cuotas cuotasActual = new Cuotas();
+	Tarjeta tarjetaActual = new Tarjeta();
+	ControladorDeVenta ctrlVenta = new ControladorDeVenta();
+	
+	try {
+		pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+				"SELECT * FROM cuotas where idCuota =?");
+		pstm.setInt(1, cuotas.getIdCuota());
+		rs=pstm.executeQuery();
+		
+		if(rs!=null)
+		{
+			while(rs.next())
+			{
+				cuotasActual.setIdCuota(rs.getInt("idCuota"));
+				cuotasActual.setCantCuotas(rs.getInt("cantCuotas"));
+				cuotasActual.setRecargo(rs.getDouble("recargo"));
+				
+				tarjetaActual.setIdTarjeta(rs.getInt("idTarjeta"));
+				tarjetaActual = ctrlVenta.getTarjeta(tarjetaActual);
+				
+				cuotasActual.setTarjeta(tarjetaActual);
+				
+			}
+		}
+	} catch (Exception e) {
+		throw e;
+	}
+	
+	try {
+		if(rs!=null)rs.close();
+		if(pstm!=null)pstm.close();
+		FactoryConnection.getinstancia().releaseConn();
+	} 
+	catch (Exception e) {
+		throw e;
+	}
+	return cuotasActual;
+
+}
 }

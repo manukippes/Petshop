@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/mantProductos.js"></script>
 	
 	<title>SGPS - Modificar producto</title>
 </head>

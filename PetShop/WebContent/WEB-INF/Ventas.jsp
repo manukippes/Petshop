@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/ventas.js"></script>
 	
 	<title>SGPS - Ventas</title>
 </head>
@@ -206,7 +207,7 @@
 													</th>
 													<th> 
 														<div class="'col-sm-3 col-lg-2 input-group">
-															<span>Eliminar </span>
+															<span>Agregar </span>
 														</div>
 													</th>
 												</tr>
@@ -215,14 +216,7 @@
 												
 									 		</tbody>
 										</table>
-									</div>
-									<div class="container-fluid">
-									<br>
-										<div class="col-xs-12 col-sm-4">
-											<button class="btn btn-primary" id="btnAgregarProductoListado"><span class="glyphicon glyphicon-plus"></span> Agregar a la Venta</button>
-										</div>								
-									</div>
-									
+									</div>									
 									<br>
 								</div>								
 							</div>

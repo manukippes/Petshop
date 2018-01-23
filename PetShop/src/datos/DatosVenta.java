@@ -420,8 +420,7 @@ public Boolean agregarLineaVenta (LineaVenta lv) throws Exception
 		pstm.setString(4, lv.getTipoLineaVta());
 		pstm.setDouble(5, lv.getPrecioUnitario());
 		pstm.setInt(6, lv.getCantidad());
-		
-		System.out.println(pstm);
+
 		pstm.executeUpdate();
 		
 		

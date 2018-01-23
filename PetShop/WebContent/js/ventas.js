@@ -73,12 +73,14 @@ function buscarProductosVenta(inputProducto){
 		})
 	}
 
+
 ////////////////
 $(document).ready(function() {
 
 	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR NOMBRE
 	$('#buscarProductosVenta').click(function(e){
 		e.preventDefault();
+		alert("hola");
 		buscarProductosVenta($('#inputProducto').val());
 	});
 	

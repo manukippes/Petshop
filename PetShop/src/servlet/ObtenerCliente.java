@@ -53,8 +53,6 @@ public class ObtenerCliente extends HttpServlet {
 
 			usuarios.add(usuarioActual);
 			
-			System.out.println(usuarioActual.getApellido());
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

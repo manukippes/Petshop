@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="css/estilos.css" type="text/css">
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/alertnuevo.js"></script>
 		
 		<title>Sistema de Gestion de Pet Shops</title>
 	</head>

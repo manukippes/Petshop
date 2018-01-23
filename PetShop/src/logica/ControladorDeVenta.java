@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import datos.DatosVenta;
 import entidades.Cuotas;
+import entidades.LineaVenta;
 import entidades.MedioPago;
 import entidades.Tarjeta;
 import entidades.Venta;
@@ -21,6 +22,7 @@ public class ControladorDeVenta implements Serializable{
 	//					GET CUOTAS DE LA TARJETA
 	//					GET CUOTAS (COMPLETAR CLASE)7
 	//					AGREGAR VENTA
+	//					AGREGAR LINEA VENTA
 	
 	public Tarjeta getTarjeta(Tarjeta tarjeta)throws Exception{
 		
@@ -52,7 +54,17 @@ public class ControladorDeVenta implements Serializable{
 		return baseVenta.getCuotas(cuotas);
 	}
 	
-	public Boolean agregarVenta(Venta venta) throws Exception{
+	public int agregarVenta(Venta venta) throws Exception{
 		return baseVenta.agregarVenta(venta);
+	}
+	
+	public String getFechaActual() throws Exception{
+		return baseVenta.getFechaActual();
+	}
+	public Boolean agregarLineaVenta(LineaVenta lv) throws Exception {
+		return baseVenta.agregarLineaVenta(lv);
+	}
+	public Boolean modificarVenta(Venta venta) throws Exception{
+		return baseVenta.modificarVenta(venta);
 	}
 }

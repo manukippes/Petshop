@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import entidades.Categoria;
 import entidades.Cuotas;
+import entidades.LineaVenta;
 import entidades.MedioPago;
 import entidades.Producto;
 import entidades.Subcategoria;
@@ -26,32 +27,40 @@ public class DatosVenta implements Serializable{
 	//						GET MEDIO DE PAGO (COMPLETAR DATOS)
 	//						GET MEDIOS DE PAGO
 	// 						GET CUOTAS (COMPLETAR DATOS)
+	//						GET FECHA
+	//						AGREGAR LINEA DE VENTA
 	
-	public Boolean agregarVenta (Venta venta) throws Exception
+	public int agregarVenta (Venta venta) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
-		Boolean bandera=false;
+		int idVenta = 0;
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"INSERT INTO venta(idVenta,idUsuario,idMedioPago,total,estado,fecha,datosOpcionales,envioDom,domicilio) VALUES (?,?,?,?,?,?,?,?,?)",
+					"INSERT INTO venta(idUsuario,idMedioPago,total,estado,fecha,datosOpcionales,envioDom,domicilio) VALUES (?,?,?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			pstm.setInt(1, venta.getIdVenta());
-			pstm.setInt(2, venta.getUsuario().getIdUsuario());
-			pstm.setInt(3, venta.getMedioPago().getIdMedioPago());
-			pstm.setDouble(4, venta.getTotal());
-			pstm.setString(5, venta.getEstado());
-			pstm.setDate(6, venta.getFecha());
-			pstm.setString(7, venta.getDatosOpcionales());
-			pstm.setBoolean(8, venta.getEnvioDom());
-			pstm.setString(9, venta.getDomicilio());
+			
+			if(venta.getUsuario().getIdUsuario()==0){
+				pstm.setNull(1, java.sql.Types.INTEGER);
+			}else{
+				pstm.setInt(1, venta.getUsuario().getIdUsuario());
+			}
+			pstm.setInt(2, venta.getMedioPago().getIdMedioPago());
+			pstm.setDouble(3, venta.getTotal());
+			pstm.setString(4, venta.getEstado());
+			pstm.setDate(5, venta.getFecha());
+			pstm.setString(6, venta.getDatosOpcionales());
+			pstm.setBoolean(7, venta.getEnvioDom());
+			pstm.setString(8, venta.getDomicilio());
 			pstm.executeUpdate();
+						
 			rs=pstm.getGeneratedKeys();
 			if(rs!=null && rs.next()){
 				venta.setIdVenta(rs.getInt(1));
-				bandera = true;
-			}
+				idVenta = rs.getInt(1);
+			}	
+			
 		} catch (Exception e) {
 			
 			throw e;
@@ -64,16 +73,22 @@ public class DatosVenta implements Serializable{
 		} catch (Exception e) {
 			throw e;
 		}
-		return bandera;
+		return idVenta;
 	}
-	public void modificarVenta(Venta venta) throws Exception
+	public Boolean modificarVenta(Venta venta) throws Exception
 	{
 		PreparedStatement pstm = null;
+		Boolean bandera=false;
 				
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"UPDATE usuario SET idUsuario=?,idMedioPago=?,total=?,estado=?,fecha=?,datosOpcionales=?,envioDom=?,domicilio=? WHERE idVenta=?");	
-			pstm.setInt(1, venta.getUsuario().getIdUsuario());
+					"UPDATE venta SET idUsuario=?,idMedioPago=?,total=?,estado=?,fecha=?,datosOpcionales=?,envioDom=?,domicilio=?,idTarjeta=?,idCuotas=? WHERE idVenta=?");	
+			
+			if(venta.getUsuario().getIdUsuario()==0){
+				pstm.setNull(1, java.sql.Types.INTEGER);
+			}else{
+				pstm.setInt(1, venta.getUsuario().getIdUsuario());
+			}
 			pstm.setInt(2, venta.getMedioPago().getIdMedioPago());
 			pstm.setDouble(3, venta.getTotal());
 			pstm.setString(4, venta.getEstado());
@@ -81,8 +96,21 @@ public class DatosVenta implements Serializable{
 			pstm.setString(6, venta.getDatosOpcionales());
 			pstm.setBoolean(7, venta.getEnvioDom());
 			pstm.setString(8, venta.getDomicilio());
-			pstm.setInt(9, venta.getIdVenta());
+			
+			if( venta.getTarjeta().getIdTarjeta()==0){
+				pstm.setNull(9, java.sql.Types.INTEGER);
+			}else{
+				pstm.setInt(9, venta.getTarjeta().getIdTarjeta());
+			}
+						
+			if(venta.getCuotas().getIdCuota()==0){
+				pstm.setNull(10, java.sql.Types.INTEGER);
+			}else{
+				pstm.setInt(10, venta.getCuotas().getIdCuota());
+			}
+			pstm.setInt(11, venta.getIdVenta());
 			pstm.executeUpdate();
+			bandera=true;
 		} 
 		catch (Exception e) 
 		{
@@ -98,7 +126,7 @@ public class DatosVenta implements Serializable{
 				throw e;
 			}	
 		}
-		
+		return bandera;
 		
 	}
 	public Tarjeta getTarjeta(Tarjeta tarjeta)throws Exception{
@@ -338,4 +366,83 @@ public Cuotas getCuotas(Cuotas cuotas)throws Exception{
 	return cuotasActual;
 
 }
+public String getFechaActual() throws Exception
+{
+	Statement stm=null;
+	ResultSet rs=null;
+	String fechaActual="";
+	
+	try {
+		stm = FactoryConnection.getinstancia().getConn().createStatement();
+		rs = stm.executeQuery("SELECT CURRENT_TIMESTAMP");
+				
+		if(rs!=null){
+			while(rs.next()){
+				fechaActual=(rs.getString("CURRENT_TIMESTAMP"));
+			}
+		}
+		
+		
+	} catch (SQLException e) {
+		throw e;
+	}
+	
+	try {
+		if(rs!=null)rs.close();
+		if(stm!=null)stm.close();
+		FactoryConnection.getinstancia().releaseConn();
+	} catch (SQLException e) {
+		throw e;
+	}
+	
+	return fechaActual;
+	}
+
+public Boolean agregarLineaVenta (LineaVenta lv) throws Exception
+	{
+	PreparedStatement pstm = null;
+	ResultSet rs = null;
+	Boolean bandera = false;
+	
+	try {
+		pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+				"INSERT INTO linea_venta(idVenta,idProducto,idTMascServ,tipoLineaVenta,precioUnitario,cantidad) VALUES (?,?,?,?,?,?)",
+				PreparedStatement.RETURN_GENERATED_KEYS);
+		
+		pstm.setInt(1, lv.getVenta().getIdVenta());
+		pstm.setInt(2, lv.getProducto().getIdProducto());
+		int idTmascServ = lv.getTipoMascotaServicio().getIdTMascServ();
+		if(idTmascServ==0){
+			pstm.setNull(3, java.sql.Types.INTEGER);
+		}else{
+			pstm.setInt(3, lv.getTipoMascotaServicio().getIdTMascServ());
+		}
+		pstm.setString(4, lv.getTipoLineaVta());
+		pstm.setDouble(5, lv.getPrecioUnitario());
+		pstm.setInt(6, lv.getCantidad());
+		
+		System.out.println(pstm);
+		pstm.executeUpdate();
+		
+		
+		rs=pstm.getGeneratedKeys();
+		if(rs!=null && rs.next()){
+		lv.setIdLineaVenta(rs.getInt(1));
+		bandera=true;
+		}	
+		
+	} catch (Exception e) {
+		
+		throw e;
+	}
+	
+	try {
+		if(rs!=null)rs.close();
+		if(pstm!=null)pstm.close();
+		FactoryConnection.getinstancia().releaseConn();
+	} catch (Exception e) {
+		throw e;
+	}
+	return bandera;
+	}
 }

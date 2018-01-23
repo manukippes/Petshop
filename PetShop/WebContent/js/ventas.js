@@ -152,8 +152,7 @@ $(document).ready(function() {
 					}
 				})
 			var parametro = JSON.stringify(arregloProductos);
-			
-				alert(parametro);
+		
 			$.ajax({
 				type : "post",
 				url : "CargarProductosVenta",
@@ -397,30 +396,20 @@ $(document).ready(function() {
 	
 	$(document).on("click", "#confirmarVenta", function(e){
 	    e.preventDefault();
-	    /*
-	    var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
-		var arregloProductos = [];
-		$.each(filas,function(i,fila){
-			if(i>0){
-				//OBTENGO DE CADA ARTICULO EL ID Y LA CANTIDAD A COMPRAR
-				var idProducto = fila.cells[0].innerHTML;
-				var cantidad = fila.cells[4].innerHTML;
-				var elemento = {idProducto,cantidad};
-				arregloProductos.push(elemento); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
-				}
-			})*/
 
+	    var medioPagoValido = false;
 		var tarjeta ="0";
 		var cuotas ="0";
 		var medioPago ="0";
 		
 		//VALIDACION DE MEDIO DE PAGO
 		if(!($('#medioPago').val()=="seleccione un medio")){		
-			medioPago = $('#medioPago').val();				//GUARDO EL MEDIO DE PAGO
+			medioPago = $('#medioPago').val();	//GUARDO EL MEDIO DE PAGO
+			
 			switch (medioPago){
 			
 			case "1":
-				
+				medioPagoValido = true;
 				break;
 			case "2":
 			case "3":
@@ -428,11 +417,17 @@ $(document).ready(function() {
 					alert("Debes seleccionar una tarjeta");
 				}else{
 					tarjeta = $('#tarjeta').val();
-					if ($('#cuotas').val() == "cuotas"){
-						alert("Debes seleccionar un plan de cuotas")
+					if (tarjeta==3){
+						if ($('#cuotas').val() == "cuotas"){
+							alert("Debes seleccionar un plan de cuotas")
+						}else{
+							cuotas = $('#cuotas').val();
+							medioPagoValido=true;
+						}
 					}else{
-						cuotas = $('#cuotas').val();
+						medioPagoValido=true;
 					}
+					
 				}
 				break;
 			}
@@ -440,34 +435,39 @@ $(document).ready(function() {
 		if (cuotas == null){
 			cuotas="0";
 		}
+		if(medioPagoValido){
+			//VALIDACION DE USUARIO
+			var idUsuario ="0";
+			if (!($('#idUsuario').val()=="")){
+				idUsuario = $('#idUsuario').val();
+			};
+			
+			//RECUPERO OBSERVACIONES
+			
+			var observaciones = $('#observaciones').val();
+			var parametro = {
+							medioPago : medioPago,
+							tarjeta : tarjeta,
+							cuotas : cuotas,
+							idUsuario : idUsuario,
+							observaciones : observaciones
+							}
+			var parametros = JSON.stringify(parametro);
+			//alert(parametros);
+			$.ajax({
+				type : "post",
+				url : "ProcesarVenta",
+				data : {jsonData : parametros},
+				success : function(respuesta){
+					alert("respuesta a continuacion");
+					alert(respuesta);
+					
+					$(location).attr('href',"Ventas");
+					
+				}
+			}); 
+			
+		}
 		
-		//VALIDACION DE USUARIO
-		var idUsuario ="0";
-		if (!($('#idUsuario').val()=="")){
-			idUsuario = $('#idUsuario').val();
-		};
-		
-		//RECUPERO OBSERVACIONES
-		
-		var observaciones = $('#observaciones').val();
-		var parametro = {
-						medioPago : medioPago,
-						tarjeta : tarjeta,
-						cuotas : cuotas,
-						idUsuario : idUsuario,
-						observaciones : observaciones
-						}
-		var parametros = JSON.stringify(parametro);
-		alert(parametros);
-		$.ajax({
-			type : "post",
-			url : "ProcesarVenta",
-			data : {jsonData : parametros},
-			success : function(respuesta){
-				//alert(respuesta);
-				$(location).attr('href',"#");
-				
-			}
-		}); 
 	})
 })

@@ -80,8 +80,14 @@ $(document).ready(function() {
 	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR NOMBRE
 	$('#buscarProductosVenta').click(function(e){
 		e.preventDefault();
-		alert("hola");
-		buscarProductosVenta($('#inputProducto').val());
+		if($("#inputProducto").val()!=""){
+			buscarProductosVenta($('#inputProducto').val());
+		}else{
+			$('#inputProductoGroup').addClass("has-error");
+			clearTimeout();
+			setTimeout(function(){$('#inputProductoGroup').removeClass("has-error");},2000);
+			
+			}
 	});
 	
 	//DETECTO EL CLICK EN BUSCAR PRODUCTOS
@@ -89,6 +95,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		
 		var fila =$(this).parent().parent().parent()
+		
 		
 		var idAgregar = fila.find('#idProducto').text();
 		var nombreAgregar = fila.find('#nombreProducto').text();
@@ -98,19 +105,17 @@ $(document).ready(function() {
 		
 		var cantidadMaxima = fila.find('#cantidad').attr('max');
 		
-		if (parseInt(cantidadAgregar) <= parseInt(cantidadMaxima)){ //VALIDO QUE NO SE EXCEDA DEL STOCK DISPONIBLE
-			if(cantidadAgregar>0){		//VALIDO QUE LA CANTIDAD A AGREGAR NO SEA 0
-				agregarProductoVenta(idAgregar,nombreAgregar,presentacionAgregar,precioAgregar,cantidadAgregar);
+		if (cantidadAgregar!=""){
+			if (parseInt(cantidadAgregar) <= parseInt(cantidadMaxima)){ //VALIDO QUE NO SE EXCEDA DEL STOCK DISPONIBLE
+				if(cantidadAgregar>0){		//VALIDO QUE LA CANTIDAD A AGREGAR NO SEA 0
+					agregarProductoVenta(idAgregar,nombreAgregar,presentacionAgregar,precioAgregar,cantidadAgregar);
+				}else{
+					alert("La cantidad ingresada debe ser mayor a 0 unidades")
+				}
 			}else{
-				alert("La cantidad ingresada debe ser mayor a 0 unidades")
+				alert("El stock disponible de "+nombreAgregar+", "+presentacionAgregar+" es: "+cantidadMaxima+" unidades. Seleccion\u00e1 una cantidad menor.");
 			}
-			
-		}else{
-			alert("El stock disponible de "+nombreAgregar+", "+presentacionAgregar+" es: "+cantidadMaxima+" unidades. Seleccion\u00e1 una cantidad menor.");
-		}
-		
-		// Mostrar todos los campos
-		//alert("id: "+idAgregar+" \n nombre: "+nombreAgregar+" \n presentacion: "+presentacionAgregar+" \n cantidad: "+cantidadAgregar+" \n precio: "+precioAgregar)
+		}else {alert("Para agregar un producto debes ingresar la cantidad")}
 	});
 	
 	//CAPTURO EL CLICK EN QUITAR PRODUCTO DE LA VENTA
@@ -253,21 +258,32 @@ $(document).ready(function() {
 	    e.preventDefault();
 		
 		var inputCliente = $('#inputCliente').val();
-		var parametro = {inputCliente : inputCliente};
-		$.post("ComboClientes",$.param(parametro),function(responseJson){
+		if(inputCliente!=""){
+			var parametro = {inputCliente : inputCliente};
+			$('#cliente').prop('disabled',false);
+			$.post("ComboClientes",$.param(parametro),function(responseJson){
+				$('#cliente').empty();
+				$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
+				$.each(responseJson,function(index, usuarios){
+					$('#cliente').append($('<option value="'+usuarios.idUsuario+'">'+usuarios.apellido+', '+usuarios.nombre+'</option>'));
+				});
+			});
+		}else{
 			$('#cliente').empty();
 			$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
-			$.each(responseJson,function(index, usuarios){
-				$('#cliente').append($('<option value="'+usuarios.idUsuario+'">'+usuarios.apellido+', '+usuarios.nombre+'</option>'));
-			});
-		});
+			$('#cliente').prop('disabled',true);
+			$('#inputClienteGroup').addClass("has-error");
+			clearTimeout();
+			setTimeout(function(){$('#inputClienteGroup').removeClass("has-error");},2000);
+			}
+		
 	}); 
 	
 	
 	$(this).on("click", "#btnAgregarClienteSeleccionado", function(e){
 	    e.preventDefault();
-	    if($('#cliente').val() == "seleccione un cliente"){
-			alert("no seleccionaste nada");
+	    if($('#cliente').val() == "cliente"){
+			alert("Para agregar primero debes seleccionar un cliente");
 		}else{
 			$('#buscarCliente').modal('toggle');
 	        $('#btnQuitarClienteVenta').removeClass("hidden");

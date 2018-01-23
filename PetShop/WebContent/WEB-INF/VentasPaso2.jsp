@@ -193,7 +193,7 @@
 								<div class="modal-body">
 									<div class="container-fluid">
 									<br>
-										<div class="col-xs-12 col-sm-8">
+										<div class="col-xs-12 col-sm-8" id="inputClienteGroup">
 											<input class="form-control" placeholder="Ingres&aacute; nombre o apellido" id="inputCliente"></input>
 										</div>
 										<div class="col-xs-12 col-sm-4">
@@ -205,13 +205,13 @@
 									<div class="container-fluid">
 										<div class="selectContainer col-xs-12 col-sm-8" id="clienteGroup">
 						    				<label class="sr-only">Seleccione un cliente</label>
-										    <select class="form-control" name="clienteSeleccionado" id="cliente" aria-describedby="clienteHelp" required>
-										    	<option value="seleccione un cliente">Seleccion&aacute; un cliente</option>
+										    <select class="form-control" name="clienteSeleccionado" id="cliente" aria-describedby="clienteHelp" disabled>
+										    	<option value="cliente">Seleccion&aacute; un cliente</option>
 										    </select>
 										</div>
 										<div class="col-xs-12 col-sm-4">
 											<button class="btn btn-primary" id="btnAgregarClienteSeleccionado"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </button>
-										</div>								
+										</div>							
 									</div>
 									<br>
 									<br>

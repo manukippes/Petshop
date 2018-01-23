@@ -37,7 +37,7 @@
 				
 				<div class="form-group">	
 					<label class="sr-only">Ingresa descripcion o codigo</label>
-					<div class="col-sm-6 col-xs-12">
+					<div class="col-sm-6 col-xs-12" id="inputProductoGroup">
 						<input class="form-control" name="inputProducto" id="inputProducto" type="text" placeholder="Ingres&aacute; descripci&oacute;n parcial o c&oacute;digo de producto">
 					</div>
 					<div class="col-sm-3 col-xs-12 ">

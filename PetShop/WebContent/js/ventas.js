@@ -11,7 +11,7 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
 			if (i>0){
 				if (fila.cells[0].innerHTML==idProducto){
 					bandera=true;
-					alert("Este elemento ya esta en la venta");
+					alert("Este producto ya est&aacute; en la venta, para modificarlo debes quitarlo primero");
 				}
 			}			
 		})
@@ -35,9 +35,9 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
 				
 				var subtotal = parseFloat($("#subtotal").val());
 				
-				subtotal += ((cantidad*1)*(precio*1));
+				subtotal += (parseFloat(cantidad)*parseFloat(precio));
 				
-				$("#subtotal").val(subtotal);
+				$("#subtotal").val(subtotal.toFixed(2));
 
 			}else{
 				alert("Para agregar un producto debes ingresar la cantidad");
@@ -131,12 +131,34 @@ $(document).ready(function() {
 		var precio = fila.find("#precioProducto").text();
 		var cantidad = fila.find("#cantidadProducto").text();
 		
+		
+		
+		/*
+		$("#subtotal").val(0);
+		
+		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		//RECORRO LA TABLA 	VERIFICANDO 
+		$.each(filas,function(i,fila){
+			if (i>0){
+					
+				var subtotal = parseFloat($("#subtotal").val());
+				
+				subtotal += (parseFloat(cantidad)*parseFloat(precio));
+				
+				$("#subtotal").val(subtotal);
+					
+				}
+			})			
+		
+		*/
+		
 		//RESTO AL SUBTOTAL EL IMPORTE CALCULADO
-		subtotal -= ((precio*1)*(cantidad*1));
 		
-		$("#subtotal").val(subtotal);
+		subtotal -= (parseFloat(precio)*parseFloat(cantidad));
 		
+		$("#subtotal").val(subtotal.toFixed(2));
 		fila.remove();
+		
 		});
 	
 	//CAPTURO EL CLICK EN CONTINUAR (VENTA PASO 1)
@@ -477,15 +499,16 @@ $(document).ready(function() {
 				url : "ProcesarVenta",
 				data : {jsonData : parametros},
 				success : function(respuesta){
-					alert("respuesta a continuacion");
-					alert(respuesta);
-					
-					$(location).attr('href',"Ventas");
-					
+					//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
+					if (respuesta){
+						if(confirm("Venta cargada Exitosamente")){
+							$(location).attr('href','Ventas');
+						}
+					}else{
+						alert("Error al cargar la venta");
+					}
 				}
 			}); 
-			
 		}
-		
 	})
 })

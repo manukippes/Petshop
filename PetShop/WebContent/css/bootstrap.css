@@ -5497,8 +5497,8 @@ button.close {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 15px;
-  border-bottom: 1px solid #eceeef;
+  padding: 10px;
+  border-bottom: 3px solid #eceeef;
 }
 
 .modal-title {

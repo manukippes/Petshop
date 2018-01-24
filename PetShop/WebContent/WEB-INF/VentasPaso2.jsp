@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>	
 <%@page import="entidades.Usuario"%>
@@ -72,13 +73,18 @@
 								<% ArrayList<ArrayList<String>> productos = (ArrayList<ArrayList<String>>)session.getAttribute("productosVenta");
 								ControladorDeProducto ctrlProducto = new ControladorDeProducto();
 								Producto prod = new Producto();
-								int cantidad = 0;
-								Double total = 0.0;
+								
+								//SE TRABAJA CON BIGDECIMAL POR PROBLEMAS DE REDONDEO
+								BigDecimal cantidad = BigDecimal.valueOf(0,2);
+								BigDecimal total = BigDecimal.valueOf(0,2);
+								BigDecimal precio = BigDecimal.valueOf(0,2);
+
 								for(ArrayList<String> producto : productos){
 									prod.setIdProducto(Integer.parseInt(producto.get(0)));
 									prod = ctrlProducto.getProducto(prod);
-									cantidad = Integer.parseInt(producto.get(1));
-									total += prod.getPrecio()*cantidad;
+									precio = BigDecimal.valueOf(prod.getPrecio());
+									cantidad = BigDecimal.valueOf(Double.parseDouble(producto.get(1)));
+									total = total.add(cantidad.multiply(precio));
 								%>
 								<tr class="">
 									<td><%=prod.getIdProducto() %></td>
@@ -86,7 +92,7 @@
 									<td><%=prod.getPresentacion() %></td>
 									<td><%=prod.getPrecio() %></td>
 									<td><%=producto.get(1) %></td>
-									<td><%=prod.getPrecio()*cantidad %></td>
+									<td><%=precio.multiply(cantidad)%></td>
 								</tr>
 								<%
 								}

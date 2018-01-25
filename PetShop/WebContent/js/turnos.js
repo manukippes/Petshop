@@ -49,6 +49,42 @@ $(document).ready(function() {
 
 	})
 	
+	$("#tableUsuario tr td").on('DOMSubtreeModified',function(){
+
+		var idUsuario = $('#idUsuario').val();
+		var parametro = {idUsuario : idUsuario };
+		if(idUsuario!=""){
+			//Cargar el combo de mascotas
+			
+			$.post("ComboMascota",$.param(parametro),function(responseJson){
+				$('#mascota').empty();
+				$('#mascota').append($('<option value="mascota">Seleccion&aacute; una mascota</option>'));
+				var bandera = false;
+				
+				$.each(responseJson,function(index, mascota){
+					$('#mascota').append($('<option value="'+mascota.idMascota+'">'+mascota.nombre+'</option>'));
+					bandera = true;					
+				});
+				
+				if(!bandera){
+					$('#mascota').empty();
+					$('#mascota').append($('<option value="mascota">El cliente no tiene mascotas registradas</option>'));
+					$('#mascota').prop("disabled",true);
+				}
+				else{
+					$('#mascota').prop("disabled",false);
+				}
+			})
+		}
+		else
+		{
+			//Descargar el combo de mascotas 
+			$('#mascota').empty();
+			$('#mascota').append($('<option value="mascota">Seleccion&aacute; una mascota</option>'));
+			$('#mascota').prop("disabled",true);
+		}		
+	})	
+	
 	$('#btnContinuar').click(function(e){
 		e.preventDefault();
 		

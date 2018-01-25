@@ -163,10 +163,10 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-3 col-xs-12 pull-right">
-							<a href="#buscarCliente" class="btn btn-primary form-control" id="btnAgregarClienteVenta" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </a>
+							<a href="#buscarCliente" class="btn btn-primary form-control" id="btnAgregarUnCliente" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </a>
 						</div>
 						<div class="col-sm-3 col-xs-12 pull-right">
-							<a href="#quitarCliente" class="btn btn-danger form-control hidden" id="btnQuitarClienteVenta" > <span class="glyphicon glyphicon-remove "> </span><span class="glyphicon glyphicon-user"></span> Quitar Cliente </a>
+							<a href="#quitarCliente" class="btn btn-danger form-control hidden" id="btnQuitarCliente" > <span class="glyphicon glyphicon-remove "> </span><span class="glyphicon glyphicon-user"></span> Quitar Cliente </a>
 						</div>
 					</div>
 					<hr class="divisor">

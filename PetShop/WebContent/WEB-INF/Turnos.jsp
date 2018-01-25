@@ -12,8 +12,8 @@
 	
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/turnos.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
@@ -112,7 +112,7 @@
 								    </select>
 								</div>
 								<div class="col-xs-12 col-sm-4 checkbox">
-									<input type="checkbox" id="conRetiro" >Incluye retiro a domicilio</input>
+									<input type="checkbox" id="conRetiro" >Incluye retiro a domicilio
 								</div>								
 							</div>
 						</div>
@@ -142,25 +142,34 @@
 					</div>
 					
 					<hr>
-					
-					<div class="form-group">			
-						
+					<div class="form-group">				
 						<div class="row col-md-12">	
-							
 							<div class="container-fluid">
-							
-								<div class="selectContainer col-xs-12 col-lg-8" id="fechaGroup">
-				    				<h4><strong>SELECCIONE UN CLIENTE</strong></h4>
-				    				<input type="text" class="form-control" placeholder="Ingrese nombre o apellido"></input>
+								<div class="container input-group">
+									<h4><strong>SELECCIONAR UN CLIENTE</strong></h4>
 								</div>
-								<div class="col-xs-12 col-lg-4">
-									<h4><strong>O AGREGUE UN CLIENTE NUEVO</strong></h4>
-									<label class="sr-only">Agregar un cliente</label>
-									<button class="btn btn-primary">GESTION DE CLIENTES</button>
-								</div>								
+								
+								<div class="table-responsive col-sm-8 hidden" id="tablaClienteSeleccionado">
+									
+									<table class="table table-striped active" id="tableUsuario" name="tableUsuario" >
+										<tr id="idUsuario">
+											<td  id="nombreApellidoCliente"></td>
+											<td id="telefonoCliente"></td>
+											<td id="direccionCliente"></td>
+										</tr>
+									</table>
+								</div>
+
+								<div class="col-sm-4 col-xs-12 pull-right">
+									<a href="#buscarCliente" class="btn btn-primary form-control" id="btnAgregarUnCliente" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </a>
+								</div>
+								<div class="col-sm-4 col-xs-12 pull-right">
+									<a href="#quitarCliente" class="btn btn-danger form-control hidden" id="btnQuitarCliente"> <span class="glyphicon glyphicon-remove "> </span><span class="glyphicon glyphicon-user"></span> Quitar Cliente </a>
+								</div>
 							</div>
 						</div>
 					</div>
+					<hr>
 					<div class="form-group">			
 						
 						<div class="row col-md-12">	
@@ -169,7 +178,7 @@
 							
 								<div class="selectContainer col-xs-12 col-sm-8" id="fechaGroup">
 				    				<h4><strong>SELECCIONE MASCOTA</strong></h4>
-				    				<select class="form-control" name="mascotaSeleccionada" id="mascota" aria-describedby="mascotaHelp" required>
+				    				<select class="form-control" name="mascotaSeleccionada" id="mascota" aria-describedby="mascotaHelp" disabled>
 								    	<option value="mascota">Seleccion&aacute; una mascota</option>
 								    </select>
 								</div>
@@ -190,6 +199,44 @@
 					</div>
 					
 				</div>
+								
+				<!-- PANEL MODAL DE BUSQUEDA DE CLIENTE -->
+					<div class="modal fade" id="buscarCliente">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<strong>BUSQUEDA DE CLIENTES</strong>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="container-fluid">
+									<br>
+										<div class="col-xs-12 col-sm-8" id="inputClienteGroup">
+											<input class="form-control" placeholder="Ingres&aacute; nombre o apellido" id="inputCliente"></input>
+										</div>
+										<div class="col-xs-12 col-sm-4">
+											<button class="btn btn-primary" id="btnBuscarCliente"><span class="glyphicon glyphicon-search"></span> Buscar</button>
+										</div>								
+									</div>
+									
+									<br>
+									<div class="container-fluid">
+										<div class="selectContainer col-xs-12 col-sm-8" id="clienteGroup">
+						    				<label class="sr-only">Seleccione un cliente</label>
+										    <select class="form-control" name="clienteSeleccionado" id="cliente" aria-describedby="clienteHelp" disabled>
+										    	<option value="cliente">Seleccion&aacute; un cliente</option>
+										    </select>
+										</div>
+										<div class="col-xs-12 col-sm-4">
+											<button class="btn btn-primary" id="btnAgregarClienteSeleccionado"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Agregar Cliente </button>
+										</div>							
+									</div>
+									<br>
+									<br>
+								</div>								
+							</div>
+						</div>
+					</div>
 			</form>
 		</div>
 	</div>

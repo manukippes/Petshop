@@ -1,16 +1,22 @@
 package datos;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import entidades.Categoria;
+import entidades.Producto;
+import entidades.Subcategoria;
 import entidades.TipoMascota;
 
 
 public class DatosTipoMascota implements Serializable{
 //			METODOS IMPLEMENTADOS:
 //								DEVOLVER TODOS LOS TIPOS DE MASCOTA
+	//							GET TIPO MASCOTA (COMPLETAR LOS DATOS)
 
 	public ArrayList<TipoMascota> devolverTodos() throws Exception
 	{
@@ -49,5 +55,39 @@ public class DatosTipoMascota implements Serializable{
 		
 		return tiposdemascota;
 		
+	}
+	public TipoMascota getTipoMascota(TipoMascota tipoMascota)throws Exception{
+		
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM tipo_mascota where idTipoMascota=?");
+			pstm.setInt(1, tipoMascota.getIdTipoMascota());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					tipoMascota.setPelo(rs.getString("pelo"));			//SETEO PELO
+					tipoMascota.setTamanio(rs.getString("tamanio"));	//SETEO TAMAÑO
+				}
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return tipoMascota;
 	}
 }

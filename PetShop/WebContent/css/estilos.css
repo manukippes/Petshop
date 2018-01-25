@@ -51,3 +51,24 @@ hr{
 	border-top: 2px solid #c4c4c4;
 }
 
+/*Boton patita*/
+
+.icon-button{
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	outline:none;
+	border:0;
+	background:transparent;
+	color:#000000;
+}
+.icon-button-lg{
+	font-size:150px;
+}
+.icon-button:hover{
+	color:#c4c4c4;
+}
+.icon-button-active{
+	color:#758ee8;
+}
+

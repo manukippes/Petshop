@@ -11,13 +11,13 @@ import entidades.TipoMascota;
 
 public class DatosServicio implements Serializable{
 //			METODOS IMPLEMENTADOS:
-//					DEVOLVER TODOS LOS SERVICIOS
+//					GET SERVICIOS
 
-	public ArrayList<Servicio> devolverTodos() throws Exception
+	public ArrayList<Servicio> getServicios() throws Exception
 	{
 		Statement stm=null;
 		ResultSet rs=null;
-		ArrayList<Servicio> servicios= new ArrayList<Servicio>();
+		ArrayList<Servicio> servicios = new ArrayList<Servicio>();
 		
 		try 
 		{
@@ -32,7 +32,7 @@ public class DatosServicio implements Serializable{
 				}
 			}
 		} 
-		catch (SQLException e) 
+		catch (Exception e) 
 		{
 			throw e;
 		}

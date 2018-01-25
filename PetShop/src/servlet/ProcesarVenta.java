@@ -182,9 +182,9 @@ public class ProcesarVenta extends HttpServlet {
 			bandera = ctrlVenta.modificarVenta(ventaActual);		//UNA VEZ CARGADAS TODAS LAS FILAS ACTUALIZO EL TOTAL DE LA VENTA
 			
 			if(bandera){
-				response.getWriter().println("Venta Cargada Exitosamente");	
+				response.getWriter().println(true);	
 			}else{
-				response.getWriter().println("Error al cargar la Venta");	
+				response.getWriter().println(false);	
 			}
 				
 		} catch (Exception e) {

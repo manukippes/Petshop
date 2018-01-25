@@ -3,14 +3,22 @@ package datos;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
+import entidades.Categoria;
 import entidades.Mascota;
+import entidades.Producto;
+import entidades.Subcategoria;
+import entidades.TipoMascota;
+import entidades.Usuario;
+import logica.ControladorDeTipoMascota;
 
 public class DatosMascota implements Serializable{
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR MASCOTA
 	//						MODIFICAR MASCOTA
+	//						GET MASCOTAS DE UN CLIENTE
 	
 	public void agregarMascota (Mascota mascota) throws Exception
 	{
@@ -77,5 +85,53 @@ public class DatosMascota implements Serializable{
 			}	
 		}
 		
+	}
+	public ArrayList<Mascota> getMascotas(Usuario cliente) throws Exception{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		ArrayList<Mascota> mascotas= new ArrayList<Mascota>();
+		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM MASCOTA where idUsuario =?");
+			pstm.setInt(1, cliente.getIdUsuario());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					Mascota mascotaActual= new Mascota();
+					mascotaActual.setIdMascota(rs.getInt("idMascota"));					//SETEO ID MASCOTA
+					mascotaActual.setNombre(rs.getString("nombre"));					//SETEO NOMBRE DE LA MASCOTA
+					mascotaActual.setFechaNacimiento(rs.getDate("fechaNacimiento"));	//SETEO FECHA DE NACIMIENTO
+					mascotaActual.setObservaciones(rs.getString("observaciones"));		//SETEO OBSERVACIONES
+					mascotaActual.setUsuario(cliente);									//SETEO DUEÑO DE LA MASCOTA
+					
+					TipoMascota tipoMascota = new TipoMascota();
+					tipoMascota.setIdTipoMascota(rs.getInt("idTipoMascota"));
+					tipoMascota = ctrlTipoMascota.getTipoMascota(tipoMascota);
+					
+					mascotaActual.setTipoMascota(tipoMascota);							//SETEO EL TIPO DE MASCOTA
+					
+					
+					mascotas.add(mascotaActual);			//AGREGO LA MASCOTA AL ARRAYLIST
+				}
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return mascotas;
 	}
 }

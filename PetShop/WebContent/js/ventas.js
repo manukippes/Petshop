@@ -11,7 +11,7 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
 			if (i>0){
 				if (fila.cells[0].innerHTML==idProducto){
 					bandera=true;
-					alert("Este elemento ya esta en la venta");
+					alert("Este producto ya est&aacute; en la venta, para modificarlo debes quitarlo primero");
 				}
 			}			
 		})
@@ -35,9 +35,9 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
 				
 				var subtotal = parseFloat($("#subtotal").val());
 				
-				subtotal += ((cantidad*1)*(precio*1));
+				subtotal += (parseFloat(cantidad)*parseFloat(precio));
 				
-				$("#subtotal").val(subtotal);
+				$("#subtotal").val(subtotal.toFixed(2));
 
 			}else{
 				alert("Para agregar un producto debes ingresar la cantidad");
@@ -132,11 +132,12 @@ $(document).ready(function() {
 		var cantidad = fila.find("#cantidadProducto").text();
 		
 		//RESTO AL SUBTOTAL EL IMPORTE CALCULADO
-		subtotal -= ((precio*1)*(cantidad*1));
 		
-		$("#subtotal").val(subtotal);
+		subtotal -= (parseFloat(precio)*parseFloat(cantidad));
 		
+		$("#subtotal").val(subtotal.toFixed(2));
 		fila.remove();
+		
 		});
 	
 	//CAPTURO EL CLICK EN CONTINUAR (VENTA PASO 1)
@@ -251,76 +252,6 @@ $(document).ready(function() {
 		}
 	})	
 	
-	
-	
-	//CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL
-	$(this).on("click", "#btnBuscarCliente", function(e){
-	    e.preventDefault();
-		
-		var inputCliente = $('#inputCliente').val();
-		if(inputCliente!=""){
-			var parametro = {inputCliente : inputCliente};
-			$('#cliente').prop('disabled',false);
-			$.post("ComboClientes",$.param(parametro),function(responseJson){
-				$('#cliente').empty();
-				$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
-				$.each(responseJson,function(index, usuarios){
-					$('#cliente').append($('<option value="'+usuarios.idUsuario+'">'+usuarios.apellido+', '+usuarios.nombre+'</option>'));
-				});
-			});
-		}else{
-			$('#cliente').empty();
-			$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
-			$('#cliente').prop('disabled',true);
-			$('#inputClienteGroup').addClass("has-error");
-			clearTimeout();
-			setTimeout(function(){$('#inputClienteGroup').removeClass("has-error");},2000);
-			}
-		
-	}); 
-	
-	
-	$(this).on("click", "#btnAgregarClienteSeleccionado", function(e){
-	    e.preventDefault();
-	    if($('#cliente').val() == "cliente"){
-			alert("Para agregar primero debes seleccionar un cliente");
-		}else{
-			$('#buscarCliente').modal('toggle');
-	        $('#btnQuitarClienteVenta').removeClass("hidden");
-	        $('#btnAgregarClienteVenta').addClass("hidden");
-	        $('#btnQuitarClienteVenta').show();
-	        $('#btnAgregarClienteVenta').hide();
-	        $('#btnQuitarClienteVenta').add();
-	        $('#tablaClienteSeleccionado').removeClass("hidden");
-	        
-	        var idCliente = $('#cliente').val();
-	        
-	        parametro = {idCliente : idCliente};
-	        $.post("ObtenerCliente",$.param(parametro),function(responseJson){
-				$.each(responseJson,function(index, cliente){
-					$('#idUsuario').val(cliente.idUsuario); 			
-			        $('#nombreApellidoCliente').text(cliente.nombre+", "+cliente.apellido);
-			        $('#telefonoCliente').text(cliente.telefono);
-			        $('#direccionCliente').text(cliente.direccion);
-				});
-			});	   
-		}
-	}); 
-	
-	$(this).on("click", "#btnQuitarClienteVenta", function(e){
-	    e.preventDefault();
-	    
-	    $('#btnQuitarClienteVenta').addClass("hidden");
-	    $('#btnQuitarClienteVenta').hide();
-	    $('#btnAgregarClienteVenta').removeClass("hidden");
-	    $('#btnAgregarClienteVenta').show();
-	    $('#tablaClienteSeleccionado').addClass("hidden");
-	    $('#idUsuario').val("");								//borro el id del usuario
-	    $('#nombreApellidoCliente').text("");
-	    $('#telefonoCliente').text("");
-	    $('#direccionCliente').text("");
-		
-	}); 
 	
 	//COMBO CATEGORIA DE PANEL MODAL DE LISTADO DE PRODUCTOS
 	$(this).on("change", "#categoria", function(e){
@@ -477,15 +408,16 @@ $(document).ready(function() {
 				url : "ProcesarVenta",
 				data : {jsonData : parametros},
 				success : function(respuesta){
-					alert("respuesta a continuacion");
-					alert(respuesta);
-					
-					$(location).attr('href',"Ventas");
-					
+					//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
+					if (respuesta){
+						if(confirm("Venta cargada Exitosamente")){
+							$(location).attr('href','Ventas');
+						}
+					}else{
+						alert("Error al cargar la venta");
+					}
 				}
 			}); 
-			
 		}
-		
 	})
 })

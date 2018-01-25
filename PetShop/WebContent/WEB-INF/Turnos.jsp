@@ -176,7 +176,7 @@
 							
 							<div class="container-fluid">
 							
-								<div class="selectContainer col-xs-12 col-sm-8" id="fechaGroup">
+								<div class="selectContainer col-xs-12 col-sm-8" id="mascotaGroup">
 				    				<h4><strong>SELECCIONE MASCOTA</strong></h4>
 				    				<select class="form-control" name="mascotaSeleccionada" id="mascota" aria-describedby="mascotaHelp" disabled>
 								    	<option value="mascota">Seleccion&aacute; una mascota</option>

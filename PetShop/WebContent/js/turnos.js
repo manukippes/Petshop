@@ -100,14 +100,27 @@ $(document).ready(function() {
 		if($('#servicio').val()!="servicio"){
 			servicio=true;
 		}
+		var cliente=false;
+		if($('#idUsuario').val()!=""){
+			cliente=true;
+		}
+		var mascota = false;
+		if($('#mascota').val()!="mascota"){
+			mascota = true;
+		}
 		
 		if (tamanio){
 			if(pelaje){
 				if(servicio){
-					
-					confirm("Todo ok");
-					
-				}else{alert("Debes seleccionar un tipo de servicio")}
+					if(cliente){
+						if(mascota){
+							confirm("Todo ok");	
+							
+						}else{alert("Debes seleccionar una mascota del cliente");
+								destacarCampo("mascotaGroup");}		
+					}else{alert("Debes seleccionar un cliente registrado");}					
+				}else{alert("Debes seleccionar un tipo de servicio");
+					destacarCampo("servicioGroup");}
 			}else{alert("Debes seleccionar un largo del pelaje")}
 		}else{alert("Debes seleccionar un tama&ntilde;o de mascota")}
 	})

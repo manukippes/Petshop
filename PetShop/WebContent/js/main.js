@@ -106,6 +106,12 @@ window.alert = function (message) {
 
 };
 
+function destacarCampo(nombre){
+	$('#'+nombre).addClass("has-error");
+	clearTimeout();
+	setTimeout(function(){$('#'+nombre).removeClass("has-error");},3500);
+}
+
 
 $(document).ready(function() {
 

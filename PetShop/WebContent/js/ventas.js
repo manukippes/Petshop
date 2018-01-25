@@ -131,27 +131,6 @@ $(document).ready(function() {
 		var precio = fila.find("#precioProducto").text();
 		var cantidad = fila.find("#cantidadProducto").text();
 		
-		
-		
-		/*
-		$("#subtotal").val(0);
-		
-		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
-		//RECORRO LA TABLA 	VERIFICANDO 
-		$.each(filas,function(i,fila){
-			if (i>0){
-					
-				var subtotal = parseFloat($("#subtotal").val());
-				
-				subtotal += (parseFloat(cantidad)*parseFloat(precio));
-				
-				$("#subtotal").val(subtotal);
-					
-				}
-			})			
-		
-		*/
-		
 		//RESTO AL SUBTOTAL EL IMPORTE CALCULADO
 		
 		subtotal -= (parseFloat(precio)*parseFloat(cantidad));

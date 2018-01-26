@@ -93,6 +93,10 @@ CREATE TABLE `linea_venta` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `linea_venta`
+--
+
 
 --
 -- Table structure for table `mascota`
@@ -113,7 +117,7 @@ CREATE TABLE `mascota` (
   KEY `idTipoMascota_idx` (`idTipoMascota`),
   CONSTRAINT `idTipoMascota` FOREIGN KEY (`idTipoMascota`) REFERENCES `tipo_mascota` (`idTipoMascota`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,6 +126,7 @@ CREATE TABLE `mascota` (
 
 LOCK TABLES `mascota` WRITE;
 /*!40000 ALTER TABLE `mascota` DISABLE KEYS */;
+INSERT INTO `mascota` VALUES (1,1,1,'Firulaif','2018-01-01','El mas simpaticon'),(2,1,3,'Doggo','2014-05-16','EL guardian');
 /*!40000 ALTER TABLE `mascota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,7 +225,7 @@ CREATE TABLE `servicio` (
   `idServicio` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idServicio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,6 +234,7 @@ CREATE TABLE `servicio` (
 
 LOCK TABLES `servicio` WRITE;
 /*!40000 ALTER TABLE `servicio` DISABLE KEYS */;
+INSERT INTO `servicio` VALUES (1,'Banio con corte'),(2,'Banio Higienico'),(3,'Corte'),(4,'Antipulgas');
 /*!40000 ALTER TABLE `servicio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -298,7 +304,7 @@ CREATE TABLE `tipo_mascota` (
   `pelo` varchar(20) DEFAULT NULL,
   `tamanio` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`idTipoMascota`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,6 +313,7 @@ CREATE TABLE `tipo_mascota` (
 
 LOCK TABLES `tipo_mascota` WRITE;
 /*!40000 ALTER TABLE `tipo_mascota` DISABLE KEYS */;
+INSERT INTO `tipo_mascota` VALUES (1,'Corto','Chico'),(2,'Corto','Mediano'),(3,'Corto','Grande'),(4,'Largo','Chico'),(5,'Largo','Mediano'),(6,'Largo','Grande');
 /*!40000 ALTER TABLE `tipo_mascota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -440,6 +447,10 @@ CREATE TABLE `venta` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `venta`
+--
+
 
 
 --
@@ -459,4 +470,4 @@ CREATE TABLE `venta` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-23 10:22:58
+-- Dump completed on 2018-01-25 21:48:45

@@ -5,8 +5,7 @@
 											//FUNCIONES GENERALES A TODOS LOS JSP
 											//-----------------------------------
 
- 
-function iniciar(parametro){
+ function iniciar(parametro){
     		switch(parametro){
     		case 'administracion':
     			administracionTab.className += " active";
@@ -27,6 +26,8 @@ function iniciar(parametro){
     			break;
     		}
 }
+
+ 
 function alertError(mensaje)
 {
     var dgcTiempo=500;

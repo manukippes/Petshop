@@ -35,7 +35,7 @@
 					<div class="form-group">
 						
 						<div class="row col-lg-6 col-md-12">	
-							<div class="container">
+							<div class="container-fluid">
 								<h4><strong>TAMA&Ntilde;O DEL PERRO</strong></h4>
 							</div>
 							<div class="container-fluid ">
@@ -59,14 +59,13 @@
 									<button class="icon-button" id="btnPatitaChica">						
 										<span class="fa fa-paw" style="font-size:50px;margin-top:40px"></span>
 										<p><strong class="text-center"> CHICO </strong></p>		
-									</button>	
-														
+									</button>					
 								</div>
 							</div>
 						</div>
 						
 						<div class="row col-lg-6 col-md-12">	
-							<div class="container">
+							<div class="container-fluid">
 								<h4><strong>PELAJE</strong></h4>
 							</div>
 							<div class="container-fluid">
@@ -92,10 +91,11 @@
 					<div class="form-group">
 					
 						<div class="row col-md-12">	
-							<div class="container">
-								<h4><strong>TIPO DE SERVICIO</strong></h4>
-							</div>
+							
 							<div class="container-fluid">
+								<div class="container-fluid">
+									<h4><strong>TIPO DE SERVICIO</strong></h4>
+								</div>
 								<div class="selectContainer col-xs-12 col-sm-8" id="servicioGroup">
 				    				<label class="sr-only">Selecciona un tipo de servicio</label>
 								    <select class="form-control" name="servicioSeleccionado" id="servicio" aria-describedby="servicioHelp" required>
@@ -151,7 +151,7 @@
 								
 								<div class="table-responsive col-sm-8 hidden" id="tablaClienteSeleccionado">
 									
-									<table class="table table-striped active" id="tableUsuario" name="tableUsuario" >
+									<table class="table table-striped active" id="tableUsuario">
 										<tr id="idUsuario">
 											<td  id="nombreApellidoCliente"></td>
 											<td id="telefonoCliente"></td>
@@ -198,7 +198,7 @@
 					
 					</div>
 					
-				</div>
+				
 								
 				<!-- PANEL MODAL DE BUSQUEDA DE CLIENTE -->
 					<div class="modal fade" id="buscarCliente">
@@ -237,6 +237,7 @@
 							</div>
 						</div>
 					</div>
+				</div>
 			</form>
 		</div>
 	</div>

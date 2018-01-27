@@ -111,40 +111,10 @@ function destacarCampo(nombre){
 	$('#'+nombre).addClass("has-error");
 	clearTimeout();
 	setTimeout(function(){$('#'+nombre).removeClass("has-error");},3500);
-}
+};
 
 
 $(document).ready(function() {
-
-										//----------------------
-										//JQUERY MODULO CLIENTES
-										//----------------------
-										
-	$('#btnAgregarCliente').click(function(e){
-		e.preventDefault();
-		var nombre = $('#nombre').val();
-		var apellido = $('#apellido').val();
-		var dni = $('#dni').val();
-		var direccion = $('#direccion').val();
-		var telefono = $('#telefono').val();
-		var email = $('#email').val();
-		
-		//falta el validar campos
-		if(true){
-			var data = new FormData($('#form_nuevo_cliente')[0]);
-			$.ajax({
-				url : "ConfirmarAltaCliente",
-				type : "post",
-				data : data,
-				contentType : false,
-				processData : false,
-				success : function(data){
-					alert(data);
-				}
-			});
-		}
-	});	
-	
 										//
 										//JQUERY MODAL AGREGAR CLIENTE
 										//
@@ -218,5 +188,5 @@ $(document).ready(function() {
 		
 	}); 
 									
-});
+})
 

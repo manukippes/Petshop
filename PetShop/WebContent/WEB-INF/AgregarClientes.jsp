@@ -8,7 +8,8 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="css/estilos.css" type="text/css">
-		<script type="text/javascript" src="js/main.js"></script>
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
+		
 
 		<title>SGPS - Alta nuevo cliente</title>
 	</head>
@@ -33,14 +34,14 @@
 			            		<label class="sr-only">Nombre</label>
 							    <div class="col-lg-6 col-md-12" id="nombreGroup">
 							    	<small id="nombreHelp" class="form-text text-muted"><strong>Nombre*</strong></small>
-							    	<input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="nombreHelp" placeholder="Ingres&aacute; el nombre del cliente a dar de alta" required>
+							    	<input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="nombreHelp" placeholder="Ingres&aacute; el nombre del cliente a dar de alta">
 								</div>
 								
 							<!-- Input de apellido -->
 								<label class="sr-only">Apellido</label>
 							    <div class="col-lg-6 col-md-12" id="apellidoGroup">
 							    	<small id="apellidoHelp" class="form-text text-muted"><strong>Apellido*</strong></small>
-							    	<input type="text" class="form-control" name="apellido" id="apellido" aria-describedby="apellidoHelp" placeholder="Ingres&aacute; el apellido del cliente a dar de alta" required>
+							    	<input type="text" class="form-control" name="apellido" id="apellido" aria-describedby="apellidoHelp" placeholder="Ingres&aacute; el apellido del cliente a dar de alta">
 								</div>
 						</div>
 						<hr>
@@ -67,7 +68,7 @@
 								<label class="sr-only">Tel&eacute;fono</label>
 							    <div class="col-lg-6 col-md-12" id="telefonoGroup">
 							    	<small id="direccionHelp" class="form-text text-muted"><strong>Tel&eacute;fono*</strong></small>
-							    	<input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingres&aacute; el tel&eacute;fono del cliente a dar de alta" required>
+							    	<input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingres&aacute; el tel&eacute;fono del cliente a dar de alta">
 								</div>
 						         	
 			            	<!-- Input de email-->
@@ -87,8 +88,10 @@
 		        </div>
 		   	</div>
 		</div>
-		<script src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/clientes.js"></script>
 	</body>
 </html>

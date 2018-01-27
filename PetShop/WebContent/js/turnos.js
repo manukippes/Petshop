@@ -7,7 +7,7 @@ $(document).ready(function() {
 		
 	$('#btnPatitaGrande').click(function(e){
 		e.preventDefault();
-		
+		$('#patitaGroup').removeClass("con-error");
 		$('#btnPatitaGrande').addClass("icon-button-active");
 		$('#btnPatitaMediana').removeClass("icon-button-active");
 		$('#btnPatitaChica').removeClass("icon-button-active");
@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 	$('#btnPatitaMediana').click(function(e){
 		e.preventDefault();
-		
+		$('#patitaGroup').removeClass("con-error");
 		$('#btnPatitaGrande').removeClass("icon-button-active");
 		$('#btnPatitaMediana').addClass("icon-button-active");
 		$('#btnPatitaChica').removeClass("icon-button-active");
@@ -25,7 +25,7 @@ $(document).ready(function() {
 	
 	$('#btnPatitaChica').click(function(e){
 		e.preventDefault();
-		
+		$('#patitaGroup').removeClass("con-error");
 		$('#btnPatitaGrande').removeClass("icon-button-active");
 		$('#btnPatitaMediana').removeClass("icon-button-active");
 		$('#btnPatitaChica').addClass("icon-button-active");
@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 	$('#btnTijeraGrande').click(function(e){
 		e.preventDefault();
-		
+		$('#pelajeGroup').removeClass("con-error");
 		$('#btnTijeraGrande').addClass("icon-button-active");
 		$('#btnTijeraChica').removeClass("icon-button-active");
 
@@ -43,15 +43,29 @@ $(document).ready(function() {
 	
 	$('#btnTijeraChica').click(function(e){
 		e.preventDefault();
-		
+		$('#pelajeGroup').removeClass("con-error");
 		$('#btnTijeraGrande').removeClass("icon-button-active");
 		$('#btnTijeraChica').addClass("icon-button-active");
 
 	})
 	
+	$("#servicio").change(function(){
+
+		$('#servicioGroup').removeClass("has-error");
+	})
+	
+	$("#horario").change(function(){
+
+		$('#horarioGroup').removeClass("has-error");
+	})
+	$("#mascota").change(function(){
+
+		$('#mascotaGroup').removeClass("has-error");
+	})
 	//CAPTURO el dia que se ingreso
 	$("#fechaSeleccionada").change(function(){
 		
+		$('#fechaGroup').removeClass("has-error");
 		var fechaSeleccionada = $('#fechaSeleccionada').val();
 		if (fechaSeleccionada!=""){
 			$('#horario').prop('disabled',false);
@@ -120,6 +134,14 @@ $(document).ready(function() {
 		if($('#servicio').val()!="servicio"){
 			servicio=true;
 		}
+		var fecha =false;
+		if($('#fechaSeleccionada').val()!=""){
+			fecha=true;
+		}
+		var horario =false;
+		if($('#horario').val()!="horario"){
+			horario=true;
+		}
 		var cliente=false;
 		if($('#idUsuario').val()!=""){
 			cliente=true;
@@ -129,20 +151,35 @@ $(document).ready(function() {
 			mascota = true;
 		}
 		
+		var resultado = false;
 		if (tamanio){
 			if(pelaje){
 				if(servicio){
-					if(cliente){
-						if(mascota){
-							confirm("Todo ok");	
+					if(fecha){
+						if(horario){
+							if(cliente){
+								if(mascota){
+									confirm("Todo ok");	
 							
-						}else{alert("Debes seleccionar una mascota del cliente");
-								destacarCampo("mascotaGroup");}		
-					}else{alert("Debes seleccionar un cliente registrado");}					
+								}else{alert("Debes seleccionar una mascota del cliente");
+								$('#mascotaGroup').addClass("has-error");}
+						
+							}else{alert("Debes seleccionar un cliente registrado");}
+					
+						}else{alert("Debes seleccionar un horario disponible");
+								$('#horarioGroup').addClass("has-error");}
+						
+					}else{alert("Debes seleccionar una fecha para el turno");
+							$('#fechaGroup').addClass("has-error");}
+					
 				}else{alert("Debes seleccionar un tipo de servicio");
-					destacarCampo("servicioGroup");}
-			}else{alert("Debes seleccionar un largo del pelaje")}
-		}else{alert("Debes seleccionar un tama&ntilde;o de mascota")}
+						$('#servicioGroup').addClass("has-error");}
+				
+			}else{alert("Debes seleccionar un largo del pelaje")
+					$('#pelajeGroup').addClass("con-error");}
+			
+		}else{alert("Debes seleccionar un tama&ntilde;o de mascota");
+				$("#patitaGroup").addClass("con-error")}
 	})
 	
 })

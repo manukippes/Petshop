@@ -29,7 +29,6 @@
 			<br>
 			<h4><strong>NUEVO TURNO</strong> - Paso 1 de 2</h4>
 			<hr>
-			
 			<form action="#" method="post" class="form-horizontal"  id="formTurnos">
 				<div class="container-fluid">
 					<div class="form-group">
@@ -38,23 +37,24 @@
 							<div class="container-fluid">
 								<h4><strong>TAMA&Ntilde;O DEL PERRO</strong></h4>
 							</div>
-							<div class="container-fluid ">
-								<div class="col-sm-4">
+							<div class="container-fluid" id="patitaGroup">
+								<div class="col-sm-4 centrado">
 									<label class="sr-only">Perro grande</label>
-									<button class="icon-button " id="btnPatitaGrande">						
+									<button class="icon-button" id="btnPatitaGrande">						
 										<span class="fa fa-paw" style="font-size:90px"></span>
 										<p><strong class="text-center"> GRANDE </strong></p>
 									</button>								
 								</div>
-								<div class="col-sm-4 active">
+								<div class="col-sm-4 centrado">
 									<label class="sr-only">Perro mediano</label>
 									<button class="icon-button" id="btnPatitaMediana">						
 										<span class="fa fa-paw" style="font-size:70px;margin-top:20px"></span>
+										<p><strong class="text-center"> MEDIANO </strong></p>	
 									</button>			
-									<p><strong class="text-center"> MEDIANO </strong></p>					
+													
 									
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-4 centrado">
 									<label class="sr-only">Perro chico</label>
 									<button class="icon-button" id="btnPatitaChica">						
 										<span class="fa fa-paw" style="font-size:50px;margin-top:40px"></span>
@@ -68,15 +68,15 @@
 							<div class="container-fluid">
 								<h4><strong>PELAJE</strong></h4>
 							</div>
-							<div class="container-fluid">
-								<div class="col-sm-4">
+							<div class="container-fluid" id="pelajeGroup">
+								<div class="col-sm-4 centrado">
 									<label class="sr-only">Tamano del perro</label>
 									<button class="icon-button" id="btnTijeraGrande">						
 										<span class="fa fa-scissors" style="font-size:90px"></span>
 										<p><strong class="text-center"> LARGO </strong></p>
 									</button>								
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-4 centrado">
 									<label class="sr-only">Tamano del perro</label>
 									<button class="icon-button"id="btnTijeraChica">						
 										<span class="fa fa-scissors" style="font-size:70px;margin-top:20px"></span>
@@ -130,7 +130,7 @@
 				    				<h4><strong>SELECCIONE LA FECHA</strong></h4>
 				    				<input type="date" class="form-control" id="fechaSeleccionada"></input>
 								</div>
-								<div class="col-xs-12 col-md-4">
+								<div class="col-xs-12 col-md-4" id="horarioGroup">
 									<h4><strong>HORARIOS DISPONIBLES</strong></h4>
 									<label class="sr-only">Selecciona un horario</label>
 									<select class="form-control" name="horarioSeleccionado" id="horario" aria-describedby="horarioHelp" required>
@@ -144,8 +144,8 @@
 					<hr>
 					<div class="form-group">				
 						<div class="row col-md-12">	
-							<div class="container-fluid">
-								<div class="container input-group">
+							<div class="container-fluid" id="clienteGroup">
+								<div class="container input-group ">
 									<h4><strong>SELECCIONAR UN CLIENTE</strong></h4>
 								</div>
 								
@@ -166,6 +166,7 @@
 								<div class="col-sm-4 col-xs-12 pull-right">
 									<a href="#quitarCliente" class="btn btn-danger form-control hidden" id="btnQuitarCliente"> <span class="glyphicon glyphicon-remove "> </span><span class="glyphicon glyphicon-user"></span> Quitar Cliente </a>
 								</div>
+								<br>
 							</div>
 						</div>
 					</div>

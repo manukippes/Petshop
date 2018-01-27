@@ -95,7 +95,7 @@ public class DatosTurno implements Serializable{
 			pstm = FactoryConnection.getinstancia().getConn().prepareCall(
 					"call getHorariosDisponibles(?)");
 			pstm.setString(1, fechaSeleccionada);
-			System.out.println(pstm);
+		
 			rs=pstm.executeQuery();
 			
 			if(rs!=null)

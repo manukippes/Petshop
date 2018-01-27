@@ -72,3 +72,21 @@ hr{
 	color:#758ee8;
 }
 
+/*Error en un div entero*/
+.con-error{
+	border-width : 2px;
+	border-style:solid;
+	border-radius:15px;
+	border-color:#843534;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #ce8483;
+	box-shadow:inset 0 2px 2px rgba(0,0,0,.100),0 0 15px #ce8483
+	
+}
+/*centrar los iconos en el div*/
+.centrado{
+	position:relative;
+	display:inline-block;
+	float:center;
+	text-align: center;
+	top:50%;
+}

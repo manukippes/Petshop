@@ -3,7 +3,12 @@ package datos;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
+import java.util.ArrayList;
 
+import entidades.Categoria;
+import entidades.Producto;
+import entidades.Subcategoria;
 import entidades.Turno;
 
 public class DatosTurno implements Serializable{
@@ -11,6 +16,7 @@ public class DatosTurno implements Serializable{
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR TURNO
 	//						MODIFICAR TURNO
+	//						GET HORARIOS DISPONIBLES
 	
 	public void agregarTurno (Turno turno) throws Exception
 	{
@@ -79,5 +85,41 @@ public class DatosTurno implements Serializable{
 			}	
 		}
 		
+	}
+	public ArrayList<Time> getHorariosDisponibles(String fechaSeleccionada)throws Exception{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		ArrayList<Time> horariosDisponibles = new ArrayList<Time>();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareCall(
+					"call getHorariosDisponibles(?)");
+			pstm.setString(1, fechaSeleccionada);
+			System.out.println(pstm);
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					Time horarioActual = rs.getTime("horario");			
+					
+					horariosDisponibles.add(horarioActual);
+				}
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return horariosDisponibles;
 	}
 }

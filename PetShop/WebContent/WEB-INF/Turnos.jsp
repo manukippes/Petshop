@@ -128,7 +128,7 @@
 							
 								<div class="selectContainer col-xs-12 col-md-8" id="fechaGroup">
 				    				<h4><strong>SELECCIONE LA FECHA</strong></h4>
-				    				<input type="date" class="form-control"></input>
+				    				<input type="date" class="form-control" id="fechaSeleccionada"></input>
 								</div>
 								<div class="col-xs-12 col-md-4">
 									<h4><strong>HORARIOS DISPONIBLES</strong></h4>

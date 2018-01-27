@@ -49,6 +49,26 @@ $(document).ready(function() {
 
 	})
 	
+	//CAPTURO el dia que se ingreso
+	$("#fechaSeleccionada").change(function(){
+		
+		var fechaSeleccionada = $('#fechaSeleccionada').val();
+		if (fechaSeleccionada!=""){
+			$('#horario').prop('disabled',false);
+			var parametro = {fechaSeleccionada : fechaSeleccionada};
+			$.post("ComboHorarios",$.param(parametro),function(responseJson){
+				$('#horario').empty();
+				$('#horario').append($('<option value="horario">Seleccion&aacute; un horario</option>'));
+				$.each(responseJson,function(index,horarios){
+					//recuperos los horarios
+					$('#horario').append($('<option value="'+horarios+'">'+horarios+'</option>'));
+				});
+			});	
+		}else{
+			$('#horario').prop('disabled',true);
+		}
+	})	
+	
 	$("#tableUsuario tr td").on('DOMSubtreeModified',function(){
 
 		var idUsuario = $('#idUsuario').val();

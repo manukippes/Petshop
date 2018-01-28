@@ -22,10 +22,11 @@ public class DatosUsuario implements Serializable{
 	// 						COMPLETAR DATOS DEL USUARIO
 	
 
-	public void agregarUsuario (Usuario user) throws Exception
+	public boolean agregarUsuario (Usuario user) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		boolean bandera = false;
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
@@ -47,12 +48,15 @@ public class DatosUsuario implements Serializable{
 			pstm.executeUpdate();
 			rs=pstm.getGeneratedKeys();
 			if(rs!=null && rs.next()){
+				bandera = true;
 				user.setIdUsuario(rs.getInt(1));
 			}
 		} catch (Exception e) {
 			
 			throw e;
 		}
+		
+		
 		
 		try {
 			if(rs!=null)rs.close();
@@ -62,6 +66,7 @@ public class DatosUsuario implements Serializable{
 			throw e;
 		}
 		
+		return bandera;
 	}
 	public void modificarUsuario(Usuario user) throws Exception
 	{

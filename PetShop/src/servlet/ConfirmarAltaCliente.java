@@ -7,6 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import entidades.Usuario;
+import logica.ControladorDeUsuario;
+
 @WebServlet({"/ConfirmarAltaCliente", "/Confirmaraltacliente", "/confirmaraltacliente"})
 public class ConfirmarAltaCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +29,40 @@ public class ConfirmarAltaCliente extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//FALTA TODA LA LOGICA//
+		ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
+		Usuario usu = new Usuario();
+		boolean bandera = false;
+		
+		String json = request.getParameter("jsonData");
+		JsonObject campos = (JsonObject) new JsonParser().parse(json);
+		
+		String nombre = (String) campos.get("nombre").getAsString();
+		String apellido = (String) campos.get("apellido").getAsString();
+		int dni = (int) campos.get("dni").getAsInt();
+		String direccion = (String) campos.get("direccion").getAsString();
+		int telefono = (int) campos.get("telefono").getAsInt();
+		String email = (String) campos.get("email").getAsString();
+		
+		usu.setNombre(nombre);
+		usu.setApellido(apellido);
+		usu.setDni(dni);
+		usu.setDireccion(direccion);
+		usu.setTelefono(telefono);
+		usu.setEmail(email);
+		
+		try {
+			bandera = ctrlUsuario.agregarUsuario(usu);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		if(bandera){
+			response.getWriter().println("Se agrego el usuario correctamente");	
+		}else{
+			response.getWriter().println("Ocurrio un problema, no fue posible agregar el usuario");	
+		}
+		
 		
 	}
 

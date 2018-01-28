@@ -35,8 +35,9 @@ public class ControladorDeUsuario implements Serializable{
 		return usuario;
 	}
 	
-	public void agregarUsuario(Usuario user) throws Exception{
-		baseUsuario.agregarUsuario(user);
+	public boolean agregarUsuario(Usuario user) throws Exception{
+		boolean bandera = baseUsuario.agregarUsuario(user);
+		return bandera;
 	}
 	
 	public void modificarUsuario(Usuario user) throws Exception{

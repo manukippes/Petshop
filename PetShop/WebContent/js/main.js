@@ -39,7 +39,7 @@ function alertError(mensaje)
     		"							<button type='button' id='btnCerrarAlertX' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>" +
     		"						</div>" +
     		"						<div class='container'>" +
-    		"							<h3 class='text-danger'><span class='glyphicon glyphicon-warning-sign'></span>  Ups, algo no est&aacute; bien</h3>" +
+    		"							<h3 class='text-danger'><span class='glyphicon glyphicon-warning-sign'></span>  Disculpe, algo no est&aacute; bien</h3>" +
     		"						</div>" +
     		"					</div>" +
     		"					<div class='modal-body'>" +						

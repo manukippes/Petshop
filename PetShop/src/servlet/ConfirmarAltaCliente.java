@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +33,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
 		Usuario usu = new Usuario();
-		boolean bandera = false;
-		
+				
 		String json = request.getParameter("jsonData");
 		JsonObject campos = (JsonObject) new JsonParser().parse(json);
 		
@@ -51,17 +52,17 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		usu.setEmail(email);
 		
 		try {
-			bandera = ctrlUsuario.agregarUsuario(usu);
+			if(ctrlUsuario.agregarUsuario(usu)){
+				response.getWriter().println(true);	
+			}else{
+				response.getWriter().println(false);	
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
-		if(bandera){
-			response.getWriter().println("Se agrego el usuario correctamente");	
-		}else{
-			response.getWriter().println("Ocurrio un problema, no fue posible agregar el usuario");	
-		}
 		
 		
 	}

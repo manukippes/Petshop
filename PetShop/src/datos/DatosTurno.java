@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import entidades.Categoria;
@@ -18,28 +20,31 @@ public class DatosTurno implements Serializable{
 	//						MODIFICAR TURNO
 	//						GET HORARIOS DISPONIBLES
 	
-	public void agregarTurno (Turno turno) throws Exception
+	public Boolean agregarTurno (Turno turno) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		Boolean bandera=false;
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"INSERT INTO turno(idTurno,idMascota,idServicio,fecha,hora,repetir,retiroDom,estado) VALUES (?,?,?,?,?,?,?,?)",
+					"INSERT INTO turno(idMascota,idServicio,fecha,hora,repetir,retiroDom,estado,observaciones) VALUES (?,?,?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			pstm.setInt(1, turno.getIdTurno());
-			pstm.setInt(2, turno.getMascota().getIdMascota());
-			pstm.setInt(3, turno.getServicio().getIdServicio());
-			pstm.setString(4, turno.getFecha());
-			pstm.setString(5, turno.getHora());
-			pstm.setString(6, turno.getRepetir());
-			pstm.setBoolean(7, false);//turno.getRetiroDom());
-			pstm.setString(8, turno.getEstado());
+			pstm.setInt(1, turno.getMascota().getIdMascota());
+			pstm.setInt(2, turno.getServicio().getIdServicio());
+			pstm.setDate(3, turno.getFecha());
+			pstm.setTime(4, turno.getHora());
+			pstm.setString(5, turno.getRepetir());
+			pstm.setBoolean(6, turno.getRetiroDom());
+			pstm.setString(7, turno.getEstado());
+			pstm.setString(8, turno.getObservaciones());
 			pstm.executeUpdate();
 			rs=pstm.getGeneratedKeys();
 			if(rs!=null && rs.next()){
 				turno.setIdTurno(rs.getInt(1));
+				bandera=true;
 			}
+			
 		} catch (Exception e) {
 			throw e;
 		}
@@ -51,6 +56,7 @@ public class DatosTurno implements Serializable{
 		} catch (Exception e) {
 			throw e;
 		}
+		return bandera;
 		
 	}
 	public void modificarTurno(Turno turno) throws Exception
@@ -59,15 +65,16 @@ public class DatosTurno implements Serializable{
 				
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"UPDATE turno SET idMascota=?,idServicio=?,fecha=?,hora=?,repetir=?,retiroDom=?,estado=? WHERE idTurno=?");
+					"UPDATE turno SET idMascota=?,idServicio=?,fecha=?,hora=?,repetir=?,retiroDom=?,estado=?, observaciones=? WHERE idTurno=?");
 			pstm.setInt(1, turno.getMascota().getIdMascota());
 			pstm.setInt(2, turno.getServicio().getIdServicio());
-			pstm.setString(3, turno.getFecha());
-			pstm.setString(4, turno.getHora());
+			pstm.setDate(3, turno.getFecha());
+			pstm.setTime(4, turno.getHora());
 			pstm.setString(5, turno.getRepetir());
 			pstm.setBoolean(6, false);//turno.getRetiroDom());
 			pstm.setString(7, turno.getEstado());
-			pstm.setInt(8, turno.getIdTurno());
+			pstm.setString(8, turno.getObservaciones());
+			pstm.setInt(9, turno.getIdTurno());
 			pstm.executeUpdate();
 		} 
 		catch (Exception e) 
@@ -102,8 +109,7 @@ public class DatosTurno implements Serializable{
 			{
 				while(rs.next())
 				{
-					Time horarioActual = rs.getTime("horario");			
-					
+					Time horarioActual = rs.getTime("horario");
 					horariosDisponibles.add(horarioActual);
 				}
 				

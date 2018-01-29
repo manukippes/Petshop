@@ -63,7 +63,6 @@ public class ComboClientes extends HttpServlet {
 		}
 		String json = new Gson().toJson(lista);
 		
-		System.out.println(json);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

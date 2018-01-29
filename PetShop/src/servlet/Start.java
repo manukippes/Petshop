@@ -54,6 +54,7 @@ public class Start extends HttpServlet {
 					
 					if(usuario.getEstado()==1){
 						request.getSession().setAttribute("user", usuario); //crea o recupera una sesion si ya esta creada	
+						request.getSession().setAttribute("turnoPendiente", false);
 						request.getRequestDispatcher("WEB-INF/Principal.jsp").forward(request, response);							
 					}
 					else {

@@ -12,6 +12,7 @@ import entidades.Subcategoria;
 import entidades.TipoMascota;
 import entidades.Usuario;
 import logica.ControladorDeTipoMascota;
+import logica.ControladorDeUsuario;
 
 public class DatosMascota implements Serializable{
 	
@@ -19,6 +20,7 @@ public class DatosMascota implements Serializable{
 	//						AGREGAR MASCOTA
 	//						MODIFICAR MASCOTA
 	//						GET MASCOTAS DE UN CLIENTE
+	//						GET MASCOTA (COMPLETAR CLASE)
 	
 	public void agregarMascota (Mascota mascota) throws Exception
 	{
@@ -133,5 +135,55 @@ public class DatosMascota implements Serializable{
 			throw e;
 		}
 		return mascotas;
+	}
+	
+	public Mascota getMascota(Mascota mascota) throws Exception{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Mascota mascotaActual = new Mascota();
+		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
+		ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
+		TipoMascota tipoMascota = new TipoMascota();
+		Usuario duenio = new Usuario();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM MASCOTA where idMascota =?");
+			pstm.setInt(1, mascota.getIdMascota());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					mascotaActual.setIdMascota(rs.getInt("idMascota"));					//SETEO ID MASCOTA
+					duenio.setIdUsuario(rs.getInt("idUsuario"));
+					tipoMascota.setIdTipoMascota(rs.getInt("idTipoMascota"));
+					mascotaActual.setNombre(rs.getString("nombre"));					//SETEO NOMBRE DE LA MASCOTA
+					mascotaActual.setFechaNacimiento(rs.getDate("fechaNacimiento"));	//SETEO FECHA DE NACIMIENTO
+					mascotaActual.setObservaciones(rs.getString("observaciones"));		//SETEO OBSERVACIONES			
+					
+					duenio = ctrlUsuario.getUsuario(duenio);
+					mascotaActual.setUsuario(duenio);									//SETEO DUEÑO DE LA MASCOTA
+					
+					tipoMascota = ctrlTipoMascota.getTipoMascota(tipoMascota);
+					mascotaActual.setTipoMascota(tipoMascota);							//SETEO EL TIPO DE MASCOTA
+					
+				}
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return mascotaActual;
 	}
 }

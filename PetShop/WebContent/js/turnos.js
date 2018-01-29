@@ -1,7 +1,11 @@
 /**
  * 
  */
-
+function volverTurno(bandera){
+	if(bandera){
+		
+	}
+}
 
 $(document).ready(function() {
 		
@@ -58,6 +62,17 @@ $(document).ready(function() {
 
 		$('#horarioGroup').removeClass("has-error");
 	})
+	
+	$("#repetir").click(function(){
+		if($('#repetir').is(':checked')){
+			$('#repetirRadioGroup').removeClass("hidden");
+		}else{$('#repetirRadioGroup').addClass("hidden");}
+	})
+	
+	$(".rbutton").click(function(){
+		$('#repetirRadioGroup').removeClass("con-error");		
+	})
+	
 	$("#mascota").change(function(){
 
 		$('#mascotaGroup').removeClass("has-error");
@@ -122,49 +137,101 @@ $(document).ready(function() {
 	$('#btnContinuar').click(function(e){
 		e.preventDefault();
 		
-		var tamanio = false;
+		var tamanio="";
+		var pelaje="";
+		var servicio="";
+		var fecha="";
+		var horario ="";
+		var idUsuario=0;
+		var idMascota=0;
+		var conRetiro=false;
+		var repeticion="No";
+		var resultado = false;
+		
+		
+		
+		var validaTamanio = false;
 		if ($('#btnPatitaGrande').hasClass("icon-button-active")||$('#btnPatitaMediana').hasClass("icon-button-active")||$('#btnPatitaChica').hasClass("icon-button-active")){
-			tamanio = true;
-		}
-		var pelaje = false;
-		if($('#btnTijeraChica').hasClass("icon-button-active")||$('#btnTijeraGrande').hasClass("icon-button-active")){
-			pelaje=true;
-		}
-		var servicio=false;
-		if($('#servicio').val()!="servicio"){
-			servicio=true;
-		}
-		var fecha =false;
-		if($('#fechaSeleccionada').val()!=""){
-			fecha=true;
-		}
-		var horario =false;
-		if($('#horario').val()!="horario"){
-			horario=true;
-		}
-		var cliente=false;
-		if($('#idUsuario').val()!=""){
-			cliente=true;
-		}
-		var mascota = false;
-		if($('#mascota').val()!="mascota"){
-			mascota = true;
+			validaTamanio = true;
+			if($('#btnPatitaGrande').hasClass("icon-button-active")){
+				tamanio="Grande";
+			}else{
+				if($('#btnPatitaMediana').hasClass("icon-button-active")){
+					tamanio="Mediano";
+				}else{
+					tamanio="Chico";
+				}
+			}
 		}
 		
-		var resultado = false;
-		if (tamanio){
-			if(pelaje){
-				if(servicio){
-					if(fecha){
-						if(horario){
-							if(cliente){
-								if(mascota){
-									confirm("Todo ok");	
+		var validaPelaje = false;
+		if($('#btnTijeraChica').hasClass("icon-button-active")||$('#btnTijeraGrande').hasClass("icon-button-active")){
+			validaPelaje=true;
+			if($('#btnTijeraGrande').hasClass("icon-button-active")){
+				pelaje ="Largo";
+			}else{
+				pelaje ="Corto";
+			}
+		}
+		var validaServicio=false;
+		if($('#servicio').val()!="servicio"){
+			validaServicio=true;
+			servicio=$('#servicio').val();
+		}
+		
+		conRetiro = $('#conRetiro').is(':checked');
+		
+		var validaFecha =false;
+		if($('#fechaSeleccionada').val()!=""){
+			validaFecha=true;
+			fecha = $('#fechaSeleccionada').val();
+		}
+		var validaHorario =false;
+		if($('#horario').val()!="horario"){
+			validaHorario=true;
+			horario = $('#horario').val();
+		}
+		
+		var validaRepetir = false;
+		if($('#repetir').is(':checked')){	
+			var opcionElegida=$('input[name=opcion]:checked').val();
+			if (opcionElegida == "Semanal" || opcionElegida == "Quincenal" || opcionElegida == "Mensual" ){
+				validaRepetir=true;
+				repeticion = $('input[name=opcion]:checked').val();
+			};
+		}else{
+			validaRepetir=true;
+		}
+		
+		var validaCliente=false;
+		if($('#idUsuario').val()!=""){
+			validaCliente=true;
+			idUsuario = $('#idUsuario').val();
+		}
+		var validaMascota = false;
+		if($('#mascota').val()!="mascota"){
+			validaMascota = true;
+			idMascota = $('#mascota').val();
+		}
+		
+		
+		if (validaTamanio){
+			if(validaPelaje){
+				if(validaServicio){
+					if(validaFecha){
+						if(validaHorario){
+							if(validaRepetir){
+								if(validaCliente){
+									if(validaMascota){
+										resultado = true;
+													
+									}else{alert("Debes seleccionar una mascota del cliente");
+									$('#mascotaGroup').addClass("has-error");}
 							
-								}else{alert("Debes seleccionar una mascota del cliente");
-								$('#mascotaGroup').addClass("has-error");}
+								}else{alert("Debes seleccionar un cliente registrado");}
 						
-							}else{alert("Debes seleccionar un cliente registrado");}
+							}else{alert("Debes seleccionar una frecuencia de repeticion");
+									$('#repetirRadioGroup').addClass("con-error");}
 					
 						}else{alert("Debes seleccionar un horario disponible");
 								$('#horarioGroup').addClass("has-error");}
@@ -180,6 +247,66 @@ $(document).ready(function() {
 			
 		}else{alert("Debes seleccionar un tama&ntilde;o de mascota");
 				$("#patitaGroup").addClass("con-error")}
+	
+	
+	
+	if(resultado){
+				//////////////////////PROCESAR TURNO///////////////////////////////
+		var parametro = {
+				tamanio : tamanio,
+				pelaje : pelaje,
+				servicio : servicio,
+				fecha : fecha,
+				horario : horario,
+				repeticion : repeticion,
+				idUsuario : idUsuario,
+				idMascota : idMascota,
+				conRetiro : conRetiro
+				}
+		var parametros = JSON.stringify(parametro);
+		//alert(parametros);
+		$.ajax({
+			type : "post",
+			url : "CargarDatosTurno",
+			data : {jsonData : parametros},
+			success : function(respuesta){
+				//alert(respuesta);
+				$(location).attr('href',"TurnosPaso2");
+				
+			}
+		}); 
+		
+	}
 	})
 	
+	$('#btnConfirmarTurno').click(function(e){
+		e.preventDefault();
+		
+		var observaciones = $('#observaciones').val();
+		var parametro = {
+						observaciones : observaciones
+						}
+		var parametros = JSON.stringify(parametro);
+		//alert(parametros);
+		$.ajax({
+			type : "post",
+			url : "ProcesarTurno",
+			data : {jsonData : parametros},
+			success : function(respuesta){
+				//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
+				if (respuesta){
+					if(confirm("Turno creado Exitosamente")){
+						$(location).attr('href','Turnos');
+					}
+				}else{
+					alert("Error al cargar el turno");
+				}
+			}
+		}); 
+	})
+	
+	$('#volverPaso1').click(function(e){
+		e.preventDefault();
+		$(location).attr('href','Turnos');
+	})
 })

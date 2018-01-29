@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="entidades.Usuario"%>
 <%@page import="entidades.Servicio"%>
+<%@page import="entidades.Turno"%>
 <%@page import="logica.ControladorDeServicio"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
@@ -20,7 +21,7 @@
 			
 	<title>SGPS - Turnos</title>
 </head>
-<body onload="iniciar('turnos');">
+<body onload="iniciar('turnos');volverTurno(<%=(Boolean) session.getAttribute("turnoPendiente")%>);">
 	<jsp:include page="Navbar.jsp" />
 	
 	<div class="container panel panel-default colorPanel">
@@ -136,6 +137,27 @@
 									<select class="form-control" name="horarioSeleccionado" id="horario" aria-describedby="horarioHelp" required>
 								    	<option value="horario">Seleccion&aacute; un horario</option>
 								    </select>
+								    <div class="container-fluid checkbox col-md-offset-1 ">
+										<input type="checkbox" id="repetir" >Repetir
+										<div class="container-fluid hidden" id="repetirRadioGroup">
+											<div class="radio" >
+												<label for ="semanal">
+													<input type="radio" name="opcion" value="Semanal" class="rbutton"> Semanal
+												</label>
+											</div>
+											<div class="radio" >
+												<label for ="quincenal">
+													<input type="radio" name="opcion" value="Quincenal" class="rbutton"> Quincenal
+												</label>
+											</div>
+											<div class="radio" >
+												<label for ="mensual">
+													<input type="radio" name="opcion" value="Mensual" class="rbutton"> Mensual
+												</label>
+											</div>
+										</div>
+											
+									</div>	
 								</div>								
 							</div>
 						</div>

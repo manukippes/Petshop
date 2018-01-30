@@ -19,6 +19,12 @@ function validar(){
 	if ($("#telefono").val() != "") {
 		telefono = true;
 	}
+	
+	if(isNaN($('#dni').val())){
+		alert("Debe ingresar s&oacute;lo n&uacute;meros en el campo Telefono.");		
+	}else if(isNaN($('#telefono').val())){
+		alert("Debe ingresar s&oacute;lo n&uacute;meros en el campo Dni.");
+	}
 		
 	if (nombre) {
 		if (apellido) {
@@ -93,8 +99,17 @@ $(document).ready(function() {
 				url : "ConfirmarAltaCliente",
 				type : "post",
 				data : {jsonData : parametros},
+				dataType: 'json',
 				success : function(data){
-					alert(data);
+					if (data)
+					{
+						confirm("Se agreg&oacute; el cliente correctamente.");
+					} 
+					else
+					{
+						alert("No se pudo agregar el cliente.");
+					}
+                    
 				}
 			})
 		}

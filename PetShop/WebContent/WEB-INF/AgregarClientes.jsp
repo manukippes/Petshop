@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="css/estilos.css" type="text/css">
 		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
-		
+		<link rel="shortcut icon" href="#">
 
 		<title>SGPS - Alta nuevo cliente</title>
 	</head>
@@ -47,14 +47,14 @@
 						<hr>
 						
 						<div class="form-group row">
-			            	<!-- Input de precio-->
+			            	<!-- Input de dni-->
 			            		<label class="sr-only">DNI</label>
 							    <div class="col-lg-6 col-md-12" id="dniGroup">
 							    	<small id="precioHelp" class="form-text text-muted"><strong>Dni</strong></small>
-							    	<input type="text" class="form-control" name="dni" id="dni" aria-describedby="dniHelp" placeholder="Ingres&aacute; el dni del cliente a dar de alta">
+							    	<input type="text" pattern="[0-9]" class="form-control" name="dni" id="dni" aria-describedby="dniHelp" placeholder="Ingres&aacute; el dni del cliente a dar de alta">
 								</div>
 								
-							<!-- Input de stock inicial -->
+							<!-- Input de direccion -->
 								<label class="sr-only">Direcci&oacute;n</label>
 							    <div class="col-lg-6 col-md-12" id="direccionGroup">
 							    	<small id="direccionHelp" class="form-text text-muted"><strong>Direcci&oacute;n</strong></small>
@@ -68,7 +68,7 @@
 								<label class="sr-only">Tel&eacute;fono</label>
 							    <div class="col-lg-6 col-md-12" id="telefonoGroup">
 							    	<small id="direccionHelp" class="form-text text-muted"><strong>Tel&eacute;fono*</strong></small>
-							    	<input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingres&aacute; el tel&eacute;fono del cliente a dar de alta">
+							    	<input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingres&aacute; el tel&eacute;fono, sin guiones, del cliente a dar de alta">
 								</div>
 						         	
 			            	<!-- Input de email-->
@@ -79,7 +79,13 @@
 								</div>
 						</div>
 						<hr>	
-						<div class="form-group row">		
+						<div class="form-group row">	
+							<!-- Input de posee mascota-->
+			            	<div class="col-lg-6 col-md-12" id="mascotaGroup">
+						    	    <input type="checkbox" class="form-check-input" id="mascota">
+								    <label class="form-check-label" for="mascota"><small id="mascotaHelp" class="form-text text-muted"><strong>El cliente posee una mascota</strong></small></label>
+							</div>	
+
 							<div class="col-lg-12">
 								<input type="submit" id="btnAgregarCliente" value="Agregar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">
 							</div>
@@ -88,10 +94,9 @@
 		        </div>
 		   	</div>
 		</div>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/clientes.js"></script>
+			<script src="http://code.jquery.com/jquery-latest.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="js/main.js"></script>
+			<script type="text/javascript" src="js/clientes.js"></script>
 	</body>
 </html>

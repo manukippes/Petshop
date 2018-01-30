@@ -26,7 +26,6 @@
     			break;
     		}
 }
-
  
 function alertError(mensaje)
 {

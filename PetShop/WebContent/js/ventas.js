@@ -410,7 +410,7 @@ $(document).ready(function() {
 				success : function(respuesta){
 					//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
 					if (respuesta){
-						if(confirm("Venta cargada Exitosamente")){
+						if(prompt("Venta cargada Exitosamente")==""){
 							$(location).attr('href','Ventas');
 						}
 					}else{

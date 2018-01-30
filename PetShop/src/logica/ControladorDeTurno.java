@@ -3,8 +3,10 @@ package logica;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import datos.DatosTurno;
+import entidades.Producto;
 import entidades.Turno;
 
 public class ControladorDeTurno implements Serializable{
@@ -14,6 +16,8 @@ public class ControladorDeTurno implements Serializable{
 	
 	//			GET HORARIOS DISPONIBLES PARA UNA FECHA
 	//			AGREGAR TURNO
+	//			FILTRAR PRODUCTOS
+	//			GET TURNO (COMPLETAR DATOS)
 	
 	
 	public ArrayList<Time> getHorariosDisponibles(String fechaSeleccionada) throws Exception{
@@ -22,5 +26,13 @@ public class ControladorDeTurno implements Serializable{
 	
 	public Boolean agregarTurno(Turno turno) throws Exception{
 		return baseTurno.agregarTurno(turno);
+	}
+	
+	public ArrayList<Turno> getTurnos(Hashtable<String, String> parametros)throws Exception{
+
+		return baseTurno.getTurnos(parametros);
+	}
+	public Turno getTurno(Turno turno) throws Exception{
+		return baseTurno.getTurno(turno);
 	}
 }

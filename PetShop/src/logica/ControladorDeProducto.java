@@ -22,7 +22,6 @@ public class ControladorDeProducto implements Serializable{
 		// 	Devolver un producto
 		// 	Devolver todas las subcategorias de una categoria
 		//	Modificar un producto
-		//	Crear tabla html de productos
 		//  Obtener productos con un parametro string
 		//	Obtener productos de una subcategoria con o sin stock
 
@@ -78,35 +77,7 @@ public class ControladorDeProducto implements Serializable{
 
 		return baseProducto.modificarProducto(producto);
 	}
-	public String getHtml(){
-		ArrayList<Producto> productos = new ArrayList<>();
-		String codigoHtml = "";
-		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
-		try {
-			productos = ctrlProducto.getProductos();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		for(Producto produ : productos){
-		codigoHtml += "<tr>"
-						+ "<td id='idProducto'>"+produ.getIdProducto()+"</td>"
-						+ "<td id='nombreProducto'>"+produ.getNombre()+"</td>"
-						+ "<td id='presentacionProducto'>"+produ.getPresentacion()+"</td>"
-						+ "<td>"+produ.getPrecio()+"</td>"
-						+ "<td>"+produ.getStock()+"</td>"
-						+ "<td>"
-							+ "<div class='input-group'>"
-								+ "<a class='btn btn-danger' id='btnEliminarProducto' href='\'>Eliminar</a>"
-								+ "<a class='btn btn-primary' id='btnModificarProducto'  href='ModificarProducto?id="+produ.getIdProducto()+"'>Modificar</a>"
-							+ "</div>"
-						+ "</td>"
-					+ "</tr> ";
-		}
-																		
-		return codigoHtml;
-	}	
+	
 	public ArrayList<Producto> getProductos(Hashtable<String, String> parametros)throws Exception{
 
 		return baseProducto.getProductos(parametros);

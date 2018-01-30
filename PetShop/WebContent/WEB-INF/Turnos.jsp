@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 			
 	<title>SGPS - Turnos</title>
+	<%Boolean bandera = (Boolean) session.getAttribute("turnoPendiente"); %>
 </head>
 <body onload="iniciar('turnos');volverTurno(<%=(Boolean) session.getAttribute("turnoPendiente")%>);">
 	<jsp:include page="Navbar.jsp" />
@@ -61,7 +62,7 @@
 										<span class="fa fa-paw" style="font-size:50px;margin-top:40px"></span>
 										<p><strong class="text-center"> CHICO </strong></p>		
 									</button>					
-								</div>
+								</div>							
 							</div>
 						</div>
 						

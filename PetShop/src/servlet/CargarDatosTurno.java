@@ -84,9 +84,7 @@ public class CargarDatosTurno extends HttpServlet {
 			Mascota mascota = new Mascota();									//MASCOTA
 			mascota.setIdMascota(idMascota);
 			mascota = ctrlMascota.getMascota(mascota);
-			turnoActual.setMascota(mascota);
-			System.out.println();
-			
+			turnoActual.setMascota(mascota);			
 			
 			Servicio servicio = new Servicio();									//SERVICIO
 			servicio.setIdServicio(idServicio);

@@ -79,7 +79,13 @@
 								</div>
 						</div>
 						<hr>	
-						<div class="form-group row">		
+						<div class="form-group row">	
+							<!-- Input de posee mascota-->
+			            	<div class="col-lg-6 col-md-12" id="mascotaGroup">
+						    	    <input type="checkbox" class="form-check-input" id="mascota">
+								    <label class="form-check-label" for="mascota"><small id="mascotaHelp" class="form-text text-muted"><strong>El cliente posee una mascota</strong></small></label>
+							</div>	
+
 							<div class="col-lg-12">
 								<input type="submit" id="btnAgregarCliente" value="Agregar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">
 							</div>

@@ -28,6 +28,7 @@ public class DatosTurno implements Serializable{
 	//						GET TURNO (COMPLETAR DATOS)
 	//						GET HORARIOS DISPONIBLES
 	//						GET TURNOS FILTRADOS SEGUN CRITERIOS
+	//						CANCELAR TURNO
 	
 	public Boolean agregarTurno (Turno turno) throws Exception
 	{
@@ -80,7 +81,7 @@ public class DatosTurno implements Serializable{
 			pstm.setDate(3, turno.getFecha());
 			pstm.setTime(4, turno.getHora());
 			pstm.setString(5, turno.getRepetir());
-			pstm.setBoolean(6, false);//turno.getRetiroDom());
+			pstm.setBoolean(6, turno.getRetiroDom());
 			pstm.setString(7, turno.getEstado());
 			pstm.setString(8, turno.getObservaciones());
 			pstm.setInt(9, turno.getIdTurno());
@@ -333,7 +334,6 @@ public class DatosTurno implements Serializable{
 				}
 			}
 			//EJECUTO LA CONSULTA
-			System.out.println(pstm);
 			rs=pstm.executeQuery();
 			
 			if(rs!=null)
@@ -361,5 +361,36 @@ public class DatosTurno implements Serializable{
 			throw e;
 		}
 		return turnos;
+	}
+	
+	public Boolean cancelarTurno(Turno turno) throws Exception
+	{
+		PreparedStatement pstm = null;
+		Boolean bandera=false;
+				
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"UPDATE turno SET estado=? WHERE idTurno=?");
+			pstm.setString(1, "Cancelado");
+			pstm.setInt(2, turno.getIdTurno());
+			pstm.executeUpdate();
+			bandera=true;
+		} 
+		catch (Exception e) 
+		{
+			throw e;
+		}
+		
+		finally
+		{
+			try {
+				if(pstm!=null)pstm.close();
+				FactoryConnection.getinstancia().releaseConn();
+			} catch (Exception e) {
+				throw e;
+			}	
+		}
+		return bandera;
+		
 	}
 }

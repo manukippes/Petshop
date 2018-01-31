@@ -86,6 +86,9 @@
 				<table id="tabla" class="table table-striped table-hover">
 					<thead>
 						<tr class="active">
+							<th class="hidden">
+								<div>Id Turno</div>
+							</th>
 							<th>
 								<div class="input group input-group-sm">
 									<div class="input group input-group-sm">

@@ -7,6 +7,13 @@ function volverTurno(bandera){
 	}
 }
 
+function cargarUsuario(usuario){
+	$('#idUsuario').val(cliente.idUsuario); 			
+    $('#nombreApellidoCliente').text(cliente.nombre+", "+cliente.apellido);
+    $('#telefonoCliente').text(cliente.telefono);
+    $('#direccionCliente').text(cliente.direccion);
+}
+
 $(document).ready(function() {
 		
 	$('#btnPatitaGrande').click(function(e){

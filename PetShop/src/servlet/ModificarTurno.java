@@ -67,7 +67,7 @@ public class ModificarTurno extends HttpServlet {
 		}
     	request.setAttribute("horarios", horarios);
     	request.setAttribute("mascotasUsuario", mascotasUsuario);
-    	request.getSession().setAttribute("turno", turnoActual);    	
+    	request.getSession().setAttribute("turnoActual", turnoActual);    	
     	request.getRequestDispatcher("WEB-INF/ModificarTurno.jsp").forward(request, response);
     	
     }

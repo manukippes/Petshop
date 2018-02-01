@@ -19,6 +19,7 @@ public class ControladorDeTurno implements Serializable{
 	//			FILTRAR PRODUCTOS
 	//			GET TURNO (COMPLETAR DATOS)
 	//			CANCELAR TURNO
+	//			MODIFICAR TURNO
 	
 	
 	public ArrayList<Time> getHorariosDisponibles(String fechaSeleccionada) throws Exception{
@@ -39,5 +40,9 @@ public class ControladorDeTurno implements Serializable{
 	
 	public Boolean cancelarTurno(Turno turno) throws Exception{
 		return baseTurno.cancelarTurno(turno);
+	}
+	
+	public Boolean modificarTurno(Turno turno) throws Exception{
+		return baseTurno.modificarTurno(turno);
 	}
 }

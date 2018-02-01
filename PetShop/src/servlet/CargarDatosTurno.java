@@ -26,6 +26,7 @@ import entidades.Turno;
 import logica.ControladorDeMascota;
 import logica.ControladorDeServicio;
 import logica.ControladorDeTipoMascota;
+import logica.ControladorDeTurno;
 import logica.ControladorDeUsuario;
 
 /**
@@ -67,17 +68,24 @@ public class CargarDatosTurno extends HttpServlet {
 		
 		JsonObject campos = (JsonObject) new JsonParser().parse(json);
 
-		String tamanio = (String) campos.get("tamanio").getAsString();
-		String pelaje = (String) campos.get("pelaje").getAsString();
+		String proceso = (String) campos.get("proceso").getAsString();
+		//String tamanio = (String) campos.get("tamanio").getAsString();
+		//String pelaje = (String) campos.get("pelaje").getAsString();
 		int idServicio = (int) campos.get("servicio").getAsInt();
 		String fecha = (String) campos.get("fecha").getAsString();
 		String horario = (String) campos.get("horario").getAsString();
 		String conRepeticion = (String) campos.get("repeticion").getAsString();
-		int idUsuario = (int) campos.get("idUsuario").getAsInt();
+		//int idUsuario = (int) campos.get("idUsuario").getAsInt();
 		int idMascota = (int) campos.get("idMascota").getAsInt();
 		Boolean conRetiro = (Boolean) campos.get("conRetiro").getAsBoolean();
 		
+		int idTurno = ((Turno) request.getSession().getAttribute("turnoActual")).getIdTurno();
+		ControladorDeTurno ctrlTurno = new ControladorDeTurno();
+		Turno turnoTemp = new Turno();
+		turnoTemp.setIdTurno(idTurno);
+		
 		try {
+			turnoTemp = ctrlTurno.getTurno(turnoTemp);
 			
 			//CREO LA MASCOTA
 			
@@ -96,7 +104,7 @@ public class CargarDatosTurno extends HttpServlet {
 			java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
 			turnoActual.setFecha(sqlDate);
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss aa");			//HORA DEL TURNO
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");			//HORA DEL TURNO
 			long ms = sdf.parse(horario).getTime();
 			Time horarioActual = new Time(ms);
 			turnoActual.setHora(horarioActual);									
@@ -107,11 +115,16 @@ public class CargarDatosTurno extends HttpServlet {
 			
 			turnoActual.setEstado("Pendiente"); 								//ESTADO
 			
-			turnoActual.setObservaciones(""); 									//OBSERVACIONES
+			
+			turnoActual.setObservaciones(""); 									//OBSERVACIONES			
+				
+			if (proceso.equals("modificacion")){
+				turnoActual.setIdTurno(idTurno);
+				turnoActual.setObservaciones(turnoTemp.getObservaciones());
+				request.getSession().removeAttribute("turnoActual");
+			}
 			
 			request.getSession().setAttribute("turnoActual", turnoActual);
-				
-		
 			request.getSession().removeAttribute("turnoPendiente");
 			request.getSession().setAttribute("turnoPendiente", true);
 			

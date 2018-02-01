@@ -188,7 +188,7 @@ $(document).ready(function() {
 	
 	
 	$(document).on('click','.btnCancelarTurno',function(e){
-		e.preventDefault();  //detiene la accion del boton (VIDEO 10)
+		e.preventDefault();  
 		
 		var fecha = $(this).parent().parent().parent().find('#fecha').text();
 		var mascota = $(this).parent().parent().parent().find('#mascota').text();

@@ -218,7 +218,7 @@
 					<hr>
 					<div class="col-sm-3 col-xs-12 pull-right">
 
-						<button class="btn btn-primary btn-lg btn-group-justified" name="btnContinuar" id="btnContinuar"> Continuar </button>
+						<button class="btn btn-primary btn-lg btn-group-justified" name="btnContinuarAlta" id="btnContinuarAlta"> Continuar </button>
 					
 					</div>
 					

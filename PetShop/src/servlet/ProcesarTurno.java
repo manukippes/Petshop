@@ -72,21 +72,44 @@ public class ProcesarTurno extends HttpServlet {
 		JsonObject campos = (JsonObject) new JsonParser().parse(json);
 
 		String observaciones = (String) campos.get("observaciones").getAsString();
+		String proceso = (String) campos.get("proceso").getAsString();
 		
 		//ALTA DE TURNO
 		Turno turnoActual = (Turno) request.getSession().getAttribute("turnoActual");
 		
-		turnoActual.setObservaciones(observaciones);								//OBSERVACIONES
-		
-		try {
-			if(ctrlTurno.agregarTurno(turnoActual)){
-				response.getWriter().println(true);
-			}else{
-				response.getWriter().println(false);
+		if(proceso.equals("alta")){
+			
+			turnoActual.setObservaciones(observaciones);								//OBSERVACIONES
+			
+			try {
+				if(ctrlTurno.agregarTurno(turnoActual)){
+					request.getSession().removeAttribute("turnoActual");
+					request.getSession().removeAttribute("turnoPendiente");
+					request.getSession().setAttribute("turnoPendiente", false);
+					response.getWriter().println(true);
+				}else{
+					response.getWriter().println(false);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+			
+			
+		}else{
+			try {
+				if(ctrlTurno.modificarTurno(turnoActual)){
+					request.getSession().removeAttribute("turnoActual");
+					request.getSession().removeAttribute("turnoPendiente");
+					request.getSession().setAttribute("turnoPendiente", false);
+					response.getWriter().println(true);
+				}else{
+					response.getWriter().println(false);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
+		
 	}
 
 }

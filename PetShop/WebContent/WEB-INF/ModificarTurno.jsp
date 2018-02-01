@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	
 			
-	<title>SGPS - Modificar Turno</title>
+	<title>SGPS - Turnos</title>
 </head>
 <body onload="iniciar('turnos');">
 	<jsp:include page="Navbar.jsp" />
@@ -42,7 +42,7 @@
 							<div class="container-fluid">
 								<h4><strong>TAMA&Ntilde;O DEL PERRO</strong></h4>
 							</div>
-							<% Turno turnoActual = (Turno) session.getAttribute("turno");
+							<% Turno turnoActual = (Turno) session.getAttribute("turnoActual");
 								String tamanio = turnoActual.getMascota().getTipoMascota().getTamanio();
 								String pelaje = turnoActual.getMascota().getTipoMascota().getPelo();
 								String grande="", mediano="", chico="", corto="", largo="";
@@ -169,13 +169,13 @@
 				    				<h4><strong>SELECCIONE LA FECHA</strong></h4>
 				    				<%Date fecha = turnoActual.getFecha();%>
 				    				
-				    				<input type="date" class="form-control" id="fechaSeleccionada" value="<%=fecha%>"></input>
+				    				<input type="date" class="form-control" id="fechaSeleccionada" value="<%=fecha %>"></input>
 								</div>
 								<div class="col-xs-12 col-md-4" id="horarioGroup">
 									<h4><strong>HORARIOS DISPONIBLES</strong></h4>
 									<label class="sr-only">Selecciona un horario</label>
 									<select class="form-control" name="horarioSeleccionado" id="horario" aria-describedby="horarioHelp" required>
-								    	<option value="<%=turnoActual.getHora() %>" selected><%=turnoActual.getHora() %></option>
+								    	<option value="<%=turnoActual.getHora()%>" selected><%=turnoActual.getHora()%></option>
 								    	<%ArrayList<Time> horarios = (ArrayList<Time>) request.getAttribute("horarios"); 
 								    	for (Time horario : horarios){
 								    	%>
@@ -185,21 +185,39 @@
 								    	%>
 								    </select>
 								    <div class="container-fluid checkbox col-md-offset-1 ">
-										<input type="checkbox" id="repetir" >Repetir
-										<div class="container-fluid hidden" id="repetirRadioGroup">
+								    <%String repetir = "", radioGroup="",semanal="",quincenal="",mensual="";
+								    if (!turnoActual.getRepetir().equals("No")){
+								    	repetir = " checked";
+								    	switch (turnoActual.getRepetir()){
+								    	case "Semanal":
+								    		semanal = " checked";
+								    		break;
+								    	case "Quincenal":
+								    		quincenal =" checked";
+								    		break;
+								    	case "Mensual":
+								    		mensual = " cheked";
+								    		break;
+								    	}
+								    	
+								    }else {radioGroup = " hidden";}
+								    	%>
+								    
+										<input type="checkbox" <%=repetir %> id="repetir" >Repetir
+										<div class="container-fluid <%=radioGroup %>" id="repetirRadioGroup">
 											<div class="radio" >
 												<label for ="semanal">
-													<input type="radio" name="opcion" value="Semanal" class="rbutton"> Semanal
+													<input type="radio" name="opcion" value="Semanal" class="rbutton"<%=semanal %>> Semanal
 												</label>
 											</div>
 											<div class="radio" >
 												<label for ="quincenal">
-													<input type="radio" name="opcion" value="Quincenal" class="rbutton"> Quincenal
+													<input type="radio" name="opcion" value="Quincenal" class="rbutton"<%=quincenal %>> Quincenal
 												</label>
 											</div>
 											<div class="radio" >
 												<label for ="mensual">
-													<input type="radio" name="opcion" value="Mensual" class="rbutton"> Mensual
+													<input type="radio" name="opcion" value="Mensual" class="rbutton"<%=mensual %>> Mensual
 												</label>
 											</div>
 										</div>
@@ -221,7 +239,7 @@
 								<div class="table-responsive col-sm-8" id="tablaClienteSeleccionado">
 									
 									<table class="table table-striped active" id="tableUsuario">
-										<tr id="idUsuario">
+										<tr id="idUsuario" data-value="<%=turnoActual.getMascota().getUsuario().getIdUsuario()%>">
 											<td id="nombreApellidoCliente"><%=(turnoActual.getMascota().getUsuario().getNombre()+", "+turnoActual.getMascota().getUsuario().getApellido())%></td>
 											<td id="telefonoCliente"><%=turnoActual.getMascota().getUsuario().getTelefono()%></td>
 											<td id="direccionCliente"><%=turnoActual.getMascota().getUsuario().getDireccion()%></td>
@@ -274,7 +292,7 @@
 					<hr>
 					<div class="col-sm-3 col-xs-12 pull-right">
 
-						<button class="btn btn-primary btn-lg btn-group-justified" name="btnContinuar" id="btnContinuar"> Continuar </button>
+						<button class="btn btn-primary btn-lg btn-group-justified" name="btnContinuarModificacion" id="btnContinuarModificacion"> Continuar </button>
 					
 					</div>
 					

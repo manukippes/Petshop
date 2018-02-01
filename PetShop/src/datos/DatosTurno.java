@@ -69,10 +69,10 @@ public class DatosTurno implements Serializable{
 		return bandera;
 		
 	}
-	public void modificarTurno(Turno turno) throws Exception
+	public Boolean modificarTurno(Turno turno) throws Exception
 	{
 		PreparedStatement pstm = null;
-				
+		Boolean bandera = false;
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
 					"UPDATE turno SET idMascota=?,idServicio=?,fecha=?,hora=?,repetir=?,retiroDom=?,estado=?, observaciones=? WHERE idTurno=?");
@@ -86,6 +86,7 @@ public class DatosTurno implements Serializable{
 			pstm.setString(8, turno.getObservaciones());
 			pstm.setInt(9, turno.getIdTurno());
 			pstm.executeUpdate();
+			bandera = true;
 		} 
 		catch (Exception e) 
 		{
@@ -100,7 +101,7 @@ public class DatosTurno implements Serializable{
 			} catch (Exception e) {
 				throw e;
 			}	
-		}
+		}return bandera;
 		
 	}
 	

@@ -78,18 +78,140 @@
 							    	<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Ingres&aacute; el email del cliente a dar de alta">
 								</div>
 						</div>
-						<hr>	
+						<hr>
+						
+						<div class="form-group row ">
+							<label class="sr-only">Mascota</label>
+							<div class="col-lg-3 col-md-12">
+								<a href="#agregarMascota" class="btn btn-primary form-control" id="btnAgregarMascota" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span> Agregar Mascota</a>
+							</div>
+							<div class="col-lg-9 col-md-12" id="MascotaGroup">	
+								<div class="table-responsive hidden" id="tablaMascota">
+   								   <table class="table table-striped table-hover active" id="tableMas">
+										<thead>
+											<tr>
+											    <th>Nombre</th>
+											    <th>Pelaje</th>
+											    <th>Tamaño</th>
+											    <th>Fecha de Nacimiento</th>
+											    <th>Quitar</th>
+											</tr>
+										</thead>
+  										<tbody>	
+											<tr id="idMascota">
+												<td id="nombreMascota"></td>
+												<td id="fechaNacimientoMascota"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<hr>
+									
 						<div class="form-group row">	
-							<!-- Input de posee mascota-->
-			            	<div class="col-lg-6 col-md-12" id="mascotaGroup">
-						    	    <input type="checkbox" class="form-check-input" id="mascota">
-								    <label class="form-check-label" for="mascota"><small id="mascotaHelp" class="form-text text-muted"><strong>El cliente posee una mascota</strong></small></label>
-							</div>	
-
 							<div class="col-lg-12">
 								<input type="submit" id="btnAgregarCliente" value="Agregar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">
 							</div>
-						</div>	
+						</div>
+						
+						<!-- PANEL MODAL AGREGAR MASCOTA -->
+						<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="agregarMascota">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<div class="modal-header">
+										<strong>AGREGAR MASCOTA</strong>
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									</div>
+									<div class="modal-body">
+										<div class="form-group row container-fluid">
+											<!-- Input de Nombre Mascota -->
+												<label class="sr-only">Nombre</label>
+											    <div class="col-lg-12 col-md-12" id="nombreMascotaGroup">
+											    	<small id="nombreMascotaHelp" class="form-text text-muted"><strong>Nombre *</strong></small>
+											    	<input type="text" class="form-control" name="nombreMascota" id="nombreMascota" aria-describedby="nombreMascotaHelp" placeholder="Ingres&aacute; el nombre de la mascota.">
+												</div>
+										</div>
+										<hr class="hrModal">
+										<div class="form-group row">
+											<div class="col-lg-6 col-md-12">	
+												<div class="container-fluid">
+													<h4><strong>TAMA&Ntilde;O DEL PERRO *</strong></h4>
+												</div>
+												<div class="container-fluid" id="patitaGroup">
+													<div class="col-sm-4 centrado">
+														<label class="sr-only">Perro grande</label>
+														<button class="icon-button" id="btnPatitaGrande">						
+															<span class="fa fa-paw" style="font-size:90px"></span>
+															<p><strong class="text-center"> GRANDE </strong></p>
+														</button>								
+													</div>
+													<div class="col-sm-4 centrado">
+														<label class="sr-only">Perro mediano</label>
+														<button class="icon-button" id="btnPatitaMediana">						
+															<span class="fa fa-paw" style="font-size:70px;margin-top:20px"></span>
+															<p><strong class="text-center"> MEDIANO </strong></p>	
+														</button>			
+													</div>
+													<div class="col-sm-4 centrado">
+														<label class="sr-only">Perro chico</label>
+														<button class="icon-button" id="btnPatitaChica">						
+															<span class="fa fa-paw" style="font-size:50px;margin-top:40px"></span>
+															<p><strong class="text-center"> CHICO </strong></p>		
+														</button>					
+													</div>
+												</div>
+											</div>
+											
+											<div class="col-lg-6 col-md-12">	
+												<div class="container-fluid">
+													<h4><strong>PELAJE *</strong></h4>
+												</div>
+												<div class="container-fluid" id="pelajeGroup">
+													<div class="col-sm-4 centrado">
+														<label class="sr-only">Tamano del pelaje</label>
+														<button class="icon-button" id="btnTijeraGrande">						
+															<span class="fa fa-scissors" style="font-size:90px"></span>
+															<p><strong class="text-center"> LARGO </strong></p>
+														</button>								
+													</div>
+													<div class="col-sm-4 centrado">
+														<label class="sr-only">Tamano del pelaje</label>
+														<button class="icon-button"id="btnTijeraChica">						
+															<span class="fa fa-scissors" style="font-size:70px;margin-top:20px"></span>
+															<p><strong class="text-center"> CORTO </strong></p>
+														</button>								
+													</div>
+												</div>
+											</div>
+										</div>
+										<hr class="hrModal">
+										<div class="form-group row container-fluid">
+											<!-- Input de Fecha de Nacimiento Mascota -->
+												<label class="sr-only">Fecha de Nacimiento</label>
+											    <div class="col-lg-4 col-md-12" id="fechaNacimientoMascotaGroup">
+											    	<small id="fechaNacimientoMascotaHelp" class="form-text text-muted"><strong>Fecha de Nacimiento</strong></small>
+											    	<input type="date" class="form-control" name="fechaNacimientoMascota" id="fechaNacimientoMascota" aria-describedby="fechaNacimientoMascotaHelp">
+												</div>
+												
+												<!-- Input de Observaciones Mascota -->
+												<label class="sr-only">Observaciones</label>
+											    <div class="col-lg-8 col-md-12" id="observacionesMascotaGroup">
+											    	<small id="observacionesMascotaHelp" class="form-text text-muted"><strong>Observaciones</strong></small>
+											    	<textarea class="form-control" rows="5" id="observacionesMascota" placeholder="Completa con datos adicionales de la mascota de ser necesarios"></textarea>
+												</div>
+										</div>
+										<hr class="hrModal">
+										<div class="form-group row container-fluid">
+											<div class="col-lg-12 col-md-12">
+												<a href="#" class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal">Agregar</a>
+											</div>
+										</div>
+									</div>								
+								</div>
+							</div>
+						</div>
+						
 		            </form> 
 		        </div>
 		   	</div>

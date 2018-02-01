@@ -81,6 +81,8 @@ function validar(){
 		
 	
 $(document).ready(function() {
+	
+	/// ALTA DE CLIENTE ///
 	$('#btnAgregarCliente').click(function(e){
 		e.preventDefault();
 		var resultado = validar();
@@ -96,22 +98,50 @@ $(document).ready(function() {
 			var parametros = JSON.stringify(parametro);
 			
 			$.ajax({
-				url : "ConfirmarAltaCliente",
-				type : "post",
-				data : {jsonData : parametros},
-				dataType: 'json',
-				success : function(data){
-					if (data)
-					{
-						confirm("Se agreg&oacute; el cliente correctamente.");
-					} 
-					else
-					{
-						alert("No se pudo agregar el cliente.");
+					url : "ConfirmarAltaCliente",
+					type : "post",
+					data : {jsonData : parametros},
+					dataType: 'json',
+					success : function(data){
+						if (data)
+						{
+							confirm("Se agreg&oacute; el cliente correctamente.");
+						} 
+						else
+						{
+							alert("No se pudo agregar el cliente.");
+						}
+	                    
 					}
-                    
-				}
 			})
 		}
 	})
+	
+	
+	/// AGREGAR MASCOTAS ///
+	$(this).on("click", "#btnAgregarMascotaModal", function(e){
+	    e.preventDefault();
+	    if(false){
+			alert("Para agregar primero debes ingresar un nombre.");
+		}else if(false){
+			alert("Para agregar primero debes seleccionar un tamaño de la mascota");
+		}else if(false){
+			alert("Para agregar primero debes seleccionar un pelaje de la mascota");
+		}else{
+			$('#agregarMascota').modal('toggle');
+	        $('#tablaMascota').removeClass("hidden");
+	        
+	        var idCliente = $('#cliente').val();
+	        
+	        parametro = {idCliente : idCliente};
+	        $.post("ObtenerCliente",$.param(parametro),function(responseJson){
+				$.each(responseJson,function(index, cliente){
+					$('#idUsuario').val(cliente.idUsuario); 			
+			        $('#nombreApellidoCliente').text(cliente.nombre+", "+cliente.apellido);
+			        $('#telefonoCliente').text(cliente.telefono);
+			        $('#direccionCliente').text(cliente.direccion);
+				});
+			});	   
+		}
+	});
 })

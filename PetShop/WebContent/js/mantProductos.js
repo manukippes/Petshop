@@ -80,7 +80,7 @@ function validarCampos(nombre, presentacion, precio,categoria,subcategoria){
 function eliminarFila(e){
 	e.preventDefault();  //detiene la accion del boton (VIDEO 10)
 	
-	var nombreProducto = $(this).parent().parent().parent().find('#nombreProducto').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
+	var nombreProducto = $(this).parent().parent().parent().find('#fecha').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
 	var opcion = confirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
 	if (opcion){
 		var fila =$(this).parent().parent().parent()
@@ -96,8 +96,13 @@ function eliminarFila(e){
 	
 	}
 
-function filtrarTabla(dispositivo){
+function filtrarTabla(){
 	
+	var dispositivo="";
+	if (screen.width < 768){
+		dispositivo="smartphone"
+	}else{dispositivo = "pc"}
+	;
 	switch (dispositivo){
 	
 	case "smartphone":
@@ -277,69 +282,69 @@ $(document).ready(function() {
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR ID
 	$('#filtrarIdProducto').change(function(e){
-		filtrarTabla("pc");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR PRESENTACION
 	$('#filtrarPresentacion').change(function(e){
-		filtrarTabla("pc");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE PRECIO MINIMO
 	$('#filtrarPrecioDesde').change(function(e){
-		filtrarTabla("pc");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE PRECIO MAXIMO
 	$('#filtrarPrecioHasta').change(function(e){
-		filtrarTabla("pc");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE STOCK MINIMO
 	$('#filtrarStockDesde').change(function(e){
-		filtrarTabla("pc");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE STOCK MAXIMO
 	$('#filtrarStockHasta').change(function(e){
-		filtrarTabla("pc");
+		filtrarTabla();
 	});
 	
 									//VALIDACION EN DISPOSITIVOS MOVILES
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR NOMBRE
 	$('#filtrarNombrexs').change(function(e){
-		filtrarTabla("smartphone");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR ID
 	$('#filtrarIdProductoxs').change(function(e){
-		filtrarTabla("smartphone");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR PRESENTACION
 	$('#filtrarPresentacionxs').change(function(e){
-		filtrarTabla("smartphone");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE PRECIO MINIMO
 	$('#filtrarPrecioDesdexs').change(function(e){
-		filtrarTabla("smartphone");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE PRECIO MAXIMO
 	$('#filtrarPrecioHastaxs').change(function(e){
-		filtrarTabla("smartphone");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE STOCK MINIMO
 	$('#filtrarStockDesdexs').change(function(e){
-		filtrarTabla("smartphone");
+		filtrarTabla();
 	});
 	
 	//DETECTO LOS CAMBIOS EN INPUT DE STOCK MAXIMO
 	$('#filtrarStockHastaxs').change(function(e){
-		filtrarTabla("smartphone");
+		filtrarTabla();
 	});
 	
 	

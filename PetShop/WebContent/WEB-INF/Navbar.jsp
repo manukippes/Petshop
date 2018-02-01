@@ -29,6 +29,7 @@
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="MantenimientoProductos" class="" aria-hidden="true"> Mantenimiento de Productos </a></li>
 								<li><a href="#"> Mantenimiento de Usuarios </a></li>
+								<li><a href="MantenimientoTurnos"> Mantenimiento de Turnos </a></li>
 								</li>
 							</ul>
 						</li>

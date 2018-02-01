@@ -7,6 +7,13 @@ function volverTurno(bandera){
 	}
 }
 
+function cargarUsuario(usuario){
+	$('#idUsuario').val(cliente.idUsuario); 			
+    $('#nombreApellidoCliente').text(cliente.nombre+", "+cliente.apellido);
+    $('#telefonoCliente').text(cliente.telefono);
+    $('#direccionCliente').text(cliente.direccion);
+}
+
 $(document).ready(function() {
 		
 	$('#btnPatitaGrande').click(function(e){
@@ -295,7 +302,7 @@ $(document).ready(function() {
 			success : function(respuesta){
 				//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
 				if (respuesta){
-					if(confirm("Turno creado Exitosamente")){
+					if(prompt("Turno creado Exitosamente")==""){
 						$(location).attr('href','Turnos');
 					}
 				}else{

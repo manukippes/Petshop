@@ -2,11 +2,13 @@ package logica;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import datos.DatosVenta;
 import entidades.Cuotas;
 import entidades.LineaVenta;
 import entidades.MedioPago;
+import entidades.Producto;
 import entidades.Tarjeta;
 import entidades.Venta;
 
@@ -23,6 +25,9 @@ public class ControladorDeVenta implements Serializable{
 	//					GET CUOTAS (COMPLETAR CLASE)7
 	//					AGREGAR VENTA
 	//					AGREGAR LINEA VENTA
+	//					OBTENER VENTAS FILTRADAS POR PARAMETROS
+	//					GET VENTA (COMPLETAR DATOS)
+	//					GET LINEAS DE UNA VENTA
 	
 	public Tarjeta getTarjeta(Tarjeta tarjeta)throws Exception{
 		
@@ -66,5 +71,15 @@ public class ControladorDeVenta implements Serializable{
 	}
 	public Boolean modificarVenta(Venta venta) throws Exception{
 		return baseVenta.modificarVenta(venta);
+	}
+	public ArrayList<Venta> getVentas(Hashtable<String, String> parametros)throws Exception{
+
+		return baseVenta.getVentas(parametros);
+	}
+	public Venta getVenta(Venta venta) throws Exception{
+		return baseVenta.getVenta(venta);
+	}
+	public ArrayList<LineaVenta> getLineas(Venta venta) throws Exception{
+		return baseVenta.getLineasVenta(venta);
 	}
 }

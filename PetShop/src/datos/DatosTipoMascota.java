@@ -8,15 +8,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import entidades.Categoria;
+import entidades.Mascota;
 import entidades.Producto;
+import entidades.Servicio;
 import entidades.Subcategoria;
 import entidades.TipoMascota;
+import entidades.TipoMascotaServicio;
+import logica.ControladorDeMascota;
+import logica.ControladorDeServicio;
+import logica.ControladorDeTipoMascota;
 
 
 public class DatosTipoMascota implements Serializable{
 //			METODOS IMPLEMENTADOS:
 //								DEVOLVER TODOS LOS TIPOS DE MASCOTA
 	//							GET TIPO MASCOTA (COMPLETAR LOS DATOS)
+	//							GET TIPO MASCOTA SERVICIO (COMPLETAR LOS DATOS)
 
 	public ArrayList<TipoMascota> devolverTodos() throws Exception
 	{
@@ -89,5 +96,51 @@ public class DatosTipoMascota implements Serializable{
 			throw e;
 		}
 		return tipoMascota;
+	}
+	public TipoMascotaServicio getTipoMascotaServicio(TipoMascotaServicio tMascServ) throws Exception{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		ControladorDeServicio ctrlServicio = new ControladorDeServicio();
+		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM tipo_mascota_servicio where idTMascServ=?");
+			pstm.setInt(1, tMascServ.getIdTMascServ());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					tMascServ.setTiempo(rs.getTime("tiempo"));
+					tMascServ.setPrecio(rs.getDouble("precio"));
+					
+					Servicio servicioActual = new Servicio();
+					servicioActual.setIdServicio(rs.getInt("idServicio"));
+					servicioActual = ctrlServicio.getServicio(servicioActual);
+					tMascServ.setServicio(servicioActual);
+					
+					TipoMascota tipoMascotaActual = new TipoMascota();
+					tipoMascotaActual.setIdTipoMascota(rs.getInt("idTipoMascota"));
+					tipoMascotaActual = ctrlTipoMascota.getTipoMascota(tipoMascotaActual);
+					tMascServ.setTipoMascota(tipoMascotaActual);
+					
+				}
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return tMascServ;
 	}
 }

@@ -16,8 +16,8 @@
     		case 'clientes':
     			clientesTab.className += " active";
     			break;
-    		case 'consultas':
-    			consultasTab.className += " active";
+    		case 'comprobantesVentas':
+    			comprobantesVentasTab.className += " active";
     			break;
     		case 'turnos':
     			turnosTab.className += " active";

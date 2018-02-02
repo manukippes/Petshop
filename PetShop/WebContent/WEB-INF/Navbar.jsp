@@ -21,7 +21,7 @@
 						<li id="ventasTab" class=""><a href="Ventas">Ventas</a></li>
 						<li id="clientesTab" class=""><a href="Clientes">Clientes</a></li>
 						<li id="turnosTab" class=""><a href="Turnos">Turnos</a></li>
-						<li id="consultasTab" class=""><a href="Consultas">Consultas</a></li>
+						<li id="comprobantesVentasTab" class=""><a href="ComprobantesVentas">Comprobantes de Ventas</a></li>
 						<li class="dropdown" id="administracionTab">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 								</span>Administraci&oacute;n <span class="caret"></span>

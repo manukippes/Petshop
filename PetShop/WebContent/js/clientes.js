@@ -81,11 +81,59 @@ function validar(){
 		
 	
 $(document).ready(function() {
+	if (($("tablaMascota").hasClass('hidden'))) {
+		
+			//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
+			('#btnPatitaGrande').click(function(e){
+				e.preventDefault();
+				$('#patitaGroup').removeClass("con-error");
+				$('#btnPatitaGrande').addClass("icon-button-active");
+				$('#btnPatitaMediana').removeClass("icon-button-active");
+				$('#btnPatitaChica').removeClass("icon-button-active");
+				
+			})
+			
+			$('#btnPatitaMediana').click(function(e){
+				e.preventDefault();
+				$('#patitaGroup').removeClass("con-error");
+				$('#btnPatitaGrande').removeClass("icon-button-active");
+				$('#btnPatitaMediana').addClass("icon-button-active");
+				$('#btnPatitaChica').removeClass("icon-button-active");
+				
+			})
+			
+			$('#btnPatitaChica').click(function(e){
+				e.preventDefault();
+				$('#patitaGroup').removeClass("con-error");
+				$('#btnPatitaGrande').removeClass("icon-button-active");
+				$('#btnPatitaMediana').removeClass("icon-button-active");
+				$('#btnPatitaChica').addClass("icon-button-active");
+				
+			})
+			
+			$('#btnTijeraGrande').click(function(e){
+				e.preventDefault();
+				$('#pelajeGroup').removeClass("con-error");
+				$('#btnTijeraGrande').addClass("icon-button-active");
+				$('#btnTijeraChica').removeClass("icon-button-active");
+			
+				
+			})
+			
+			$('#btnTijeraChica').click(function(e){
+				e.preventDefault();
+				$('#pelajeGroup').removeClass("con-error");
+				$('#btnTijeraGrande').removeClass("icon-button-active");
+				$('#btnTijeraChica').addClass("icon-button-active");
+			
+			})
+	}
 	
 	/// ALTA DE CLIENTE ///
 	$('#btnAgregarCliente').click(function(e){
 		e.preventDefault();
 		var resultado = validar();
+		
 		if(resultado){
 			var parametro = {
 					nombre : $("#nombre").val(),
@@ -95,6 +143,8 @@ $(document).ready(function() {
 					telefono : $("#telefono").val(),
 					email : $("#email").val(),
 			}
+			
+			
 			var parametros = JSON.stringify(parametro);
 			
 			$.ajax({
@@ -144,4 +194,5 @@ $(document).ready(function() {
 			});	   
 		}
 	});
+	
 })

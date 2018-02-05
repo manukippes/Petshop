@@ -465,7 +465,7 @@ public ArrayList<Venta> getVentas(Hashtable<String, String> parametros) throws E
 	
 	try {
 		//FECHA DESDE
-		String sql="SELECT * FROM venta ve INNER JOIN linea_venta lv ON ve.idVenta = lv.idVenta INNER JOIN producto pr ON lv.idProducto = pr.idProducto INNER JOIN usuario us ON ve.idUsuario = us.idUsuario";
+		String sql="SELECT ve.* FROM venta ve INNER JOIN linea_venta lv ON ve.idVenta = lv.idVenta INNER JOIN producto pr ON lv.idProducto = pr.idProducto INNER JOIN usuario us ON ve.idUsuario = us.idUsuario";
 		if(!parametros.get("fechaDesde").equals("")){		//Si viene fecha desde la agrego como primer filtro
 			sql += " Where fecha >= ?";
 			campos.add("fechaDesde");
@@ -543,6 +543,7 @@ public ArrayList<Venta> getVentas(Hashtable<String, String> parametros) throws E
 				i++;
 				}
 			}
+		sql += " group by 1;";
 
 		//CREO UN PREPARESTATEMENT
 		pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
@@ -653,15 +654,19 @@ public ArrayList<Venta> getVentas(Hashtable<String, String> parametros) throws E
 					medioPagoActual = ctrlVenta.getMedioPago(medioPagoActual);
 					ventaActual.setMedioPago(medioPagoActual);
 					
-					Tarjeta tarjetaActual = new Tarjeta();
-					tarjetaActual.setIdTarjeta(rs.getInt("idTarjeta"));
-					tarjetaActual = ctrlVenta.getTarjeta(tarjetaActual);
-					ventaActual.setTarjeta(tarjetaActual);
+					/*if (!rs.getString("idTarjeta").isEmpty()){
+						Tarjeta tarjetaActual = new Tarjeta();
+						tarjetaActual.setIdTarjeta(rs.getInt("idTarjeta"));
+						tarjetaActual = ctrlVenta.getTarjeta(tarjetaActual);
+						ventaActual.setTarjeta(tarjetaActual);
+					}
 					
-					Cuotas cuotasActual = new Cuotas();
-					cuotasActual.setIdCuota(rs.getInt("idCoutas"));
-					cuotasActual = ctrlVenta.getCuotas(cuotasActual);
-					ventaActual.setCuotas(cuotasActual);
+					if (!rs.getString("idCuotas").isEmpty()){
+						Cuotas cuotasActual = new Cuotas();
+						cuotasActual.setIdCuota(rs.getInt("idCoutas"));
+						cuotasActual = ctrlVenta.getCuotas(cuotasActual);
+						ventaActual.setCuotas(cuotasActual);
+					}*/
 					
 					ArrayList<LineaVenta> lineasVenta = new ArrayList<LineaVenta>();
 					lineasVenta = ctrlVenta.getLineas(ventaActual);

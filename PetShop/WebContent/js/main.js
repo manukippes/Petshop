@@ -221,6 +221,11 @@ $(document).ready(function() {
 	    $('#direccionCliente').text("");
 		
 	}); 
+	
+	$('#fila1').click(function(e){
+		$('#fila2').hide();
+		
+	});
 									
 })
 

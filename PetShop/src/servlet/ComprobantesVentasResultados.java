@@ -86,7 +86,7 @@ public class ComprobantesVentasResultados extends HttpServlet {
 			e.printStackTrace();
 		}
         
-		
+		request.getSession().setAttribute("ventas", ventas);
 		request.getRequestDispatcher("WEB-INF/ComprobantesVentasResultados.jsp").forward(request, response);
 	
 	}

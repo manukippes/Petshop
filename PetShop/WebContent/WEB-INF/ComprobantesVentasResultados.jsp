@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="entidades.Usuario"%>
-<%@page import="entidades.Categoria"%>
+<%@page import="entidades.Venta"%>
+<%@page import="entidades.LineaVenta"%>
 <%@page import="entidades.Producto"%>
-<%@page import="logica.ControladorDeProducto"%>
+<%@page import="logica.ControladorDeVenta"%>
 <%@page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
@@ -12,8 +13,10 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 	<meta charset="UTF-8">
 	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
 	<script type="text/javascript" src="js/main.js"></script>
 	
 	<title>SGPS - Comprobantes de Ventas</title>
@@ -26,60 +29,120 @@
 		<br>
 		
 		<h4><strong>COMPROBANTES DE VENTAS REGISTRADOS</strong></h4>
-		
-		<div class="form-group row">
-		    <div class="col-xs-12 selectContainer">
-			    <small id="categoriaHelp" class="form-text text-muted">Seleccione una categor&iacute;a.</small>
-			    <select class="form-control" name="categoria" aria-describedby="categoriaHelp" required>
-					     <% ControladorDeProducto ctrlProducto = new ControladorDeProducto();
-			      		 ArrayList<Categoria> categorias = ctrlProducto.getCategorias();
-			      	 	 for(Categoria cate : categorias){ %>
-			      	<option value="<%=(cate.getIdCategoria())%>"><%=cate.getNombre()%></option>						    
-			      <%} %>
-			    </select>
-			    <input type="checkbox" class="form-check-input" value="1" name="mostrarDisponibles" aria-describedby="disponiblesHelp">
-		    	<small id="disponiblesHelp" class="form-text text-muted">Mostrar solo disponibles.</small>
-			</div>
-		</div>
-	
-	
-		<div class="">
-			<table id="tabla" class="table table-striped">
-				<thead>
-				  <tr class="active">
-				    <th>C&oacute;digo</th>
-				    <th>Nombre</th>
-				    <th>Presentaci&oacute;n</th>
-				    <th>Precio</th>
-				    <th>Stock</th>
-				  </tr>
-				</thead>
-				<tbody>
-		 		<% 	int i=0;
-		 		
-		 		
-				ArrayList<Producto> productos = ctrlProducto.getProductos();
-				for(Producto produ : productos){
+		<hr>
+		<div class="table-responsive">
+			
+			<div class="panel-group table-responsive" id="accordion" role="tablist">
+
+			<%
+			ControladorDeVenta ctrVenta = new ControladorDeVenta();
+			ArrayList<Venta> ventas = (ArrayList<Venta>) session.getAttribute("ventas");
+			int i=0;
+			for (Venta venta : ventas){
 				i++;
-				%>
-					<tr class="selected" id=<%=i%> onclick="seleccionar(this.id);">
-						<td><%=produ.getIdProducto()%></td>
-						<td><%=produ.getNombre()%></td>
-						<td><%=produ.getPresentacion()%></td>
-						<td><%=produ.getPrecio()%></td>
-						<td><%=produ.getStock()%></td>
-					</tr>
-				<%
-				} 
-				%>
-		 		</tbody>
-			</table>
-			<button class="btn btn-primary btn-lg col-offset-10" type="button"> Agregar a la venta</button>
-    	</div>
-    </div> 
+			%>
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="heading<%=i%>">
+					<div class="panel-title">
+						<a href="#collapse<%=i%>" data-toggle="collapse" data-parent="#accordion">
+							<table id="tabla" class="table">
+								<%if (i==1){ %>
+								<thead>
+									<tr class="active">
+									    <th>ID</th>
+									    <th>CLIENTE</th>
+									    <th>DIRECCI&Oacute;N</th>
+									    <th>FECHA</th>
+									    <th>ESTADO</th>
+									    <th>MEDIO DE PAGO</th>
+									    <th>TOTAL</th>
+									    <th>VER</th>
+									</tr>
+								</thead>
+								<%} %>
+								<tbody>
+									<tr>
+									    <td><%=venta.getIdVenta()%></td>
+									    <td><%=venta.getUsuario().getApellido()%>, <%=venta.getUsuario().getNombre()%></td>
+									    <td><%=venta.getUsuario().getDireccion()%></td>
+									    <td><%=venta.getFecha()%></td>
+									    <td><%=venta.getEstado()%></td>
+									    <td><%=venta.getMedioPago().getTipo()%></td>
+									    <td><%=venta.getTotal()%></td>
+									    <td> + </td>
+									</tr>
+								</tbody>
+							</table>
+						</a>
+					</div>
+				</div>
+				<div id="collapse<%=i%>" class="panel-collapse collapse">
+					<div class="table-responsive">
+						<table id="tablaLv" class="table table-striped">
+							<thead>
+								<tr class="active">
+								    <td>ID</td>
+								    <td>NOMBRE</td>
+								    <td>PRESENTACION</td>
+								    <td>CANTIDAD</td>
+								    <td>PRECIO UNITARIO</td>
+								    <td>SUBTOTAL</td>							
+								</tr>
+							</thead>
+							<tbody>
+							<%for (LineaVenta lv : venta.getLineas()){
+								%>
+								
+								<tr>
+								    <td><%=lv.getProducto().getIdProducto()%></td>
+								    <td><%=lv.getProducto().getNombre()%></td>
+								    <td><%=lv.getProducto().getPresentacion()%></td>
+								    <td><%=lv.getCantidad()%></td>
+								    <td><%=lv.getPrecioUnitario()%></td>
+								    <%Double subtotal = lv.getPrecioUnitario() * lv.getCantidad(); %>
+								    <td><%=subtotal%></td>							
+								</tr>
+							
+							
+							<%
+							}
+							%>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</div>
+			<%
+			}
+			%>
+				
+			</div>
+			
+			
 	
-		<script src="js/jquery-3.2.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="js/bootstrap.min.js"></script>
+		</div>	
+		<hr>
+		<div class="form-group">
+			<div class="col-sm-4 col-xs-12 ">
+				<button class="btn btn-primary form-control"> <span class="fa fa-print"></span> IMPRIMIR LISTADO </button>
+			</div>
+			<br class="visible-xs">
+			<br class="visible-xs">
+			<div class="col-sm-4 col-xs-12 ">
+				<button class="btn btn-primary form-control"> <span class="fa fa-file text-warning"></span> EXPORTAR LISTADO </button>
+			</div>
+			<br class="visible-xs">
+			<br class="visible-xs">
+			<div class="col-sm-4 col-xs-12 ">
+				<button class="btn btn-primary form-control"> <span class="fa fa-download text-info"></span> GUARDAR COMO PDF </button>
+			</div>	
+		</div>	
+		<br>
+		<br>
+    </div>
+	
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 </body>

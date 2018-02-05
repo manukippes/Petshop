@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="entidades.Usuario"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
@@ -9,6 +9,9 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="css/estilos.css" type="text/css">
 		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/clientes.js"></script>
 		<link rel="shortcut icon" href="#">
 
 		<title>SGPS - Alta nuevo cliente</title>
@@ -87,7 +90,7 @@
 							</div>
 							<div class="col-lg-9 col-md-12" id="MascotaGroup">	
 								<div class="table-responsive hidden" id="tablaMascota">
-   								   <table class="table table-striped table-hover active" id="tableMas">
+   								   <table class="table table-striped table-hover active tableMas" id="tableMas">
 										<thead>
 											<tr>
 											    <th>Nombre</th>
@@ -98,10 +101,6 @@
 											</tr>
 										</thead>
   										<tbody>	
-											<tr id="idMascota">
-												<td id="nombreMascota"></td>
-												<td id="fechaNacimientoMascota"></td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -129,7 +128,7 @@
 												<label class="sr-only">Nombre</label>
 											    <div class="col-lg-12 col-md-12" id="nombreMascotaGroup">
 											    	<small id="nombreMascotaHelp" class="form-text text-muted"><strong>Nombre *</strong></small>
-											    	<input type="text" class="form-control" name="nombreMascota" id="nombreMascota" aria-describedby="nombreMascotaHelp" placeholder="Ingres&aacute; el nombre de la mascota.">
+											    	<input type="text" class="form-control" name="nombreMascota" id="nombreMascota" placeholder ="Ingres&aacute; el nombre de la mascota.">
 												</div>
 										</div>
 										<hr class="hrModal">
@@ -198,13 +197,13 @@
 												<label class="sr-only">Observaciones</label>
 											    <div class="col-lg-8 col-md-12" id="observacionesMascotaGroup">
 											    	<small id="observacionesMascotaHelp" class="form-text text-muted"><strong>Observaciones</strong></small>
-											    	<textarea class="form-control" rows="5" id="observacionesMascota" placeholder="Completa con datos adicionales de la mascota de ser necesarios"></textarea>
+											    	<textarea class="form-control" rows="5" id="observacionesMascota">Completa con datos adicionales de la mascota de ser necesarios</textarea>
 												</div>
 										</div>
 										<hr class="hrModal">
 										<div class="form-group row container-fluid">
 											<div class="col-lg-12 col-md-12">
-												<a href="#" class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal">Agregar</a>
+												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4><span class="glyphicon glyphicon-plus"> </span><span class="fa fa-paw"></span> Agregar</h4></button>
 											</div>
 										</div>
 									</div>								
@@ -218,7 +217,6 @@
 		</div>
 			<script src="http://code.jquery.com/jquery-latest.js"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-			<script type="text/javascript" src="js/main.js"></script>
-			<script type="text/javascript" src="js/clientes.js"></script>
+
 	</body>
 </html>

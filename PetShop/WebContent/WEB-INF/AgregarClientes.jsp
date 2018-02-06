@@ -9,9 +9,6 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="css/estilos.css" type="text/css">
 		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
-		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/clientes.js"></script>
 		<link rel="shortcut icon" href="#">
 
 		<title>SGPS - Alta nuevo cliente</title>
@@ -215,8 +212,12 @@
 		        </div>
 		   	</div>
 		</div>
-			<script src="http://code.jquery.com/jquery-latest.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		
+			<script src="/Petshop/js/jquery-latest.js"></script>
+			<script src="/Petshop/js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="js/main.js"></script>
+			<script type="text/javascript" src="js/clientes.js"></script>
+			
 
 	</body>
 </html>

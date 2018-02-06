@@ -29,6 +29,7 @@ $(document).ready(function() {
 	}).success( function(data) {
 	    $('#example').dataTable( {
 	        "aaData": data,
+	        searching : false,
 	        "columns": [
 	            { "data": "idVenta" },
 	            { "data": "usuario.nombre" },

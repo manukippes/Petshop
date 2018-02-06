@@ -4,10 +4,11 @@
 <html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <script src="style/ie-emulation-modes-warning.js"></script>
+    
     <title>Log In</title>
   </head>
 
@@ -43,8 +44,10 @@
 			</div>  	   		    	  	
 		</div>
 	</div>
-		<script src="js/jquery-3.2.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript" src="/Petshop/js/jquery-latest.js"></script>
+		<script type="text/javascript" src="/Petshop/js/bootstrap.min.js"></script>
+
+
 </body>
 </html>

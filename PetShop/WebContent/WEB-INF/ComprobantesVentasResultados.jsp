@@ -18,6 +18,9 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/comprobantesVentas.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" type="text/css">
 	
 	<title>SGPS - Comprobantes de Ventas</title>
 </head>
@@ -30,119 +33,73 @@
 		
 		<h4><strong>COMPROBANTES DE VENTAS REGISTRADOS</strong></h4>
 		<hr>
+		<div class="container-fluid visible-print">
+				<table id="tablaImprimir" class="table table-striped ">
+					<thead>
+						<tr class="active">
+						    <th>ID</th>
+						    <th>CLIENTE</th>
+						    <th>DIRECCI&Oacute;N</th>
+						    <th>FECHA</th>
+						    <th>ESTADO</th>
+						    <th>MEDIO DE PAGO</th>
+						    <th>TOTAL</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+					</tbody>
+					
+				</table>
+			</div>
 		<div class="table-responsive">
-			
-			<div class="panel-group table-responsive" id="accordion" role="tablist">
-
-			<%
-			ControladorDeVenta ctrVenta = new ControladorDeVenta();
-			ArrayList<Venta> ventas = (ArrayList<Venta>) session.getAttribute("ventas");
-			int i=0;
-			for (Venta venta : ventas){
-				i++;
-			%>
-			<div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="heading<%=i%>">
-					<div class="panel-title">
-						<a href="#collapse<%=i%>" data-toggle="collapse" data-parent="#accordion">
-							<table id="tabla" class="table">
-								<%if (i==1){ %>
-								<thead>
-									<tr class="active">
-									    <th>ID</th>
-									    <th>CLIENTE</th>
-									    <th>DIRECCI&Oacute;N</th>
-									    <th>FECHA</th>
-									    <th>ESTADO</th>
-									    <th>MEDIO DE PAGO</th>
-									    <th>TOTAL</th>
-									    <th>VER</th>
-									</tr>
-								</thead>
-								<%} %>
-								<tbody>
-									<tr>
-									    <td><%=venta.getIdVenta()%></td>
-									    <td><%=venta.getUsuario().getApellido()%>, <%=venta.getUsuario().getNombre()%></td>
-									    <td><%=venta.getUsuario().getDireccion()%></td>
-									    <td><%=venta.getFecha()%></td>
-									    <td><%=venta.getEstado()%></td>
-									    <td><%=venta.getMedioPago().getTipo()%></td>
-									    <td><%=venta.getTotal()%></td>
-									    <td> + </td>
-									</tr>
-								</tbody>
-							</table>
-						</a>
-					</div>
-				</div>
-				<div id="collapse<%=i%>" class="panel-collapse collapse">
-					<div class="table-responsive">
-						<table id="tablaLv" class="table table-striped">
-							<thead>
-								<tr class="active">
-								    <td>ID</td>
-								    <td>NOMBRE</td>
-								    <td>PRESENTACION</td>
-								    <td>CANTIDAD</td>
-								    <td>PRECIO UNITARIO</td>
-								    <td>SUBTOTAL</td>							
-								</tr>
-							</thead>
-							<tbody>
-							<%for (LineaVenta lv : venta.getLineas()){
-								%>
-								
-								<tr>
-								    <td><%=lv.getProducto().getIdProducto()%></td>
-								    <td><%=lv.getProducto().getNombre()%></td>
-								    <td><%=lv.getProducto().getPresentacion()%></td>
-								    <td><%=lv.getCantidad()%></td>
-								    <td><%=lv.getPrecioUnitario()%></td>
-								    <%Double subtotal = lv.getPrecioUnitario() * lv.getCantidad(); %>
-								    <td><%=subtotal%></td>							
-								</tr>
-							
-							
-							<%
-							}
-							%>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				
-			</div>
-			<%
-			}
-			%>
-				
-			</div>
-			
-			
+			<table id="example" class="display" cellspacing="0" width="100%">
+		        <thead>
+		            <tr>
+		                <th>ID</th>
+		                <th>NOMBRE</th>
+		                <th>APELLIDO</th>
+		                <th>DIRECCION</th>
+		                <th>FECHA</th>
+		                <th>ESTADO</th>
+		                <th>MEDIO DE PAGO</th>
+		                <th>TOTAL</th>
+		                <th>VER</th>
+		            </tr>
+		        </thead>
+		    </table>			
 	
 		</div>	
 		<hr>
 		<div class="form-group">
 			<div class="col-sm-4 col-xs-12 ">
-				<button class="btn btn-primary form-control"> <span class="fa fa-print"></span> IMPRIMIR LISTADO </button>
+				<button class="btn btn-primary form-control hidden-print" onclick="window.print();"> <span class="fa fa-print"></span> IMPRIMIR LISTADO </button>
 			</div>
 			<br class="visible-xs">
 			<br class="visible-xs">
 			<div class="col-sm-4 col-xs-12 ">
-				<button class="btn btn-primary form-control"> <span class="fa fa-file text-warning"></span> EXPORTAR LISTADO </button>
+				<button class="btn btn-primary form-control hidden-print"> <span class="fa fa-file text-warning"></span> EXPORTAR LISTADO </button>
 			</div>
 			<br class="visible-xs">
 			<br class="visible-xs">
 			<div class="col-sm-4 col-xs-12 ">
-				<button class="btn btn-primary form-control"> <span class="fa fa-download text-info"></span> GUARDAR COMO PDF </button>
+				<button class="btn btn-primary form-control hidden-print"> <span class="fa fa-download text-info"></span> GUARDAR COMO PDF </button>
 			</div>	
 		</div>	
 		<br>
 		<br>
     </div>
-	
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+	
+	
 
 </body>

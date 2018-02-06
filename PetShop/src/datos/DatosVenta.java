@@ -587,7 +587,7 @@ public ArrayList<Venta> getVentas(Hashtable<String, String> parametros) throws E
 			}
 		}
 		//EJECUTO LA CONSULTA
-		System.out.println(pstm);
+		//System.out.println(pstm);
 		rs=pstm.executeQuery();
 		
 		if(rs!=null)

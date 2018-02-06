@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,22 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import entidades.LineaVenta;
 import entidades.Producto;
-import entidades.Subcategoria;
-import logica.ControladorDeProducto;
-
+import entidades.Venta;
 
 /**
- * Servlet implementation class buscaProductosVenta
+ * Servlet implementation class VentasDatatable
  */
-@WebServlet({ "/buscaProductosVenta", "/BuscarProductosVenta", "/buscaproductosventa" })
-public class buscaProductosVenta extends HttpServlet {
+@WebServlet({ "/VentasDatatable", "/ventasDatatable", "/Ventasdatatable" })
+public class VentasDatatable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public buscaProductosVenta() {
+    public VentasDatatable() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,40 +34,32 @@ public class buscaProductosVenta extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String inputProducto = request.getParameter("inputProducto");
+		// TODO Auto-generated method stub
 		
-        ArrayList<Producto> productos = new ArrayList<>();
-		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
-		try {
-			productos = ctrlProducto.getProductos(inputProducto);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		ArrayList<Venta> ventas = (ArrayList<Venta>)request.getSession().getAttribute("ventas");
+		ArrayList<LineaVenta> lv = new ArrayList<>();
+		
+		
+		List<Venta> lista = new ArrayList<>();  //convierto el arraylist en list
+		for(Venta venta : ventas){
+			venta.setLineas(lv);
+			lista.add(venta);
 		}
-		
-		
-		List<Producto> lista = new ArrayList<>();  //convierto el arraylist en list
-		for(Producto producto : productos){
-			lista.add(producto);
-		}
-				
 		String json = new Gson().toJson(lista);
-
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		
+		System.out.println(json);
 		response.getWriter().write(json);
-		return;
 	}
 
 }

@@ -226,6 +226,5 @@ $(document).ready(function() {
 		$('#fila2').hide();
 		
 	});
-									
 })
 

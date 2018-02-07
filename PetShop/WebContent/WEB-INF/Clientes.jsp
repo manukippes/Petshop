@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<title>SGPS - Clientes</title>
 </head>
-<body onload="iniciar('clientes');">
+<body onload="iniciar('administracion');">
 	<jsp:include page="Navbar.jsp" />
 	<div class="container panel panel-default colorPanel">
 		<div class="panel-body">
@@ -44,8 +44,8 @@
 		</div>
 	</div>
 		
-		<script src="/Petshop/js/jquery-latest.js"></script>
-		<script src="/Petshop/js/bootstrap.min.js"></script>
+		<script src="js/jquery-latest.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->

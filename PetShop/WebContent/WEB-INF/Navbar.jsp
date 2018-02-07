@@ -19,7 +19,6 @@
 				<div class="collapse navbar-collapse" id="navbar-1">
 					<ul class="nav navbar-nav">
 						<li id="ventasTab" class=""><a href="Ventas">Ventas</a></li>
-						<li id="clientesTab" class=""><a href="Clientes">Clientes</a></li>
 						<li id="turnosTab" class=""><a href="Turnos">Turnos</a></li>
 						<li id="comprobantesVentasTab" class=""><a href="ComprobantesVentas">Comprobantes de Ventas</a></li>
 						<li class="dropdown" id="administracionTab">
@@ -28,9 +27,9 @@
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="MantenimientoProductos" class="" aria-hidden="true"> Mantenimiento de Productos </a></li>
-								<li><a href="#"> Mantenimiento de Usuarios </a></li>
+								<li><a href="Clientes"> Mantenimiento de Clientes </a></li>
 								<li><a href="MantenimientoTurnos"> Mantenimiento de Turnos </a></li>
-								</li>
+								<li><a href="#"> Mantenimiento de Usuarios</a></li></li>
 							</ul>
 						</li>
 					</ul>

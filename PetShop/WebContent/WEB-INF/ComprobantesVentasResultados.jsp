@@ -30,27 +30,9 @@
 		
 		<h4><strong>COMPROBANTES DE VENTAS REGISTRADOS</strong></h4>
 		<hr>
-		<div class="container-fluid visible-print">
-				<table id="tablaImprimir" class="table table-striped ">
-					<thead>
-						<tr class="active">
-						    <th>ID</th>
-						    <th>CLIENTE</th>
-						    <th>DIRECCI&Oacute;N</th>
-						    <th>FECHA</th>
-						    <th>ESTADO</th>
-						    <th>MEDIO DE PAGO</th>
-						    <th>TOTAL</th>
-						</tr>
-					</thead>
-					
-					<tbody>
-					</tbody>
-					
-				</table>
-			</div>
+		
 		<div class="table-responsive">
-			<table id="example" class="display" cellspacing="0" width="100%">
+			<table id="dataTable" class="display" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
 		                <th>ID</th>
@@ -64,6 +46,7 @@
 		                <th>VER</th>
 		            </tr>
 		        </thead>
+		        
 		    </table>			
 	
 		</div>	
@@ -87,20 +70,22 @@
 		<br>
     </div>
     
-   
-	<script type="text/javascript" src="/Petshop/js/jquery-latest.js"></script>
+   	<script type="text/javascript" src="/Petshop/js/jquery-latest.js"></script>
 	<script type="text/javascript" src="/Petshop/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/comprobantesVentas.js"></script>
 	
+	
 	<script type="text/javascript" src="/Petshop/DataTables/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="/Petshop/DataTables/Buttons/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="/Petshop/DataTables/Buttons/js/buttons.flash.min.js"></script>
 		
 	<script type="text/javascript" src="/Petshop/DataTables/JSZip/jszip.min.js"></script>
 	<script type="text/javascript" src="/Petshop/DataTables/PDFmake/pdfmake.min.js"></script>
 	<script type="text/javascript" src="/Petshop/DataTables/PDFmake/vfs_fonts.js"></script>
-	<script type="text/javascript" src="/Petshop/DataTables/Buttons/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" src="/Petshop/DataTables/Buttons/js/buttons.html5.min.js"></script>	
+	<script type="text/javascript" src="/Petshop/DataTables/Buttons/js/buttons.print.min.js"></script>
 	
 	
 

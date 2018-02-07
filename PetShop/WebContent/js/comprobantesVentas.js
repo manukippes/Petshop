@@ -1,24 +1,13 @@
-/**
- * 
- */
+/* Formatting function for row details - modify as you need */
 function format ( d ) {
     // `d` is the original data object for the row
-    var datos = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-            '<td>Full name:</td>'+
-            '<td>ALGO</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Extension number:</td>'+
-            '<td>OTRA COSA</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Extra info:</td>'+
-            '<td>And any further details here (images etc)...</td>'+
-        '</tr>'+
-    '</table>';
-    return datos;
-}
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+		        '<tr>'+
+		            '<td>Extra info:</td>'+
+		            '<td>And any further details here (images etc)...</td>'+
+		        '</tr>'+
+		    '</table>';
+	}
 
 $(document).ready(function() {
 	
@@ -27,10 +16,14 @@ $(document).ready(function() {
 	    'method': "post",
 	    'contentType': 'application/json'
 	}).success( function(data) {
-	    $('#example').dataTable( {
+	    $('#dataTable').dataTable( {
 	        "aaData": data,
 	        searching : false,
-	        "columns": [
+	        dom: '<"top"l>rt<"bottom"Bp><"clear">',
+	        buttons: [
+	            'copy', 'csv', 'excel', 'pdf', 'print'
+	        ],
+	        "columns" : [
 	            { "data": "idVenta" },
 	            { "data": "usuario.nombre" },
 	            { "data": "usuario.apellido" },
@@ -40,19 +33,22 @@ $(document).ready(function() {
 	            { "data": "medioPago.tipo" },
 	            { "data": "total" },
 	            {
-	                "className":      'btnVer',
+	                "className":      'details-control',
 	                "orderable":      false,
 	                "data":           null,
 	                "defaultContent": ''
 	            }
-	        ]
+	            ],
+	        "order": [[0, 'asc']]
 	    })
-	})
+	});
 	
     // Add event listener for opening and closing details
-    $('#example tbody').on('click', 'td.btnVer', function () {
-        var tr = $(this).closest('tr');
+    $('#dataTable tbody').on('click', 'td.details-control', function () {
+        
+    	var tr = $(this).closest('tr');
         var row = table.row( tr );
+        
  
         if ( row.child.isShown() ) {
             // This row is already open - close it
@@ -61,8 +57,8 @@ $(document).ready(function() {
         }
         else {
             // Open this row
-            row.child( format(row.data()) ).show();
+            row.child( format(row.data())).show();
             tr.addClass('shown');
         }
     } );
-} );
+});

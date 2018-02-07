@@ -23,7 +23,7 @@
 						<li id="comprobantesVentasTab" class=""><a href="ComprobantesVentas">Comprobantes de Ventas</a></li>
 						<li class="dropdown" id="administracionTab">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-								<span>Administraci&oacute;n </span><span class="caret"></span>
+								</span>Administraci&oacute;n <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="MantenimientoProductos" class="" aria-hidden="true"> Mantenimiento de Productos </a></li>

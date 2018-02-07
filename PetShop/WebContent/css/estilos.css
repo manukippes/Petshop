@@ -116,4 +116,11 @@ th{
 	
 }
 
+td.details-control {
+    background: url('/Petshop/imgs/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('/Petshop/imgs/details_close.png') no-repeat center center;
+}
 

@@ -1,23 +1,31 @@
 /* Formatting function for row details - modify as you need */
 function format ( d ) {
     // `d` is the original data object for the row
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-		        '<tr>'+
-		            '<td>Extra info:</td>'+
-		            '<td>And any further details here (images etc)...</td>'+
-		        '</tr>'+
-		    '</table>';
+	var lineas = d.lineas;
+	var html='<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+	lineas.forEach(function(obj) { 
+		html+='<tr>'+
+        		'<td>ID</td>'+
+        		'<td>PRODUCTO</td>'+
+        		'<td>PRESENTACION</td>'+
+        		'<td>CANTIDAD</td>'+
+        		'<td>PRECIO</td>'+
+        		'<td>SUBTOTAL</td>'+
+        		'</tr>'
+        		});
+	html+='</table>';
+    return 
 	}
 
 $(document).ready(function() {
-	
-	$.ajax({
-	    'url': "VentasDatatable",
-	    'method': "post",
-	    'contentType': 'application/json'
-	}).success( function(data) {
-	    $('#dataTable').dataTable( {
-	        "aaData": data,
+		
+	  var table = $('#dataTable').DataTable( {
+	        "ajax":  {
+	            "url": "VentasDatatable",
+	            "method": "POST",
+	            "contentType": "application/json",
+	            "dataSrc": function ( json ) { return json; }
+	          	},
 	        searching : false,
 	        dom: '<"top"l>rt<"bottom"Bp><"clear">',
 	        buttons: [
@@ -41,7 +49,7 @@ $(document).ready(function() {
 	            ],
 	        "order": [[0, 'asc']]
 	    })
-	});
+	
 	
     // Add event listener for opening and closing details
     $('#dataTable tbody').on('click', 'td.details-control', function () {

@@ -29,7 +29,6 @@
 								<li><a href="MantenimientoProductos" class="" aria-hidden="true"> Mantenimiento de Productos </a></li>
 								<li><a href="Clientes"> Mantenimiento de Clientes </a></li>
 								<li><a href="MantenimientoTurnos"> Mantenimiento de Turnos </a></li>
-								<li><a href="#"> Mantenimiento de Usuarios</a></li></li>
 							</ul>
 						</li>
 					</ul>

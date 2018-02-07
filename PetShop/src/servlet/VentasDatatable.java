@@ -46,13 +46,16 @@ public class VentasDatatable extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		ArrayList<Venta> ventas = (ArrayList<Venta>)request.getSession().getAttribute("ventas");
-		ArrayList<LineaVenta> lv = new ArrayList<>();
-		
+		ArrayList<Venta> ventas = (ArrayList<Venta>)request.getSession().getAttribute("ventas");		
 		
 		List<Venta> lista = new ArrayList<>();  //convierto el arraylist en list
 		for(Venta venta : ventas){
-			venta.setLineas(lv);
+			List<LineaVenta> lineas = new ArrayList<>();
+			for(LineaVenta lv : venta.getLineas()){
+				lineas.add(lv);
+			}
+			venta.setLineas(lineas);
+			
 			lista.add(venta);
 		}
 		String json = new Gson().toJson(lista);

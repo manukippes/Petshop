@@ -79,7 +79,6 @@ function validar(){
 } 
 	
 		
-	
 $(document).ready(function() {
 	//if (($("tablaMascota").hasClass('hidden'))) {
 
@@ -126,44 +125,18 @@ $(document).ready(function() {
 			
 			})
 	//}
-	
-	/// ALTA DE CLIENTE ///
-	$('#btnAgregarCliente').click(function(e){
-		e.preventDefault();
-		var resultado = validar();
+			
+			$(this).on("click", ".btnQuitarMascota", function(e){
+	    e.preventDefault();
+	    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+		var fila =$(this).parent().parent().parent()
+
+		fila.remove();
 		
-		if(resultado){
-			var parametro = {
-					nombre : $("#nombre").val(),
-					apellido : $("#apellido").val(),
-					dni : $("#dni").val(),
-					direccion : $("#direccion").val(),
-					telefono : $("#telefono").val(),
-					email : $("#email").val(),
-			}
+		});
 			
-			
-			var parametros = JSON.stringify(parametro);
-			
-			$.ajax({
-					url : "ConfirmarAltaCliente",
-					type : "post",
-					data : {jsonData : parametros},
-					dataType: 'json',
-					success : function(data){
-						if (data)
-						{
-							confirm("Se agreg&oacute; el cliente correctamente.");
-						} 
-						else
-						{
-							alert("No se pudo agregar el cliente.");
-						}
-	                    
-					}
-			})
-		}
-	})
+	
+	
 	
 	$(this).on("click", "#nombreMascotaGroup", function(e){
 	    $('#nombreMascotaGroup').removeClass("has-error"); 
@@ -228,6 +201,7 @@ $(document).ready(function() {
 	        var tamanio = "";
 	        var pelaje = "";
 	        var fechaNacimiento = $('#fechaNacimientoMascota').val();
+	        var observacion = $('#observacionesMascota').val();
 	        
 	        if($('#btnPatitaGrande').hasClass("icon-button-active")){
 				tamanio="Grande";
@@ -244,9 +218,10 @@ $(document).ready(function() {
 			}else{
 				pelaje ="Corto";
 			}
+			
 	        
 	        $('<tr>',{
-				'html' : "<td id='nombre'>"+nombre+"</td>" +
+				'html' : "<td id='nombreMascota'>"+nombre+"</td>" +
 				"			<td id='tamanio'>"+tamanio+"</td>" +
 				"			<td id='pelaje'>"+pelaje+"</td>" +
 				"			<td id='fechaNacimiento'>"+fechaNacimiento+"</td>" +
@@ -254,8 +229,10 @@ $(document).ready(function() {
 				"				<div class='input-group'>" +
 				"					<a class='btn btn-danger btnQuitarMascota' href='\'>Quitar</a>" +
 				"				</div>" +
-				"			</td>"
+				"			</td>"+
+				"			<td id='observacion' class='hidden'>"+observacion+"</td>"		
 				}).appendTo(".tableMas > tbody");  
+	        
 	        
 			$('#agregarMascota').modal('toggle');
 	        $('#tablaMascota').removeClass("hidden");
@@ -263,14 +240,61 @@ $(document).ready(function() {
 	       
 		})
 		
-	$(this).on("click", ".btnQuitarMascota", function(e){
-	    e.preventDefault();
-	    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
-		var fila =$(this).parent().parent().parent()
-
-		fila.remove();
+	/// ALTA DE CLIENTE ///
+	$('#btnAgregarCliente').click(function(e){
+		e.preventDefault();
+		var resultado = validar();
 		
-		});
+		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		if (filas.length != 1){
+			var arregloMascotas = [];
+			$.each(filas,function(i,fila){
+				if(i>0){
+					//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
+					var nombreMascota = fila.cells[0].innerHTML;
+					var tamanioMascota = fila.cells[1].innerHTML;
+					var pelajeMascota = fila.cells[2].innerHTML;
+					var fechaNacimientoMascota = fila.cells[3].innerHTML;
+					var observacionesMascota = fila.cells[4].innerHTML;
+					var elemento = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
+					arregloMascotas.push(elemento); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
+			}
+		   })
+		}
+		
+		if(resultado){
+			var parametro = {
+					nombre : $("#nombre").val(),
+					apellido : $("#apellido").val(),
+					dni : $("#dni").val(),
+					direccion : $("#direccion").val(),
+					telefono : $("#telefono").val(),
+					email : $("#email").val(),
+					arregloMascotas,
+			}
+			
+			
+			var parametros = JSON.stringify(parametro);
+			
+			$.ajax({
+					url : "ConfirmarAltaCliente",
+					type : "post",
+					data : {jsonData : parametros},
+					dataType: 'json',
+					success : function(data){
+						if (data)
+						{
+							confirm("Se agreg&oacute; el cliente correctamente.");
+						} 
+						else
+						{
+							alert("No se pudo agregar el cliente.");
+						}
+	                    
+					}
+			})
+		}
+	})
 	    
 
 });

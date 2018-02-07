@@ -13,7 +13,7 @@
 
 		<title>SGPS - Alta nuevo cliente</title>
 	</head>
-	<body onload="iniciar('clientes');">
+	<body onload="iniciar('administracion');">
 		<jsp:include page="Navbar.jsp" />
 		<div class="container panel panel-default colorPanel">
 			<div class="panel-body">
@@ -200,7 +200,7 @@
 										<hr class="hrModal">
 										<div class="form-group row container-fluid">
 											<div class="col-lg-12 col-md-12">
-												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4><span class="glyphicon glyphicon-plus"> </span><span class="fa fa-paw"></span> Agregar</h4></button>
+												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Agregar</h4></button>
 											</div>
 										</div>
 									</div>								
@@ -213,10 +213,11 @@
 		   	</div>
 		</div>
 		
-			<script src="/Petshop/js/jquery-latest.js"></script>
-			<script src="/Petshop/js/bootstrap.min.js"></script>
-			<script type="text/javascript" src="js/main.js"></script>
+			<script type="text/javascript" src="js/jquery-latest.js"></script>
+			<script type="text/javascript" src="js/bootstrap.min.js"></script>
 			<script type="text/javascript" src="js/clientes.js"></script>
+			<script type="text/javascript" src="js/main.js"></script>
+			
 			
 
 	</body>

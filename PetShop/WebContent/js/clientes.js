@@ -263,6 +263,7 @@ $(document).ready(function() {
 		}
 		
 		if(resultado){
+			
 			var parametro = {
 					nombre : $("#nombre").val(),
 					apellido : $("#apellido").val(),

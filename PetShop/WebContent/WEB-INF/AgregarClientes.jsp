@@ -212,13 +212,9 @@
 		        </div>
 		   	</div>
 		</div>
-		
 			<script type="text/javascript" src="js/jquery-latest.js"></script>
 			<script type="text/javascript" src="js/bootstrap.min.js"></script>
 			<script type="text/javascript" src="js/clientes.js"></script>
 			<script type="text/javascript" src="js/main.js"></script>
-			
-			
-
 	</body>
 </html>

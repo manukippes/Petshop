@@ -1,21 +1,33 @@
 /* Formatting function for row details - modify as you need */
 function format ( d ) {
     // `d` is the original data object for the row
-	var lineas = d.lineas;
-	var html='<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+	var lineas = d.lineasList;
+	var html='<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+		'<tr>'+
+			'<th> </th>'+
+			'<th>ID</th>'+
+			'<th>PRODUCTO</th>'+
+			'<th>PRESENTACION</th>'+
+			'<th>CANTIDAD</th>'+
+			'<th>PRECIO</th>'+
+			'<th>SUBTOTAL</th>'+
+		'</tr>'
+	
 	lineas.forEach(function(obj) { 
 		html+='<tr>'+
-        		'<td>ID</td>'+
-        		'<td>PRODUCTO</td>'+
-        		'<td>PRESENTACION</td>'+
-        		'<td>CANTIDAD</td>'+
-        		'<td>PRECIO</td>'+
-        		'<td>SUBTOTAL</td>'+
+				'<td> </td>'+
+        		'<td>'+obj.idLineaVenta+'</td>'+
+        		'<td>'+obj.producto.nombre+'</td>'+
+        		'<td>'+obj.producto.presentacion+'</td>'+
+        		'<td>'+obj.cantidad+'</td>'+
+        		'<td>'+obj.precioUnitario+'</td>'+
+        		'<td>'+obj.cantidad*obj.precioUnitario+'</td>'+
         		'</tr>'
         		});
 	html+='</table>';
-    return 
-	}
+    return html;
+};
+	
 
 $(document).ready(function() {
 		
@@ -32,19 +44,19 @@ $(document).ready(function() {
 	            'copy', 'csv', 'excel', 'pdf', 'print'
 	        ],
 	        "columns" : [
-	            { "data": "idVenta" },
-	            { "data": "usuario.nombre" },
-	            { "data": "usuario.apellido" },
-	            { "data": "usuario.direccion" },
-	            { "data": "fecha" },
-	            { "data": "estado" },
-	            { "data": "medioPago.tipo" },
-	            { "data": "total" },
+	            { "data": "ventaList.idVenta" },
+	            { "data": "ventaList.usuario.nombre" },
+	            { "data": "ventaList.usuario.apellido" },
+	            { "data": "ventaList.usuario.direccion" },
+	            { "data": "ventaList.fecha" },
+	            { "data": "ventaList.estado" },
+	            { "data": "ventaList.medioPago.tipo" },
+	            { "data": "ventaList.total" },
 	            {
 	                "className":      'details-control',
 	                "orderable":      false,
 	                "data":           null,
-	                "defaultContent": ''
+	                "defaultContent": '<span id="btnAmpliar" class="fa fa-plus"></span>'
 	            }
 	            ],
 	        "order": [[0, 'asc']]
@@ -65,7 +77,7 @@ $(document).ready(function() {
         }
         else {
             // Open this row
-            row.child( format(row.data())).show();
+            row.child(format(row.data())).show();
             tr.addClass('shown');
         }
     } );

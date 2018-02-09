@@ -1,7 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import entidades.LineaVenta;
-import entidades.Producto;
 import entidades.Venta;
 
 /**
@@ -22,6 +25,22 @@ import entidades.Venta;
 @WebServlet({ "/VentasDatatable", "/ventasDatatable", "/Ventasdatatable" })
 public class VentasDatatable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	public class VentaJson implements Serializable{
+		private Venta ventaList;
+		private List<LineaVenta> lineasList;
+		
+		public void setVenta(Venta venta) {
+			ArrayList<LineaVenta> lineaVentaNull = new ArrayList<LineaVenta>();
+			venta.setLineas(null);
+			this.ventaList = venta;
+		}
+		public void setLineas(List<LineaVenta> lv){
+
+			this.lineasList = lv;
+		}
+		
+	};
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,18 +65,31 @@ public class VentasDatatable extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		ArrayList<Venta> ventas = (ArrayList<Venta>)request.getSession().getAttribute("ventas");		
+		ArrayList<Venta> ventas = (ArrayList<Venta>)request.getSession().getAttribute("ventas");
+				
 		
-		List<Venta> lista = new ArrayList<>();  //convierto el arraylist en list
-		for(Venta venta : ventas){
-			List<LineaVenta> lineas = new ArrayList<>();
-			for(LineaVenta lv : venta.getLineas()){
-				lineas.add(lv);
-			}
-			venta.setLineas(lineas);
+		List<VentaJson> lista = new ArrayList<>();
+		for(Venta venta : ventas){	
 			
-			lista.add(venta);
+			List<LineaVenta> liven = new ArrayList<>();
+			for (LineaVenta lventa : venta.getLineas()){
+				liven.add(lventa);
+			}
+			
+			VentaJson vjson = new VentaJson();
+			
+			
+			
+			vjson.setVenta(venta);
+			vjson.setLineas(liven);
+			
+			lista.add(vjson);
+			
+			
 		}
+		
+		//Type ventaType = new VentaJson().getClass();
+		
 		String json = new Gson().toJson(lista);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

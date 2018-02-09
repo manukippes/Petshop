@@ -77,15 +77,11 @@ public class VentasDatatable extends HttpServlet {
 			}
 			
 			VentaJson vjson = new VentaJson();
-			
-			
-			
+		
 			vjson.setVenta(venta);
 			vjson.setLineas(liven);
 			
-			lista.add(vjson);
-			
-			
+			lista.add(vjson);			
 		}
 		
 		//Type ventaType = new VentaJson().getClass();
@@ -93,7 +89,7 @@ public class VentasDatatable extends HttpServlet {
 		String json = new Gson().toJson(lista);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		System.out.println(json);
+		//System.out.println(json);
 		response.getWriter().write(json);
 	}
 

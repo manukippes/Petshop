@@ -50,22 +50,7 @@
 		    </table>			
 	
 		</div>	
-		<hr>
-		<div class="form-group">
-			<div class="col-sm-4 col-xs-12 ">
-				<button class="btn btn-primary form-control hidden-print" onclick="window.print();"> <span class="fa fa-print"></span> IMPRIMIR LISTADO </button>
-			</div>
-			<br class="visible-xs">
-			<br class="visible-xs">
-			<div class="col-sm-4 col-xs-12 ">
-				<button class="btn btn-primary form-control hidden-print"> <span class="fa fa-file text-warning"></span> EXPORTAR LISTADO </button>
-			</div>
-			<br class="visible-xs">
-			<br class="visible-xs">
-			<div class="col-sm-4 col-xs-12 ">
-				<button class="btn btn-primary form-control hidden-print"> <span class="fa fa-download text-info"></span> GUARDAR COMO PDF </button>
-			</div>	
-		</div>	
+		
 		<br>
 		<br>
     </div>
@@ -76,9 +61,10 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/comprobantesVentas.js"></script>
 	
-	
 	<script type="text/javascript" src="/Petshop/DataTables/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="/Petshop/DataTables/js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript" src="/Petshop/DataTables/Buttons/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="/Petshop/DataTables/Buttons/js/buttons.bootstrap.min.js"></script>
 	<script type="text/javascript" src="/Petshop/DataTables/Buttons/js/buttons.flash.min.js"></script>
 		
 	<script type="text/javascript" src="/Petshop/DataTables/JSZip/jszip.min.js"></script>

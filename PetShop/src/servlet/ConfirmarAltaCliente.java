@@ -33,7 +33,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
+		/*ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
 		Usuario usu = new Usuario();
 				
 		String json = request.getParameter("jsonData");
@@ -83,7 +83,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		}	
 		
 		
-		
+		*/
 	}
 
 }

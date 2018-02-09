@@ -39,7 +39,7 @@ $(document).ready(function() {
 	            "dataSrc": function ( json ) { return json; }
 	          	},
 	        searching : false,
-	        dom: '<"top"l>rt<"bottom"Bp><"clear">',
+	        dom: '<"top"l>rt<"bottom"pB><"clear">',
 	        buttons: [
 	            'copy', 'csv', 'excel', 'pdf', 'print'
 	        ],
@@ -53,10 +53,14 @@ $(document).ready(function() {
 	            { "data": "ventaList.medioPago.tipo" },
 	            { "data": "ventaList.total" },
 	            {
-	                "className":      'details-control',
+	                "className":      'ampliar',
 	                "orderable":      false,
 	                "data":           null,
-	                "defaultContent": '<span id="btnAmpliar" class="fa fa-plus"></span>'
+	                //"defaultContent": "<span id='btnAmpliar' class='fa fa-plus'></span>",
+	                "render" : function (data,type,full,meta){
+	                	var buttonID = "rollover"+full.idVenta;
+	                	return "<a id='buttonID' class='btn btn-info'><span id='icono' class='fa fa-plus'></span></a>"; 
+	                }
 	            }
 	            ],
 	        "order": [[0, 'asc']]
@@ -64,7 +68,7 @@ $(document).ready(function() {
 	
 	
     // Add event listener for opening and closing details
-    $('#dataTable tbody').on('click', 'td.details-control', function () {
+    $('#dataTable tbody').on('click', 'td.ampliar', function () {
         
     	var tr = $(this).closest('tr');
         var row = table.row( tr );
@@ -74,11 +78,19 @@ $(document).ready(function() {
             // This row is already open - close it
             row.child.hide();
             tr.removeClass('shown');
+            $(this).find("#buttonID").removeClass("btn btn-danger");
+            $(this).find('#buttonID').addClass("btn btn-info");
+            $(this).find('#icono').removeClass("fa-minus");
+            $(this).find('#icono').addClass("fa-plus");            
         }
         else {
             // Open this row
             row.child(format(row.data())).show();
             tr.addClass('shown');
+            $(this).find("#buttonID").removeClass("btn btn-info");
+            $(this).find('#buttonID').addClass("btn btn-danger");
+            $(this).find('#icono').removeClass("fa-plus");
+            $(this).find('#icono').addClass("fa-minus");
         }
     } );
 });

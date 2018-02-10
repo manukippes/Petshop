@@ -256,26 +256,25 @@ $(document).ready(function() {
 					var pelajeMascota = fila.cells[2].innerHTML;
 					var fechaNacimientoMascota = fila.cells[3].innerHTML;
 					var observacionesMascota = fila.cells[4].innerHTML;
-					var elemento = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
-					arregloMascotas.push(elemento); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
+					var elementoMascota = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
+					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
 			}
 		   })
 		}
 		
 		if(resultado){
+			var arregloClientes = [];
+			var nombre = $("#nombre").val();
+			var apellido = $("#apellido").val();
+			var dni = $("#dni").val();
+			var direccion = $("#direccion").val();
+			var telefono = $("#telefono").val();
+			var email = $("#email").val();
+			var elementosCliente = {nombre,apellido,dni,direccion,telefono,email,arregloMascotas};
+			arregloClientes.push(elementosCliente);
 			
-			var parametro = {
-					nombre : $("#nombre").val(),
-					apellido : $("#apellido").val(),
-					dni : $("#dni").val(),
-					direccion : $("#direccion").val(),
-					telefono : $("#telefono").val(),
-					email : $("#email").val(),
-					arregloMascotas,
-			}
-			
-			
-			var parametros = JSON.stringify(parametro);
+		}
+			var parametros = JSON.stringify(arregloClientes);
 			
 			$.ajax({
 					url : "ConfirmarAltaCliente",

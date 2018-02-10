@@ -16,4 +16,8 @@ public class ControladorDeTipoMascota implements Serializable{
 	public TipoMascotaServicio getTipoMascotaServicio(TipoMascotaServicio tMascServ) throws Exception{
 		return baseTipoMascota.getTipoMascotaServicio(tMascServ);
 	}
+	
+	public TipoMascota getTipoMascotaSegunTamanioPelaje(String tamanio, String pelaje) throws Exception{
+		return baseTipoMascota.getTipoMascota(tamanio, pelaje);
+	}
 }

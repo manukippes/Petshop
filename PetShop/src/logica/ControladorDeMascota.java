@@ -24,4 +24,9 @@ public class ControladorDeMascota implements Serializable{
 	public Mascota getMascota(Mascota mascota) throws Exception{
 		return baseMascota.getMascota(mascota);
 	}
+	
+	public boolean agregarMascota(Mascota mascota) throws Exception{
+		boolean respuesta = baseMascota.agregarMascota(mascota);
+		return respuesta;
+	}
 }

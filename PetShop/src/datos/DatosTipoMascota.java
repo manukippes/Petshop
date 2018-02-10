@@ -17,6 +17,7 @@ import entidades.TipoMascotaServicio;
 import logica.ControladorDeMascota;
 import logica.ControladorDeServicio;
 import logica.ControladorDeTipoMascota;
+import utilidades.ExcepcionEspecial;
 
 
 public class DatosTipoMascota implements Serializable{
@@ -142,5 +143,36 @@ public class DatosTipoMascota implements Serializable{
 			throw e;
 		}
 		return tMascServ;
+	}
+	public TipoMascota getTipoMascota(String tamanio, String pelaje) throws Exception {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		TipoMascota tipoMas = new TipoMascota();
+		
+		
+		try {
+			ps = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT idTipoMascota FROM tipo_Mascota WHERE pelo =? AND tamanio = ?");
+			ps.setString(1, pelaje);
+			ps.setString(2, tamanio);
+			rs = ps.executeQuery();
+			if(rs != null){
+				while(rs.next()){
+					tipoMas.setIdTipoMascota(rs.getInt("idTipoMascota"));
+				}
+			}
+		} catch (SQLException e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(ps!=null)ps.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		
+		return tipoMas;
 	}
 }

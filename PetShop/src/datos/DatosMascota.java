@@ -22,7 +22,7 @@ public class DatosMascota implements Serializable{
 	//						GET MASCOTAS DE UN CLIENTE
 	//						GET MASCOTA (COMPLETAR CLASE)
 	
-	public void agregarMascota (Mascota mascota) throws Exception
+	public boolean agregarMascota (Mascota mascota) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -55,7 +55,7 @@ public class DatosMascota implements Serializable{
 		} catch (Exception e) {
 			throw e;
 		}
-		
+		return true;
 	}
 	public void modificarMascota(Mascota mascota) throws Exception
 	{

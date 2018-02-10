@@ -51,7 +51,7 @@
 			            		<label class="sr-only">DNI</label>
 							    <div class="col-lg-6 col-md-12" id="dniGroup">
 							    	<small id="precioHelp" class="form-text text-muted"><strong>Dni</strong></small>
-							    	<input type="text" pattern="[0-9]" class="form-control" name="dni" id="dni" aria-describedby="dniHelp" placeholder="Ingres&aacute; el dni del cliente a dar de alta">
+							    	<input type="text" class="form-control" name="dni" id="dni" aria-describedby="dniHelp" placeholder="Ingres&aacute; el dni del cliente a dar de alta">
 								</div>
 								
 							<!-- Input de direccion -->

@@ -39,10 +39,10 @@ var DataTable = $.fn.dataTable;
 $.extend( true, DataTable.Buttons.defaults, {
 	dom: {
 		container: {
-			className: 'dt-buttons linea-botones btn-group-vertical',
+			className:'btn-group',	
 		},
 		button: {
-			className: 'btn btn-primary col-xs-12 col-sm'
+			className: 'btn btn-primary'
 		},
 		collection: {
 			tag: 'ul',

@@ -141,6 +141,12 @@ window.alert = function (message) {
 
 };
 
+window.confirm = function(message){
+	
+	alertConfirmar(message);
+	
+};
+
 function destacarCampo(nombre){
 	$('#'+nombre).addClass("has-error");
 	clearTimeout();

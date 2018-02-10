@@ -34,7 +34,21 @@
 					  	</div>
 					  	<input type="password" class="form-control has-error " name="Password" placeholder="Ingres&aacute tu contraseña" value="<%=(String) session.getAttribute("passError")%>" required=""/>    		  
 					  </div>
-					  <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">Ingresar</button>  			
+					  <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit"><strong>INGRESAR</strong></button> 
+					  <br>
+						<div class="text-center">
+							<small>
+								Si olvidaste tu usuario o contrase&ntilde;a hac&eacute; click
+								<a href="#"> 
+									<strong>AC&Aacute; </strong>
+								</a>
+							</small>
+						</div> 
+						<hr>
+						<div class="">
+							<a class="btn btn-info btn-block"  type = "button"><span class="fa fa-address-card""></span> ALTA NUEVOS USUARIOS </a> 
+						</div> 					
+						 			
 				</form>	
 			
 				<br/>

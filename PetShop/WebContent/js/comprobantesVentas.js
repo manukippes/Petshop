@@ -30,7 +30,7 @@ function format ( d ) {
 	
 
 $(document).ready(function() {
-		
+			
 	  var table = $('#dataTable').DataTable( {
 	        "ajax":  {
 	            "url": "VentasDatatable",
@@ -65,6 +65,8 @@ $(document).ready(function() {
 	            ],
 	        "order": [[0, 'asc']]
 	    })
+	   
+	    table.buttons(0,null).container().appendTo('#botonera');
 	
 	
     // Add event listener for opening and closing details
@@ -92,5 +94,12 @@ $(document).ready(function() {
             $(this).find('#icono').removeClass("fa-plus");
             $(this).find('#icono').addClass("fa-minus");
         }
-    } );
+    } )
+	 
+    $("#imprimirBtn").click(function(e){
+		e.preventDefault();
+		$(table).buttons('copy').action();
+	})
+	  
+	
 });

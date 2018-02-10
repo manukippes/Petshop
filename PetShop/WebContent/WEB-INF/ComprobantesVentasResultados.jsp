@@ -50,6 +50,9 @@
 		    </table>			
 	
 		</div>	
+		<hr>
+		<div id="botonera" class="container">
+		</div>
 		
 		<br>
 		<br>

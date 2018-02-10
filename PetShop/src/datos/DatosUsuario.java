@@ -20,6 +20,7 @@ public class DatosUsuario implements Serializable{
 	//						ELIMINAR USUARIO
 	//						GETUSUARIOSLIKE(RECIBE UN STRING)
 	// 						COMPLETAR DATOS DEL USUARIO
+	//						BLANQUEAR USUARIO
 	
 
 	public int agregarUsuario (Usuario user) throws Exception
@@ -104,6 +105,7 @@ public class DatosUsuario implements Serializable{
 		}
 		
 	}
+	
 	public Usuario obtenerUsuario(Usuario user) throws Exception, ExcepcionEspecial{
 		
 		PreparedStatement pstm = null;
@@ -236,7 +238,8 @@ public class DatosUsuario implements Serializable{
 		}
 		return usuarios;
 	}
-public Usuario getUsuario(Usuario user) throws Exception, ExcepcionEspecial{
+	
+	public Usuario getUsuario(Usuario user) throws Exception, ExcepcionEspecial{
 		
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -284,4 +287,39 @@ public Usuario getUsuario(Usuario user) throws Exception, ExcepcionEspecial{
 		
 		return usuario;
 	}
+
+	public boolean blanquearUsuario(String email, String nuevoUsuario, String nuevoPass) throws Exception, ExcepcionEspecial{
+		
+		PreparedStatement pstm = null;
+		Boolean bandera = false;
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"UPDATE usuario SET usuarioLogin=?,password=? WHERE email=?");
+			pstm.setString(1, nuevoUsuario);
+			pstm.setString(2, nuevoPass);
+			pstm.setString(3, email);
+			if(pstm.executeUpdate()==1){
+				bandera=true;
+			};
+			
+		} 
+		catch (Exception e) 
+		{
+			throw e;
+		}
+		
+		finally
+		{
+			try {
+				if(pstm!=null)pstm.close();
+				FactoryConnection.getinstancia().releaseConn();
+			} catch (Exception e) {
+				throw e;
+			}	
+		}
+		
+		return bandera;
+	}
+
 }

@@ -89,17 +89,5 @@ public class ConfirmarAltaCliente extends HttpServlet {
 			response.getWriter().println(false);
 			e.printStackTrace();
 		}
-		
-		//LOS AGREGO A UN ARREGLO DE PRODUCTOS DE LA VENTA
-		/*for (int i=0;i<productos.size();i++){
-			String idProducto = ((JsonObject) productos.get(i)).get("idProducto").getAsString();
-			String cantidad = ((JsonObject) productos.get(i)).get("cantidad").getAsString();
-			ArrayList<String> prodCant = new ArrayList<>();//CREO UN ELEMENTO {IDPRODUCTO,CANTIDAD}
-			prodCant.add(idProducto);
-			prodCant.add(cantidad);
-			productosVenta.add(prodCant);//AGREGO EL ELEMENTO A LA VENTA
-		}
-		request.getSession().setAttribute("productosVenta", productosVenta);*/
 	}
-
 }

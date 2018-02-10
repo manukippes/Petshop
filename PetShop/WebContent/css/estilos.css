@@ -115,12 +115,8 @@ th{
 	border-bottom-left-radius:0px;
 	
 }
-
-td.details-control {
-    background: url('/Petshop/imgs/details_open.png') no-repeat center center;
-    cursor: pointer;
-}
-tr.shown td.details-control {
-    background: url('/Petshop/imgs/details_close.png') no-repeat center center;
+/*Botonera de datatable*/
+.linea-botones{
+	margin-top: 25px;
 }
 

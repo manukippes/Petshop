@@ -199,8 +199,8 @@ $(document).ready(function() {
 			var parametro = {idTurno : idTurno};	
 			
 			$.post("CancelarTurno",$.param(parametro),function(responseJson){
-				if($('#'))
-				filtrarTabla("pc");
+				
+				filtrarTabla();
 			});
 		}
 	});

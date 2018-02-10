@@ -19,6 +19,7 @@ public class ControladorDeUsuario implements Serializable{
 	//			ELIMINARUSUARIO
 	//			GETUSUARIOSLIKE (RECIBE UN STRING)
 	//			COMPLETAR LOS DATOS DEL USUARIO
+	//			BLANQUEAR USUARIO POR MAIL
 	
 	public Usuario obtenerUsuario(Usuario user) throws Exception
 	{
@@ -54,5 +55,8 @@ public class ControladorDeUsuario implements Serializable{
 	public Usuario getUsuario(Usuario user) throws Exception
 	{
 		return baseUsuario.getUsuario(user);
+	}
+	public boolean blanquearUsuario(String email,String nuevoUsuario, String nuevoPass) throws Exception{
+		return baseUsuario.blanquearUsuario(email,nuevoUsuario,nuevoPass);
 	}
 }

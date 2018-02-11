@@ -54,12 +54,17 @@ public class Emailer {
 
 		try {
 
-			Message message = new MimeMessage(session);
+			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(props.getProperty("mail.username")));
-			message.setRecipients(Message.RecipientType.TO,
-			InternetAddress.parse(to)); //"ejemplo@gmail.com"
+			message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to)); //"ejemplo@gmail.com"
 			message.setSubject(subject); //"Destinatario"
-			message.setText(body); //"Texto del email"
+			//message.setText(body); //"Texto del email"
+			
+			Multipart mp = new MimeMultipart();
+			MimeBodyPart htmlPart = new MimeBodyPart();
+			htmlPart.setContent(body, "text/html");
+			mp.addBodyPart(htmlPart);
+			message.setContent(mp);
 
 			Transport.send(message);
 

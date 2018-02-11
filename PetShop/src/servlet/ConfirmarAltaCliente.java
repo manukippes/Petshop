@@ -72,8 +72,9 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		}
 		
 		//JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
-		String jsonMasco = request.getParameter("arregloMascotas");
-		JsonArray mascotas = (JsonArray) new JsonParser().parse(jsonMasco);
+		//String jsonMasco = request.getParameter("arregloMascotas");
+		String mascoS = (String) cliente.get("arregloMascotas").getAsString();
+		JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
 			try {
 				for (int i = 0; i < mascotas.size(); i++) {
 						String nombreMasco = ((JsonObject) mascotas.get(i)).get("nombreMascota").getAsString();
@@ -97,7 +98,6 @@ public class ConfirmarAltaCliente extends HttpServlet {
 						if(ctrlMascota.agregarMascota(masco)){
 							response.getWriter().println(true);	
 						}
-						
 					}
 					
 			} catch (Exception e) {

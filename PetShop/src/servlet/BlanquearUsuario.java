@@ -49,27 +49,13 @@ public class BlanquearUsuario extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		
 		//CONTROLADORES
 		
 		ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
 		
-		
-		
 		String email = request.getParameter("email");
-		
-		/*ControladorTipoDeElemento ctrlTipo = new ControladorTipoDeElemento();
-		try {
-			ctrlTipo.crearTipoElemento(tipoEle);
-			Logger logger = LogManager.getLogger(getClass());								//Agrego la transaccion al log de TRACE
-			logger.log(Level.INFO,"Alta Tipo Elemento Exitosa. Nombre: "+tipoEle.getNombre());
-			
-		} 
-		*/
-		
-		
+
 		//GENERO UN USUARIO Y PASSWORD SEGUROS ALEATORIOS
 		RandomString gen = new RandomString(8, ThreadLocalRandom.current());
 		
@@ -80,17 +66,51 @@ public class BlanquearUsuario extends HttpServlet {
 		try {
 			if(ctrlUsuario.blanquearUsuario(email, usuario, pass)){
 
-				String contenidoMail = ("Sistema de Gestion de Pet Shops:\n "
-						+ 				"Se ha solicitado un blanqueo de usuario y contraseña\n"
-						+ 				"El nuevo usuario es: "+usuario +"\n"
-						+ 				"El nuevo password es: "+pass);
-				Emailer.getInstance().send("tpfinaljava2017@gmail.com","Sistema de Gestion de Pet Shops - Blanqueo de Usuario",contenidoMail);
-				response.getWriter().println(true);
+				String contenidoMail = (""
+						+ "				<table cellspacing='0' cellpadding='0' style='width:100%; border:none;'>"
+						+ "					<tr style='	padding:15px;"
+						+ "								background-color:#adbcf1;"
+						+ "								color:#ffffff;"
+						+ "								border:none;"
+						+ "								height:50px;'>"
+						+ "						<th style='width:33%'></th>"
+						+ "						<th  style='width:34%'><h3><strong>Sistema de Gestion de Pet Shops:</strong></h3></th>"
+						+ "						<th style='width:33%'></th>"
+						+ "					</tr>"
+						+ "					<tr style='background-color: #F5F5F5;height:15px;'>"
+						+ "						<td></td>"
+						+ "						<td></td>"
+						+ "						<td></td>"					
+						+ "					</tr>"
+						+ "					<tr style='background-color: #F5F5F5;'>"
+						+ "						<td style='padding-left:15px;'>"
+						+ "							<h4>Se ha solicitado un blanqueo de usuario y contraseña</h4>"
+						+ "						</td>"
+						+ "						<td> </td>"
+						+ "						<td> </td>"
+						+ "					</tr>"
+						+ "					<tr style='background-color: #F5F5F5;'>"
+						+ "						<td style='padding-left:15px;'>"						
+						+ "							<p>El nuevo usuario es: <strong>"+usuario+"</strong></p>"
+						+ "						</td>"
+						+ "						<td> </td>"		
+						+ "						<td> </td>"
+						+ "					</tr>"
+						+ "					<tr style='background-color: #F5F5F5;'>"
+						+ "						<td style='padding-left:15px;'>"						
+						+ "							<p>El nuevo password es: <strong>"+pass+"</strong></p>"
+						+ "						</td>"
+						+ "						<td> </td>"	
+						+ "						<td> </td>"
+						+ "					</tr>"
+						+ "				<table>"
+						+ "");
 				
-			}else{
-				
-				response.getWriter().println(false);
-				
+				if (Emailer.getInstance().send(email,"Sistema de Gestion de Pet Shops - Blanqueo de Usuario",contenidoMail)) {
+					response.getWriter().println(true);
+				} else {
+					response.getWriter().println(false);
+				}
 			}
 			
 		} catch (Exception e) {

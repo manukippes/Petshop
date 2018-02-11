@@ -42,8 +42,9 @@ public class Emailer {
 		
 	}
 	
-	public void send(String to, String subject, String body)throws ExcepcionEspecial{
+	public Boolean send(String to, String subject, String body)throws ExcepcionEspecial{
 
+		Boolean bandera = false;
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -54,18 +55,25 @@ public class Emailer {
 
 		try {
 
-			Message message = new MimeMessage(session);
+			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(props.getProperty("mail.username")));
-			message.setRecipients(Message.RecipientType.TO,
-			InternetAddress.parse(to)); //"ejemplo@gmail.com"
+			message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to)); //"ejemplo@gmail.com"
 			message.setSubject(subject); //"Destinatario"
-			message.setText(body); //"Texto del email"
+			//message.setText(body); //"Texto del email"
+			
+			Multipart mp = new MimeMultipart();
+			MimeBodyPart htmlPart = new MimeBodyPart();
+			htmlPart.setContent(body, "text/html");
+			mp.addBodyPart(htmlPart);
+			message.setContent(mp);
 
 			Transport.send(message);
+			bandera = true;
 
 		} catch (MessagingException e) {
 			throw new ExcepcionEspecial("No se ha podido enviar el correo electrónico", Level.WARN);
 		}
+		return bandera;
 	}
 
 }

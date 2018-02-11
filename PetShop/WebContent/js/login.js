@@ -7,6 +7,8 @@ $(document).ready(function() {
 	
 	$('#btnEnviarEmail').click(function(e){
 		e.preventDefault();
+		
+		$('#confirmacionEnvio').addClass("hidden");
 		var validaMail = false;
 		var email = $('#inputEmail').val();
 		
@@ -21,17 +23,30 @@ $(document).ready(function() {
 		
 		if(validaMail){
 			//el mail es correcto
-			
+			$('#barraProgreso').removeClass("hidden");
 			
 			
 			var parametro = {email : email};	
 			
 			$.post("BlanquearUsuario",$.param(parametro),function(respuesta){
-				
+				$('#barraProgreso').addClass("hidden");
 				if (respuesta){
-					confirm("Email enviado Exitosamente");
+					
+					$('#confirmacionEnvio').removeClass("alert-danger");
+					$('#confirmacionEnvio').addClass("alert-success");
+					$('#confirmacionEnvio').removeClass("hidden");
+					$('#confirmacionEnvio').empty();
+					$('#confirmacionEnvio').append("<span class='fa fa-check'></span> Env&iacute;o confirmado, por favor verific&aacute; tu casilla");
+					
+					
+					//confirm("Email enviado Exitosamente");
 				}else{
-					alert("Error al enviar el Email");
+					$('#confirmacionEnvio').removeClass("alert-success");
+					$('#confirmacionEnvio').addClass("alert-danger");
+					$('#confirmacionEnvio').removeClass("hidden");
+					$('#confirmacionEnvio').empty();
+					$('#confirmacionEnvio').append("<span class='fa fa-exclamation' style='font-size:20px'></span> No se pudo enviar el correo, la direcci&oacute;n ingresada no corresponde a un usuario");
+					//alert("Error al enviar el Email");
 				}
 			});
 						

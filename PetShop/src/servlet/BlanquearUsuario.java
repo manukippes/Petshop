@@ -105,13 +105,12 @@ public class BlanquearUsuario extends HttpServlet {
 						+ "					</tr>"
 						+ "				<table>"
 						+ "");
-				Emailer.getInstance().send("tpfinaljava2017@gmail.com","Sistema de Gestion de Pet Shops - Blanqueo de Usuario",contenidoMail);
-				response.getWriter().println(true);
 				
-			}else{
-				
-				response.getWriter().println(false);
-				
+				if (Emailer.getInstance().send(email,"Sistema de Gestion de Pet Shops - Blanqueo de Usuario",contenidoMail)) {
+					response.getWriter().println(true);
+				} else {
+					response.getWriter().println(false);
+				}
 			}
 			
 		} catch (Exception e) {

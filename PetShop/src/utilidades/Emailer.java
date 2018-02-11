@@ -42,8 +42,9 @@ public class Emailer {
 		
 	}
 	
-	public void send(String to, String subject, String body)throws ExcepcionEspecial{
+	public Boolean send(String to, String subject, String body)throws ExcepcionEspecial{
 
+		Boolean bandera = false;
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -67,10 +68,12 @@ public class Emailer {
 			message.setContent(mp);
 
 			Transport.send(message);
+			bandera = true;
 
 		} catch (MessagingException e) {
 			throw new ExcepcionEspecial("No se ha podido enviar el correo electrónico", Level.WARN);
 		}
+		return bandera;
 	}
 
 }

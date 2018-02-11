@@ -2,6 +2,8 @@
  * 
  */
 
+
+/// LIMPIAR CAMPOS UNA VEZ QUE SE AGREGO EL CLIENTE Y SU MASCOTA ///
 function limpiarCampos(){
 	$("#nombre").val("");
 	$("#apellido").val("");
@@ -23,6 +25,7 @@ function limpiarCampos(){
 	}
 }
 
+/// VALIDO QUE LOS DATOS OBLIGATORIOS DEL CLIENTE ESTEN COMPLETOS ///
 function validar(){
 	var nombre, apellido, telefono;
 	
@@ -98,8 +101,7 @@ function validar(){
 	})
 	
 } 
-	
-		
+
 $(document).ready(function() {
 	//if (($("tablaMascota").hasClass('hidden'))) {
 

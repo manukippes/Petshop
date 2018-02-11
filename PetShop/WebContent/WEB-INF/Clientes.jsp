@@ -22,16 +22,28 @@
 			<div class="col-12 btn-group-justified">
 				<form class="form" action="ModificarConsultarCliente" method="post" enctype="multipart/form-data" id="form_clientes">
 					<div class="form-group row">
-		            <!-- Input de cliente -->
-	            		<label class="sr-only">Cliente</label>
-					    <div class="col-lg-6 col-md-12" id="nombreGroup">
-					    	<input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="nombreHelp" placeholder="Ingres&aacute; nombre, apellido o id del cliente" required>
-						</div>
-						
-					<!-- Botton Ver-->
-						<label class="sr-only">Ver</label>
-					    <div class="col-lg-6 col-md-12" id="presentacionGroup">
-					    	<input type="button" class="btn btn-primary btn-block" value="VER">
+					<!-- Input cliente -->	
+						 <div class="col-lg-6 col-md-12" id="nombreGroup">
+						    <div class="input-group">
+						      <input type="text" class="form-control" name="inputCliente" id="inputCliente" placeholder="Ingres&aacute; nombre, apellido o id del cliente">
+						      <span class="input-group-btn">
+						        <button class="btn btn-primary" type="button" id="btnBuscarCliente"><span class="glyphicon glyphicon-search"></span></button>
+						      </span>
+						    </div>
+						 </div>
+					
+					<!-- Seleccionar cliente -->	
+						<div class="selectContainer col-lg-6 col-md-12" id="clienteGroup">
+							<div class="input-group">
+			    				<label class="sr-only">Seleccione un cliente</label>
+							    <select class="form-control" name="clienteSeleccionado" id="cliente" aria-describedby="clienteHelp" disabled>
+							    	<option value="cliente">Seleccion&aacute; un cliente</option>
+							    </select>
+							    <span class="input-group-btn">
+						        	<button class="btn btn-primary" type="button" id="btnVerCliente"><span class="glyphicon glyphicon-pencil"></span></button>
+						        	<button class="btn btn-danger" type="button" id="btnQuitarCliente"><span class="glyphicon glyphicon-remove"></span></button>
+						      	</span>
+						    </div>
 						</div>
 					</div>
 				</form>
@@ -46,9 +58,6 @@
 		
 		<script src="js/jquery-latest.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-			
+		<script type="text/javascript" src="js/main.js"></script>	
 </body>
 </html>

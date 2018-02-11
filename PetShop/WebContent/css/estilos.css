@@ -115,8 +115,14 @@ th{
 	border-bottom-left-radius:0px;
 	
 }
+
 /*Botonera de datatable*/
 .linea-botones{
 	margin-top: 25px;
 }
 
+/*Botonera del menu de clientes*/
+.botonVer{
+	padding-left: 5px;
+	padding-right: 5px;
+}

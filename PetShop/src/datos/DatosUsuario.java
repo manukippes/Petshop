@@ -190,7 +190,7 @@ public class DatosUsuario implements Serializable{
 		
 		try {
 			if (!inputUsuario.equals("%%")){
-				sql+=" where nombre like ? or apellido like ?;";
+				sql+=" where nombre like ? or apellido like ? or idUsuario like ?;";
 				}
 			
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(sql);
@@ -198,6 +198,7 @@ public class DatosUsuario implements Serializable{
 			if (!inputUsuario.equals("%%")){
 				pstm.setString(1, inputUsuario);
 				pstm.setString(2, inputUsuario);
+				pstm.setString(3, inputUsuario);
 			}
 			
 			rs=pstm.executeQuery();

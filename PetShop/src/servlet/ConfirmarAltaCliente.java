@@ -71,7 +71,9 @@ public class ConfirmarAltaCliente extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
-		JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
+		//JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
+		String jsonMasco = request.getParameter("arregloMascotas");
+		JsonArray mascotas = (JsonArray) new JsonParser().parse(jsonMasco);
 			try {
 				for (int i = 0; i < mascotas.size(); i++) {
 						String nombreMasco = ((JsonObject) mascotas.get(i)).get("nombreMascota").getAsString();
@@ -79,16 +81,25 @@ public class ConfirmarAltaCliente extends HttpServlet {
 						String pelajeMasco = ((JsonObject) mascotas.get(i)).get("pelajeMascota").getAsString();
 						String fechaMasco = ((JsonObject) mascotas.get(i)).get("fechaNacimientoMascota").getAsString();
 						String observacionesMasco = ((JsonObject) mascotas.get(i)).get("observacionesMascota").getAsString();
+						
 						Mascota masco = new Mascota();
 						masco.setNombre(nombreMasco);
+						
 						Date fechaConvertida = (Date) fecha.parse(fechaMasco);
 						masco.setFechaNacimiento(fechaConvertida);
+						
 						masco.setObservaciones(observacionesMasco);
+						
 						masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
+						
 						masco.setUsuario(nuevoUsuario);
-						ctrlMascota.agregarMascota(masco);
+						
+						if(ctrlMascota.agregarMascota(masco)){
+							response.getWriter().println(true);	
+						}
+						
 					}
-					response.getWriter().println(true);	
+					
 			} catch (Exception e) {
 				response.getWriter().println(false);
 				e.printStackTrace();

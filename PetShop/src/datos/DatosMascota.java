@@ -44,7 +44,6 @@ public class DatosMascota implements Serializable{
 				mascota.setIdMascota(rs.getInt(1));
 			}
 		} catch (Exception e) {
-			
 			throw e;
 		}
 		
@@ -55,6 +54,7 @@ public class DatosMascota implements Serializable{
 		} catch (Exception e) {
 			throw e;
 		}
+		
 		return true;
 	}
 	public void modificarMascota(Mascota mascota) throws Exception

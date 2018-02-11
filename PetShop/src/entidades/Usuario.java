@@ -1,6 +1,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Usuario implements Serializable{
 	private int idUsuario;
@@ -16,6 +17,14 @@ public class Usuario implements Serializable{
 	private String email;
 	private int legajo;
 	private String tipoEmpleado;
+	private ArrayList<Mascota> mascotas;
+	
+	public ArrayList<Mascota> getMascotas() {
+		return mascotas;
+	}
+	public void setMascotas(ArrayList<Mascota> mascotas) {
+		this.mascotas = mascotas;
+	}
 	
 	public int getIdUsuario() {
 		return idUsuario;

@@ -19,7 +19,7 @@
 			<div class="panel-body">
 				<br>
 				<br>	
-				<h4><strong>NUEVO CLIENTE - PASO 1 DE 2</strong></h4>
+				<h4><strong>NUEVO CLIENTE</strong></h4>
 				<hr>
 				
 				<div class="container-fluid">

@@ -18,7 +18,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import entidades.Mascota;
-import entidades.TipoMascota;
 import entidades.Usuario;
 import logica.ControladorDeMascota;
 import logica.ControladorDeTipoMascota;
@@ -50,11 +49,11 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		JsonArray cliente = (JsonArray) new JsonParser().parse(json);
 				
 		String nombre = ((JsonObject) cliente.get(0)).get("nombre").getAsString();
-		String apellido = ((JsonObject) cliente.get(1)).get("apellido").getAsString();
-		int dni = ((JsonObject) cliente.get(2)).get("dni").getAsInt();
-		String direccion = ((JsonObject) cliente.get(3)).get("direccion").getAsString();
-		int telefono = ((JsonObject) cliente.get(4)).get("telefono").getAsInt();
-		String email = ((JsonObject) cliente.get(5)).get("email").getAsString();
+		String apellido = ((JsonObject) cliente.get(0)).get("apellido").getAsString();
+		int dni = ((JsonObject) cliente.get(0)).get("dni").getAsInt();
+		String direccion = ((JsonObject) cliente.get(0)).get("direccion").getAsString();
+		int telefono = ((JsonObject) cliente.get(0)).get("telefono").getAsInt();
+		String email = ((JsonObject) cliente.get(0)).get("email").getAsString();
 		
 		usu.setNombre(nombre);
 		usu.setApellido(apellido);
@@ -62,32 +61,41 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		usu.setDireccion(direccion);
 		usu.setTelefono(telefono);
 		usu.setEmail(email);
-		
-		int idUsuario;
+		Usuario nuevoUsuario = new Usuario();
 		try {
-			idUsuario = ctrlUsuario.agregarUsuario(usu);
-			JsonArray mascotas = ((JsonObject) cliente.get(6)).get("arregloMascotas").getAsJsonArray();
 			
-			for (int i = 0; i < mascotas.size(); i++) {
-				String nombreMasco = ((JsonObject) mascotas.get(i)).get("nombreMascota").getAsString();
-				String tamanioMasco = ((JsonObject) mascotas.get(i)).get("tamanioMascota").getAsString();
-				String pelajeMasco = ((JsonObject) mascotas.get(i)).get("pelajeMascota").getAsString();
-				String fechaMasco = ((JsonObject) mascotas.get(i)).get("fechaNacimientoMascota").getAsString();
-				String observacionesMasco = ((JsonObject) mascotas.get(i)).get("observacionesMascota").getAsString();
-				Mascota masco = new Mascota();
-				masco.setNombre(nombreMasco);
-				Date fechaConvertida = (Date) fecha.parse(fechaMasco);
-				masco.setFechaNacimiento(fechaConvertida);
-				masco.setObservaciones(observacionesMasco);
-				TipoMascota tipoMas = new TipoMascota();
-				masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
-				masco.setUsuario(usu);
-				ctrlMascota.agregarMascota(masco);
-			}
-			response.getWriter().println(true);	
-		} catch (Exception e) {
+			nuevoUsuario = ctrlUsuario.agregarUsuario(usu);
+		} catch (Exception e1) {
 			response.getWriter().println(false);
-			e.printStackTrace();
+			e1.printStackTrace();
+		}
+		
+		JsonArray mascotas;
+		if ((((JsonObject) cliente.get(0)).get("arregloMascotas").getAsJsonArray()).isJsonNull()) {
+			response.getWriter().println(true);	
+		}else{
+			mascotas = ((JsonObject) cliente.get(0)).get("arregloMascotas").getAsJsonArray();
+			try {
+				for (int i = 0; i < mascotas.size(); i++) {
+						String nombreMasco = ((JsonObject) mascotas.get(i)).get("nombreMascota").getAsString();
+						String tamanioMasco = ((JsonObject) mascotas.get(i)).get("tamanioMascota").getAsString();
+						String pelajeMasco = ((JsonObject) mascotas.get(i)).get("pelajeMascota").getAsString();
+						String fechaMasco = ((JsonObject) mascotas.get(i)).get("fechaNacimientoMascota").getAsString();
+						String observacionesMasco = ((JsonObject) mascotas.get(i)).get("observacionesMascota").getAsString();
+						Mascota masco = new Mascota();
+						masco.setNombre(nombreMasco);
+						Date fechaConvertida = (Date) fecha.parse(fechaMasco);
+						masco.setFechaNacimiento(fechaConvertida);
+						masco.setObservaciones(observacionesMasco);
+						masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
+						masco.setUsuario(nuevoUsuario);
+						ctrlMascota.agregarMascota(masco);
+					}
+					response.getWriter().println(true);	
+			} catch (Exception e) {
+				response.getWriter().println(false);
+				e.printStackTrace();
+			}
 		}
 	}
 }

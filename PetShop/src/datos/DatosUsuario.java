@@ -23,7 +23,7 @@ public class DatosUsuario implements Serializable{
 	//						BLANQUEAR USUARIO
 	
 
-	public int agregarUsuario (Usuario user) throws Exception
+	public Usuario agregarUsuario (Usuario user) throws Exception
 	{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -65,7 +65,7 @@ public class DatosUsuario implements Serializable{
 		} catch (Exception e) {
 			throw e;
 		}
-		return rs.getInt(1);
+		return user;
 	}
 	public void modificarUsuario(Usuario user) throws Exception
 	{

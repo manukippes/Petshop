@@ -2,6 +2,27 @@
  * 
  */
 
+function limpiarCampos(){
+	$("#nombre").val("");
+	$("#apellido").val("");
+	$("#dni").val("");
+	$("#direccion").val("");
+	$("#telefono").val("");
+	$("#email").val("");
+	$('#tablaMascota').addClass("hidden");
+	var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+	if (filas.length != 1){
+		$("#nombreMascota").val("");
+		$('#btnPatitaGrande').removeClass("icon-button-active");
+		$('#btnPatitaMediana').removeClass("icon-button-active");
+		$('#btnPatitaChica').removeClass("icon-button-active");
+		$('#btnTijeraChica').removeClass("icon-button-active")
+		$('#btnTijeraGrande').removeClass("icon-button-active")
+		$("#fechaNacimientoMascota").val("");
+		$("#observacionesMascota").val("");
+	}
+}
+
 function validar(){
 	var nombre, apellido, telefono;
 	
@@ -244,23 +265,22 @@ $(document).ready(function() {
 	$('#btnAgregarCliente').click(function(e){
 		e.preventDefault();
 		var resultado = validar();
+		var arregloMascotas = [];
 		
-		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		///PREGUNTAR A HUGO///
+		/*var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
 		if (filas.length != 1){
-			var arregloMascotas = [];
-			$.each(filas,function(i,fila){
-				if(i>0){
-					//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
-					var nombreMascota = fila.cells[0].innerHTML;
-					var tamanioMascota = fila.cells[1].innerHTML;
-					var pelajeMascota = fila.cells[2].innerHTML;
-					var fechaNacimientoMascota = fila.cells[3].innerHTML;
-					var observacionesMascota = fila.cells[4].innerHTML;
-					var elementoMascota = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
-					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
-			}
-		   })
-		}
+			for (var i = 1; i < filas.length; i++) {
+				//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
+				var nombreMascota = filas.cells[0].innerHTML;
+				var tamanioMascota = filas.cells[1].innerHTML;
+				var pelajeMascota = filas.cells[2].innerHTML;
+				var fechaNacimientoMascota = filas.cells[3].innerHTML;
+				var observacionesMascota = filas.cells[4].innerHTML;
+				var elementoMascota = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
+				arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
+			}		
+		}*/
 		
 		if(resultado){
 			var arregloClientes = [];
@@ -274,28 +294,25 @@ $(document).ready(function() {
 			arregloClientes.push(elementosCliente);
 			
 		}
-			var parametros = JSON.stringify(arregloClientes);
-			
-			$.ajax({
-					url : "ConfirmarAltaCliente",
-					type : "post",
-					data : {jsonData : parametros},
-					dataType: 'json',
-					success : function(data){
-						if (data)
-						{
-							confirm("Se agreg&oacute; el cliente correctamente.");
-						} 
-						else
-						{
-							alert("No se pudo agregar el cliente.");
-						}
-	                    
+		var parametros = JSON.stringify(arregloClientes);
+		limpiarCampos();
+		
+		$.ajax({
+				url : "ConfirmarAltaCliente",
+				type : "post",
+				data : {jsonData : parametros},
+				success : function(data){
+					if (data)
+					{
+						confirm("Se agreg&oacute; el cliente correctamente.");
+					} 
+					else
+					{
+						alert("No se pudo agregar el cliente.");
 					}
-			})
-		}
+                    
+				}
+		})
 	})
-	    
-
 });
 	

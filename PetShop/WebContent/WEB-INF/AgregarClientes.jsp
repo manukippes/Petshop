@@ -194,7 +194,7 @@
 												<label class="sr-only">Observaciones</label>
 											    <div class="col-lg-8 col-md-12" id="observacionesMascotaGroup">
 											    	<small id="observacionesMascotaHelp" class="form-text text-muted"><strong>Observaciones</strong></small>
-											    	<textarea class="form-control" rows="5" id="observacionesMascota">Completa con datos adicionales de la mascota de ser necesarios</textarea>
+											    	<textarea class="form-control" rows="5" id="observacionesMascota" placeholder="Completa con datos adicionales de la mascota de ser necesarios"></textarea>
 												</div>
 										</div>
 										<hr class="hrModal">

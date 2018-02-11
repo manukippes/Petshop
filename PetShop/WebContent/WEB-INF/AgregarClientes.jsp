@@ -125,7 +125,7 @@
 												<label class="sr-only">Nombre</label>
 											    <div class="col-lg-12 col-md-12" id="nombreMascotaGroup">
 											    	<small id="nombreMascotaHelp" class="form-text text-muted"><strong>Nombre *</strong></small>
-											    	<input type="text" class="form-control" name="nombreMascota" id="nombreMascota" placeholder ="Ingres&aacute; el nombre de la mascota.">
+											    	<input type="text" class="form-control nombreMascota" name="nombreMascota" id="nombreMascota" placeholder ="Ingres&aacute; el nombre de la mascota.">
 												</div>
 										</div>
 										<hr class="hrModal">

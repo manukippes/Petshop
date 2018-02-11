@@ -46,6 +46,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
 				
 		String json = request.getParameter("jsonData");
+		System.out.println(json);
 		JsonArray cliente = (JsonArray) new JsonParser().parse(json);
 				
 		String nombre = ((JsonObject) cliente.get(0)).get("nombre").getAsString();

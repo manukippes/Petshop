@@ -12,17 +12,18 @@ function limpiarCampos(){
 	$("#telefono").val("");
 	$("#email").val("");
 	$('#tablaMascota').addClass("hidden");
-	var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
-	if (filas.length != 1){
-		$("#nombreMascota").val("");
+	$('#tablaMascota > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
+	
+}
+function limpiarCamposModal(){
+		$(".nombreMascota").val("");
 		$('#btnPatitaGrande').removeClass("icon-button-active");
 		$('#btnPatitaMediana').removeClass("icon-button-active");
 		$('#btnPatitaChica').removeClass("icon-button-active");
 		$('#btnTijeraChica').removeClass("icon-button-active")
 		$('#btnTijeraGrande').removeClass("icon-button-active")
 		$("#fechaNacimientoMascota").val("");
-		$("#observacionesMascota").val("");
-	}
+		$("#observacionesMascota").val("");	
 }
 
 /// VALIDO QUE LOS DATOS OBLIGATORIOS DEL CLIENTE ESTEN COMPLETOS ///
@@ -170,11 +171,11 @@ $(document).ready(function() {
 	
 	
 	/// AGREGAR MASCOTAS ///
-	$(this).on("click", "#btnAgregarMascotaModal", function(e){
+	$('#btnAgregarMascotaModal').on("click",function(e){
 	    e.preventDefault();
 	    
 	    var validaNombre = false;
-	    if ($('#nombreMascota').val()!=""){
+	    if ($('.nombreMascota').val()!=""){
 	    	validaNombre = true;
 	    }
 	    var validaTamanio = false;
@@ -220,7 +221,7 @@ $(document).ready(function() {
 			
 		if (respuesta){			
 	        
-	        var nombre = $('#nombreMascota').val();
+	        var nombre = $('.nombreMascota').val();
 	        var tamanio = "";
 	        var pelaje = "";
 	        var fechaNacimiento = $('#fechaNacimientoMascota').val();
@@ -260,7 +261,7 @@ $(document).ready(function() {
 			$('#agregarMascota').modal('toggle');
 	        $('#tablaMascota').removeClass("hidden");
 			}	        
-	       
+	       limpiarCamposModal();
 		})
 		
 	/// ALTA DE CLIENTE ///
@@ -270,33 +271,45 @@ $(document).ready(function() {
 		var arregloMascotas = [];
 		
 		///PREGUNTAR A HUGO///
-		/*var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		var cantidad = filas.length; 
 		if (filas.length != 1){
-			for (var i = 1; i < filas.length; i++) {
+			$.each(filas,function(i,fila) {
 				//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
-				var nombreMascota = filas.cells[0].innerHTML;
-				var tamanioMascota = filas.cells[1].innerHTML;
-				var pelajeMascota = filas.cells[2].innerHTML;
-				var fechaNacimientoMascota = filas.cells[3].innerHTML;
-				var observacionesMascota = filas.cells[4].innerHTML;
-				var elementoMascota = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
-				arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
-			}		
-		}*/
+				if(i>0){
+					var nombreMascota = fila.cells[0].innerHTML;
+					var tamanioMascota = fila.cells[1].innerHTML;
+					var pelajeMascota = fila.cells[2].innerHTML;
+					var fechaNacimientoMascota = fila.cells[3].innerHTML;
+					var observacionesMascota = fila.cells[5].innerHTML;
+					var elementoMascota = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
+					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
+				}
+				
+			})		
+		}
 		
 		if(resultado){
-			var arregloClientes = [];
+			
 			var nombre = $("#nombre").val();
 			var apellido = $("#apellido").val();
 			var dni = $("#dni").val();
 			var direccion = $("#direccion").val();
 			var telefono = $("#telefono").val();
 			var email = $("#email").val();
-			var elementosCliente = {nombre,apellido,dni,direccion,telefono,email,arregloMascotas};
-			arregloClientes.push(elementosCliente);
+			
+			var parametro = {
+				nombre : nombre,
+				apellido : apellido,
+				dni : dni,
+				direccion : direccion,
+				telefono : telefono,
+				email : email,
+				arregloMascotas : arregloMascotas	
+			}
 			
 		}
-		var parametros = JSON.stringify(arregloClientes);
+		var parametros = JSON.stringify(parametro);
 		limpiarCampos();
 		
 		$.ajax({

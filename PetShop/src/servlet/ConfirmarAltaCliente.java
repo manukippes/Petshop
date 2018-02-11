@@ -2,7 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -44,13 +43,8 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		Usuario usu = new Usuario();
 		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
-		//DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
 				
-		
-		
-		
-		
-		
 		String json = request.getParameter("jsonData");
 		System.out.println(json);
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
@@ -77,33 +71,23 @@ public class ConfirmarAltaCliente extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
-		JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
-		//String jsonMasco = request.getParameter("arregloMascotas");
-		//String mascoS = (String) cliente.get("arregloMascotas").getAsString();
 		//JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
-		//JsonArray mascotas = new JsonArray (mascoS);
-		//JsonParser parser = new JsonParser();
-		//JsonArray mascotas = parser.parse(mascoS).getAsJsonArray();
-		boolean bandera = true;
+		//String jsonMasco = request.getParameter("arregloMascotas");
+		String mascoS = (String) cliente.get("arregloMascotas").getAsString();
+		JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
 			try {
-				 for (JsonElement obj : mascotas) {
-					 JsonObject gsonObj = obj.getAsJsonObject();
-					 String nombreMasco = gsonObj.get("nombreMascota").getAsString();
-					 String tamanioMasco = gsonObj.get("tamanioMascota").getAsString();
-					 String pelajeMasco = gsonObj.get("pelajeMascota").getAsString();
-					 String fechaMasco = gsonObj.get("fechaNacimientoMascota").getAsString();
-					 String observacionesMasco = gsonObj.get("observacionesMascota").getAsString();
+				for (int i = 0; i < mascotas.size(); i++) {
+						String nombreMasco = ((JsonObject) mascotas.get(i)).get("nombreMascota").getAsString();
+						String tamanioMasco = ((JsonObject) mascotas.get(i)).get("tamanioMascota").getAsString();
+						String pelajeMasco = ((JsonObject) mascotas.get(i)).get("pelajeMascota").getAsString();
+						String fechaMasco = ((JsonObject) mascotas.get(i)).get("fechaNacimientoMascota").getAsString();
+						String observacionesMasco = ((JsonObject) mascotas.get(i)).get("observacionesMascota").getAsString();
 						
-				 
 						Mascota masco = new Mascota();
 						masco.setNombre(nombreMasco);
 						
-						//Date fechaConvertida = (Date) fecha.parse(fechaMasco);
-						
-						SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			//FECHA DEL TURNO
-						Date fechaDate = fecha.parse(fechaMasco);
-						java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
-						masco.setFechaNacimiento(sqlDate);
+						Date fechaConvertida = (Date) fecha.parse(fechaMasco);
+						masco.setFechaNacimiento(fechaConvertida);
 						
 						masco.setObservaciones(observacionesMasco);
 						
@@ -111,14 +95,11 @@ public class ConfirmarAltaCliente extends HttpServlet {
 						
 						masco.setUsuario(nuevoUsuario);
 						
-						if(!(ctrlMascota.agregarMascota(masco))){
-							bandera = false;
+						if(ctrlMascota.agregarMascota(masco)){
+							response.getWriter().println(true);	
 						}
-				 }
-				
-				 if(bandera){
-					 response.getWriter().println(true);	
-				 }
+					}
+					
 			} catch (Exception e) {
 				response.getWriter().println(false);
 				e.printStackTrace();

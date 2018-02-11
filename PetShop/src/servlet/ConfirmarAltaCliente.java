@@ -43,18 +43,18 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		Usuario usu = new Usuario();
 		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
-		DateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
 				
 		String json = request.getParameter("jsonData");
 		System.out.println(json);
-		JsonArray cliente = (JsonArray) new JsonParser().parse(json);
+		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
 				
-		String nombre = ((JsonObject) cliente.get(0)).get("nombre").getAsString();
-		String apellido = ((JsonObject) cliente.get(0)).get("apellido").getAsString();
-		int dni = ((JsonObject) cliente.get(0)).get("dni").getAsInt();
-		String direccion = ((JsonObject) cliente.get(0)).get("direccion").getAsString();
-		int telefono = ((JsonObject) cliente.get(0)).get("telefono").getAsInt();
-		String email = ((JsonObject) cliente.get(0)).get("email").getAsString();
+		String nombre = (String) cliente.get("nombre").getAsString();
+		String apellido = (String) cliente.get("apellido").getAsString();
+		int dni = (int) cliente.get("dni").getAsInt();
+		String direccion = (String) cliente.get("direccion").getAsString();
+		int telefono = (int) cliente.get("telefono").getAsInt();
+		String email = (String) cliente.get("email").getAsString();
 		
 		usu.setNombre(nombre);
 		usu.setApellido(apellido);
@@ -71,11 +71,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
-		JsonArray mascotas;
-		if ((((JsonObject) cliente.get(0)).get("arregloMascotas").getAsJsonArray()).isJsonNull()) {
-			response.getWriter().println(true);	
-		}else{
-			mascotas = ((JsonObject) cliente.get(0)).get("arregloMascotas").getAsJsonArray();
+		JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
 			try {
 				for (int i = 0; i < mascotas.size(); i++) {
 						String nombreMasco = ((JsonObject) mascotas.get(i)).get("nombreMascota").getAsString();
@@ -97,6 +93,5 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				response.getWriter().println(false);
 				e.printStackTrace();
 			}
-		}
 	}
 }

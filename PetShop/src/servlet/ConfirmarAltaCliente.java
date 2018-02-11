@@ -74,7 +74,8 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		//JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
 		//String jsonMasco = request.getParameter("arregloMascotas");
 		String mascoS = (String) cliente.get("arregloMascotas").getAsString();
-		JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
+		//JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
+		JsonArray mascotas = new JsonArray (mascoS);
 			try {
 				for (int i = 0; i < mascotas.size(); i++) {
 						String nombreMasco = ((JsonObject) mascotas.get(i)).get("nombreMascota").getAsString();

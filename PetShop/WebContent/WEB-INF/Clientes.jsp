@@ -42,7 +42,7 @@
 							    </select>
 							    <span class="input-group-btn">
 						        	<button class="btn btn-primary" type="button" id="btnVerCliente"><span class="glyphicon glyphicon-pencil"></span></button>
-						        	<button class="btn btn-danger" type="button" id="btnQuitarCliente"><span class="glyphicon glyphicon-remove"></span></button>
+						        	<button class="btn btn-danger" type="button" id="btnBorrarCliente"><span class="glyphicon glyphicon-remove"></span></button>
 						      	</span>
 						    </div>
 						</div>
@@ -59,6 +59,7 @@
 		
 		<script src="js/jquery-latest.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/clientes.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>	
 </body>
 </html>

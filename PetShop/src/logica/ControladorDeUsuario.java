@@ -45,8 +45,9 @@ public class ControladorDeUsuario implements Serializable{
 		baseUsuario.modificarUsuario(user);
 	}
 	
-	public void eliminarUsuario(Usuario user) throws Exception{
-		baseUsuario.eliminarUsuario(user);
+	public boolean eliminarUsuario(Usuario user) throws Exception{
+		boolean respuesta = baseUsuario.eliminarUsuario(user);
+		return respuesta;
 	}
 	
 	public ArrayList<Usuario> getUsuariosLike(String inputUsuario) throws Exception{

@@ -44,15 +44,8 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		Usuario usu = new Usuario();
 		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
-		//DateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
-				
-		
-		
-		
-		
-		
+	
 		String json = request.getParameter("jsonData");
-		System.out.println(json);
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
 				
 		String nombre = (String) cliente.get("nombre").getAsString();
@@ -78,12 +71,6 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		}
 		
 		JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
-		//String jsonMasco = request.getParameter("arregloMascotas");
-		//String mascoS = (String) cliente.get("arregloMascotas").getAsString();
-		//JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
-		//JsonArray mascotas = new JsonArray (mascoS);
-		//JsonParser parser = new JsonParser();
-		//JsonArray mascotas = parser.parse(mascoS).getAsJsonArray();
 		boolean bandera = true;
 			try {
 				 for (JsonElement obj : mascotas) {
@@ -97,8 +84,6 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				 
 						Mascota masco = new Mascota();
 						masco.setNombre(nombreMasco);
-						
-						//Date fechaConvertida = (Date) fecha.parse(fechaMasco);
 						
 						SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			//FECHA DEL TURNO
 						Date fechaDate = fecha.parse(fechaMasco);

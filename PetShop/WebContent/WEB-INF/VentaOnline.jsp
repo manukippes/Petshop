@@ -126,10 +126,7 @@
 										    <select class="form-control" name="subcategoriaSeleccionada" id="subcategoria" aria-describedby="subcategoriaHelp" disabled>
 										    	<option value="subcategoria">Seleccion&aacute; una subcategor&iacute;a</option>
 										    </select>
-										</div>
-										<div class="col-xs-12 checkbox">
-											<input type="checkbox" id="soloStock" >Mostrar solo productos con stock</input>
-										</div>								
+										</div>				
 									</div>
 									<br>
 
@@ -198,6 +195,11 @@
 											<thead>
 												<tr class="active">
 													<th>
+														<div class="imagen">
+															<label class="sr-only">Imagen de producto</label>
+														</div>
+													</th>
+													<th class="hidden">
 														<div class="idProducto">
 															<label class="sr-only">Id Producto</label>
 															<span>Id Producto</span>
@@ -220,7 +222,6 @@
 													</th>
 													<th> 
 														<div class="col-sm-3 col-lg-2 input-group">
-															<span>Eliminar </span>
 														</div>
 													</th>
 												</tr>

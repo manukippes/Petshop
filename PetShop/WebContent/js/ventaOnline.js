@@ -2,16 +2,16 @@
  * 
  */
 
-function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
+function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad,imagen,cantMax){
 	
 		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
 		var bandera = false;
 		//RECORRO LA TABLA 	VERIFICANDO QUE NO ESTE AGREGADO EL PRODUCTO
 		$.each(filas,function(i,fila){
 			if (i>0){
-				if (fila.cells[0].innerHTML==idProducto){
+				if (fila.cells[1].innerHTML==idProducto){
 					bandera=true;
-					alert("Este producto ya est&aacute; en la venta, para modificarlo debes quitarlo primero");
+					alert("Este producto ya est&aacute; en tu carrito de compras");
 				}
 			}			
 		})
@@ -20,11 +20,14 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
 			//AGREGA EL PRODUCTO A LA TABLA DE VENTA SI SE INGRESO UNA CANTIDAD
 			if (cantidad.length != 0){
 				$('<tr>',{
-					'html' : "<td id='idProducto'>"+idProducto+"</td>" +
+					'html' : "	<td id='imagen'>"+imagen+"</td>" +
+					"			<td id='idProducto' class='hidden'>"+idProducto+"</td>" +
 					"			<td id='nombreProducto'>"+nombre+"</td>" +
 					"			<td id='presentacionProducto'>"+presentacion+"</td>" +
 					"			<td id='precioProducto'>"+precio+"</td>" +
-					"			<td id='cantidadProducto'>"+cantidad+"</td>" +
+					"			<td>" +
+	 				"				<input id='cantidadProducto' type='number' class='form-control' min='0' max="+cantMax+" value="+cantidad+"></input>" +
+	 				"			</td>" +
 					"			<td class='col-sm-3 col-lg-2'>" +
 					"				<div class='input-group'>" +
 					"					<a class='btn btn-danger btnEliminarProductoVenta' href='\'>Quitar</a>" +
@@ -60,7 +63,7 @@ function buscarProductosVenta(inputProducto){
 			$('<tr>',{
 				'html' : "	<td id='imagen'>" +
 				"				<div class=''>" +
-				"					<img class='img-thumbnail' src='"+productos.imagen+"' width='50px' height='50px'/>" +
+				"					<img class='img-thumbnail' src='"+productos.imagen+"'max="+5+" width='50px' height='50px'/>" +
 				"				</div>" +
 				"			</td>" +
 				"			<td class='hidden' id='idProducto'>"+productos.idProducto+"</td>" +
@@ -110,13 +113,17 @@ $(document).ready(function() {
 		var presentacionAgregar = fila.find('#presentacionProducto').text();
 		var cantidadAgregar = fila.find('#cantidad').val();
 		var precioAgregar = fila.find('#precioProducto').text();
+		var imagenAgregar = fila.find("#imagen").html();
+		
+		//OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+		
 		
 		var cantidadMaxima = fila.find('#cantidad').attr('max');
 		
 		if (cantidadAgregar!=""){
 			if (parseInt(cantidadAgregar) <= parseInt(cantidadMaxima)){ //VALIDO QUE NO SE EXCEDA DEL STOCK DISPONIBLE
 				if(cantidadAgregar>0){		//VALIDO QUE LA CANTIDAD A AGREGAR NO SEA 0
-					agregarProductoVenta(idAgregar,nombreAgregar,presentacionAgregar,precioAgregar,cantidadAgregar);
+					agregarProductoVenta(idAgregar,nombreAgregar,presentacionAgregar,precioAgregar,cantidadAgregar,imagenAgregar,cantidadMaxima);
 				}else{
 					alert("La cantidad ingresada debe ser mayor a 0 unidades")
 				}
@@ -298,7 +305,12 @@ $(document).ready(function() {
 			$('#tablaAgregarProducto > tbody').html("");
 			$.each(responseJson,function(index, productos){
 				$('<tr>',{
-					'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
+					'html' : "	<td id='imagen'>" +
+					"				<div class=''>" +
+					"					<img class='img-thumbnail' src='"+productos.imagen+"' width='50px' height='50px'/>" +
+					"				</div>" +
+					"			</td>" +
+					"			<td id='idProducto' class='hidden'>"+productos.idProducto+"</td>" +
 					"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 					"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
 					"			<td id='precioProducto'>"+productos.precio+"</td>" +

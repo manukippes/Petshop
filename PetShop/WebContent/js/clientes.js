@@ -270,7 +270,6 @@ $(document).ready(function() {
 		var resultado = validar();
 		var arregloMascotas = [];
 		
-		///PREGUNTAR A HUGO///
 		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
 		var cantidad = filas.length; 
 		if (filas.length != 1){
@@ -329,5 +328,47 @@ $(document).ready(function() {
 				}
 		})
 	})
+	
+	
+	/// CLICK EN EL BOTON DE MODIFICAR CLIENTES ///
+	$(this).on("click", "#btnVerCliente", function(e){
+		e.preventDefault();
+	    if($('#cliente').val() == "cliente"){
+			alert("Para modificar el cliente primero debes seleccionarlo");
+		}else{	
+			var idCliente = $('#cliente').val();
+	        
+	        parametro = {idCliente : idCliente};
+	        $.post("modificarCliente",$.param(parametro),function(responseJson){
+				$.each(responseJson,function(index, cliente){
+					$('#idUsuario').val(cliente.idUsuario); 			
+			        $('#nombreApellidoCliente').text(cliente.nombre+", "+cliente.apellido);
+			        $('#telefonoCliente').text(cliente.telefono);
+			        $('#direccionCliente').text(cliente.direccion);
+				});
+			});	   
+		}
+	})
+	
+	
+	/// CLICK EN EL BOTON DE BORRAR CLIENTES ///
+	$(this).on("click", "#btnBorrarCliente", function(e){
+		e.preventDefault();
+	    if($('#cliente').val() == "cliente"){
+			alert("Para eliminar el cliente primero debes seleccionarlo");
+		}else{
+			var idCliente = $('#cliente').val();
+	        
+	        parametro = {idCliente : idCliente};
+	        $.post("eliminarCliente",$.param(parametro),function(responseJson){
+				if(responseJson){
+					alert("Se elimino el cliente.");
+				}
+			});	   
+		}
+		
+	})
+	
+	
 });
 	

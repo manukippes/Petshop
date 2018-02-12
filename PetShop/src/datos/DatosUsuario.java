@@ -156,7 +156,7 @@ public class DatosUsuario implements Serializable{
 		return usuario;
 	}
 	
-	public void eliminarUsuario(Usuario user) throws Exception{
+	public boolean eliminarUsuario(Usuario user) throws Exception{
 		 PreparedStatement ps = null;
 		 ResultSet rs = null;
 		 try {
@@ -178,6 +178,8 @@ public class DatosUsuario implements Serializable{
 		} catch (Exception e) {
 			throw e;
 		}
+		
+		return true;
 		
 	}
 	

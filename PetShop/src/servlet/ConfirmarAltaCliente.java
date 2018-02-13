@@ -44,6 +44,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		Usuario usu = new Usuario();
 		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
+		boolean bandera = false;
 	
 		String json = request.getParameter("jsonData");
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
@@ -54,59 +55,79 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		String direccion = (String) cliente.get("direccion").getAsString();
 		int telefono = (int) cliente.get("telefono").getAsInt();
 		String email = (String) cliente.get("email").getAsString();
+		int habilitado = (int) cliente.get("habilitado").getAsInt();
 		
-		usu.setNombre(nombre);
-		usu.setApellido(apellido);
-		usu.setDni(dni);
-		usu.setDireccion(direccion);
-		usu.setTelefono(telefono);
-		usu.setEmail(email);
-		Usuario nuevoUsuario = new Usuario();
-		try {
+		try 
+		{
+			boolean emailValido = ctrlUsuario.validarEmail(email);
+			if(emailValido){
+				usu.setNombre(nombre);
+				usu.setApellido(apellido);
+				usu.setDni(dni);
+				usu.setDireccion(direccion);
+				usu.setTelefono(telefono);
+				usu.setEmail(email);
+				usu.setEstado(habilitado);
+				usu.setTipoUsuario("Online");
+				usu = ctrlUsuario.agregarUsuario(usu);
+				bandera = true;
+				
+				
+				JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
+				if(!(mascotas.isJsonNull()))
+				{
+					try {
+						 for (JsonElement obj : mascotas) 
+						 {
+							 JsonObject gsonObj = obj.getAsJsonObject();
+							 String nombreMasco = gsonObj.get("nombreMascota").getAsString();
+							 String tamanioMasco = gsonObj.get("tamanioMascota").getAsString();
+							 String pelajeMasco = gsonObj.get("pelajeMascota").getAsString();
+							 String fechaMasco = gsonObj.get("fechaNacimientoMascota").getAsString();
+							 String observacionesMasco = gsonObj.get("observacionesMascota").getAsString();
+								
+						 
+								Mascota masco = new Mascota();
+								masco.setNombre(nombreMasco);
+								
+								SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			//FECHA DEL TURNO
+								Date fechaDate = fecha.parse(fechaMasco);
+								java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
+								masco.setFechaNacimiento(sqlDate);
+								
+								masco.setObservaciones(observacionesMasco);
+								
+								masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
+								
+								masco.setUsuario(usu);
+								
+								if(!(ctrlMascota.agregarMascota(masco))){
+									bandera = false;
+								}else{
+									bandera = true;
+								}
+						 }
+					} 
+					catch (Exception e) {
+						response.getWriter().println(false);
+						e.printStackTrace();
+					}
+			}
 			
-			nuevoUsuario = ctrlUsuario.agregarUsuario(usu);
-		} catch (Exception e1) {
-			response.getWriter().println(false);
-			e1.printStackTrace();
+		  }else{
+			  bandera = false;
+		  }
+			
+		}
+		catch (Exception e1) {
+		response.getWriter().println(false);
+		e1.printStackTrace();
 		}
 		
-		JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
-		boolean bandera = true;
-			try {
-				 for (JsonElement obj : mascotas) {
-					 JsonObject gsonObj = obj.getAsJsonObject();
-					 String nombreMasco = gsonObj.get("nombreMascota").getAsString();
-					 String tamanioMasco = gsonObj.get("tamanioMascota").getAsString();
-					 String pelajeMasco = gsonObj.get("pelajeMascota").getAsString();
-					 String fechaMasco = gsonObj.get("fechaNacimientoMascota").getAsString();
-					 String observacionesMasco = gsonObj.get("observacionesMascota").getAsString();
-						
-				 
-						Mascota masco = new Mascota();
-						masco.setNombre(nombreMasco);
-						
-						SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			//FECHA DEL TURNO
-						Date fechaDate = fecha.parse(fechaMasco);
-						java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
-						masco.setFechaNacimiento(sqlDate);
-						
-						masco.setObservaciones(observacionesMasco);
-						
-						masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
-						
-						masco.setUsuario(nuevoUsuario);
-						
-						if(!(ctrlMascota.agregarMascota(masco))){
-							bandera = false;
-						}
-				 }
-				
-				 if(bandera){
-					 response.getWriter().println(true);	
-				 }
-			} catch (Exception e) {
-				response.getWriter().println(false);
-				e.printStackTrace();
-			}
+		if(bandera){
+			 response.getWriter().println(true);	
+		 }else{
+			 response.getWriter().println(false);
+		 }
 	}
 }

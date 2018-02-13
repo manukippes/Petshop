@@ -60,5 +60,14 @@ public class ControladorDeUsuario implements Serializable{
 	public boolean blanquearUsuario(String email,String nuevoUsuario, String nuevoPass) throws Exception{
 		return baseUsuario.blanquearUsuario(email,nuevoUsuario,nuevoPass);
 	}
+
+	public ArrayList<Usuario> getTodosUsuariosLike(String inputCliente) throws Exception {
+		return baseUsuario.getTodosUsuariosLike(inputCliente);
+	}
+
+	public boolean validarEmail(String email) throws Exception {
+		boolean bandera = baseUsuario.validarEmail(email);
+		return bandera;
+	}
 	
 }

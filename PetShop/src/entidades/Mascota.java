@@ -10,6 +10,7 @@ public class Mascota implements Serializable {
 	private String observaciones;
 	private TipoMascota tipoMascota;
 	private Usuario usuario;
+	private int estado;
 	
 	public int getIdMascota() {
 		return idMascota;
@@ -46,5 +47,11 @@ public class Mascota implements Serializable {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	public int getEstado() {
+		return estado;
+	}
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 }

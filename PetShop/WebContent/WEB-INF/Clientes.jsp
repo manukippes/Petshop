@@ -28,7 +28,7 @@
 						    <div class="input-group">
 						      <input type="text" class="form-control" name="inputCliente" id="inputCliente" placeholder="Ingres&aacute; nombre, apellido o id del cliente">
 						      <span class="input-group-btn">
-						        <button class="btn btn-primary" type="button" id="btnBuscarCliente"><span class="glyphicon glyphicon-search"></span></button>
+						        <button class="btn btn-primary" type="button" id="btnBusquedaCliente"><span class="glyphicon glyphicon-search"></span></button>
 						      </span>
 						    </div>
 						 </div>

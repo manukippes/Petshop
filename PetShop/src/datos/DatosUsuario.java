@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.Level;
 
+import entidades.Mascota;
 import entidades.Usuario;
+import logica.ControladorDeMascota;
 import utilidades.ExcepcionEspecial;
 
 public class DatosUsuario implements Serializable{
@@ -111,11 +113,13 @@ public class DatosUsuario implements Serializable{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		Usuario usuario=null;
+		int estado = 1;
 		
 		try {
-			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM usuario WHERE usuarioLogin=? AND password=?");
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM usuario WHERE usuarioLogin=? AND password=? AND estado = ?");
 			pstm.setString(1, user.getUsuarioLogin());
 			pstm.setString(2, user.getPassword());
+			pstm.setInt(3, estado);
 			rs=pstm.executeQuery();
 			if(rs!=null)
 			{	rs.next();
@@ -158,11 +162,12 @@ public class DatosUsuario implements Serializable{
 	
 	public boolean eliminarUsuario(Usuario user) throws Exception{
 		 PreparedStatement ps = null;
-		 ResultSet rs = null;
+		 int estado= 0;
 		 try {
-			ps = FactoryConnection.getinstancia().getConn().prepareStatement("DELETE FROM usuario WHERE idUsuario = ?");
-			ps.setInt(1, user.getIdUsuario());
-			rs = ps.executeQuery();
+			ps = FactoryConnection.getinstancia().getConn().prepareStatement("UPDATE usuario SET estado=? WHERE idUsuario=?");
+			ps.setInt(1, estado);
+			ps.setInt(2, user.getIdUsuario());
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new ExcepcionEspecial(e, "No es posible eliminar el usuario", Level.ERROR);
 			
@@ -173,7 +178,6 @@ public class DatosUsuario implements Serializable{
 		 
 		try {
 			if(ps!=null)ps.close();
-			if(rs!=null)ps.close();
 			FactoryConnection.getinstancia().releaseConn();	
 		} catch (Exception e) {
 			throw e;
@@ -188,11 +192,12 @@ public class DatosUsuario implements Serializable{
 		ResultSet rs = null;
 		inputUsuario = ("%"+inputUsuario+"%");
 		ArrayList<Usuario> usuarios = new ArrayList<>();
-		String sql = "SELECT * FROM usuario ";		
+		String sql = "SELECT * FROM usuario ";
+		int estado = 1;
 		
 		try {
 			if (!inputUsuario.equals("%%")){
-				sql+=" where nombre like ? or apellido like ? or idUsuario like ?;";
+				sql+=" where (nombre like ? or apellido like ? or idUsuario like ? ) and estado = ?;";
 				}
 			
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(sql);
@@ -201,6 +206,7 @@ public class DatosUsuario implements Serializable{
 				pstm.setString(1, inputUsuario);
 				pstm.setString(2, inputUsuario);
 				pstm.setString(3, inputUsuario);
+				pstm.setInt(4, estado);
 			}
 			
 			rs=pstm.executeQuery();
@@ -247,6 +253,7 @@ public class DatosUsuario implements Serializable{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		Usuario usuario = new Usuario();
+		int estado = 1;
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM usuario WHERE idUsuario = ?");
@@ -324,5 +331,85 @@ public class DatosUsuario implements Serializable{
 		
 		return bandera;
 	}
-
+	
+	public ArrayList<Usuario> getTodosUsuariosLike(String inputUsuario) throws Exception, ExcepcionEspecial{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		inputUsuario = ("%"+inputUsuario+"%");
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+		String sql = "SELECT * FROM usuario ";
+		
+		try {
+			if (!inputUsuario.equals("%%")){
+				sql+=" where nombre like ? or apellido like ? or idUsuario like ?";
+				}
+			
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(sql);
+			
+			if (!inputUsuario.equals("%%")){
+				pstm.setString(1, inputUsuario);
+				pstm.setString(2, inputUsuario);
+				pstm.setString(3, inputUsuario);
+			}
+			
+			rs=pstm.executeQuery();
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					Usuario usuarioActual = new Usuario();
+					usuarioActual.setIdUsuario(rs.getInt("idUsuario"));
+					usuarioActual.setUsuarioLogin(rs.getString("usuarioLogin"));
+					usuarioActual.setPassword(rs.getString("password"));
+					usuarioActual.setNombre(rs.getString("nombre"));
+					usuarioActual.setApellido(rs.getString("apellido"));
+					usuarioActual.setEstado(rs.getInt("estado"));
+					usuarioActual.setTipoUsuario(rs.getString("tipoUsuario"));
+					usuarioActual.setDni(rs.getInt("dni"));
+					usuarioActual.setDireccion(rs.getString("direccion"));
+					usuarioActual.setTelefono(rs.getInt("telefono"));
+					usuarioActual.setEmail(rs.getString("email"));
+					usuarioActual.setLegajo(rs.getInt("legajo"));
+					usuarioActual.setTipoEmpleado(rs.getString("tipoEmpleado"));
+					usuarios.add(usuarioActual);
+				}
+			}
+		} catch (SQLException exc) {
+			
+			throw new ExcepcionEspecial(exc,"No es posible buscar una persona en la base de datos", Level.ERROR);	
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(pstm!=null)pstm.close();
+			if(rs!=null)rs.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (Exception e) {
+			throw e;
+		}
+		return usuarios;
+	}
+	public boolean validarEmail(String email) throws Exception, ExcepcionEspecial{
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM usuario WHERE email = ?");
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if(rs!= null && rs.next()){
+				return false;
+			}else{
+				return true;	
+			}
+			
+		} catch (SQLException e) {
+			throw new ExcepcionEspecial(e,"No es posible agregar la persona, la validación en el email fallo.", Level.ERROR);
+		} catch (ExcepcionEspecial e) {
+			throw e;
+		}
+		
+		
+	}
 }

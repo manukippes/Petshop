@@ -296,6 +296,10 @@ $(document).ready(function() {
 			var direccion = $("#direccion").val();
 			var telefono = $("#telefono").val();
 			var email = $("#email").val();
+			var habilitado = 0;
+			if($("#habilitado").is(':checked')){
+				habilitado = 1;
+			};
 			
 			var parametro = {
 				nombre : nombre,
@@ -304,6 +308,7 @@ $(document).ready(function() {
 				direccion : direccion,
 				telefono : telefono,
 				email : email,
+				habilitado : habilitado,
 				arregloMascotas : arregloMascotas	
 			}
 			
@@ -316,7 +321,7 @@ $(document).ready(function() {
 				type : "post",
 				data : {jsonData : parametros},
 				success : function(data){
-					if (data)
+					if (data == "true")
 					{
 						confirm("Se agreg&oacute; el cliente correctamente.");
 					} 
@@ -329,6 +334,31 @@ $(document).ready(function() {
 		})
 	})
 	
+	//CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL
+	$(this).on("click", "#btnBusquedaCliente", function(e){
+	    e.preventDefault();
+		
+		var inputCliente = $('#inputCliente').val();
+		if(inputCliente!=""){
+			var parametro = {inputCliente : inputCliente};
+			$('#cliente').prop('disabled',false);
+			
+			$.post("ObtenerTodosClientes",$.param(parametro),function(responseJson){
+				$('#cliente').empty();
+				$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
+				$.each(responseJson,function(index, usuarios){
+					$('#cliente').append($('<option value="'+usuarios.idUsuario+'">'+usuarios.apellido+', '+usuarios.nombre+'</option>'));
+				});
+			});
+		}else{
+			$('#cliente').empty();
+			$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
+			$('#cliente').prop('disabled',true);
+			$('#inputClienteGroup').addClass("has-error");
+			clearTimeout();
+			setTimeout(function(){$('#inputClienteGroup').removeClass("has-error");},2000);
+			}
+	}); 
 	
 	/// CLICK EN EL BOTON DE MODIFICAR CLIENTES ///
 	$(this).on("click", "#btnVerCliente", function(e){
@@ -339,14 +369,25 @@ $(document).ready(function() {
 			var idCliente = $('#cliente').val();
 	        
 	        parametro = {idCliente : idCliente};
-	        $.post("modificarCliente",$.param(parametro),function(responseJson){
-				$.each(responseJson,function(index, cliente){
-					$('#idUsuario').val(cliente.idUsuario); 			
-			        $('#nombreApellidoCliente').text(cliente.nombre+", "+cliente.apellido);
-			        $('#telefonoCliente').text(cliente.telefono);
-			        $('#direccionCliente').text(cliente.direccion);
-				});
-			});	   
+	              
+	        var parametros = JSON.stringify(parametro);
+	        
+	        $.ajax({
+				url : "ModificarCliente",
+				type : "post",
+				data : {jsonData : parametros},
+				success : function(data){
+					if (data)
+					{
+						$(location).attr('href','ModificarClienteConDatos');
+					} 
+					else
+					{
+						alert("No es posible modificar el cliente.");
+					}
+                    
+				}
+	        })	  
 		}
 	})
 	
@@ -360,15 +401,27 @@ $(document).ready(function() {
 			var idCliente = $('#cliente').val();
 	        
 	        parametro = {idCliente : idCliente};
-	        $.post("eliminarCliente",$.param(parametro),function(responseJson){
-				if(responseJson){
-					alert("Se elimino el cliente.");
+	        var parametros = JSON.stringify(parametro);
+	        
+	        $.ajax({
+				url : "EliminarCliente",
+				type : "post",
+				data : {jsonData : parametros},
+				success : function(data){
+					if (data)
+					{
+						confirm("Se elimino el cliente.");
+					} 
+					else
+					{
+						alert("No se pudo eliminar el cliente.");
+					}
+                    
 				}
-			});	   
+	        })	   
 		}
 		
 	})
-	
-	
+
 });
 	

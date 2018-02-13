@@ -4,7 +4,7 @@ USE `pet_chops`;
 --
 -- Host: localhost    Database: pet_chops
 -- ------------------------------------------------------
--- Server version	5.7.20-log
+-- Server version	5.7.17-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -140,6 +140,7 @@ CREATE TABLE `mascota` (
   `nombre` varchar(45) DEFAULT NULL,
   `fechaNacimiento` date DEFAULT NULL,
   `observaciones` varchar(150) DEFAULT NULL,
+  `estado` int(1) DEFAULT NULL,
   PRIMARY KEY (`idMascota`),
   KEY `idUsuario_idx` (`idUsuario`),
   KEY `idTipoMascota_idx` (`idTipoMascota`),
@@ -154,7 +155,7 @@ CREATE TABLE `mascota` (
 
 LOCK TABLES `mascota` WRITE;
 /*!40000 ALTER TABLE `mascota` DISABLE KEYS */;
-INSERT INTO `mascota` VALUES (1,1,1,'Firulaif','2018-01-01','El mas simpaticon'),(2,1,3,'Doggo','2014-05-16','EL guardian'),(3,17,6,'sdfsdf','2018-02-09','');
+INSERT INTO `mascota` VALUES (1,1,1,'Firulaif','2018-01-01','El mas simpaticon',NULL),(2,1,3,'Doggo','2014-05-16','EL guardian',NULL),(3,17,6,'sdfsdf','2018-02-09','',NULL);
 /*!40000 ALTER TABLE `mascota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -573,4 +574,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-13 15:57:44
+-- Dump completed on 2018-02-13 17:12:30

@@ -4,7 +4,7 @@ USE `pet_chops`;
 --
 -- Host: localhost    Database: pet_chops
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.7.20-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -113,7 +113,7 @@ CREATE TABLE `linea_venta` (
   CONSTRAINT `idProducto_fk` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idTMascServ_fk` FOREIGN KEY (`idTMascServ`) REFERENCES `tipo_mascota_servicio` (`idTMascServ`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idVenta_fk` FOREIGN KEY (`idVenta`) REFERENCES `venta` (`idVenta`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,6 +122,7 @@ CREATE TABLE `linea_venta` (
 
 LOCK TABLES `linea_venta` WRITE;
 /*!40000 ALTER TABLE `linea_venta` DISABLE KEYS */;
+INSERT INTO `linea_venta` VALUES (1,1,36,NULL,'Mostrador',1300,1),(2,2,36,NULL,'Mostrador',1300,1),(3,3,36,NULL,'Mostrador',1300,1),(4,4,36,NULL,'Mostrador',1300,1),(5,5,36,NULL,'Mostrador',1300,1),(6,6,36,NULL,'Mostrador',1300,1),(7,7,36,NULL,'Mostrador',1300,1),(8,8,36,NULL,'Mostrador',1300,1),(9,9,44,NULL,'Mostrador',349,1),(10,9,45,NULL,'Mostrador',420,1),(11,9,46,NULL,'Mostrador',470,1),(12,10,44,NULL,'Mostrador',349,1),(13,10,45,NULL,'Mostrador',420,1),(14,11,44,NULL,'Mostrador',349,1),(15,11,45,NULL,'Mostrador',420,1);
 /*!40000 ALTER TABLE `linea_venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +145,7 @@ CREATE TABLE `mascota` (
   KEY `idTipoMascota_idx` (`idTipoMascota`),
   CONSTRAINT `idTipoMascota` FOREIGN KEY (`idTipoMascota`) REFERENCES `tipo_mascota` (`idTipoMascota`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +154,7 @@ CREATE TABLE `mascota` (
 
 LOCK TABLES `mascota` WRITE;
 /*!40000 ALTER TABLE `mascota` DISABLE KEYS */;
-INSERT INTO `mascota` VALUES (1,1,1,'Firulaif','2018-01-01','El mas simpaticon'),(2,1,3,'Doggo','2014-05-16','EL guardian');
+INSERT INTO `mascota` VALUES (1,1,1,'Firulaif','2018-01-01','El mas simpaticon'),(2,1,3,'Doggo','2014-05-16','EL guardian'),(3,17,6,'sdfsdf','2018-02-09','');
 /*!40000 ALTER TABLE `mascota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -199,7 +200,7 @@ CREATE TABLE `producto` (
   `imagen` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`idProducto`),
   KEY `idSubCategoria_idx` (`idSubCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +209,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (36,4,'Sieger Criadores',16,5,'20 Kg',1300,'imgs/productos/all_glyphicons - copia.jpg'),(37,4,'Sieger Adulto',10,5,'20 Kg',1199.99,'imgs/productos/all_glyphicons - copia.jpg'),(38,5,'Power',3,5,'12 ml',65.49,'imgs/productos/all_glyphicons - copia.jpg'),(39,5,'Power',0,5,'20 ml',65.49,'imgs/productos/all_glyphicons - copia.jpg'),(40,5,'Power Plus',2,5,'23 ml',90,'imgs/productos/all_glyphicons - copia.jpg'),(41,1,'Perrin',6,5,'2 Litros',210,'imgs/productos/all_glyphicons - copia.jpg'),(42,1,'Perrin',15,5,'1 Litro',130,'imgs/productos/all_glyphicons - copia.jpg'),(43,2,'Perrin Soft',12,6,'1.5 Litros',237.99,'imgs/productos/all_glyphicons - copia.jpg'),(44,3,'Correa Cuero',2,3,'3 Metros',349,'imgs/productos/all_glyphicons - copia.jpg'),(45,7,'Colchon Animal Print',8,3,'0.6 x 0.6 Metros',420,'imgs/productos/all_glyphicons - copia.jpg'),(46,7,'Colchon Animal Print',6,3,'0.6 x 0.9 Metros',470,'imgs/productos/all_glyphicons - copia.jpg'),(47,8,'Cuero Masticable',10,3,'PequeÃ±o',32,'imgs/productos/all_glyphicons - copia.jpg'),(48,8,'Cuero Masticable',10,3,'Mediano',47,'imgs/productos/all_glyphicons - copia.jpg'),(49,8,'Cuero Masticable',10,3,'Grande',60,'imgs/productos/all_glyphicons - copia.jpg');
+INSERT INTO `producto` VALUES (36,4,'Sieger Criadores',14,5,'3 Kg',435,'imgs/productos/SiegerCriadores3Kg.jpg'),(37,10,'Sieger Cachorros',10,5,'5 Kg',1199.99,'imgs/productos/SiegerCachorros15Kg.jpg'),(38,5,'Power',3,5,'12 ml',65.49,'imgs/productos/PipetaPower.jpg'),(39,5,'Power',0,5,'20 ml',65.49,'imgs/productos/PipetaPower.jpg'),(40,5,'Power Plus',2,5,'23 ml',90,'imgs/productos/PipetaPower.jpg'),(41,1,'Perrin',6,5,'2 Litros',210,'imgs/productos/ShampooPerrin.jpg'),(42,1,'Perrin',15,5,'1 Litro',130,'imgs/productos/ShampooPerrin.jpg'),(43,2,'Perrin Soft',12,6,'1.5 Litros',237.99,'imgs/productos/ShampooPerrin.jpg'),(44,3,'Correa Cuero',2,3,'3 Metros',349,'imgs/productos/CorreaExtensibleNegra.jpg'),(45,7,'Colchon Animal Print',8,3,'0.6 x 0.6 Metros',420,'imgs/productos/ColchonAnimalPrint.jpg'),(46,7,'Colchon Animal Print',6,3,'0.6 x 0.9 Metros',470,'imgs/productos/ColchonAnimalPrint.jpg'),(47,8,'Cuero Masticable',10,3,'Pequeño',32,'imgs/productos/CueroMasticable.jpg'),(48,8,'Cuero Masticable',11,3,'Mediano',47,'imgs/productos/CueroMasticable.jpg'),(49,8,'Cuero Masticable',10,3,'Grande',60,'imgs/productos/CueroMasticable.jpg'),(50,4,'Sieger Adultos',10,5,'15 Kg',985,'imgs/productos/SiegerAdultos15Kg.jpg');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +280,7 @@ CREATE TABLE `subcategoria` (
   PRIMARY KEY (`idSubCategoria`),
   KEY `idCategoria_idx` (`idCategoria`),
   CONSTRAINT `idCategoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +289,7 @@ CREATE TABLE `subcategoria` (
 
 LOCK TABLES `subcategoria` WRITE;
 /*!40000 ALTER TABLE `subcategoria` DISABLE KEYS */;
-INSERT INTO `subcategoria` VALUES (1,3,'Shampoo'),(2,3,'Acondicionador'),(3,5,'Correa Extensible'),(4,1,'Perro Adulto'),(5,2,'Pipeta'),(6,2,'Pastilla'),(7,5,'Colchon'),(8,5,'Juguete'),(9,5,'Abrigo');
+INSERT INTO `subcategoria` VALUES (1,3,'Shampoo'),(2,3,'Acondicionador'),(3,5,'Correa Extensible'),(4,1,'Perro Adulto'),(5,2,'Pipeta'),(6,2,'Pastilla'),(7,5,'Colchon'),(8,5,'Juguete'),(9,5,'Abrigo'),(10,1,'Cachorro');
 /*!40000 ALTER TABLE `subcategoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,12 +393,13 @@ CREATE TABLE `turno` (
   `repetir` varchar(45) DEFAULT NULL,
   `retiroDom` bit(1) DEFAULT NULL,
   `estado` varchar(45) DEFAULT NULL,
+  `observaciones` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`idTurno`),
   KEY `idMascota_idx` (`idMascota`),
   KEY `idServicio_idx` (`idServicio`),
   CONSTRAINT `idMascota` FOREIGN KEY (`idMascota`) REFERENCES `mascota` (`idMascota`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idServicio` FOREIGN KEY (`idServicio`) REFERENCES `servicio` (`idServicio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,7 +408,7 @@ CREATE TABLE `turno` (
 
 LOCK TABLES `turno` WRITE;
 /*!40000 ALTER TABLE `turno` DISABLE KEYS */;
-INSERT INTO `turno` VALUES (1,1,1,'2018-01-01','09:00:00','No','\0','Pendiente'),(2,1,4,'2018-01-01','10:30:00','No','','Pendiente'),(3,1,4,'2018-01-01','14:30:00','No','','Pendiente');
+INSERT INTO `turno` VALUES (1,1,1,'2018-01-01','09:00:00','No','\0','Cancelado',NULL),(2,1,4,'2018-01-01','10:30:00','No','','Cancelado',NULL),(3,1,4,'2018-01-01','14:30:00','No','','Realizado',NULL),(4,1,3,'2018-01-19','04:00:00',NULL,'\0','Cancelado',''),(5,1,1,'2018-01-04','08:00:00','No','','Cancelado','DATOS ADICIONALES COMPLETADOS'),(6,1,1,'2018-01-27','09:30:00','Quincenal','\0','Pendiente','SEGUNDO TURNO CREADO CON REPETICION'),(7,1,2,'2018-01-17','12:00:00','No','\0','Pendiente',''),(8,2,3,'2018-01-27','03:30:00','Semanal','','Pendiente',''),(9,1,3,'2018-01-27','03:30:00','Semanal','','Pendiente',''),(10,1,2,'2018-03-03','02:00:00','No','\0','Pendiente',''),(11,1,3,'2018-03-03','16:00:00','No','\0','Pendiente',''),(12,1,1,'2018-01-27','09:30:00','Quincenal','\0','Pendiente','SEGUNDO TURNO CREADO CON REPETICION');
 /*!40000 ALTER TABLE `turno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -431,8 +433,9 @@ CREATE TABLE `usuario` (
   `email` varchar(45) DEFAULT NULL,
   `legajo` int(11) DEFAULT NULL,
   `tipoEmpleado` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,7 +444,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'1','1','Hugo','Santander',1,'1',1,'Cerrito 1487',15123456,'1',1,'1'),(2,'2','2','Josefina','Ramirez',0,'2',2,'2',2,'2',2,'1'),(3,'3','3','Marta','Yotedigo',0,'2',3,'3',3,'3',3,'3'),(4,'4','4','Ruben','Lopez',0,'2',4,'4',4,'4',4,'1'),(5,'5','5','Marco Antonio','Chulin',0,'2',5,'5',5,'5',5,'5'),(11,NULL,NULL,'Juany','Gara',0,NULL,35678900,'Maipu 2279',3456789,'januy@gmail.com',0,NULL);
+INSERT INTO `usuario` VALUES (1,'1','1','Hugo','Santander',1,'Administrador',1,'Cerrito 1487',15123456,'1',1,'1'),(2,'2','2','Josefina','Ramirez',1,'Online',2,'2',2,'2',2,'1'),(3,'3','3','Marta','Yotedigo',0,'2',3,'3',3,'3',3,'3'),(4,'HLI95OIU','EYNVMUYX','Ruben','Lopez',0,'2',4,'4',4,'hugocateura@gmail.com',4,'1'),(5,'JDTHZZFN','VEAVBHW6','Marco Antonio','Chulin',0,'2',5,'5',5,'correo@yahoo.com',5,'5'),(11,NULL,NULL,'Juany','Gara',0,NULL,35678900,'Maipu 2279',3456789,'januy@gmail.com',0,NULL),(12,NULL,NULL,'a','a',0,NULL,2,'2',2,'eff@gmail.com',0,NULL),(13,NULL,NULL,'a','a',0,NULL,21312,'',123123,'a@zdsdf.com',0,NULL),(14,NULL,NULL,'sd','dasdas',0,NULL,2313,'312312',3123123,'12312@dasda.com',0,NULL),(15,NULL,NULL,'213123','123123',0,NULL,32123,'123123',123123,'123123@asdasdf.vomdsa',0,NULL),(16,NULL,NULL,'123','123',0,NULL,123,'123',123,'123@123.asd',0,NULL),(17,NULL,NULL,'asdasd','asdasd',0,NULL,1231,'123123',123123,'12312@sddsf.com',0,NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -473,7 +476,7 @@ CREATE TABLE `venta` (
   CONSTRAINT `idMedioPago_fk` FOREIGN KEY (`idMedioPago`) REFERENCES `medio_pago` (`idMedioPago`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idTarjeta_fk` FOREIGN KEY (`idTarjeta`) REFERENCES `tarjeta` (`idTarjeta`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idUsuario_fk` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -482,6 +485,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
+INSERT INTO `venta` VALUES (1,1,1,1300,'Finalizada','2018-01-30 00:00:00','','\0','',NULL,NULL),(2,1,1,1300,'Finalizada','2018-01-30 00:00:00','','\0','',NULL,NULL),(3,1,1,1300,'Finalizada','2018-01-30 00:00:00','','\0','',NULL,NULL),(4,1,1,1300,'Finalizada','2018-01-30 00:00:00','','\0','',NULL,NULL),(5,1,1,1300,'Finalizada','2018-01-30 00:00:00','','\0','',NULL,NULL),(6,1,1,1300,'Finalizada','2018-01-30 00:00:00','','\0','',NULL,NULL),(7,1,1,1300,'Finalizada','2018-01-30 00:00:00','','\0','',NULL,NULL),(8,1,1,1300,'Finalizada','2018-01-30 00:00:00','','\0','',NULL,NULL),(9,2,1,1239,'Finalizada','2018-02-03 00:00:00','','\0','',NULL,NULL),(10,5,2,769,'Finalizada','2018-02-06 00:00:00','','\0','',1,NULL),(11,11,2,769,'Finalizada','2018-02-06 00:00:00','','\0','',2,NULL);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -569,4 +573,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-28 11:20:29
+-- Dump completed on 2018-02-13 15:57:44

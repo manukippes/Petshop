@@ -129,11 +129,11 @@ function alertConfirmar(mensaje)
     	})
 
 }
-window.prompt = function (message) {
+/*window.prompt = function (message) {
 	
 	alertExito(message);
 	
-};
+};*/
 
 window.alert = function (message) {
 

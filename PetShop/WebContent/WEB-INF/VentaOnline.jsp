@@ -26,7 +26,7 @@
 	 		<div class="panel-body">
 				<br>
 				<br>
-				<h4><strong>VENTA ONLINE -</strong> Agregar art&iacute;culos</h4>
+				<h4><strong>VENTA ONLINE </strong></h4>
 				<hr>
 				<form action="#" method="post" class="form-horizontal"  id="formVentas">
 			
@@ -36,12 +36,13 @@
 					<label class="sr-only">Ingresa nombre o descripcion del producto</label>
 					<div class="col-sm-6 col-xs-12" id="inputProductoGroup">
 						<input class="form-control" name="inputProducto" id="inputProducto" type="text" placeholder="Ingres&aacute; descripci&oacute;n parcial o nombre del producto">
+						<small class="text-danger hidden" id="buscarVacio">Para buscar debes completar este campo</small>
 					</div>
 					<div class="col-sm-3 col-xs-12 ">
 						<button class="btn btn-primary form-control" id="buscarProductosVenta"> <span class="glyphicon glyphicon-search" ></span> Buscar </button>
 					</div>
 					<div class="col-sm-3 col-xs-12 ">
-						<a href="#listadoProductos" class="btn btn-default form-control" data-toggle="modal"> Listado <span class="glyphicon glyphicon-th-list"></span> </a>
+						<a href="#listadoProductos" class="btn btn-default form-control" data-toggle="modal"> Buscar por Categoria <span class="glyphicon glyphicon-th-list"></span> </a>
 					
 					</div>		
 				</div>
@@ -97,7 +98,7 @@
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<strong>LISTADO GENERAL DE PRODUCTOS</strong>
+									<strong>BUSCAR PRODUCTOS POR CATEGORIA</strong>
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								</div>
 								<div class="modal-body">
@@ -174,26 +175,22 @@
 						</div>
 					</div>
 				
-				<div class="form-group col-sm-3 col-xs-12 pull-right">
-					<button class="btn btn-primary btn-lg btn-group-justified" type="submit" id="btnContinuar"> Finalizar Compra </button>
-				</div>
+				
 				
 					<!-- Carrito de compras -->
 					<div class="modal fade" id="carrito">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h4><strong class="text-muted"><span class="fa fa-shopping-cart" style="font-size:35px;"></span> MI CARRITO DE COMPRAS</strong>
+									<h4><strong class="text-muted"><span class="fa fa-shopping-cart" style="font-size:35px;"></span> &nbsp;&nbsp;MI CARRITO DE COMPRAS</strong>
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
 								</div>
 								<div class="modal-body">
-									<div class="input-group">
-										<h4>Productos de la venta actual</h4>
-									</div>
 									<div class="table-responsive">
-										<table id="tablaVentaActual" class="table table-striped table-hover tablaVentaActual">
+										<h5 class="text-muted text-center" id="carritoVacio">No hay productos en el carrito</h5>
+										<table id="tablaVentaActual" class="table table-striped table-hover tablaVentaActual hidden">
 											<thead>
-												<tr class="active">
+												<tr class="active hidden">
 													<th>
 														<div class="imagen">
 															<label class="sr-only">Imagen de producto</label>
@@ -231,17 +228,21 @@
 									 		</tbody>
 										</table>
 									</div>
-									<hr class="divisor">
-				
-									<div class="form-group row">
+													
+									<div class="form-group row hidden" id="subtotalGroup">
 										<label class="sr-only">Subtotal</label>
 									    <div class="col-sm-6 col-lg-4 pull-right">
 									    	<small id="subtotalHelp" class="form-text text-muted">Subtotal</small>
 									    	<div class="input-group">
 									    		<span class="input-group-addon"><small>$</small></span>
-												<input class="form-control" type="text" name="subtotal" value="0" id="subtotal" placeholder="Subtotal" disabled>
+												<input class="form-control" type="text" name="subtotal" class="subtotal" value="0" id="subtotal" placeholder="Subtotal" disabled>
 									    	</div>
 										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<div class="pull-right">
+										<button class="btn btn-primary btn-group-justified" type="submit" id="btnContinuar"><span class="fa fa-cart-arrow-down"></span> Finalizar Compra </button>
 									</div>
 								</div>								
 							</div>

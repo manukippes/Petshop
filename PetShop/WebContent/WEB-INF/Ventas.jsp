@@ -36,6 +36,7 @@
 					<label class="sr-only">Ingresa descripcion o codigo</label>
 					<div class="col-sm-6 col-xs-12" id="inputProductoGroup">
 						<input class="form-control" name="inputProducto" id="inputProducto" type="text" placeholder="Ingres&aacute; descripci&oacute;n parcial o c&oacute;digo de producto">
+						<small class="text-danger hidden" id="buscarVacio">Para buscar debes completar este campo</small>
 					</div>
 					<div class="col-sm-3 col-xs-12 ">
 						<button class="btn btn-primary form-control" id="buscarProductosVenta"> <span class="glyphicon glyphicon-search" ></span> Buscar </button>

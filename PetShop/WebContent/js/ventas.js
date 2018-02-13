@@ -82,13 +82,17 @@ $(document).ready(function() {
 		e.preventDefault();
 		if($("#inputProducto").val()!=""){
 			buscarProductosVenta($('#inputProducto').val());
+			
 		}else{
 			$('#inputProductoGroup').addClass("has-error");
-			clearTimeout();
-			setTimeout(function(){$('#inputProductoGroup').removeClass("has-error");},2000);
-			
+			$('#buscarVacio').removeClass("hidden");			
 			}
 	});
+	
+	$('#inputProducto').click(function(e){
+		$('#inputProductoGroup').removeClass("has-error");
+		$('#buscarVacio').addClass("hidden");
+	})
 	
 	//DETECTO EL CLICK EN BUSCAR PRODUCTOS
 	$(document).on('click','.btnAgregarProductoVenta',function(e){

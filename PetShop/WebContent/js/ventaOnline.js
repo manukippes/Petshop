@@ -2,6 +2,22 @@
  * 
  */
 
+function calcularSubtotal(){
+	
+	var subtotal = 0.0;
+	var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+	
+	$.each(filas,function(i,fila){
+		if(i>0){
+			//OBTENGO DE CADA ARTICULO EL ID Y LA CANTIDAD A COMPRAR
+			var row = $(this).closest('tr');
+			var cantidad = row.find("#cantidadProducto").val();
+			var precio = row.find("#precioProducto").text();
+			subtotal += (parseFloat(precio)*parseFloat(cantidad));
+			}
+	})
+	$("#subtotal").val(subtotal.toFixed(2));
+}
 function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad,imagen,cantMax){
 	
 		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
@@ -26,24 +42,29 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad,ima
 					"			<td id='presentacionProducto'>"+presentacion+"</td>" +
 					"			<td id='precioProducto'>"+precio+"</td>" +
 					"			<td>" +
-	 				"				<input id='cantidadProducto' type='number' class='form-control' min='0' max="+cantMax+" value="+cantidad+"></input>" +
+					"				<div class='' id='cantidadProductoGroup'>" +
+	 				"					<input id='cantidadProducto' type='number' class='form-control cantidadProducto' min='0' max="+cantMax+" value="+cantidad+"></input>" +
+	 						"		</div>" +
 	 				"			</td>" +
 					"			<td class='col-sm-3 col-lg-2'>" +
 					"				<div class='input-group'>" +
-					"					<a class='btn btn-danger btnEliminarProductoVenta' href='\'>Quitar</a>" +
+					"					<a class='btn btn-danger btnEliminarProductoVenta' href='\'><span class='fa fa-times'></span></a>" +
 					"				</div>" +
 					"			</td>"
 					}).appendTo(".tablaVentaActual > tbody");
 				
 				
-				var subtotal = parseFloat($("#subtotal").val());
 				
-				subtotal += (parseFloat(cantidad)*parseFloat(precio));
-				
-				$("#subtotal").val(subtotal.toFixed(2));
-				
+				calcularSubtotal();
 
 				$("#articulosCarrito").text(parseInt($("#articulosCarrito").text())+1);
+				
+				$('#carritoVacio').addClass("hidden");
+				
+				$('#tablaVentaActual').removeClass("hidden");
+				
+				$('#subtotalGroup').removeClass("hidden");
+				
 
 			}else{
 				alert("Para agregar un producto debes ingresar la cantidad");
@@ -71,7 +92,7 @@ function buscarProductosVenta(inputProducto){
 				"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
 				"			<td id='precioProducto'>"+productos.precio+"</td>" +
 				"			<td>" +
-				"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
+				"				<input id='cantidad' type='number' class='form-control cantidad' min='0' max="+productos.stock+"></input>" +
 				"			</td>" +
 				"			<td class='col-sm-3 col-lg-2'>" +
 				"				<div class='input-group'>" +
@@ -93,13 +114,29 @@ $(document).ready(function() {
 		e.preventDefault();
 		if($("#inputProducto").val()!=""){
 			buscarProductosVenta($('#inputProducto').val());
+			
 		}else{
 			$('#inputProductoGroup').addClass("has-error");
-			clearTimeout();
-			setTimeout(function(){$('#inputProductoGroup').removeClass("has-error");},2000);
-			
+			$('#buscarVacio').removeClass("hidden");			
 			}
 	});
+	
+	//DETECTO CAMBIOS EN BUSCAR PRODUCTO
+	$('#inputProducto').click(function(e){
+		$('#inputProductoGroup').removeClass("has-error");
+		$('#buscarVacio').addClass("hidden");
+	})
+	
+	//DETECTO CAMBIOS EN CANTIDAD AGREGADA EN EL CARRITO
+	$(document).on('click','#cantidadProducto',function(e){
+		$(this).parent().removeClass("has-error");
+		calcularSubtotal();
+	})
+	
+	$(document).on('change','#cantidadProducto',function(e){
+		
+		calcularSubtotal();
+	})
 	
 	//DETECTO EL CLICK EN BUSCAR PRODUCTOS
 	$(document).on('click','.btnAgregarProductoVenta',function(e){
@@ -111,14 +148,12 @@ $(document).ready(function() {
 		var idAgregar = fila.find('#idProducto').text();
 		var nombreAgregar = fila.find('#nombreProducto').text();
 		var presentacionAgregar = fila.find('#presentacionProducto').text();
-		var cantidadAgregar = fila.find('#cantidad').val();
+		var cantidadAgregar = fila.find('.cantidad').val();
 		var precioAgregar = fila.find('#precioProducto').text();
 		var imagenAgregar = fila.find("#imagen").html();
 		
-		//OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
 		
-		
-		var cantidadMaxima = fila.find('#cantidad').attr('max');
+		var cantidadMaxima = fila.find('.cantidad').attr('max');
 		
 		if (cantidadAgregar!=""){
 			if (parseInt(cantidadAgregar) <= parseInt(cantidadMaxima)){ //VALIDO QUE NO SE EXCEDA DEL STOCK DISPONIBLE
@@ -138,28 +173,28 @@ $(document).ready(function() {
 		e.preventDefault();
 		
 		//OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
-		var fila =$(this).parent().parent().parent()
-		//OBTENGO EL SUBTOTAL ACTUAL
-		var subtotal = parseFloat($("#subtotal").val());
+		var fila = $(this).parent().parent().parent();
 		
-		//OBTENGO PRECIO Y CANTIDAD DEL PRODUCTO A BORRAR
-		var precio = fila.find("#precioProducto").text();
-		var cantidad = fila.find("#cantidadProducto").text();
-		
-		//RESTO AL SUBTOTAL EL IMPORTE CALCULADO
-		
-		subtotal -= (parseFloat(precio)*parseFloat(cantidad));
-		
-		$("#subtotal").val(subtotal.toFixed(2));
 		fila.remove();
+		
+		calcularSubtotal();
 		$("#articulosCarrito").text(parseInt($("#articulosCarrito").text())-1);
+		
+		var cantFilas = ($(".tablaVentaActual tr")).length;
+		
+		if (cantFilas == 1){
+			
+			$('#carritoVacio').removeClass("hidden");
+			$('#subtotalGroup').addClass("hidden");
+			$('#tablaVentaActual').addClass("hidden");
+		}
 		});
 	
 	//CAPTURO EL CLICK EN CONTINUAR (VENTA PASO 1)
 	$(document).on('click','#btnContinuar',function(e){
 		e.preventDefault();
 		
-	
+		var validaCantidad = true;
 		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
 		if (filas.length == 1){
 			alert("No seleccionaste ningun producto");
@@ -168,27 +203,38 @@ $(document).ready(function() {
 			$.each(filas,function(i,fila){
 				if(i>0){
 					//OBTENGO DE CADA ARTICULO EL ID Y LA CANTIDAD A COMPRAR
-					var idProducto = fila.cells[0].innerHTML;
-					var cantidad = fila.cells[4].innerHTML;
-					var elemento = {idProducto,cantidad};
-					arregloProductos.push(elemento); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
+					var row = $(this).closest('tr');
+					var idProducto = row.find("#idProducto").text();
+					var cantidad = row.find(".cantidadProducto").val();
+					var stockDisponible = row.find(".cantidadProducto").attr("max");
+					if (cantidad > stockDisponible){
+						//prompt("La cantidad maxima de "+idProducto+" es: "+stockDisponible+" y vos ingresaste "+cantidad);
+						validaCantidad = false;
+						row.find("#cantidadProductoGroup").addClass("has-error");
+					}else{
+						var elemento = {idProducto,cantidad};
+						arregloProductos.push(elemento); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
+					}
+					
 					}
 				})
 			var parametro = JSON.stringify(arregloProductos);
-		
-			$.ajax({
-				type : "post",
-				url : "CargarProductosVenta",
-				data : {jsonData : parametro},
-				success : function(respuesta){
-					//alert(respuesta);
-					$(location).attr('href',"VentasPaso2");
-					
-				}
-					
+			if(validaCantidad){
+				$.ajax({
+					type : "post",
+					url : "CargarProductosVenta",
+					data : {jsonData : parametro},
+					success : function(respuesta){
+						//alert(respuesta);
+						$(location).attr('href',"VentasPaso2");
+					}	
 				})
+			} else {
+				alert("Se ha ingresado una cantidad superior al stock disponible");
 			}
-		 })
+			
+		}
+	})
 		 
 	//CAPTURO EL CAMBIO DEL COMBO DE MEDIO DE PAGO
 		 

@@ -66,6 +66,14 @@ return resultado;
 }
 
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 $(document).ready(function() {
 		
 		
@@ -117,8 +125,6 @@ $(document).ready(function() {
 	
 	$('#btnContinuarAlta').click(function(e){
 		e.preventDefault();
-		var tamanio="";
-		var pelaje="";
 		var servicio="";
 		var fecha="";
 		var horario ="";
@@ -163,53 +169,45 @@ $(document).ready(function() {
 			validaMascota = true;
 			idMascota = $('#mascota').val();
 		}
+		var observaciones = $('#observaciones').val();
 		
-	var resultado = validarDatosTurno();
-	if(resultado){
-				//////////////////////PROCESAR TURNO///////////////////////////////
-		var proceso = "alta";
-	
-		var parametro = {
-				proceso : proceso,
-				servicio : servicio,
-				fecha : fecha,
-				horario : horario,
-				repeticion : repeticion,
-				idUsuario : idUsuario,
-				idMascota : idMascota,
-				conRetiro : conRetiro
-				}
-		var parametros = JSON.stringify(parametro);
-		//alert(parametros);
-		$.ajax({
-			type : "post",
-			url : "CargarDatosTurno",
-			data : {jsonData : parametros},
-			success : function(respuesta){
-				//alert(respuesta);
-				$(location).attr('href',"TurnosPaso2");
+		var resultado = validarDatosTurno();
+		if(resultado){
+					//////////////////////PROCESAR TURNO///////////////////////////////
 				
-			}
-		}); 
+			var parametro = {
+					servicio : servicio,
+					fecha : fecha,
+					horario : horario,
+					repeticion : repeticion,
+					idUsuario : idUsuario,
+					idMascota : idMascota,
+					conRetiro : conRetiro,
+					observaciones : observaciones
+					}
+			var parametros = JSON.stringify(parametro);
+			//alert(parametros);
+			$.ajax({
+				type : "post",
+				url : "CargarDatosTurnoOnline",
+				data : {jsonData : parametros},
+				success : function(respuesta){
+					//alert(respuesta);
+					$(location).attr('href',"TurnoOnlinePaso2");
+					
+				}
+			}); 
 		
-	}
+		}
 	})
 	
 	$('#btnConfirmarTurno').click(function(e){
 		e.preventDefault();
-		
-		var proceso="alta";
-		var observaciones = $('#observaciones').val();
-		var parametro = {
-						proceso: proceso,
-						observaciones : observaciones
-						}
-		var parametros = JSON.stringify(parametro);
+
 		//alert(parametros);
 		$.ajax({
 			type : "post",
-			url : "ProcesarTurno",
-			data : {jsonData : parametros},
+			url : "ProcesarTurnoOnline",
 			success : function(respuesta){
 				//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
 				if (respuesta){
@@ -223,154 +221,5 @@ $(document).ready(function() {
 		}); 
 	})
 	
-	$('#btnContinuarModificacion').click(function(e){
-		e.preventDefault();
-		var variable = confirm("hola");
-		
-		var resultado = validarDatosTurno();
-		if(resultado){
-					//////////////////////PROCESAR TURNO///////////////////////////////
-			var tamanio,pelaje,servicio,fecha,horario="";
-			var conRetiro,resultado=false;
-			var repeticion="No";
-			var idUsuario,idMascota=0;
-			
-			//var pelaje="";
-			//var servicio="";
-			//var fecha="";
-			//var horario ="";
-			//var idMascota=0;
-			//var resultado = false;
-			
-			var validaTamanio = false;
-			if ($('#btnPatitaGrande').hasClass("icon-button-active")||$('#btnPatitaMediana').hasClass("icon-button-active")||$('#btnPatitaChica').hasClass("icon-button-active")){
-				validaTamanio = true;
-				if($('#btnPatitaGrande').hasClass("icon-button-active")){
-					tamanio="Grande";
-				}else{
-					if($('#btnPatitaMediana').hasClass("icon-button-active")){
-						tamanio="Mediano";
-					}else{
-						tamanio="Chico";
-					}
-				}
-			}
-			
-			var validaPelaje = false;
-			if($('#btnTijeraChica').hasClass("icon-button-active")||$('#btnTijeraGrande').hasClass("icon-button-active")){
-				validaPelaje=true;
-				if($('#btnTijeraGrande').hasClass("icon-button-active")){
-					pelaje ="Largo";
-				}else{
-					pelaje ="Corto";
-				}
-			}
-			var validaServicio=false;
-			if($('#servicio').val()!="servicio"){
-				validaServicio=true;
-				servicio=$('#servicio').val();
-			}
-			
-			conRetiro = $('#conRetiro').is(':checked');
-			
-			var validaFecha =false;
-			if($('#fechaSeleccionada').val()!=""){
-				validaFecha=true;
-				fecha = $('#fechaSeleccionada').val();
-			}
-			var validaHorario =false;
-			if($('#horario').val()!="horario"){
-				validaHorario=true;
-				horario = $('#horario').val();
-			}
-			
-			var validaRepetir = false;
-			if($('#repetir').is(':checked')){	
-				var opcionElegida=$('input[name=opcion]:checked').val();
-				if (opcionElegida == "Semanal" || opcionElegida == "Quincenal" || opcionElegida == "Mensual" ){
-					validaRepetir=true;
-					repeticion = $('input[name=opcion]:checked').val();
-				};
-			}else{
-				validaRepetir=true;
-			}
-			
-			var validaCliente=false;
-			if($('#idUsuario').val()!=""){
-				validaCliente=true;
-				idUsuario = $('#idUsuario').val();
-			}else {
-				if($('#idUsuario').data("value")!=""){
-					validaCliente=true;
-					idUsuario = $('#idUsuario').data("value");
-				}
-			}
-			
-			var validaMascota = false;
-			if($('#mascota').val()!="mascota"){
-				validaMascota = true;
-				idMascota = $('#mascota').val();
-			}
-			
-		var proceso = "modificacion";
-			var parametro = {
-					proceso : proceso,
-					tamanio : tamanio,
-					pelaje : pelaje,
-					servicio : servicio,
-					fecha : fecha,
-					horario : horario,
-					repeticion : repeticion,
-					idUsuario : idUsuario,
-					idMascota : idMascota,
-					conRetiro : conRetiro
-					}
-			var parametros = JSON.stringify(parametro);
-			//alert(parametros);
-			$.ajax({
-				type : "post",
-				url : "CargarDatosTurno",
-				data : {jsonData : parametros},
-				success : function(respuesta){
-					//alert(respuesta);
-					$(location).attr('href',"ModificarTurnoPaso2");
-					
-				}
-			}); 
-			
-		}
-	})
 	
-	$('#btnConfirmarModificacionTurno').click(function(e){
-		e.preventDefault();
-		
-		var proceso = "modificacion";
-		var observaciones = $('#observaciones').val();
-		var parametro = {
-						proceso : proceso,
-						observaciones : observaciones
-						}
-		var parametros = JSON.stringify(parametro);
-		//alert(parametros);
-		$.ajax({
-			type : "post",
-			url : "ProcesarTurno",
-			data : {jsonData : parametros},
-			success : function(respuesta){
-				//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
-				if (respuesta){
-					if(prompt("Turno modificado Exitosamente")==""){
-						$(location).attr('href','Turnos');
-					}
-				}else{
-					alert("Error al modificar el turno");
-				}
-			}
-		}); 
-	})
-	
-	$('#volverPaso1').click(function(e){
-		e.preventDefault();
-		$(location).attr('href','Turnos');
-	})
 })

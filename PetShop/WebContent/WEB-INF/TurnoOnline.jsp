@@ -36,7 +36,7 @@
 						
 					<div class="row col-md-12">	
 						<div class="selectContainer col-xs-12 col-sm-6" id="mascotaGroup">
-		    				<h4><strong>SELECCIONE MASCOTA</strong></h4>
+		    				<h4><strong class="text-muted">SELECCION&Aacute; UNA DE TUS MASCOTAS</strong></h4>
 		    				<select class="form-control" name="mascotaSeleccionada" id="mascota" aria-describedby="mascotaHelp">
 						    	<option value="mascota">Seleccion&aacute; una mascota</option>
 						    	<%ControladorDeMascota ctrlMascota = new ControladorDeMascota();
@@ -55,7 +55,7 @@
 				<div class="form-group">
 					<div class="row col-md-12">	
 						<div class="container-fluid">
-							<h4><strong>TIPO DE SERVICIO</strong></h4>
+							<h4><strong class="text-muted">ELEG&Iacute; QUE TIPO DE SERVICIO QUER&Eacute;S</strong></h4>
 						</div>
 						<div class="selectContainer col-xs-12 col-sm-8" id="servicioGroup">
 		    				<label class="sr-only">Selecciona un tipo de servicio</label>
@@ -83,11 +83,11 @@
 				<div class="form-group">			
 					<div class="row col-md-12">	
 						<div class="selectContainer col-xs-12 col-md-8" id="fechaGroup">
-		    				<h4><strong>SELECCIONE LA FECHA</strong></h4>
+		    				<h4><strong class="text-muted">SELECCION&Aacute; LA FECHA</strong></h4>
 		    				<input type="date" class="form-control" id="fechaSeleccionada"></input>
 						</div>
 						<div class="col-xs-12 col-md-4" id="horarioGroup">
-							<h4><strong>HORARIOS DISPONIBLES</strong></h4>
+							<h4><strong class="text-muted">ELEG&Iacute; EL HORARIO</strong></h4>
 							<label class="sr-only">Selecciona un horario</label>
 							<select class="form-control" name="horarioSeleccionado" id="horario" aria-describedby="horarioHelp" required>
 						    	<option value="horario">Seleccion&aacute; un horario</option>
@@ -121,7 +121,7 @@
 				<div class="form-group">				
 					<div class="row col-md-12">	
 						<div class="container ">
-							<h4><strong>CORROBORE SUS DATOS</strong></h4>
+							<h4><strong class="text-muted">CORROBOR&Aacute; TU INFORMACI&Oacute;N PERSONAL</strong></h4>
 						</div>
 						<div class="container-fluid">
 							<div class="table-responsive">
@@ -151,14 +151,16 @@
 					</div>
 				</div>
 				<hr>
-				<div class="form-group">				
-					<div class="row col-md-12">	
-						<div class="input-group">
-							<h4>Observaciones</h4>
-						</div>
-						<div class="form-group">
-							<div class="col-xs-12">
-								<textarea class="form-control" rows="5" id="observaciones" placeholder="Escrib&iacute; ac&aacute; los datos adicionales de ser necesarios"></textarea>
+				<div class="form-group">
+					<div class="container-fluid">
+						<div class="row col-md-12">	
+							<div class="input-group">
+								<h4><strong class="text-muted">ESCRIB&Iacute; LOS DATOS ADICIONALES QUE TE PAREZCA</strong></h4>
+							</div>
+							<div class="form-group">
+								<div class="col-xs-12">
+									<textarea class="form-control" rows="5" id="observaciones" placeholder="Escrib&iacute; ac&aacute; los datos adicionales de ser necesarios"></textarea>
+								</div>
 							</div>
 						</div>
 					</div>

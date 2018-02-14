@@ -49,13 +49,13 @@
 				<hr>
 			
 				<div class="table-responsive">
-					<table id="tabla" class="table table-striped table-hover">
+					<table id="tabla" class="table table-striped">
 						<thead>
 							<tr class="active">
 								<th>
 									<div class="imagen">
 										<label class="sr-only">Imagen</label>
-										<span>Imagen</span>
+										
 									</div>
 								</th>
 								<th class="hidden">
@@ -82,7 +82,7 @@
 								</th>
 								<th> 
 									<div class="input-group">
-										<span>Agregar </span>
+										
 									</div>
 								</th>
 							</tr>
@@ -136,6 +136,12 @@
 											<thead>
 												<tr class="active">
 													<th>
+														<div class="imagen">
+															<label class="sr-only">Imagen</label>
+															
+														</div>
+													</th>
+													<th class="hidden">
 														<div class="idProducto">
 															<label class="sr-only">Id Producto</label>
 															<span>Id Producto</span>
@@ -159,7 +165,7 @@
 													</th>
 													<th> 
 														<div class="'col-sm-3 col-lg-2 input-group">
-															<span>Agregar </span>
+															
 														</div>
 													</th>
 												</tr>

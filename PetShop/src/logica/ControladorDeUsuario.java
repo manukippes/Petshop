@@ -20,6 +20,7 @@ public class ControladorDeUsuario implements Serializable{
 	//			GETUSUARIOSLIKE (RECIBE UN STRING)
 	//			COMPLETAR LOS DATOS DEL USUARIO
 	//			BLANQUEAR USUARIO POR MAIL
+	//			VERIFICAR SI EXISTE MAIL
 	
 	public Usuario obtenerUsuario(Usuario user) throws Exception
 	{
@@ -65,9 +66,8 @@ public class ControladorDeUsuario implements Serializable{
 		return baseUsuario.getTodosUsuariosLike(inputCliente);
 	}
 
-	public boolean validarEmail(String email) throws Exception {
-		boolean bandera = baseUsuario.validarEmail(email);
-		return bandera;
+	public Boolean validarEmail(String email) throws Exception {
+		return baseUsuario.validarEmail(email);
+		
 	}
-	
 }

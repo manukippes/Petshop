@@ -15,6 +15,8 @@ public class ControladorDeMascota implements Serializable{
 	
 	//			GET MASCOTAS (CLIENTE)
 	//			GET MASCOTA (RECUPERA DATOS)
+	//			AGERGAR MASCOTA
+	//			ELIMINAR MASCOTA
 	
 	
 	public ArrayList<Mascota> getMascotas(Usuario cliente) throws Exception{
@@ -27,6 +29,11 @@ public class ControladorDeMascota implements Serializable{
 	
 	public boolean agregarMascota(Mascota mascota) throws Exception{
 		boolean respuesta = baseMascota.agregarMascota(mascota);
+		return respuesta;
+	}
+	
+	public boolean eliminarMascota(Mascota mascota) throws Exception{
+		boolean respuesta = baseMascota.eliminarMascota(mascota);
 		return respuesta;
 	}
 }

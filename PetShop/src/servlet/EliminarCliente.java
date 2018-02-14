@@ -47,6 +47,7 @@ public class EliminarCliente extends HttpServlet {
 		String json = request.getParameter("jsonData");
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
 		int idCliente = (int) cliente.get("idCliente").getAsInt();
+		int resp = 0;
 		
         ControladorDeUsuario ctrlCliente = new ControladorDeUsuario();
         Usuario cli = new Usuario();
@@ -54,9 +55,10 @@ public class EliminarCliente extends HttpServlet {
         
         try{
         	if(ctrlCliente.eliminarUsuario(cli)){
-                response.getWriter().println("Cliente eliminado exitosamente");
+        		resp = 1;
+                response.getWriter().println(resp);
             }else{
-                response.getWriter().println("ERROR al eliminar el cliente");
+                response.getWriter().println(resp);
             }
         }catch (Exception e){
         	e.printStackTrace();

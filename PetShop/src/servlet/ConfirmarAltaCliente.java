@@ -45,6 +45,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
 		boolean bandera = false;
+		int resp;
 	
 		String json = request.getParameter("jsonData");
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
@@ -59,8 +60,6 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		
 		try 
 		{
-			boolean emailValido = ctrlUsuario.validarEmail(email);
-			if(emailValido){
 				usu.setNombre(nombre);
 				usu.setApellido(apellido);
 				usu.setDni(dni);
@@ -71,8 +70,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				usu.setTipoUsuario("Online");
 				usu = ctrlUsuario.agregarUsuario(usu);
 				bandera = true;
-				
-				
+
 				JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
 				if(!(mascotas.isJsonNull()))
 				{
@@ -109,25 +107,25 @@ public class ConfirmarAltaCliente extends HttpServlet {
 						 }
 					} 
 					catch (Exception e) {
-						response.getWriter().println(false);
+						resp=0;
+						response.getWriter().println(resp);
 						e.printStackTrace();
 					}
 			}
-			
-		  }else{
-			  bandera = false;
-		  }
-			
 		}
 		catch (Exception e1) {
-		response.getWriter().println(false);
+		resp=0;
+		response.getWriter().println(resp);
 		e1.printStackTrace();
 		}
 		
+		
 		if(bandera){
-			 response.getWriter().println(true);	
+			resp = 1;
+			 response.getWriter().println(resp);	
 		 }else{
-			 response.getWriter().println(false);
+			 resp = 0;
+			 response.getWriter().println(resp);
 		 }
 	}
 }

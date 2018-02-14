@@ -51,6 +51,7 @@ public class ModificarCliente extends HttpServlet {
     	String json = request.getParameter("jsonData");
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
 		int idCliente = (int) cliente.get("idCliente").getAsInt();
+		int resp = 0;
     	
     	ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
     	Usuario clienteActual = new Usuario();
@@ -59,9 +60,10 @@ public class ModificarCliente extends HttpServlet {
     	
     	try {
 			clienteActual = ctrlUsuario.getUsuario(clienteActual);	
-			response.getWriter().println(true);
+			resp=1;
+			response.getWriter().println(resp);
 		} catch (Exception e) {
-			response.getWriter().println(false);	
+			response.getWriter().println(resp);	
 			e.printStackTrace();
 		}
     	request.getSession().setAttribute("cliente", clienteActual);

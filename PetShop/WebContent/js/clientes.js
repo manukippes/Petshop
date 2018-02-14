@@ -13,6 +13,9 @@ function limpiarCampos(){
 	$("#email").val("");
 	$('#tablaMascota').addClass("hidden");
 	$('#tablaMascota > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
+	$('#emailValido').remove();
+	presionoValidar = false;
+	valido = false;
 	
 }
 function limpiarCamposModal(){
@@ -104,8 +107,17 @@ function validar(){
 } 
 
 $(document).ready(function() {
-	//if (($("tablaMascota").hasClass('hidden'))) {
-
+	
+			$("#email").change(function(){
+				$('#emailValido').remove();
+				presionoValidar = false;
+				valido = false;
+				
+			})
+				var presionoValidar = false;
+				var valido = false;
+			
+			
 			//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
 			$(this).on("click","#btnPatitaGrande",function(e){
 				e.preventDefault();
@@ -288,50 +300,60 @@ $(document).ready(function() {
 			})		
 		}
 		
-		if(resultado){
-			
-			var nombre = $("#nombre").val();
-			var apellido = $("#apellido").val();
-			var dni = $("#dni").val();
-			var direccion = $("#direccion").val();
-			var telefono = $("#telefono").val();
-			var email = $("#email").val();
-			var habilitado = 0;
-			if($("#habilitado").is(':checked')){
-				habilitado = 1;
-			};
-			
-			var parametro = {
-				nombre : nombre,
-				apellido : apellido,
-				dni : dni,
-				direccion : direccion,
-				telefono : telefono,
-				email : email,
-				habilitado : habilitado,
-				arregloMascotas : arregloMascotas	
-			}
-			
-		}
-		var parametros = JSON.stringify(parametro);
-		limpiarCampos();
-		
-		$.ajax({
-				url : "ConfirmarAltaCliente",
-				type : "post",
-				data : {jsonData : parametros},
-				success : function(data){
-					if (data == "true")
-					{
-						confirm("Se agreg&oacute; el cliente correctamente.");
-					} 
-					else
-					{
-						alert("No se pudo agregar el cliente.");
+		if(resultado)
+		{
+			if(presionoValidar)
+			{
+				if( valido){
+					var nombre = $("#nombre").val();
+					var apellido = $("#apellido").val();
+					var dni = $("#dni").val();
+					var direccion = $("#direccion").val();
+					var telefono = $("#telefono").val();
+					var email = $("#email").val();
+					var habilitado = 0;
+					if($("#habilitado").is(':checked')){
+						habilitado = 1;
+					};
+					
+					var parametro = {
+						nombre : nombre,
+						apellido : apellido,
+						dni : dni,
+						direccion : direccion,
+						telefono : telefono,
+						email : email,
+						habilitado : habilitado,
+						arregloMascotas : arregloMascotas	
 					}
-                    
+					
+				
+					var parametros = JSON.stringify(parametro);
+					limpiarCampos();
+					
+					$.ajax({
+							url : "ConfirmarAltaCliente",
+							type : "post",
+							data : {jsonData : parametros},
+							success : function(data){
+								if (data == 1)
+								{
+									confirm("Se agreg&oacute; el cliente correctamente.");
+								} 
+								else
+								{
+									alert("No se pudo agregar el cliente.");
+								}
+			                    
+							}
+					})
+				}else{
+					alert("Debe ingresar un email v&aacute;lido.");
 				}
-		})
+			}else{
+				alert("Debe validar el email antes de confirmar el alta del cliente.");
+			}
+		}
 	})
 	
 	//CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL
@@ -377,7 +399,7 @@ $(document).ready(function() {
 				type : "post",
 				data : {jsonData : parametros},
 				success : function(data){
-					if (data)
+					if (data == 1)
 					{
 						$(location).attr('href','ModificarClienteConDatos');
 					} 
@@ -408,9 +430,9 @@ $(document).ready(function() {
 				type : "post",
 				data : {jsonData : parametros},
 				success : function(data){
-					if (data)
+					if (data ==1)
 					{
-						confirm("Se elimino el cliente.");
+						confirm("Se elimin&oacute; el cliente.");
 					} 
 					else
 					{
@@ -422,6 +444,42 @@ $(document).ready(function() {
 		}
 		
 	})
+	
+	//VALIDAR EMAIL
+	$(this).on("click", "#btnValidar", function(e){
+	    e.preventDefault();
+		$('#emailValido').remove();
+		
+		var email = $('#email').val();
+		if(email!=""){
+			presionoValidar = true;
+			var parametro = {email: email}			
+			var parametros = JSON.stringify(parametro);		
+			 $.ajax({
+					url : "ValidarMail",
+					type : "post",
+					data : {jsonData : parametros},
+					success : function(data){
+						if (data == 1)
+						{
+							valido = true;
+							presionoValidar = true;
+							$("<small class='form-text text-muted text-success' id='emailValido'> Direcci&oacute;n de email v&aacute;lida</small>").insertAfter("#btnValidar");
+						} 
+						else
+						{
+							presionoValidar = false;
+							valido = false;
+							$("<small class='form-text text-muted text-danger' id='emailValido'> La direcci&oacute;n de email ya se encuentra registrada</small>").insertAfter("#btnValidar");
+						}
+	                    
+					}
+		        })
+		}else{
+			presionoValidar = false;
+			alert("Primero debe ingresar un email para validarlo.")
+			}
+	}); 
 
 });
 	

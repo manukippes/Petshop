@@ -76,6 +76,7 @@
 							    <div class="col-lg-6 col-md-12" id="emailGroup">
 							    	<small id="emailHelp" class="form-text text-muted"><strong>Email</strong></small>
 							    	<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Ingres&aacute; el email del cliente a dar de alta">
+									<button class="btn btn-success btn-xs" id="btnValidar">Validar</button>
 								</div>
 						</div>
 						<hr>

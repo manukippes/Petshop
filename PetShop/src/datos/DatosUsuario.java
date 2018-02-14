@@ -398,7 +398,7 @@ public class DatosUsuario implements Serializable{
 					"SELECT * FROM usuario WHERE email = ?");
 			ps.setString(1, email);
 			rs = ps.executeQuery();
-			if(rs!= null && rs.next()){
+			if(rs.absolute(1)){
 				return false;
 			}else{
 				return true;	

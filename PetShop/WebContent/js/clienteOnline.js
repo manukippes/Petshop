@@ -11,6 +11,9 @@ function resaltarCampo(campo,nombre){
 
 /// LIMPIAR CAMPOS UNA VEZ QUE SE AGREGO EL CLIENTE Y SU MASCOTA ///
 function limpiarCampos(){
+	$("#usuario").val("");
+	$("#contrasenia").val("");
+	$("#contraseniaRepetir").val("");
 	$("#nombre").val("");
 	$("#apellido").val("");
 	$("#dni").val("");
@@ -18,19 +21,19 @@ function limpiarCampos(){
 	$("#telefono").val("");
 	$("#email").val("");
 	$('#tablaMascota').addClass("hidden");
-	$('#tablaMascota > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
-	$('#emailValido').remove();
-	presionoValidar = false;
-	valido = false;
-	
+	$('#tablaMascota > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO	
 }
 function limpiarCamposModal(){
 		$(".nombreMascota").val("");
 		$('#btnPatitaGrande').removeClass("icon-button-active");
 		$('#btnPatitaMediana').removeClass("icon-button-active");
 		$('#btnPatitaChica').removeClass("icon-button-active");
-		$('#btnTijeraChica').removeClass("icon-button-active")
-		$('#btnTijeraGrande').removeClass("icon-button-active")
+		$('#btnTijeraChica').removeClass("icon-button-active");
+		$('#btnTijeraGrande').removeClass("icon-button-active");
+		$('#completartamanio').remove();
+		$('#completarpelaje').remove();
+		$('#completarfechanacimiento').remove();
+		$('#completarnombreMascota').remove();
 		$("#fechaNacimientoMascota").val("");
 		$("#observacionesMascota").val("");	
 }
@@ -209,26 +212,19 @@ $(document).ready(function() {
 								else
 								{
 									$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
-								}
-			                    
-							}
-					//presionoValidar = false;
-					//valido = false;
-					
+								}  
+							}					
 				})
 			    } else {
 			    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
 			    }
-			})
-				
-				//var presionoValidar = false;
-				//var valido = false;
-			
+			})			
 			
 			//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
 			$(this).on("click","#btnPatitaGrande",function(e){
 				e.preventDefault();
 				$('#patitaGroup').removeClass("con-error");
+				$('#completartamanio').remove();
 				$('#btnPatitaGrande').addClass("icon-button-active");
 				$('#btnPatitaMediana').removeClass("icon-button-active");
 				$('#btnPatitaChica').removeClass("icon-button-active");
@@ -238,6 +234,7 @@ $(document).ready(function() {
 			$(this).on("click","#btnPatitaMediana",function(e){
 				e.preventDefault();
 				$('#patitaGroup').removeClass("con-error");
+				$('#completartamanio').remove();
 				$('#btnPatitaGrande').removeClass("icon-button-active");
 				$('#btnPatitaMediana').addClass("icon-button-active");
 				$('#btnPatitaChica').removeClass("icon-button-active");
@@ -247,6 +244,7 @@ $(document).ready(function() {
 			$(this).on("click","#btnPatitaChica",function(e){
 				e.preventDefault();
 				$('#patitaGroup').removeClass("con-error");
+				$('#completartamanio').remove();
 				$('#btnPatitaGrande').removeClass("icon-button-active");
 				$('#btnPatitaMediana').removeClass("icon-button-active");
 				$('#btnPatitaChica').addClass("icon-button-active");
@@ -256,6 +254,7 @@ $(document).ready(function() {
 			$(this).on("click","#btnTijeraGrande",function(e){
 				e.preventDefault();
 				$('#pelajeGroup').removeClass("con-error");
+				$('#completarpelaje').remove();
 				$('#btnTijeraGrande').addClass("icon-button-active");
 				$('#btnTijeraChica').removeClass("icon-button-active");	
 			})
@@ -263,29 +262,28 @@ $(document).ready(function() {
 			$(this).on("click","#btnTijeraChica",function(e){
 				e.preventDefault();
 				$('#pelajeGroup').removeClass("con-error");
+				$('#completarpelaje').remove();
 				$('#btnTijeraGrande').removeClass("icon-button-active");
 				$('#btnTijeraChica').addClass("icon-button-active");
 			
 			})
-	//}
 			
 			$(this).on("click", ".btnQuitarMascota", function(e){
-	    e.preventDefault();
-	    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
-		var fila =$(this).parent().parent().parent()
-
-		fila.remove();
+			    e.preventDefault();
+			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+				var fila =$(this).parent().parent().parent()
 		
-		});
-			
-	
-	
+				fila.remove();
+				
+			});	
 	
 	$(this).on("click", "#nombreMascotaGroup", function(e){
 	    $('#nombreMascotaGroup').removeClass("has-error"); 
+	    $('#completarnombreMascota').remove();
 	})
 	$(this).on("click", "#fechaNacimientoMascotaGroup", function(e){
 	    $('#fechaNacimientoMascotaGroup').removeClass("has-error"); 
+	    $('#completarfechanacimiento').remove();
 	})
 	
 	
@@ -312,8 +310,6 @@ $(document).ready(function() {
 	    	validaFecha = true;
 	    }
 		
-		
-		
 		var respuesta = false;
 		
 	    if(validaNombre){
@@ -326,17 +322,16 @@ $(document).ready(function() {
 	    				 
 	    				 respuesta = true;	
 	    			 
-	    			 }else {alert("Para agregar primero debes ingresar la fecha de nacimiento");
+	    			 }else {$("<small class='form-text text-muted text-danger' id='completarfechanacimiento'>Debes ingresar la fecha de nacimiento</small>").insertAfter("#fechaNacimientoMascota");
 	    			 	$('#fechaNacimientoMascotaGroup').addClass("has-error");}
 	    			 
-	    		 }else{alert("Para agregar primero debes seleccionar un pelaje de la mascota");
+	    		 }else{$("<small class='form-text text-muted text-danger' id='completarpelaje'>Debes seleccionar un largo de pelaje</small>").insertAfter("#pelajeGroup");
 	    		 $('#pelajeGroup').addClass("con-error");}
 	    	
-	    	}else{alert("Para agregar primero debes seleccionar un tamaño de la mascota");
+	    	}else{$("<small class='form-text text-muted text-danger' id='completartamanio'>Debes seleccionar un tama&ntilde;o</small>").insertAfter("#patitaGroup");
 	    	$('#patitaGroup').addClass("con-error");}
 			
-		}else {alert("Para agregar primero debes ingresar un nombre");
-		$('#nombreMascotaGroup').addClass("has-error");}
+		}else {resaltarCampo("nombreMascota","Nombre de la Mascota")}
 			
 		if (respuesta){			
 	        
@@ -379,8 +374,8 @@ $(document).ready(function() {
 	        
 			$('#agregarMascota').modal('toggle');
 	        $('#tablaMascota').removeClass("hidden");
+	        limpiarCamposModal();
 			}	        
-	       limpiarCamposModal();
 		})
 		
 	/// ALTA DE CLIENTE ///
@@ -409,57 +404,51 @@ $(document).ready(function() {
 		
 		if(resultado)
 		{
-			if(presionoValidar)
-			{
-				if( valido){
-					var nombre = $("#nombre").val();
-					var apellido = $("#apellido").val();
-					var dni = $("#dni").val();
-					var direccion = $("#direccion").val();
-					var telefono = $("#telefono").val();
-					var email = $("#email").val();
-					var habilitado = 0;
-					if($("#habilitado").is(':checked')){
-						habilitado = 1;
-					};
-					
-					var parametro = {
-						nombre : nombre,
-						apellido : apellido,
-						dni : dni,
-						direccion : direccion,
-						telefono : telefono,
-						email : email,
-						habilitado : habilitado,
-						arregloMascotas : arregloMascotas	
-					}
-					
-				
-					var parametros = JSON.stringify(parametro);
-					limpiarCampos();
-					
-					$.ajax({
-							url : "ConfirmarAltaCliente",
-							type : "post",
-							data : {jsonData : parametros},
-							success : function(data){
-								if (data == 1)
-								{
-									confirm("Se agreg&oacute; el cliente correctamente.");
-								} 
-								else
-								{
-									alert("No se pudo agregar el cliente.");
-								}
-			                    
-							}
-					})
-				}else{
-					alert("Debe ingresar un email v&aacute;lido.");
-				}
-			}else{
-				alert("Debe validar el email antes de confirmar el alta del cliente.");
+			var usuario = $("#usuario").val();
+			var password = $("#contrasenia").val();
+			var nombre = $("#nombre").val();
+			var apellido = $("#apellido").val();
+			var dni = $("#dni").val();
+			var direccion = $("#direccion").val();
+			var telefono = $("#telefono").val();
+			var email = $("#email").val();
+			var habilitado = 1;
+			
+			var parametro = {
+				usuario : usuario,
+				password : password,
+				nombre : nombre,
+				apellido : apellido,
+				dni : dni,
+				direccion : direccion,
+				telefono : telefono,
+				email : email,
+				habilitado : habilitado,
+				arregloMascotas : arregloMascotas	
 			}
+			
+		
+			var parametros = JSON.stringify(parametro);
+			limpiarCampos();
+			
+			$.ajax({
+					url : "ConfirmarAltaCliente",
+					type : "post",
+					data : {jsonData : parametros},
+					success : function(data){
+						if (data == 1)
+						{
+							if(confirm("Se agreg&oacute; el cliente correctamente")!=""){
+								$(location).attr('href','index.html');
+							}
+						} 
+						else
+						{
+							prompt("No se pudo agregar el cliente.");
+						}
+	                    
+					}
+			})
 		}
 	})
 	

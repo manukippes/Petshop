@@ -213,8 +213,15 @@ $(document).ready(function() {
 								else
 								{
 									$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
+<<<<<<< HEAD
 								}  
 							}					
+=======
+								}
+			                    
+							}
+	
+>>>>>>> branch 'master' of https://github.com/emmanuelkippes/Petshop.git
 				})
 			    } else {
 			    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");

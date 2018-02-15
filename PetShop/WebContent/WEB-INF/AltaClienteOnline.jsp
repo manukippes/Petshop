@@ -94,7 +94,7 @@
 								<label class="sr-only">Tel&eacute;fono</label>
 							    <div class="col-lg-6 col-md-12" id="telefonoGroup">
 							    	<small id="direccionHelp" class="form-text text-muted"><strong>Tel&eacute;fono*</strong></small>
-							    	<input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingres&aacute; tu tel&eacute;fono, sin guiones ni espacios">
+							    	<input type="text" class="form-control telefono" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingres&aacute; tu tel&eacute;fono, sin guiones ni espacios">
 								</div>
 						         	
 			            	<!-- Input de email-->

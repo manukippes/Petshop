@@ -39,7 +39,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-								<span class="fa fa-user-circle"></span> <%= ((Usuario) session.getAttribute("user")).getNombre() %> <span class="caret"></span>
+								<span class="fa fa-user-circle"></span> <%= usuarioNavbar.getNombre() %> <span class="caret"></span>
 							</a>
 						
 							<ul class="dropdown-menu" role="menu">
@@ -80,7 +80,7 @@
 						<li><a href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span> Mi Carrito <span class="badge" id="articulosCarrito">0</span></a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-								<span class="fa fa-user-circle"></span> <%= ((Usuario) session.getAttribute("user")).getNombre() %> <span class="caret"></span>
+								<span class="fa fa-user-circle"></span> <%= usuarioNavbar.getNombre() %> <span class="caret"></span>
 							</a>
 						
 							<ul class="dropdown-menu" role="menu">

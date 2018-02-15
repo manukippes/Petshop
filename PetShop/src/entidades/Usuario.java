@@ -1,6 +1,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Usuario implements Serializable{
@@ -13,7 +14,7 @@ public class Usuario implements Serializable{
 	private String tipoUsuario;
 	private int dni;
 	private String direccion;
-	private int telefono;
+	private String telefono;
 	private String email;
 	private int legajo;
 	private String tipoEmpleado;
@@ -80,10 +81,10 @@ public class Usuario implements Serializable{
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public String getEmail() {

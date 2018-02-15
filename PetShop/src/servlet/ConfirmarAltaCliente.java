@@ -1,11 +1,10 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,7 +60,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 			dni = Integer.parseInt(dniParametro);
 		}
 		String direccion = (String) cliente.get("direccion").getAsString();
-		int telefono = (int) cliente.get("telefono").getAsInt();
+		String telefono = (String) cliente.get("telefono").getAsString();
 		String email = (String) cliente.get("email").getAsString();
 		int habilitado = (int) cliente.get("habilitado").getAsInt();
 		
@@ -77,10 +76,10 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				usu.setEmail(email);
 				usu.setEstado(habilitado);
 				usu.setTipoUsuario("Online");
+				usu.setMascotas(new ArrayList<Mascota>());
 				usu = ctrlUsuario.agregarUsuario(usu);
 				if(!usuario.equals("")){
-					request.setAttribute("Username", usuario);
-					request.setAttribute("Password", password);
+					request.getSession().setAttribute("user", usu);
 				}
 				bandera = true;
 

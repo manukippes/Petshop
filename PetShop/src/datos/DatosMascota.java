@@ -46,7 +46,6 @@ public class DatosMascota implements Serializable{
 			pstm.executeUpdate();
 			rs=pstm.getGeneratedKeys();
 			if(rs!=null && rs.next()){
-				System.out.println("Algo fallo");
 				mascota.setIdMascota(rs.getInt(1));
 			}
 		} catch (Exception e) {

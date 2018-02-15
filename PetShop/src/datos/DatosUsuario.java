@@ -45,7 +45,7 @@ public class DatosUsuario implements Serializable{
 			pstm.setString(7, user.getTipoUsuario());
 			pstm.setInt(8, user.getDni());
 			pstm.setString(9, user.getDireccion());
-			pstm.setInt(10, user.getTelefono());
+			pstm.setString(10, user.getTelefono());
 			pstm.setString(11, user.getEmail());
 			pstm.setInt(12, user.getLegajo());
 			pstm.setString(13, user.getTipoEmpleado());
@@ -85,7 +85,7 @@ public class DatosUsuario implements Serializable{
 			pstm.setString(6, user.getTipoUsuario());
 			pstm.setInt(7, user.getDni());
 			pstm.setString(8, user.getDireccion());
-			pstm.setInt(9, user.getTelefono());
+			pstm.setString(9, user.getTelefono());
 			pstm.setString(10, user.getEmail());
 			pstm.setInt(11, user.getLegajo());
 			pstm.setString(12, user.getTipoEmpleado());
@@ -134,7 +134,7 @@ public class DatosUsuario implements Serializable{
 					usuario.setTipoUsuario(rs.getString("tipoUsuario"));
 					usuario.setDni(rs.getInt("dni"));
 					usuario.setDireccion(rs.getString("direccion"));
-					usuario.setTelefono(rs.getInt("telefono"));
+					usuario.setTelefono(rs.getString("telefono"));
 					usuario.setEmail(rs.getString("email"));
 					usuario.setLegajo(rs.getInt("legajo"));
 					usuario.setTipoEmpleado(rs.getString("tipoEmpleado"));
@@ -225,7 +225,7 @@ public class DatosUsuario implements Serializable{
 					usuarioActual.setTipoUsuario(rs.getString("tipoUsuario"));
 					usuarioActual.setDni(rs.getInt("dni"));
 					usuarioActual.setDireccion(rs.getString("direccion"));
-					usuarioActual.setTelefono(rs.getInt("telefono"));
+					usuarioActual.setTelefono(rs.getString("telefono"));
 					usuarioActual.setEmail(rs.getString("email"));
 					usuarioActual.setLegajo(rs.getInt("legajo"));
 					usuarioActual.setTipoEmpleado(rs.getString("tipoEmpleado"));
@@ -272,7 +272,7 @@ public class DatosUsuario implements Serializable{
 					usuario.setTipoUsuario(rs.getString("tipoUsuario"));
 					usuario.setDni(rs.getInt("dni"));
 					usuario.setDireccion(rs.getString("direccion"));
-					usuario.setTelefono(rs.getInt("telefono"));
+					usuario.setTelefono(rs.getString("telefono"));
 					usuario.setEmail(rs.getString("email"));
 					usuario.setLegajo(rs.getInt("legajo"));
 					usuario.setTipoEmpleado(rs.getString("tipoEmpleado"));
@@ -368,7 +368,7 @@ public class DatosUsuario implements Serializable{
 					usuarioActual.setTipoUsuario(rs.getString("tipoUsuario"));
 					usuarioActual.setDni(rs.getInt("dni"));
 					usuarioActual.setDireccion(rs.getString("direccion"));
-					usuarioActual.setTelefono(rs.getInt("telefono"));
+					usuarioActual.setTelefono(rs.getString("telefono"));
 					usuarioActual.setEmail(rs.getString("email"));
 					usuarioActual.setLegajo(rs.getInt("legajo"));
 					usuarioActual.setTipoEmpleado(rs.getString("tipoEmpleado"));

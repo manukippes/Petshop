@@ -308,8 +308,12 @@ $(document).ready(function() {
 					if($("#habilitado").is(':checked')){
 						habilitado = 1;
 					};
+					var usuario = "null";
+					var password = "null";
 					
 					var parametro = {
+						usuario : usuario,
+						password : password,
 						nombre : nombre,
 						apellido : apellido,
 						dni : dni,

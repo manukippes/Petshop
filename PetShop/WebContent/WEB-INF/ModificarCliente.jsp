@@ -36,7 +36,6 @@
 		            	<% 
 		            	Usuario cli = ((Usuario) session.getAttribute("cliente")); 
 		            	ArrayList<Mascota> listadoMascota = cli.getMascotas();
-		            	System.out.println(listadoMascota);
 		            	%>
 		            	  	<!-- Input de nombre -->
 			            		<label class="sr-only">Nombre</label>

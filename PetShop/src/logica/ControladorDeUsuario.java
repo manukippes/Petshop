@@ -1,5 +1,6 @@
 package logica;
 
+import entidades.Mascota;
 import entidades.Usuario;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import datos.DatosUsuario;
 
 public class ControladorDeUsuario implements Serializable{
 	private DatosUsuario baseUsuario = new DatosUsuario();
+	private ControladorDeMascota ctrlMasco = new ControladorDeMascota();
 	
 	//METODOS IMPLEMENTADOS
 	
@@ -49,7 +51,10 @@ public class ControladorDeUsuario implements Serializable{
 	}
 	public Usuario getUsuario(Usuario user) throws Exception
 	{
-		return baseUsuario.getUsuario(user);
+		Usuario usu = new Usuario();
+		usu = baseUsuario.getUsuario(user);
+		usu.setMascotas(ctrlMasco.getMascotas(usu));
+		return usu;
 	}
 	public boolean blanquearUsuario(String email,String nuevoUsuario, String nuevoPass) throws Exception{
 		return baseUsuario.blanquearUsuario(email,nuevoUsuario,nuevoPass);

@@ -125,7 +125,6 @@ public class DatosMascota implements Serializable{
 					mascotaActual.setTipoMascota(tipoMascota);							//SETEO EL TIPO DE MASCOTA
 					
 					mascotas.add(mascotaActual);										//AGREGO LA MASCOTA AL ARRAYLIST
-					System.out.println(mascotas);
 				}
 				
 			}

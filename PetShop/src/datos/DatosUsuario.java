@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.logging.log4j.Level;
 
@@ -12,18 +13,20 @@ import entidades.Mascota;
 import entidades.Usuario;
 import logica.ControladorDeMascota;
 import utilidades.ExcepcionEspecial;
+import utilidades.RandomString;
 
 public class DatosUsuario implements Serializable{
 	
 	//METODOS IMPLEMENTADOS:
 	//						AGREGAR USUARIO
 	//						MODIFICAR USUARIO
-	//						VALIDAR USUARIO POR NOMBRE Y PASS OBTENER USUARIO
+	//						VALIDAR USUARIO POR NOMBRE Y PASS OBTENER USUARIO HABILITADO
 	//						ELIMINAR USUARIO
 	//						GETUSUARIOSLIKE(RECIBE UN STRING)
 	// 						COMPLETAR DATOS DEL USUARIO
 	//						BLANQUEAR USUARIO
 	//						VERIFICAR SI EXISTE MAIL
+	//						VALIDAR USUARIO POR NOMBRE Y PASS OBTENER USUARIO
 	
 
 	public Usuario agregarUsuario (Usuario user) throws Exception
@@ -46,7 +49,14 @@ public class DatosUsuario implements Serializable{
 			pstm.setInt(8, user.getDni());
 			pstm.setString(9, user.getDireccion());
 			pstm.setString(10, user.getTelefono());
-			pstm.setString(11, user.getEmail());
+			if (user.getEmail().equals("")){
+				RandomString gen = new RandomString(12, ThreadLocalRandom.current());
+				String emailRandom = gen.nextString();
+				pstm.setString(11, emailRandom);
+			}else{
+				pstm.setString(11, user.getEmail());
+			}
+			
 			pstm.setInt(12, user.getLegajo());
 			pstm.setString(13, user.getTipoEmpleado());
 			pstm.executeUpdate();
@@ -109,7 +119,7 @@ public class DatosUsuario implements Serializable{
 		
 	}
 	
-	public Usuario obtenerUsuario(Usuario user) throws Exception, ExcepcionEspecial{
+	public Usuario obtenerUsuarioHabilitado(Usuario user) throws Exception, ExcepcionEspecial{
 		
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -414,5 +424,53 @@ public class DatosUsuario implements Serializable{
 		return bandera;
 		
 	}
-	
+public Usuario obtenerUsuario(Usuario user) throws Exception, ExcepcionEspecial{
+		
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Usuario usuario=null;
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM usuario WHERE usuarioLogin=? AND password=?");
+			pstm.setString(1, user.getUsuarioLogin());
+			pstm.setString(2, user.getPassword());
+			rs=pstm.executeQuery();
+			if(rs!=null)
+			{	rs.next();
+					usuario = new Usuario();
+					usuario.setIdUsuario(rs.getInt("idUsuario"));
+					usuario.setUsuarioLogin(rs.getString("usuarioLogin"));
+					usuario.setPassword(rs.getString("password"));
+					usuario.setNombre(rs.getString("nombre"));
+					usuario.setApellido(rs.getString("apellido"));
+					usuario.setEstado(rs.getInt("estado"));
+					usuario.setTipoUsuario(rs.getString("tipoUsuario"));
+					usuario.setDni(rs.getInt("dni"));
+					usuario.setDireccion(rs.getString("direccion"));
+					usuario.setTelefono(rs.getString("telefono"));
+					usuario.setEmail(rs.getString("email"));
+					usuario.setLegajo(rs.getInt("legajo"));
+					usuario.setTipoEmpleado(rs.getString("tipoEmpleado"));
+			}
+			else{
+				throw new Exception();
+				
+			}
+		} catch (SQLException exc) {
+			
+			throw new ExcepcionEspecial(exc,"No es posible buscar una persona en la base de datos", Level.ERROR);	
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(pstm!=null)pstm.close();
+			if(rs!=null)rs.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return usuario;
+	}
 }

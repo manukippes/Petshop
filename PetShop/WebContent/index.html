@@ -23,7 +23,7 @@
 						  		<i class="fa fa-user" aria-hidden="true"></i>
 						  	</div>
 						  	<label class="sr-only">Usuario</label>
-						  	<input type="text" class="form-control" name="Username" placeholder="Ingres&aacute; tu usuario" required="" autofocus="" />
+						  	<input type="text" class="form-control" name="Username" placeholder="Ingres&aacute; tu usuario" id="username" required autofocus />
 						</div>
 						  
 						<div class="input-group mb-2 mr-sm-2 mb-sm-2">
@@ -31,10 +31,10 @@
 						  		<i class="fa fa-lock" aria-hidden="true"></i>
 						  	</div>
 						  	<label class="sr-only">Password</label>
-						  	<input type="password" class="form-control" name="Password" placeholder="Ingres&aacute; tu contraseña" required>    		  
+						  	<input type="password" class="form-control" name="Password" placeholder="Ingres&aacute; tu contraseña" id="password" required>    		  
 						</div>
 						
-						<button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit"><strong>INGRESAR</strong></button> 
+						<button class="btn btn-lg btn-primary btn-block" id="btnIngresar" name="Submit" value="Login" type="Submit"><strong>INGRESAR</strong></button> 
 						<br>
 						<div class="text-center">
 							<small>
@@ -113,6 +113,7 @@
 								</div>
 							</div>
 						</div>
+						<br id="mensajeError">
 					</form>	
 				</div>
 			</div>		

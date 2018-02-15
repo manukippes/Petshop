@@ -10,6 +10,52 @@ function resaltarCampo(campo,nombre){
 	}
 }
 
+function validarEmail(){
+	
+	$('#completaremail').remove();
+	$("#emailGroup").removeClass("has-error");
+	
+	var validaMail= false;
+	
+	var email = $('#email').val();
+	
+	emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    
+    if (emailRegex.test(email)) {
+    	validaMail=true;
+    } else {
+    	validaMail = false;
+    }
+    
+    if(validaMail){ 
+    	var parametro = { email : email }
+		var parametros = JSON.stringify(parametro);
+		
+		$.ajax({
+				url : "ValidarMail",
+				type : "post",
+				data :  {jsonData : parametros},
+				success : function(data){
+					if (data == 1)
+					{
+						$("#emailGroup").addClass("has-error");
+						$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+						return false;
+					} 
+					else
+					{
+						$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
+						return true;
+					}           
+				}
+		})
+    } else {
+    	$("#emailGroup").addClass("has-error");
+    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
+    	return false;
+    }
+}
+
 /// LIMPIAR CAMPOS UNA VEZ QUE SE AGREGO EL CLIENTE Y SU MASCOTA ///
 function limpiarCampos(){
 	$("#usuario").val("");
@@ -41,7 +87,7 @@ function limpiarCamposModal(){
 
 /// VALIDO QUE LOS DATOS OBLIGATORIOS DEL CLIENTE ESTEN COMPLETOS ///
 function validar(){
-	var nombre, apellido, telefono,usuario,contrasenia,contraseniaRepetir,telefonoValido,dniValido;
+	var nombre, apellido, telefono,usuario,contrasenia,contraseniaRepetir,telefonoValido,dniValido,emailValido;
 	
 	var pass = $("#contrasenia").val();
 	var pass2 = $("#contraseniaRepetir").val();
@@ -81,6 +127,15 @@ function validar(){
 		dniValido=false;
 		
 	}
+	emailValido = true;
+	$('#completaremail').remove();
+	
+	if($('#email').val()!=""){
+		emailValido = validarEmail();
+	}
+	
+	
+	
 	
 	if(usuario){
 		if(contrasenia){
@@ -90,8 +145,15 @@ function validar(){
 						if (apellido) {
 							if(dniValido){
 								if (telefono) {
-									if(telefonoValido){ return true; }
-									
+									if(telefonoValido){ 
+										if(emailValido){	
+											return true; 	
+										}
+										else {
+											return false
+										}
+										
+									}
 									else {
 										$("#completartelefono").remove();
 										$("#telefonoGroup").addClass("has-error");
@@ -182,46 +244,7 @@ $(document).ready(function() {
 	
 			$("#email").change(function(){
 				$('#completaremail').remove();
-				$("#emailGroup").removeClass("has-error");
-				
-				var validaMail= false;
-				
-				var email = $('#email').val();
-				
-				emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-			    
-			    if (emailRegex.test(email)) {
-			    	validaMail=true;
-			    } else {
-			    	validaMail = false;
-			    }
-			    
-			    if(validaMail){ 
-			    	var parametro = { email : email }
-					var parametros = JSON.stringify(parametro);
-					
-					$.ajax({
-							url : "ValidarMail",
-							type : "post",
-							data :  {jsonData : parametros},
-							success : function(data){
-								if (data == 1)
-								{
-									$("#emailGroup").addClass("has-error");
-									$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
-								} 
-								else
-								{
-									$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
-
-								}
-			                    
-							}
-	
-				})
-			    } else {
-			    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
-			    }
+				validarEmail();
 			})			
 			
 			//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
@@ -385,6 +408,7 @@ $(document).ready(function() {
 	/// ALTA DE CLIENTE ///
 	$('#btnAltaClienteOnline').click(function(e){
 		e.preventDefault();
+		$('#completaremail').remove();
 		var resultado = validar();
 		var arregloMascotas = [];
 		
@@ -442,13 +466,13 @@ $(document).ready(function() {
 					success : function(data){
 						if (data == 1)
 						{
-							if(confirm("Se agreg&oacute; el cliente correctamente")!=""){
-								$(location).attr('href','PrimerIngreso');
-							}
+							confirm("Alta exitosa, aguard&aacute; mientras cargamos tu perfil");
+							setTimeout("$(location).attr('href','PrimerIngreso');",2500);
+							
 						} 
 						else
 						{
-							prompt("No se pudo agregar el cliente.");
+							alert("No se pudo agregar el cliente.");
 						}
 	                    
 					}

@@ -24,22 +24,16 @@ public class ControladorDeUsuario implements Serializable{
 	
 	public Usuario obtenerUsuario(Usuario user) throws Exception
 	{
-		Usuario usuario = new Usuario();
-		try {
-			
-			usuario = baseUsuario.obtenerUsuario(user);
+		return baseUsuario.obtenerUsuario(user);
+	}
 	
-			
-		} catch (Exception e) {
-			
-			throw e;
-		}
-		return usuario;
+	public Usuario obtenerUsuarioHabilitado(Usuario user) throws Exception
+	{
+		return baseUsuario.obtenerUsuarioHabilitado(user);
 	}
 	
 	public Usuario agregarUsuario(Usuario user) throws Exception{
-		Usuario usuario = baseUsuario.agregarUsuario(user);
-		return usuario;
+		return baseUsuario.agregarUsuario(user);
 	}
 	
 	public void modificarUsuario(Usuario user) throws Exception{

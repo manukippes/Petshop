@@ -33,7 +33,11 @@
 		            	<input type="hidden"  name="alta" id="alta" value="alta">
 						
 		            	<div class="form-group row">
-		            	<% Usuario cli = ((Usuario) session.getAttribute("cliente")); %>
+		            	<% 
+		            	Usuario cli = ((Usuario) session.getAttribute("cliente")); 
+		            	ArrayList<Mascota> listadoMascota = cli.getMascotas();
+		            	System.out.println(listadoMascota);
+		            	%>
 		            	  	<!-- Input de nombre -->
 			            		<label class="sr-only">Nombre</label>
 							    <div class="col-lg-6 col-md-12" id="nombreGroup">
@@ -80,7 +84,7 @@
 							    <div class="col-lg-6 col-md-12" id="emailGroup">
 							    	<small id="emailHelp" class="form-text text-muted"><strong>Email</strong></small>
 							    	<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Ingres&aacute; el email del cliente a dar de alta" value="<%= cli.getEmail() %>">
-									<button class="btn btn-success btn-xs" id="btnValidar">Validar</button>
+									<button class="btn btn-success btn-xs" id="btnValidarModificar">Validar</button>
 								</div>
 						</div>
 						<hr>
@@ -90,10 +94,8 @@
 							<div class="col-lg-3 col-md-12">
 								<a href="#agregarMascota" class="btn btn-primary form-control" id="btnAgregarMascota" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span> Agregar Mascota</a>
 							</div>
-							<div class="col-lg-9 col-md-12" id="MascotaGroup">	
-								<% ArrayList<Mascota> listadoMascota = cli.getMascotas();
-								String hidden = " hidden";
-								if(!(listadoMascota.isEmpty())){hidden="";} %>
+								<div class="col-lg-9 col-md-12" id="MascotaGroup">	
+								<%String hidden = " hidden";if(!(listadoMascota.isEmpty()) || listadoMascota.size() != 0){hidden="";}%>
 								<div class="table-responsive <%=hidden%>" id="tablaMascota">
    								   <table class="table table-striped table-hover active tableMas" id="tableMas">
 										<thead>
@@ -107,9 +109,11 @@
 											</tr>
 										</thead>
   										<tbody>	
-  											<%
-  											for(Mascota masco : listadoMascota){					
-  												%>
+  											<%if(!(listadoMascota.isEmpty()) || listadoMascota.size() != 0)
+  											{
+  												for(Mascota masco : listadoMascota)
+  												{					
+  											%>
   												<tr>
 	  												<td id='nombreMascota'><%=masco.getNombre()%></td> 
 													<td id='tamanio'><%=masco.getTipoMascota().getTamanio()%></td>
@@ -122,7 +126,8 @@
 													</td>
 													<td id='observacion' class='hidden'><%=masco.getObservaciones()%></td>
 												</tr>
-											<%}%>
+											<%	}
+  											}%>
 										</tbody>
 									</table>
 								</div>

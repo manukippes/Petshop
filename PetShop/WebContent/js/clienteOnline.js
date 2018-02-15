@@ -1,5 +1,6 @@
 /**
  * 
+
  */
 function resaltarCampo(campo,nombre){
 	$("#"+campo+"Group").addClass("has-error");

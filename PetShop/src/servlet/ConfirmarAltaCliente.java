@@ -45,14 +45,21 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
 		boolean bandera = false;
-		int resp;
+
 	
 		String json = request.getParameter("jsonData");
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
-				
+		
+		String usuario = (String) cliente.get("usuario").getAsString();
+		String password = (String) cliente.get("password").getAsString();
+		
 		String nombre = (String) cliente.get("nombre").getAsString();
 		String apellido = (String) cliente.get("apellido").getAsString();
-		int dni = (int) cliente.get("dni").getAsInt();
+		String dniParametro = (String) cliente.get("dni").getAsString();
+		int dni=0;
+		if(!(dniParametro.equals(""))){
+			dni = Integer.parseInt(dniParametro);
+		}
 		String direccion = (String) cliente.get("direccion").getAsString();
 		int telefono = (int) cliente.get("telefono").getAsInt();
 		String email = (String) cliente.get("email").getAsString();
@@ -60,6 +67,8 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		
 		try 
 		{
+				usu.setUsuarioLogin(usuario);
+				usu.setPassword(password);
 				usu.setNombre(nombre);
 				usu.setApellido(apellido);
 				usu.setDni(dni);
@@ -69,6 +78,10 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				usu.setEstado(habilitado);
 				usu.setTipoUsuario("Online");
 				usu = ctrlUsuario.agregarUsuario(usu);
+				if(!usuario.equals("")){
+					request.setAttribute("Username", usuario);
+					request.setAttribute("Password", password);
+				}
 				bandera = true;
 
 				JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
@@ -107,25 +120,21 @@ public class ConfirmarAltaCliente extends HttpServlet {
 						 }
 					} 
 					catch (Exception e) {
-						resp=0;
-						response.getWriter().println(resp);
+						response.getWriter().println(0);
 						e.printStackTrace();
 					}
 			}
 		}
 		catch (Exception e1) {
-		resp=0;
-		response.getWriter().println(resp);
+		response.getWriter().println(0);
 		e1.printStackTrace();
 		}
 		
 		
 		if(bandera){
-			resp = 1;
-			 response.getWriter().println(resp);	
+			 response.getWriter().println(1);	
 		 }else{
-			 resp = 0;
-			 response.getWriter().println(resp);
+			 response.getWriter().println(0);
 		 }
 	}
 }

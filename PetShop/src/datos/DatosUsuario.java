@@ -414,35 +414,5 @@ public class DatosUsuario implements Serializable{
 		return bandera;
 		
 	}
-	/*public Boolean existeEmail(String email) throws Exception{
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-		
-		Boolean bandera = false;
-		
-		try {
-					
-			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("select email from usuario where email = ?");
-			
-			pstm.setString(1, email);
-			rs=pstm.executeQuery();
-			if(rs.next())
-			{
-				bandera = true;
-			}
-		} 
-		catch (Exception e) {
-			throw e;
-		}
-		
-		try {
-			if(pstm!=null)pstm.close();
-			if(rs!=null)rs.close();
-			FactoryConnection.getinstancia().releaseConn();
-		} catch (Exception e) {
-			throw e;
-		}
-		return bandera;
-	}*/
 	
 }

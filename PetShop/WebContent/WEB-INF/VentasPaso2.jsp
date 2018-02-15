@@ -181,7 +181,7 @@
 						<div class="col-sm-3 col-xs-12 pull-right">
 							<button class="btn btn-primary form-control" id="confirmarVenta"> Finalizar </button>
 						</div>	
-						<div class="col-sm-3 col-xs-12 pull-right">
+						<div class="col-sm-3 col-xs-12 pull-right hidden">
 							<button class="btn btn-default form-control" id="volverPaso1"> Volver </button>
 						</div>
 					</div>

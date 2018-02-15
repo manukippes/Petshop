@@ -73,8 +73,8 @@
 				
 				<div class="collapse navbar-collapse" id="navbar-1">
 					<ul class="nav navbar-nav">
-						<li id="ventasTab" class=""><a href="Ventas"><span class="fa fa-shopping-bag"></span> Ventas</a></li>
-						<li id="turnosTab" class=""><a href="Turnos"><span class="fa fa-calendar"></span> Turnos</a></li>
+						<li id="ventasTab" class=""><a href="VentaOnline"><span class="fa fa-shopping-bag"></span> Ventas</a></li>
+						<li id="turnosTab" class=""><a href="TurnoOnline"><span class="fa fa-calendar"></span> Turnos</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span> Mi Carrito <span class="badge" id="articulosCarrito">0</span></a></li>

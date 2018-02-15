@@ -673,6 +673,7 @@ public class DatosProducto implements Serializable{
 						productoActual.setStockMinimo(rs.getInt("stockMinimo"));		//SETEO STOCK MINIMO DEL PRODUCTO
 						productoActual.setPresentacion(rs.getString("presentacion"));	//SETEO PRESENTACION DEL PRODUCTO
 						productoActual.setPrecio(rs.getDouble("precio"));				//SETEO PRECIO DEL PRODUCTO
+						productoActual.setImagen(rs.getString("imagen"));				//SETEO PRECIO DEL PRODUCTO
 						
 						
 						//CREO LA SUBCATEGORIA

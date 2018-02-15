@@ -10,51 +10,55 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import entidades.Usuario;
-import logica.ControladorDeMascota;
-import logica.ControladorDeTipoMascota;
 import logica.ControladorDeUsuario;
 
-
-@WebServlet({"/ValidarMail","/validarMail","/Validarmail"})
-public class ValidarMail extends HttpServlet {
+/**
+ * Servlet implementation class ExisteEmail
+ */
+@WebServlet("/ExisteEmail")
+public class ExisteEmail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-  
-    public ValidarMail() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ExisteEmail() {
         super();
-        
+        // TODO Auto-generated constructor stub
     }
 
-	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		// TODO Auto-generated method stub
+		doPost(request,response);
 	}
 
-	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
-		Usuario usu = new Usuario();
-		Boolean resultado = false;
-	
+		// TODO Auto-generated method stub
 		String json = request.getParameter("jsonData");
-		JsonObject emailCliente = (JsonObject) new JsonParser().parse(json);
+		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
+		String email = (String) cliente.get("email").getAsString();
 		
-		String email = (String) emailCliente.get("email").getAsString();
-		
+		ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
+		Boolean resultado = false;
 		try {
 			resultado = ctrlUsuario.validarEmail(email);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		if(resultado){
 			response.getWriter().println(1);
 		}else {
 			response.getWriter().println(0);
 		}
-		
+
 	}
 
 }

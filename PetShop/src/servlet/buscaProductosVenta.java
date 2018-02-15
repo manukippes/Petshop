@@ -67,7 +67,6 @@ public class buscaProductosVenta extends HttpServlet {
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		System.out.println(json);
 		response.getWriter().write(json);
 		return;
 	}

@@ -83,8 +83,8 @@ function buscarProductosVenta(inputProducto){
 		$.each(responseJson,function(index, productos){
 			$('<tr>',{
 				'html' : "	<td id='imagen'>" +
-				"				<div class=''>" +
-				"					<img class='img-thumbnail' src='"+productos.imagen+"'max="+5+" width='50px' height='50px'/>" +
+				"				<div class='img-hover'>" +
+				"					<a href='"+productos.imagen+"' class='preview' title='"+productos.nombre+" "+productos.presentacion+"'><img class='img-thumbnail' src='"+productos.imagen+"' width='50px' height='50px'/></a>" +
 				"				</div>" +
 				"			</td>" +
 				"			<td class='hidden' id='idProducto'>"+productos.idProducto+"</td>" +
@@ -104,6 +104,17 @@ function buscarProductosVenta(inputProducto){
 			})
 		})
 	}
+//////////////////////////
+
+
+
+
+
+
+
+
+
+
 
 
 ////////////////
@@ -226,7 +237,7 @@ $(document).ready(function() {
 					data : {jsonData : parametro},
 					success : function(respuesta){
 						//alert(respuesta);
-						$(location).attr('href',"VentasPaso2");
+						$(location).attr('href',"VentaOnlinePaso2");
 					}	
 				})
 			} else {
@@ -248,18 +259,23 @@ $(document).ready(function() {
 			$('#tarjeta').prop('disabled',true);
 			$('#cuotasGroup').hide();
 			$('#tarjetaGroup').hide();
+			$('#datosTarjeta').hide();
 			break;
 		case "1":
 			//Codigo 1 es efectivo
 			$('#tarjeta').prop('disabled',true);
 			$('#tarjetaGroup').hide();
 			$('#cuotasGroup').hide();
+			$('#datosTarjeta').hide();
+			
 			break;
 		case "2":
 			//Codigo 2 es Debito
 			$('#tarjetaGroup').removeClass("hidden");
 			$('#tarjetaGroup').show();
 			$('#cuotasGroup').hide();
+			$('#datosTarjeta').show();
+			$('#datosTarjeta').removeClass("hidden");
 			$('#tarjeta').prop('disabled',false);
 			
 			var parametro = {idMedioPago : idMedioPago};
@@ -278,6 +294,9 @@ $(document).ready(function() {
 			$('#tarjetaGroup').show();
 			$('#cuotasGroup').show();
 			$('#tarjeta').prop('disabled',false);
+			$('#datosTarjeta').removeClass("hidden");
+			$('#datosTarjeta').show();
+			
 			var parametro = {idMedioPago : idMedioPago};
 			$.post("ComboTarjetas",$.param(parametro),function(responseJson){
 				$('#tarjeta').empty();
@@ -300,7 +319,7 @@ $(document).ready(function() {
 				var parametro = {idTarjeta : idTarjeta};
 				$.post("ComboCuotas",$.param(parametro),function(responseJson){
 					$('#cuotas').empty();
-					$('#cuotas').append($('<option value="cuotas">Cantidad de cuotas</option>'));
+					$('#cuotas').append($('<option value="cuotas">Nro. de cuotas</option>'));
 					$.each(responseJson,function(index, cuotas){
 						var interes = parseFloat(cuotas.recargo) *100;
 						$('#cuotas').append($('<option value="'+cuotas.idCuota+'">'+cuotas.cantCuotas+' - Interes: '+interes+'%</option>'));
@@ -352,23 +371,23 @@ $(document).ready(function() {
 			$.each(responseJson,function(index, productos){
 				$('<tr>',{
 					'html' : "	<td id='imagen'>" +
-					"				<div class=''>" +
-					"					<img class='img-thumbnail' src='"+productos.imagen+"' width='50px' height='50px'/>" +
+					"				<div class='img-hover'>" +
+					"					<a href='"+productos.imagen+"' class='preview' title='"+productos.nombre+" "+productos.presentacion+"'><img class='img-thumbnail' src='"+productos.imagen+"' width='50px' height='50px'/></a>" +
 					"				</div>" +
 					"			</td>" +
-					"			<td id='idProducto' class='hidden'>"+productos.idProducto+"</td>" +
+					"			<td class='hidden' id='idProducto'>"+productos.idProducto+"</td>" +
 					"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 					"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
 					"			<td id='precioProducto'>"+productos.precio+"</td>" +
 					"			<td>" +
-					"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
+					"				<input id='cantidad' type='number' class='form-control cantidad' min='0' max="+productos.stock+"></input>" +
 					"			</td>" +
 					"			<td class='col-sm-3 col-lg-2'>" +
 					"				<div class='input-group'>" +
-					"					<a class='btn btn-info btnAgregarProductoVenta' href='\'><span class='glyphicon glyphicon-plus'></span> Agregar</a>" +
+					"					<a class='btn btn-info btnAgregarProductoVenta' href='\'>Agregar</a>" +
 					"				</div>" +
 					"			</td>"
-					}).appendTo('#tablaAgregarProducto > tbody');
+					}).appendTo("#tablaAgregarProducto > tbody");
 				
 			})
 		})
@@ -477,7 +496,7 @@ $(document).ready(function() {
 					//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
 					if (respuesta){
 						if(prompt("Venta cargada Exitosamente")==""){
-							$(location).attr('href','Ventas');
+							$(location).attr('href','VentaOnline');
 						}
 					}else{
 						alert("Error al cargar la venta");
@@ -486,4 +505,5 @@ $(document).ready(function() {
 			}); 
 		}
 	})
+	
 })

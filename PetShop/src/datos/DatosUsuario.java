@@ -23,6 +23,7 @@ public class DatosUsuario implements Serializable{
 	//						GETUSUARIOSLIKE(RECIBE UN STRING)
 	// 						COMPLETAR DATOS DEL USUARIO
 	//						BLANQUEAR USUARIO
+	//						VERIFICAR SI EXISTE MAIL
 	
 
 	public Usuario agregarUsuario (Usuario user) throws Exception
@@ -390,18 +391,19 @@ public class DatosUsuario implements Serializable{
 		}
 		return usuarios;
 	}
-	public boolean validarEmail(String email) throws Exception, ExcepcionEspecial{
-		PreparedStatement ps = null;
+	public Boolean validarEmail(String email) throws Exception, ExcepcionEspecial{
+		PreparedStatement pstm = null;
 		ResultSet rs = null;
+		Boolean bandera = false;
 		try {
-			ps = FactoryConnection.getinstancia().getConn().prepareStatement(
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
 					"SELECT * FROM usuario WHERE email = ?");
-			ps.setString(1, email);
-			rs = ps.executeQuery();
-			if(rs.absolute(1)){
-				return false;
-			}else{
-				return true;	
+			pstm.setString(1, email);
+			rs = pstm.executeQuery();
+			rs=pstm.executeQuery();
+			if(rs.next())
+			{
+				bandera = true;
 			}
 			
 		} catch (SQLException e) {
@@ -409,7 +411,38 @@ public class DatosUsuario implements Serializable{
 		} catch (ExcepcionEspecial e) {
 			throw e;
 		}
-		
+		return bandera;
 		
 	}
+	/*public Boolean existeEmail(String email) throws Exception{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		Boolean bandera = false;
+		
+		try {
+					
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("select email from usuario where email = ?");
+			
+			pstm.setString(1, email);
+			rs=pstm.executeQuery();
+			if(rs.next())
+			{
+				bandera = true;
+			}
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(pstm!=null)pstm.close();
+			if(rs!=null)rs.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} catch (Exception e) {
+			throw e;
+		}
+		return bandera;
+	}*/
+	
 }

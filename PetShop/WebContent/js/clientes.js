@@ -49,9 +49,9 @@ function validar(){
 	}
 	
 	if(isNaN($('#dni').val())){
-		alert("Debe ingresar s&oacute;lo n&uacute;meros en el campo Telefono.");		
+		alert("Debe ingresar s&oacute;lo n&uacute;meros en el campo Dni.");		
 	}else if(isNaN($('#telefono').val())){
-		alert("Debe ingresar s&oacute;lo n&uacute;meros en el campo Dni.");
+		alert("Debe ingresar s&oacute;lo n&uacute;meros en el campo Telefono.");
 	}
 		
 	if (nombre) {

@@ -116,6 +116,7 @@ public class DatosMascota implements Serializable{
 					mascotaActual.setNombre(rs.getString("nombre"));					//SETEO NOMBRE DE LA MASCOTA
 					mascotaActual.setFechaNacimiento(rs.getDate("fechaNacimiento"));	//SETEO FECHA DE NACIMIENTO
 					mascotaActual.setObservaciones(rs.getString("observaciones"));		//SETEO OBSERVACIONES
+					mascotaActual.setEstado(rs.getInt("estado"));
 					mascotaActual.setUsuario(cliente);									//SETEO DUEÑO DE LA MASCOTA
 					
 					TipoMascota tipoMascota = new TipoMascota();
@@ -123,8 +124,9 @@ public class DatosMascota implements Serializable{
 					tipoMascota = ctrlTipoMascota.getTipoMascota(tipoMascota);
 					
 					mascotaActual.setTipoMascota(tipoMascota);							//SETEO EL TIPO DE MASCOTA
-					mascotaActual.setEstado(rs.getInt("estado"));						//SETEO ESTADO DE LA MASCOTA
+					
 					mascotas.add(mascotaActual);										//AGREGO LA MASCOTA AL ARRAYLIST
+					System.out.println(mascotas);
 				}
 				
 			}
@@ -151,7 +153,7 @@ public class DatosMascota implements Serializable{
 		ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
 		TipoMascota tipoMascota = new TipoMascota();
 		Usuario duenio = new Usuario();
-		
+	
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
 					"SELECT * FROM MASCOTA where idMascota =?");

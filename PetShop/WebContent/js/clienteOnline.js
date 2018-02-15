@@ -212,18 +212,12 @@ $(document).ready(function() {
 								}
 			                    
 							}
-					//presionoValidar = false;
-					//valido = false;
-					
+	
 				})
 			    } else {
 			    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
 			    }
-			})
-				
-				//var presionoValidar = false;
-				//var valido = false;
-			
+			})			
 			
 			//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
 			$(this).on("click","#btnPatitaGrande",function(e){

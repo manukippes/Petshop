@@ -12,9 +12,8 @@ function limpiarCampos(){
 	$("#telefono").val("");
 	$("#email").val("");
 	$('#tablaMascota').addClass("hidden");
-	$('#tablaMascota > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
-	$('#emailValido').remove();
-	presionoValidar = false;
+	$('#tableMas > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
+	$('#completaremail').remove();
 	valido = false;
 	
 }
@@ -27,6 +26,7 @@ function limpiarCamposModal(){
 		$('#btnTijeraGrande').removeClass("icon-button-active")
 		$("#fechaNacimientoMascota").val("");
 		$("#observacionesMascota").val("");	
+		
 }
 
 /// VALIDO QUE LOS DATOS OBLIGATORIOS DEL CLIENTE ESTEN COMPLETOS ///
@@ -108,17 +108,9 @@ function validar(){
 
 $(document).ready(function() {
 	
-			$("#email").change(function(){
-				$('#emailValido').remove();
-				presionoValidar = false;
-				valido = false;
-				
-			})
-				var presionoValidar = false;
-				var valido = false;
-			
-			
-			//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
+	var valido = false;
+	
+		//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
 			$(this).on("click","#btnPatitaGrande",function(e){
 				e.preventDefault();
 				$('#patitaGroup').removeClass("con-error");
@@ -300,11 +292,12 @@ $(document).ready(function() {
 			})		
 		}
 		
+		if(($("#email").val()=="")){
+			valido = true;
+		}
+				
 		if(resultado)
-		{
-			if(presionoValidar)
-			{
-				if( valido){
+		{	if( valido){
 					var nombre = $("#nombre").val();
 					var apellido = $("#apellido").val();
 					var dni = $("#dni").val();
@@ -329,7 +322,7 @@ $(document).ready(function() {
 					
 				
 					var parametros = JSON.stringify(parametro);
-					limpiarCampos();
+					
 					
 					$.ajax({
 							url : "ConfirmarAltaCliente",
@@ -339,6 +332,7 @@ $(document).ready(function() {
 								if (data == 1)
 								{
 									confirm("Se agreg&oacute; el cliente correctamente.");
+									limpiarCampos();
 								} 
 								else
 								{
@@ -350,10 +344,7 @@ $(document).ready(function() {
 				}else{
 					alert("Debe ingresar un email v&aacute;lido.");
 				}
-			}else{
-				alert("Debe validar el email antes de confirmar el alta del cliente.");
 			}
-		}
 	})
 	
 	//CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL
@@ -446,7 +437,54 @@ $(document).ready(function() {
 	})
 	
 	//VALIDAR EMAIL
-	$(this).on("click", "#btnValidar", function(e){
+	
+	$("#email").change(function(){
+				$('#completaremail').remove();
+				$("#emailGroup").removeClass("has-error");
+				
+				var validaMail= false;
+				
+				var email = $('#email').val();
+				
+				emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+			    
+			    if (emailRegex.test(email)) {
+			    	validaMail=true;
+			    } else {
+			    	validaMail = false;
+			    }
+			    
+			    if(validaMail){ 
+			    	var parametro = { email : email }
+					var parametros = JSON.stringify(parametro);
+					
+					$.ajax({
+							url : "ValidarMail",
+							type : "post",
+							data :  {jsonData : parametros},
+							success : function(data){
+								if (data == 1)
+								{
+									valido = false;
+									$("#emailGroup").addClass("has-error");
+									$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+								} 
+								else
+								{
+									valido = true;
+									$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
+								}
+			                    
+							}
+					
+				})
+			    } else {
+			    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
+			    }
+			})
+			
+			
+	/*$(this).on("click", "#btnValidar", function(e){
 	    e.preventDefault();
 		$('#emailValido').remove();
 		
@@ -479,7 +517,7 @@ $(document).ready(function() {
 			presionoValidar = false;
 			alert("Primero debe ingresar un email para validarlo.")
 			}
-	}); 
+	}); */
 
 });
 	

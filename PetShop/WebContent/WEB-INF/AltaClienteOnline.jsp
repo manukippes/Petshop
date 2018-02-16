@@ -141,7 +141,8 @@
 								<input type="submit" id="btnAltaClienteOnline" value="Confirmar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">
 							</div>
 						</div>
-						
+						<div id="final">
+						</div>
 						<!-- PANEL MODAL AGREGAR MASCOTA -->
 						<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="agregarMascota">
 							<div class="modal-dialog modal-lg">
@@ -238,7 +239,52 @@
 								</div>
 							</div>
 						</div>
-						
+						<!-- PANEL MODAL CONFIRMACION -->
+						<a href="#confirmacionmodal" class='hidden' id='btnHidden' data-toggle='modal'>botonazo</a>
+						<div class="modal fade" id="confirmacionmodal">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<strong class="text-success">ALTA EXITOSA</strong>
+										
+									</div>
+									<div class="modal-body">
+										<div class="container-fluid">
+											<div class="form-horizontal form-group">
+												<br>
+												<div class="row-inline">
+													<div class="col-xs-12 col-sm-2 centrado">
+														<p><span class="fa fa-user-circle text-info" style="font-size:70px"></span></p>
+													</div>
+													<div class="col-xs-12 col-sm-10 align-middle">
+														<br>
+														<span class="text-success align-middle">Estamos preparando todo para vos, por favor aguard&aacute; un instante</span>
+													
+													</div>
+													<br>
+													<br>
+													<br>
+													<div id="barraProgreso" class="col-xs-12 col-sm-10">
+														<div class="progress ">
+															<div class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" style="width:100%;min-width:100%";>
+																<span class="">Cargando</span>
+															</div>
+														</div>
+													</div>									
+															
+												</div>
+												<div class="row">
+													<br>
+													<br>
+												</div>
+																		
+												<br>
+											</div>
+										</div>								
+									</div>
+								</div>
+							</div>
+						</div>
 		            </form> 
 		        </div>
 		   	</div>

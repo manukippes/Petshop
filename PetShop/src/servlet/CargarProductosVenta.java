@@ -74,6 +74,6 @@ public class CargarProductosVenta extends HttpServlet {
 			productosVenta.add(prodCant);//AGREGO EL ELEMENTO A LA VENTA
 		}
 		request.getSession().setAttribute("productosVenta", productosVenta);
-		//response.getWriter().println("Productos Agregados");
+		
 	}
 }

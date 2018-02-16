@@ -1,7 +1,13 @@
 /**
  * 
  */
-
+function completarCarrito(){
+	
+		var cantArticulos = $(".tablaVentaActual tr").length; //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		
+		$("#articulosCarrito").text(parseInt(cantArticulos));
+		
+}
 function calcularSubtotal(){
 	
 	var subtotal = 0.0;
@@ -119,6 +125,8 @@ function buscarProductosVenta(inputProducto){
 
 ////////////////
 $(document).ready(function() {
+	
+	
 
 	//DETECTO LOS CAMBIOS EN INPUT DE FILTRAR POR NOMBRE
 	$('#buscarProductosVenta').click(function(e){

@@ -262,7 +262,7 @@ $(document).ready(function() {
 				}).appendTo(".tableMas > tbody");  
 	        
 	        
-			$('#agregarMascota').modal('toggle');
+			$('#agregarAlModificarMascota').modal('toggle');
 	        $('#tablaMascota').removeClass("hidden");
 			}	        
 	       limpiarCamposModal();

@@ -299,6 +299,11 @@ $(document).ready(function() {
 			    e.preventDefault();
 			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
 				var fila =$(this).parent().parent().parent()
+				var cantFilas = $("#tableMas tr").length; //OBTENGO LA CANTIDAD DE FILAS DE LA TABLA 
+				
+				if (cantFilas != 1){
+					$('#tablaMascota').addClass("hidden");
+				}
 		
 				fila.remove();
 				
@@ -457,7 +462,7 @@ $(document).ready(function() {
 			
 		
 			var parametros = JSON.stringify(parametro);
-			limpiarCampos();
+			
 			
 			$.ajax({
 					url : "ConfirmarAltaCliente",
@@ -466,8 +471,11 @@ $(document).ready(function() {
 					success : function(data){
 						if (data == 1)
 						{
-							confirm("Alta exitosa, aguard&aacute; mientras cargamos tu perfil");
-							setTimeout("$(location).attr('href','PrimerIngreso');",2500);
+							
+							$("#btnHidden").click();
+						
+							limpiarCampos();
+							setTimeout("$(location).attr('href','PrimerIngreso');",3500);
 							
 						} 
 						else
@@ -480,31 +488,6 @@ $(document).ready(function() {
 		}
 	})
 	
-	//CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL
-	$(this).on("click", "#btnBusquedaCliente", function(e){
-	    e.preventDefault();
-		
-		var inputCliente = $('#inputCliente').val();
-		if(inputCliente!=""){
-			var parametro = {inputCliente : inputCliente};
-			$('#cliente').prop('disabled',false);
-			
-			$.post("ObtenerTodosClientes",$.param(parametro),function(responseJson){
-				$('#cliente').empty();
-				$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
-				$.each(responseJson,function(index, usuarios){
-					$('#cliente').append($('<option value="'+usuarios.idUsuario+'">'+usuarios.apellido+', '+usuarios.nombre+'</option>'));
-				});
-			});
-		}else{
-			$('#cliente').empty();
-			$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
-			$('#cliente').prop('disabled',true);
-			$('#inputClienteGroup').addClass("has-error");
-			clearTimeout();
-			setTimeout(function(){$('#inputClienteGroup').removeClass("has-error");},2000);
-			}
-	}); 
 	
 	/// CLICK EN EL BOTON DE MODIFICAR CLIENTES ///
 	$(this).on("click", "#btnVerCliente", function(e){
@@ -538,72 +521,8 @@ $(document).ready(function() {
 	})
 	
 	
-	/// CLICK EN EL BOTON DE BORRAR CLIENTES ///
-	$(this).on("click", "#btnBorrarCliente", function(e){
-		e.preventDefault();
-	    if($('#cliente').val() == "cliente"){
-			alert("Para eliminar el cliente primero debes seleccionarlo");
-		}else{
-			var idCliente = $('#cliente').val();
-	        
-	        parametro = {idCliente : idCliente};
-	        var parametros = JSON.stringify(parametro);
-	        
-	        $.ajax({
-				url : "EliminarCliente",
-				type : "post",
-				data : {jsonData : parametros},
-				success : function(data){
-					if (data ==1)
-					{
-						confirm("Se elimin&oacute; el cliente.");
-					} 
-					else
-					{
-						alert("No se pudo eliminar el cliente.");
-					}
-                    
-				}
-	        })	   
-		}
-		
-	})
 	
-	//VALIDAR EMAIL
-	$(this).on("click", "#btnValidar", function(e){
-	    e.preventDefault();
-		$('#emailValido').remove();
-		
-		var email = $('#email').val();
-		if(email!=""){
-			presionoValidar = true;
-			var parametro = {email: email}			
-			var parametros = JSON.stringify(parametro);		
-			 $.ajax({
-					url : "ValidarMail",
-					type : "post",
-					data : {jsonData : parametros},
-					success : function(data){
-						if (data == 1)
-						{
-							valido = true;
-							presionoValidar = true;
-							$("<small class='form-text text-muted text-success' id='emailValido'> Direcci&oacute;n de email v&aacute;lida</small>").insertAfter("#btnValidar");
-						} 
-						else
-						{
-							presionoValidar = false;
-							valido = false;
-							$("<small class='form-text text-muted text-danger' id='emailValido'> La direcci&oacute;n de email ya se encuentra registrada</small>").insertAfter("#btnValidar");
-						}
-	                    
-					}
-		        })
-		}else{
-			presionoValidar = false;
-			alert("Primero debe ingresar un email para validarlo.")
-			}
-	}); 
+	
 
 });
 	

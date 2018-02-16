@@ -15,6 +15,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import entidades.Mascota;
 import entidades.Usuario;
@@ -47,6 +48,7 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 
 
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
 			ControladorDeUsuario ctrlUsuario = new ControladorDeUsuario();
 			Usuario usu = new Usuario();
 			ControladorDeMascota ctrlMascota = new ControladorDeMascota();
@@ -55,6 +57,7 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 			String json = request.getParameter("jsonData");
 			JsonObject cliente = (JsonObject) new JsonParser().parse(json);
 			
+			String idUsuario = (String) cliente.get("idUsuario").getAsString();
 			String usuario = (String) cliente.get("usuario").getAsString();
 			String password = (String) cliente.get("password").getAsString();
 			
@@ -70,71 +73,90 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 			String email = (String) cliente.get("email").getAsString();
 			int habilitado = (int) cliente.get("habilitado").getAsInt();
 			
-			try 
-			{
-					usu.setUsuarioLogin(usuario);
-					usu.setPassword(password);
-					usu.setNombre(nombre);
-					usu.setApellido(apellido);
-					usu.setDni(dni);
-					usu.setDireccion(direccion);
-					usu.setTelefono(telefono);
-					usu.setEmail(email);
-					usu.setEstado(habilitado);
-					usu.setTipoUsuario("Online");
-					usu.setMascotas(new ArrayList<Mascota>());
-					usu = ctrlUsuario.modificarUsuario(usu);
+			try {
+				usu.setIdUsuario(Integer.parseInt(idUsuario));
+				usu.setUsuarioLogin(usuario);
+				usu.setPassword(password);
+				usu.setNombre(nombre);
+				usu.setApellido(apellido);
+				usu.setDni(dni);
+				usu.setDireccion(direccion);
+				usu.setTelefono(telefono);
+				usu.setEmail(email);
+				usu.setEstado(habilitado);
+				usu.setTipoUsuario("Online");
+				usu.setMascotas(new ArrayList<Mascota>());
+				usu = ctrlUsuario.modificarUsuario(usu);
 
-					JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
-					if(!(mascotas.isJsonNull()))
-					{
-						
-						try {
-							 for (JsonElement obj : mascotas) 
-							 {
-								JsonObject gsonObj = obj.getAsJsonObject();
-								String nombreMasco = gsonObj.get("nombreMascota").getAsString();
-								String tamanioMasco = gsonObj.get("tamanioMascota").getAsString();
-								String pelajeMasco = gsonObj.get("pelajeMascota").getAsString();
-								String fechaMasco = gsonObj.get("fechaNacimientoMascota").getAsString();
-								String observacionesMasco = gsonObj.get("observacionesMascota").getAsString();
-									
-							 	Mascota masco = new Mascota();
-								masco.setNombre(nombreMasco);
-								
-								SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			
-								Date fechaDate = fecha.parse(fechaMasco);
-								java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
-								masco.setFechaNacimiento(sqlDate);
-								
-								masco.setObservaciones(observacionesMasco);
-								
-								masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
-								
-								masco.setUsuario(usu);
-								
-								if(ctrlMascota.existeMascota(masco)){
-									ctrlMascota.agregarMascota(masco);
-								}else{
-									ctrlMascota.modificarMascota(masco);
-								}
-								
-							 }
-							 usu.setMascotas(ctrlMascota.getMascotas(usu));
-							 request.getSession().removeAttribute("user");
-							 request.getSession().setAttribute("user", usu);
-							 response.getWriter().println(1);
-						} 
-						catch (Exception e) {
-							response.getWriter().println(0);
-							e.printStackTrace();
+				JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
+				if(!(mascotas.isJsonNull())){
+					
+					 for (JsonElement obj : mascotas){
+						 
+						JsonObject gsonObj = obj.getAsJsonObject();
+						String idMasco = gsonObj.get("idMascota").getAsString();
+						String nombreMasco = gsonObj.get("nombreMascota").getAsString();
+						String tamanioMasco = gsonObj.get("tamanioMascota").getAsString();
+						String pelajeMasco = gsonObj.get("pelajeMascota").getAsString();
+						String fechaMasco = gsonObj.get("fechaNacimientoMascota").getAsString();
+						String observacionesMasco = gsonObj.get("observacionesMascota").getAsString();
+							
+					 	Mascota masco = new Mascota();
+					 	
+					 	int idMascotaActual=0;
+						if(!(idMasco.equals(""))){
+							idMascotaActual = Integer.parseInt(idMasco);
 						}
+					 	masco.setIdMascota(idMascotaActual);
+						masco.setNombre(nombreMasco);
+						
+						SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			
+						Date fechaDate = fecha.parse(fechaMasco);
+						java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
+						masco.setFechaNacimiento(sqlDate);
+						
+						masco.setObservaciones(observacionesMasco);
+						
+						masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
+						
+						masco.setUsuario(usu);
+						
+						masco.setEstado(1);
+						
+						if(masco.getIdMascota()==0){
+							ctrlMascota.agregarMascota(masco);
+							//System.out.println("SE AGREGA"+masco.getNombre());
+						}else{
+							
+							if(masco.getNombre().equals("QuitarMascota")){
+								ctrlMascota.eliminarMascota(masco);
+								//System.out.println("SE ELIMINA"+masco.getNombre());
+							}else{
+								ctrlMascota.modificarMascota(masco);
+								//System.out.println("SE MODIFICA"+masco.getNombre());
+							}
+						}
+					}
+					 
+					
 				}
+				
+				usu.setMascotas(ctrlMascota.getMascotas(usu));
+				request.getSession().removeAttribute("user");
+				request.getSession().setAttribute("user", usu);
+				response.getWriter().println(1);		 
+				
+				
+				}
+			catch (MySQLIntegrityConstraintViolationException e1){
+				e1.printStackTrace();
+				response.getWriter().println(2); //el correo ingresado ya existe
 			}
-			catch (Exception e1) {
-			response.getWriter().println(0);
-			e1.printStackTrace();
-			}
+			catch (Exception e) {
+				response.getWriter().println(0);
+				e.printStackTrace();
+			}			
+			
 
 		}
 	}

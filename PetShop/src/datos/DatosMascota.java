@@ -103,8 +103,9 @@ public class DatosMascota implements Serializable{
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"SELECT * FROM MASCOTA where idUsuario =?");
+					"SELECT * FROM MASCOTA where idUsuario =? and estado=?");
 			pstm.setInt(1, cliente.getIdUsuario());
+			pstm.setInt(2, 1);
 			rs=pstm.executeQuery();
 			
 			if(rs!=null)
@@ -201,14 +202,14 @@ public class DatosMascota implements Serializable{
 		
 		try {
 			ps = FactoryConnection.getinstancia().getConn().prepareStatement("UPDATE mascota SET estado=? WHERE idMascota = ?");
-			ps.setInt(1, masco.getEstado());
+			ps.setInt(1, 0);
 			ps.setInt(2, masco.getIdMascota());
-			ps.executeQuery();
+			ps.executeUpdate();
 			respuesta = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ExcepcionEspecial e1) {
-			throw new ExcepcionEspecial(e1,"No es posible eliminar la persona de la base de datos", Level.ERROR);
+			throw new ExcepcionEspecial(e1,"No es posible eliminar la mascota de la base de datos", Level.ERROR);
 		}
 		
 
@@ -232,8 +233,8 @@ public class DatosMascota implements Serializable{
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
 					"SELECT * FROM MASCOTA where idUsuario =? and idTipoMascota = ? and nombre = ?");
 			pstm.setInt(1, mascota.getUsuario().getIdUsuario());
-			pstm.setInt(1, mascota.getTipoMascota().getIdTipoMascota());
-			pstm.setString(1, mascota.getNombre());
+			pstm.setInt(2, mascota.getTipoMascota().getIdTipoMascota());
+			pstm.setString(3, mascota.getNombre());
 			rs=pstm.executeQuery();
 			
 			if(rs!=null)

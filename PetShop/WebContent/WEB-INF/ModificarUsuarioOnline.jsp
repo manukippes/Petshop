@@ -26,7 +26,7 @@
 				<hr>
 				
 				<div class="container-fluid">
-					<form class="form" action="ModificarCliente" method="post" enctype="multipart/form-data" id="form_modificar	_cliente">
+					<form class="form" action="#" method="post" enctype="multipart/form-data" id="form_modificar	_cliente">
 		            	
 		     			
 		            	<!-- Campo de modificacion / alta -->
@@ -39,6 +39,10 @@
 							<div class="container-fluid">
 								<h4><strong class="text-muted">DATOS BASICOS</strong></h4>
 							</div>
+							<!-- Input de idUsuario -->
+			            		
+							    <input type="text" class="hidden" name="idUsuario" id="idUsuario" aria-describedby="usuarioHelp" value="<%= cli.getIdUsuario() %>">
+
 							<!-- Input de usuario -->
 			            		<label class="sr-only">Usuario</label>
 							    <div class="col-lg-4 col-md-12" id="usuarioGroup">
@@ -131,6 +135,7 @@
    								   <table class="table table-striped table-hover active tableMas" id="tableMas">
 										<thead>
 											<tr>
+												<th class="hidden">ID</th>
 											    <th>Nombre</th>
 											    <th>Tamaño</th>
 											    <th>Pelaje</th>
@@ -146,6 +151,7 @@
   												{					
   											%>
   												<tr>
+  													<td class="hidden" id='idMascota'><%=masco.getIdMascota() %></td>
 	  												<td id='nombreMascota'><%=masco.getNombre()%></td> 
 													<td id='tamanio'><%=masco.getTipoMascota().getTamanio()%></td>
 													<td id='pelaje'><%=masco.getTipoMascota().getPelo()%></td>
@@ -184,6 +190,11 @@
 									</div>
 									<div class="modal-body">
 										<div class="form-group row container-fluid">
+										<!-- Input de idUsuario -->
+			            		
+							   					 <input type="text" class="hidden" name="idMascotaHidden" id="idMascotaHidden" aria-describedby="idMascotaHelp">
+										
+										
 											<!-- Input de Nombre Mascota -->
 												<label class="sr-only">Nombre</label>
 											    <div class="col-lg-12 col-md-12" id="nombreMascotaGroup">
@@ -263,7 +274,7 @@
 										<hr class="hrModal">
 										<div class="form-group row container-fluid">
 											<div class="col-lg-12 col-md-12">
-												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4 class="nombreBoton"><span class="fa fa-paw"></span> Agregar</h4></button>
+												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4 class="nombreBoton"><span class="fa fa-paw"></span> Confirmar</h4></button>
 											</div>
 										</div>
 									</div>								
@@ -276,7 +287,7 @@
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<strong class="text-success"><span class="fa fa-check"></span> MODIFICACION EXITOSA</strong>
+										<strong class="text-success"><span class="fa fa-check"></span> MODIFICACI&Oacute;N EXITOSA</strong>
 										
 									</div>
 									<div class="modal-body">

@@ -38,8 +38,8 @@ public class ControladorDeUsuario implements Serializable{
 		return baseUsuario.agregarUsuario(user);
 	}
 	
-	public void modificarUsuario(Usuario user) throws Exception{
-		baseUsuario.modificarUsuario(user);
+	public Usuario modificarUsuario(Usuario user) throws Exception{
+		return baseUsuario.modificarUsuario(user);
 	}
 	
 	public boolean eliminarUsuario(Usuario user) throws Exception{

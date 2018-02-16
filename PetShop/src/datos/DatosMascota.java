@@ -26,6 +26,7 @@ public class DatosMascota implements Serializable{
 	//						GET MASCOTAS DE UN CLIENTE
 	//						GET MASCOTA (COMPLETAR CLASE)
 	//						ELIMINAR MASCOTA 
+	//						VERIFICAR SI EXISTE MASCOTA
 	
 	public boolean agregarMascota (Mascota mascota) throws Exception
 	{
@@ -221,5 +222,40 @@ public class DatosMascota implements Serializable{
 		
 		return respuesta;
 		
+	}
+	public Boolean existeMascota(Mascota mascota) throws Exception{
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Boolean bandera=false;
+		
+		try {
+			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+					"SELECT * FROM MASCOTA where idUsuario =? and idTipoMascota = ? and nombre = ?");
+			pstm.setInt(1, mascota.getUsuario().getIdUsuario());
+			pstm.setInt(1, mascota.getTipoMascota().getIdTipoMascota());
+			pstm.setString(1, mascota.getNombre());
+			rs=pstm.executeQuery();
+			
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					bandera=true;
+				}
+				
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			FactoryConnection.getinstancia().releaseConn();
+		} 
+		catch (Exception e) {
+			throw e;
+		}
+		return bandera;
 	}
 }

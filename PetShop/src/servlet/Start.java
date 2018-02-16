@@ -44,8 +44,6 @@ public class Start extends HttpServlet {
 		
 		try {
 
-			System.out.println("Eu usuario ingresado es"+user);
-			System.out.println("Eu pass ingresado es"+pass);
 			Usuario usuario=new Usuario();
 			usuario.setUsuarioLogin(user);
 			usuario.setPassword(pass);

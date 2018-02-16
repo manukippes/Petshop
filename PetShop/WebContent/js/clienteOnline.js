@@ -247,6 +247,47 @@ $(document).ready(function() {
 				validarEmail();
 			})			
 			
+			$(this).on("click", ".btnModificarMascota", function(e){
+			    e.preventDefault();
+			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+				var fila =$(this).parent().parent().parent()
+				
+		
+				var nombreMascota = fila.find('#nombreMascota').text();
+				var tamanio = fila.find('#tamanio').text();
+				var pelaje = fila.find('#pelaje').text();
+				var fechaNacimiento = fila.find('#fechaNacimiento').text();
+				var observacion = fila.find('#observacion').text();
+				switch (tamanio){
+				case "Grande":
+					$('#btnPatitaGrande').addClass("icon-button-active");
+					break;
+				case "Mediano":
+					$('#btnPatitaMediana').addClass("icon-button-active");
+					break;
+				case "Chico":
+					$('#btnPatitaChica').addClass("icon-button-active");
+					break;
+				};
+				switch (pelaje){
+				case "Largo":
+					$('#btnTijeraGrande').addClass("icon-button-active");
+					break;
+				case "Corto":
+					$('#btnTijeraChica').addClass("icon-button-active");
+					break;
+				}
+				
+				$('.nombreMascota').val(nombreMascota);
+				$('#fechaNacimientoMascota').val(fechaNacimiento);
+				$('#observacionesMascota').val(observacion);
+				$('.nombreBoton').text("Modificar");
+				$('#btnAgregarMascota').click();
+				
+				
+				
+				
+			});	
 			//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
 			$(this).on("click","#btnPatitaGrande",function(e){
 				e.preventDefault();
@@ -323,6 +364,7 @@ $(document).ready(function() {
 	$('#btnAgregarMascotaModal').on("click",function(e){
 	    e.preventDefault();
 	    
+	    
 	    var validaNombre = false;
 	    if ($('.nombreMascota').val()!=""){
 	    	validaNombre = true;
@@ -342,6 +384,7 @@ $(document).ready(function() {
 	    	validaFecha = true;
 	    }
 		
+	   
 		var respuesta = false;
 		
 	    if(validaNombre){
@@ -397,7 +440,8 @@ $(document).ready(function() {
 				"			<td id='fechaNacimiento'>"+fechaNacimiento+"</td>" +
 				"			<td class='col-sm-3 col-lg-2'>" +
 				"				<div class='input-group'>" +
-				"					<a class='btn btn-danger btnQuitarMascota' href='\'>Quitar</a>" +
+				"					<a class='btn btn-info btnModificarMascota' title='Editar mascota' href='\'><span class='fa fa-pencil'></span> </a>" +
+				"					<a class='btn btn-danger btnQuitarMascota' title='Quitar mascota' href='\'><span class='fa fa-times'></span> </a>" +
 				"				</div>" +
 				"			</td>"+
 				"			<td id='observacion' class='hidden'>"+observacion+"</td>"		
@@ -488,37 +532,85 @@ $(document).ready(function() {
 		}
 	})
 	
-	
-	/// CLICK EN EL BOTON DE MODIFICAR CLIENTES ///
-	$(this).on("click", "#btnVerCliente", function(e){
+	/// ALTA DE CLIENTE ///
+	$('#btnModificarUsuario').click(function(e){
 		e.preventDefault();
-	    if($('#cliente').val() == "cliente"){
-			alert("Para modificar el cliente primero debes seleccionarlo");
-		}else{	
-			var idCliente = $('#cliente').val();
-	        
-	        parametro = {idCliente : idCliente};
-	              
-	        var parametros = JSON.stringify(parametro);
-	        
-	        $.ajax({
-				url : "ModificarCliente",
-				type : "post",
-				data : {jsonData : parametros},
-				success : function(data){
-					if (data == 1)
-					{
-						$(location).attr('href','ModificarClienteConDatos');
-					} 
-					else
-					{
-						alert("No es posible modificar el cliente.");
-					}
-                    
+		$('#completaremail').remove();
+		var resultado = validar();
+		var arregloMascotas = [];
+		
+		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		var cantidad = filas.length; 
+		if (filas.length != 1){
+			$.each(filas,function(i,fila) {
+				//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
+				if(i>0){
+					var nombreMascota = fila.cells[0].innerHTML;
+					var tamanioMascota = fila.cells[1].innerHTML;
+					var pelajeMascota = fila.cells[2].innerHTML;
+					var fechaNacimientoMascota = fila.cells[3].innerHTML;
+					var observacionesMascota = fila.cells[5].innerHTML;
+					var elementoMascota = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
+					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
 				}
-	        })	  
+				
+			})		
+		}
+		
+		if(resultado)
+		{
+			var usuario = $("#usuario").val();
+			var password = $("#contrasenia").val();
+			var nombre = $("#nombre").val();
+			var apellido = $("#apellido").val();
+			var dni = $("#dni").val();
+			var direccion = $("#direccion").val();
+			var telefono = $("#telefono").val();
+			var email = $("#email").val();
+			var habilitado = 1;
+			
+			var parametro = {
+				usuario : usuario,
+				password : password,
+				nombre : nombre,
+				apellido : apellido,
+				dni : dni,
+				direccion : direccion,
+				telefono : telefono,
+				email : email,
+				habilitado : habilitado,
+				arregloMascotas : arregloMascotas	
+			}
+			
+		
+			var parametros = JSON.stringify(parametro);
+			
+			
+			$.ajax({
+					url : "ConfirmarModificacionUsuario",
+					type : "post",
+					data : {jsonData : parametros},
+					success : function(data){
+						if (data == 1)
+						{
+							
+							$("#btnHidden").click();
+						
+							limpiarCampos();
+							setTimeout("$(location).attr('href','VentaOnline');",3500);
+							
+						} 
+						else
+						{
+							alert("No se pudo modificar el cliente.");
+						}
+	                    
+					}
+			})
 		}
 	})
+	
+	
 	
 	
 	

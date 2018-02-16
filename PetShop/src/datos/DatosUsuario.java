@@ -34,6 +34,7 @@ public class DatosUsuario implements Serializable{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		boolean bandera = false;
+		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
@@ -63,6 +64,7 @@ public class DatosUsuario implements Serializable{
 			rs=pstm.getGeneratedKeys();
 			if(rs!=null && rs.next()){
 				user.setIdUsuario(rs.getInt(1));
+				user.setMascotas(ctrlMascota.getMascotas(user));
 			}
 		} catch (Exception e) {
 			
@@ -80,9 +82,10 @@ public class DatosUsuario implements Serializable{
 		}
 		return user;
 	}
-	public void modificarUsuario(Usuario user) throws Exception
+	public Usuario modificarUsuario(Usuario user) throws Exception
 	{
 		PreparedStatement pstm = null;
+		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 				
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
@@ -101,6 +104,7 @@ public class DatosUsuario implements Serializable{
 			pstm.setString(12, user.getTipoEmpleado());
 			pstm.setInt(13, user.getIdUsuario());
 			pstm.executeUpdate();
+			user.setMascotas(ctrlMascota.getMascotas(user));
 		} 
 		catch (Exception e) 
 		{
@@ -116,6 +120,7 @@ public class DatosUsuario implements Serializable{
 				throw e;
 			}	
 		}
+		return user;
 		
 	}
 	
@@ -125,6 +130,7 @@ public class DatosUsuario implements Serializable{
 		ResultSet rs = null;
 		Usuario usuario=null;
 		int estado = 1;
+		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM usuario WHERE usuarioLogin=? AND password=? AND estado = ?");
@@ -148,6 +154,7 @@ public class DatosUsuario implements Serializable{
 					usuario.setEmail(rs.getString("email"));
 					usuario.setLegajo(rs.getInt("legajo"));
 					usuario.setTipoEmpleado(rs.getString("tipoEmpleado"));
+					usuario.setMascotas(ctrlMascota.getMascotas(usuario));
 			}
 			else{
 				throw new Exception();
@@ -429,6 +436,7 @@ public Usuario obtenerUsuario(Usuario user) throws Exception, ExcepcionEspecial{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		Usuario usuario=null;
+		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM usuario WHERE usuarioLogin=? AND password=?");
@@ -451,6 +459,7 @@ public Usuario obtenerUsuario(Usuario user) throws Exception, ExcepcionEspecial{
 					usuario.setEmail(rs.getString("email"));
 					usuario.setLegajo(rs.getInt("legajo"));
 					usuario.setTipoEmpleado(rs.getString("tipoEmpleado"));
+					usuario.setMascotas(ctrlMascota.getMascotas(usuario));
 			}
 			else{
 				throw new Exception();

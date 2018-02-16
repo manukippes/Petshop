@@ -84,7 +84,7 @@
 							</a>
 						
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="#"><span class="fa fa-pencil"></span> Editar Perfil </a></li>
+								<li><a href="ModificarUsuarioOnline"><span class="fa fa-pencil"></span> Editar Perfil </a></li>
 								<li class="divider"></li>
 								<li>
 									<a href="#confirmacion" data-toggle="modal"><span class="fa fa-sign-out"></span> Salir </a>

@@ -90,7 +90,7 @@
 						<div class="form-group row ">
 							<label class="sr-only">Mascota</label>
 							<div class="col-lg-3 col-md-12">
-								<a href="#agregarMascota" class="btn btn-primary form-control" id="btnAgregarMascota" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span> Agregar Mascota</a>
+								<a href="#agregarAlModificarMascota" class="btn btn-primary form-control" id="btnAgregarMascota" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span> Agregar Mascota</a>
 							</div>
 								<div class="col-lg-9 col-md-12" id="MascotaGroup">	
 								<%String hidden = " hidden";if(!(listadoMascota.isEmpty()) || listadoMascota.size() != 0){hidden="";}%>
@@ -143,7 +143,7 @@
 						</div>
 						
 						<!-- PANEL MODAL AGREGAR MASCOTA -->
-						<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="agregarMascota">
+						<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="agregarAlModificarMascota">
 							<div class="modal-dialog modal-lg">
 								<div class="modal-content">
 									<div class="modal-header">

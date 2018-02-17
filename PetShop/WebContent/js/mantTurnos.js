@@ -81,25 +81,7 @@ function filtrarTabla(){
 			})
 		})
 	}
-function eliminarFila(e){
-	e.preventDefault();  //detiene la accion del boton (VIDEO 10)
-	
-	var fecha = $(this).parent().parent().parent().find('#fecha').text();
-	var fecha = $(this).parent().parent().parent().find('#mascota').text();
-	var opcion = alertconfirm("Seguro quer\u00e9s eliminar el turno de fecha "+fecha+" para la mascota "+mascota+"?");
-	/*if (opcion){
-		var fila =$(this).parent().parent().parent()
-		var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
-		alert(idProducto);
-		
-		var data={idProducto : idProducto};
-		$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
-			//alert(res);    //Muestra la respuesta de ejecutar EliminarProducto
-			fila.remove();
-			})
-		}*/
-	
-	}
+
 $(document).ready(function() {
 //VALIDACION EN DISPOSITIVOS DE ESCRITORIO
 

@@ -48,18 +48,18 @@ function validarDatosTurno(){
 											
 						
 				
-					}else{alert("Debes seleccionar una frecuencia de repeticion");
+					}else{alertError("Debes seleccionar una frecuencia de repeticion");
 							$('#repetirRadioGroup').addClass("con-error");}
 			
-				}else{alert("Debes seleccionar un horario disponible");
+				}else{alertError("Debes seleccionar un horario disponible");
 						$('#horarioGroup').addClass("has-error");}
 				
-			}else{alert("Debes seleccionar una fecha para el turno");
+			}else{alertError("Debes seleccionar una fecha para el turno");
 					$('#fechaGroup').addClass("has-error");}
 			
-		}else{alert("Debes seleccionar un tipo de servicio");
+		}else{alertError("Debes seleccionar un tipo de servicio");
 				$('#servicioGroup').addClass("has-error");}
-	}else{alert("Debes seleccionar una de tus mascotas");
+	}else{alertError("Debes seleccionar una de tus mascotas");
 	$('#mascotaGroup').addClass("has-error");}
 		
 return resultado;
@@ -186,13 +186,13 @@ $(document).ready(function() {
 					observaciones : observaciones
 					}
 			var parametros = JSON.stringify(parametro);
-			//alert(parametros);
+			//alertError(parametros);
 			$.ajax({
 				type : "post",
 				url : "CargarDatosTurnoOnline",
 				data : {jsonData : parametros},
 				success : function(respuesta){
-					//alert(respuesta);
+					//alertError(respuesta);
 					$(location).attr('href',"TurnoOnlinePaso2");
 					
 				}
@@ -204,18 +204,18 @@ $(document).ready(function() {
 	$('#btnConfirmarTurno').click(function(e){
 		e.preventDefault();
 
-		//alert(parametros);
+		//alertError(parametros);
 		$.ajax({
 			type : "post",
 			url : "ProcesarTurnoOnline",
 			success : function(respuesta){
-				//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
-				if (respuesta){
+				//alertError(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
+				if (respuesta == 1){
 					if(prompt("Turno creado Exitosamente")==""){
 						$(location).attr('href','Turnos');
 					}
 				}else{
-					alert("Error al cargar el turno");
+					alertError("Error al cargar el turno");
 				}
 			}
 		}); 

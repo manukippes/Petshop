@@ -47,16 +47,17 @@ public class ProcesarTurnoOnline extends HttpServlet {
 		
 		//ALTA DE TURNO
 		Turno turnoActual = (Turno) request.getSession().getAttribute("turnoActual");
-		
+		int resp = 0;
 					
 		try {
 			if(ctrlTurno.agregarTurno(turnoActual)){
 				request.getSession().removeAttribute("turnoActual");
 				request.getSession().removeAttribute("turnoPendiente");
 				request.getSession().setAttribute("turnoPendiente", false);
-				response.getWriter().println(true);
+				resp=1;
+				response.getWriter().println(resp);
 			}else{
-				response.getWriter().println(false);
+				response.getWriter().println(resp);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

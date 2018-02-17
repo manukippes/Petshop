@@ -73,8 +73,8 @@ function filtrarTabla(){
 				"			<td>"+turnos.servicio.tipo+"</td>" +
 				"			<td class='col-sm-3 col-lg-2'>" +
 				"				<div class='input-group'>" +
-				"					<a class='btn btn-danger btnCancelarTurno "+botones+"' href='\'>Cancelar</a>" +
-				"					<a class='btn btn-primary "+botones+"' id='btnModificarTurno'  href='ModificarTurno?id="+turnos.idTurno+"'>Modificar</a>" +
+				"					<a class='btn btn-danger btnCancelarTurno hidden-print "+botones+"' href='\'>Cancelar</a>" +
+				"					<a class='btn btn-primary "+botones+" hidden-print' id='btnModificarTurno'  href='ModificarTurno?id="+turnos.idTurno+"'>Modificar</a>" +
 				"				</div>" +
 				"			</td>"
 				}).appendTo("table > tbody");
@@ -186,5 +186,7 @@ $(document).ready(function() {
 			});
 		}
 	});
+	
+	
 	
 })

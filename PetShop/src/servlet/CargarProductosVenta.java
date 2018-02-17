@@ -73,6 +73,7 @@ public class CargarProductosVenta extends HttpServlet {
 			prodCant.add(cantidad);
 			productosVenta.add(prodCant);//AGREGO EL ELEMENTO A LA VENTA
 		}
+		request.getSession().removeAttribute("productosVenta");
 		request.getSession().setAttribute("productosVenta", productosVenta);
 		
 	}

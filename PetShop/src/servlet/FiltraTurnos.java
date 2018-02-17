@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import entidades.Mascota;
 import entidades.Turno;
+import entidades.Usuario;
 import logica.ControladorDeTurno;
 
 /**
@@ -94,6 +96,12 @@ public class FiltraTurnos extends HttpServlet {
 				
 				List<Turno> lista = new ArrayList<>();  //convierto el arraylist en list
 				for(Turno turno : turnos){
+					
+					Mascota mascota = turno.getMascota();
+					Usuario usuario = mascota.getUsuario();
+					usuario.setMascotas(new ArrayList<Mascota>());
+					mascota.setUsuario(usuario);
+					turno.setMascota(mascota);
 					lista.add(turno);
 				}
 				String json = new Gson().toJson(lista);

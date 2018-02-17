@@ -17,7 +17,7 @@
 	<jsp:include page="Navbar.jsp" />
 	
 	<div class="container panel panel-default colorPanel">
-	 <div class="panel-body">">
+	 <div class="panel-body">
 		<br>
 		<br>	
 		<h4><strong>M&Oacute;DULO DE MANTENIMIENTO DE TURNOS</strong></h4>
@@ -29,7 +29,7 @@
 		
 		
 		
-		<div class="panel-group visible-xs" id="acordeon" role="tablist">
+		<div class="panel-group visible-xs hidden-print" id="acordeon" role="tablist">
 			<div class="panel panel-default">
 				<div class="panel-heading" role="tab" id="heading1">
 					<h4 class="panel-title">
@@ -76,10 +76,10 @@
 			</div>
 		</div>
 			
-			<div class="table-responsive">
+			<div class="table-responsive ">
 				<table id="tabla" class="table table-striped table-hover">
 					<thead>
-						<tr class="active">
+						<tr class="active hidden-print">
 							<th class="hidden">
 								<div>Id Turno</div>
 							</th>
@@ -154,7 +154,7 @@
 							</th>
 							<th class="col-sm-3 col-lg-2"> 
 								<div>
-									<button class="btn btn-primary hidden-xs"><h4><span class="glyphicon glyphicon-print"> </span> <strong>Imprimir</strong></h4></button>
+									<button class="btn btn-primary hidden-xs hidden-print" id="btnImprimir" onclick="window.print();"><h4><span class="glyphicon glyphicon-print"> </span> <strong>Imprimir</strong></h4></button>
 								</div>
 								<hr class="hidden-xs">
 								<div class="input-group">
@@ -170,7 +170,7 @@
 				</div>
 				
 				<div class="">
-					<button class="btn btn-primary visible-xs"><span class="glyphicon glyphicon-print"> </span> <strong>Imprimir listado actual</strong></button>
+					<button class="btn btn-primary visible-xs hidden-print" onclick="window.print();"><span class="glyphicon glyphicon-print"> </span> <strong>Imprimir listado actual</strong></button>
 				</div>
 			</div>
 	  	</div>

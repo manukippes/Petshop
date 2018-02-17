@@ -1,4 +1,5 @@
 <%@page import="entidades.Usuario"%>
+<%@page import="java.util.ArrayList"%>
 <div class="container">
 	<br>
 	<header>
@@ -77,7 +78,9 @@
 						<li id="turnosTab" class=""><a href="TurnoOnline"><span class="fa fa-calendar"></span> Turnos</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span> Mi Carrito <span class="badge" id="articulosCarrito">0</span></a></li>
+					<%ArrayList<ArrayList<String>> listado = (ArrayList<ArrayList<String>>) session.getAttribute("productosVenta");
+					int cantidad = listado.size();%>
+						<li><a href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span> Mi Carrito <span class="badge" id="articulosCarrito"><%=cantidad %></span></a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 								<span class="fa fa-user-circle"></span> <%= usuarioNavbar.getNombre() %> <span class="caret"></span>

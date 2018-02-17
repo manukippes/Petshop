@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,6 +63,8 @@ public class Start extends HttpServlet {
 						break;
 						
 					case "Online":
+						ArrayList<ArrayList<String>> productosVenta = new ArrayList<ArrayList<String>>();
+						request.getSession().setAttribute("productosVenta", productosVenta);
 						response.getWriter().println(2);
 						break;
 				}								

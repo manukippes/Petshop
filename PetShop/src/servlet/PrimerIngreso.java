@@ -1,11 +1,17 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import entidades.Usuario;
 
@@ -40,7 +46,10 @@ public class PrimerIngreso extends HttpServlet {
 			
 
 		//request.getSession().setAttribute("turnoPendiente", false);
-			
+		
+		ArrayList<ArrayList<String>> productosVenta = new ArrayList<ArrayList<String>>();
+		request.getSession().setAttribute("productosVenta", productosVenta);
+		
 		request.getRequestDispatcher("WEB-INF/VentaOnline.jsp").forward(request, response);								
 
 	}

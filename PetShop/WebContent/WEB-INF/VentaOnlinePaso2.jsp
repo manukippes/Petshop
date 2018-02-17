@@ -17,7 +17,7 @@
 		
 		<title>Sistema de Gestion de Pet Shops</title>
 	</head>
-	<body onload="iniciar('ventas');completarCarrito();">
+	<body onload="iniciar('ventas');">
 		<jsp:include page="Navbar.jsp" />		 
 		 
 		<div class="container panel panel-default colorPanel">

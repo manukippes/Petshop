@@ -9,11 +9,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 		<meta charset="UTF-8">
-		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-		<link rel="stylesheet" href="css/estilos.css" type="text/css">
-		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
-		<link rel="shortcut icon" href="#">
-		<jsp:include page="Navbar.jsp" />
+		<jsp:include page="cssGeneral.jsp" />
 		<title>SGPS - Modificar cliente</title>
 	</head>
 	<body onload="iniciar('administracion');">
@@ -299,9 +295,7 @@
 		        </div>
 		   	</div>
 		</div>
-			<script type="text/javascript" src="js/jquery-latest.js"></script>
-			<script type="text/javascript" src="js/bootstrap.min.js"></script>
+			<jsp:include page="jsGeneral.jsp" />
 			<script type="text/javascript" src="js/clientes.js"></script>
-			<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>

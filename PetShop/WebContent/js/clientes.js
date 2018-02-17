@@ -182,35 +182,6 @@ function validar(usuarioRegistrado){
 		}
 	}
 }
-	
-	$("#nombre").change(function(){
-
-		$('#nombreGroup').removeClass("has-error");
-		$("#completarnombre").remove();
-		
-	})
-
-	$("#apellido").change(function(){
-
-		$('#apellidoGroup').removeClass("has-error");
-		$("#completarapellido").remove();
-		
-	})
-	$("#dni").change(function(){
-
-		$('#dniGroup').removeClass("has-error");
-		$("#completardni").remove();
-		
-	})
-	
-	$("#telefono").change(function(){
-
-		$('#telefonoGroup').removeClass("has-error");
-		$("#completartelefono").remove();
-		
-	})
-	
- 
 
 $(document).ready(function() {
 	
@@ -221,6 +192,9 @@ $(document).ready(function() {
 		$('#completaremail').remove();
 		validarEmailExistente();
 	})
+	
+		//----------------------------------------------BOTON MODIFICAR MASCOTA DE LA FILA DE LA TABLA----------------------------------------------//
+	
 	$(this).on("click", ".btnModificarMascota", function(e){
 			    e.preventDefault();
 			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
@@ -259,57 +233,12 @@ $(document).ready(function() {
 				$('#fechaNacimientoMascota').val(fechaNacimiento);
 				$('#observacionesMascota').val(observacion);
 				$('#agregarMascotaModificar').modal('toggle');
-				//$('#btnAgregarMascota').click();
-				
-				
-				
+
 				
 			});	
 	
-		//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
-			$(this).on("click","#btnPatitaGrande",function(e){
-				e.preventDefault();
-				$('#patitaGroup').removeClass("con-error");
-				$('#btnPatitaGrande').addClass("icon-button-active");
-				$('#btnPatitaMediana').removeClass("icon-button-active");
-				$('#btnPatitaChica').removeClass("icon-button-active");
-				
-			})
-			
-			$(this).on("click","#btnPatitaMediana",function(e){
-				e.preventDefault();
-				$('#patitaGroup').removeClass("con-error");
-				$('#btnPatitaGrande').removeClass("icon-button-active");
-				$('#btnPatitaMediana').addClass("icon-button-active");
-				$('#btnPatitaChica').removeClass("icon-button-active");
-				
-			})
-			
-			$(this).on("click","#btnPatitaChica",function(e){
-				e.preventDefault();
-				$('#patitaGroup').removeClass("con-error");
-				$('#btnPatitaGrande').removeClass("icon-button-active");
-				$('#btnPatitaMediana').removeClass("icon-button-active");
-				$('#btnPatitaChica').addClass("icon-button-active");
-				
-			})
-			
-			$(this).on("click","#btnTijeraGrande",function(e){
-				e.preventDefault();
-				$('#pelajeGroup').removeClass("con-error");
-				$('#btnTijeraGrande').addClass("icon-button-active");
-				$('#btnTijeraChica').removeClass("icon-button-active");	
-			})
-			
-			$(this).on("click","#btnTijeraChica",function(e){
-				e.preventDefault();
-				$('#pelajeGroup').removeClass("con-error");
-				$('#btnTijeraGrande').removeClass("icon-button-active");
-				$('#btnTijeraChica').addClass("icon-button-active");
-			
-			})
-	//}
-			
+
+	//----------------------------------------------BOTON CRUZ DE LA TABLA PARA ELIMINAR LA FILA----------------------------------------------//
 			$(this).on("click", ".btnQuitarMascota", function(e){
 			    e.preventDefault();
 			   
@@ -329,12 +258,8 @@ $(document).ready(function() {
 				}else{
 
 					fila.remove();
-				}
-				
+				}			
 			});	
-			
-	
-	
 	
 	$(this).on("click", "#nombreMascotaGroup", function(e){
 	    $('#nombreMascotaGroup').removeClass("has-error"); 
@@ -344,9 +269,10 @@ $(document).ready(function() {
 	})
 	
 	
-	/// AGREGAR MASCOTAS ///
-	$('#btnAgregarMascotaModal').on("click",function(e){
+		///---------------------------------------------- BOTON CONFIRMAR DEL PANEL MODAL DE MASCOTAS ----------------------------------------------///	
+	$('.btnAgregarMascotaModal').on("click",function(e){
 	    e.preventDefault();
+	    
 	    
 	    var validaNombre = false;
 	    if ($('.nombreMascota').val()!=""){
@@ -437,6 +363,7 @@ $(document).ready(function() {
 	        $('#tablaMascota').removeClass("hidden");
 	        limpiarCamposModal();
 	        $('#agregarMascotaModificar').modal('toggle');
+	        prompt("Agregue nueva mascota");
 			}else{
 				
 				$('#agregarMascotaModificar').modal('toggle');
@@ -464,12 +391,14 @@ $(document).ready(function() {
 				}
 				
 				limpiarCamposModal();
+				
+				prompt("Modifique mascota existente");
 			}
-			
+			agregar = true;
 			}
 		})
 		
-	/// ALTA DE CLIENTE ///
+	///---------------------------------------------- ALTA DE CLIENTE ----------------------------------------------///
 	$('#btnAgregarCliente').click(function(e){
 		e.preventDefault();
 		$('#completaremail').remove();
@@ -534,6 +463,7 @@ $(document).ready(function() {
 							data : {jsonData : parametros},
 							success : function(data){
 								if (data != 0){
+									prompt(data);
 									if (data == 1){
 										$("#btnHidden").click();
 										limpiarCampos();
@@ -554,7 +484,7 @@ $(document).ready(function() {
 				}
 
 	})
-	/// MODIFICACION DE CLIENTE ///
+	///---------------------------------------------- MODIFICACION DE CLIENTE---------------------------------------------- ///
 	$('#btnModificarUsuario').click(function(e){
 		e.preventDefault();
 		$('#completaremail').remove();
@@ -640,7 +570,7 @@ $(document).ready(function() {
 			})
 		}
 	})
-	//CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL
+	//-----------------------------------CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL---------------------------------//
 	$(this).on("click", "#btnBusquedaCliente", function(e){
 	    e.preventDefault();
 		
@@ -666,7 +596,7 @@ $(document).ready(function() {
 			}
 	}); 
 	
-	/// CLICK EN EL BOTON DE MODIFICAR CLIENTES ///
+	/// ----------------------------------------------CAPTURO CLICK EN EL BOTON DE MODIFICAR CLIENTES ----------------------------------------------///
 	$(this).on("click", "#btnVerCliente", function(e){
 		e.preventDefault();
 	    if($('#cliente').val() == "cliente"){
@@ -698,7 +628,7 @@ $(document).ready(function() {
 	})
 	
 	
-	/// CLICK EN EL BOTON DE BORRAR CLIENTES ///
+	///---------------------------------------CAPTURO CLICK EN EL BOTON DE BORRAR CLIENTES ----------------------------------------///
 	$(this).on("click", "#btnBorrarCliente", function(e){
 		e.preventDefault();
 	    if($('#cliente').val() == "cliente"){
@@ -729,7 +659,7 @@ $(document).ready(function() {
 		
 	})
 	
-	//VALIDAR EMAIL
+	//----------------------------------------------VALIDAR EMAIL---------------------------------------------//
 	
 	$("#email").change(function(){
 				$('#completaremail').remove();
@@ -748,69 +678,73 @@ $(document).ready(function() {
 			    }
 			    
 			    if(validaMail){ 
-			    	var parametro = { email : email }
-					var parametros = JSON.stringify(parametro);
-					
-					$.ajax({
-							url : "ValidarMail",
-							type : "post",
-							data :  {jsonData : parametros},
-							success : function(data){
-								if (data == 1)
-								{
-									valido = false;
-									$("#emailGroup").addClass("has-error");
-									$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
-								} 
-								else
-								{
-									valido = true;
-									$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
-								}
-			                    
-							}
-					
-				})
+			    	$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es v&aacute;lido</small>").insertAfter("#email");
+			    	
 			    } else {
 			    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
 			    }
 			})
 			
 			
-	/*$(this).on("click", "#btnValidar", function(e){
-	    e.preventDefault();
-		$('#emailValido').remove();
-		
-		var email = $('#email').val();
-		if(email!=""){
-			presionoValidar = true;
-			var parametro = {email: email}			
-			var parametros = JSON.stringify(parametro);		
-			 $.ajax({
-					url : "ValidarMail",
-					type : "post",
-					data : {jsonData : parametros},
-					success : function(data){
-						if (data == 1)
-						{
-							valido = true;
-							presionoValidar = true;
-							$("<small class='form-text text-muted text-success' id='emailValido'> Direcci&oacute;n de email v&aacute;lida</small>").insertAfter("#btnValidar");
-						} 
-						else
-						{
-							presionoValidar = false;
-							valido = false;
-							$("<small class='form-text text-muted text-danger' id='emailValido'> La direcci&oacute;n de email ya se encuentra registrada</small>").insertAfter("#btnValidar");
-						}
-	                    
-					}
-		        })
-		}else{
-			presionoValidar = false;
-			alert("Primero debe ingresar un email para validarlo.")
-			}
-	}); */
-
+//-------------PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE--------------------------------////
+	$(this).on("click","#btnPatitaGrande",function(e){
+		e.preventDefault();
+		$('#patitaGroup').removeClass("con-error");
+		$('#btnPatitaGrande').addClass("icon-button-active");
+		$('#btnPatitaMediana').removeClass("icon-button-active");
+		$('#btnPatitaChica').removeClass("icon-button-active");
+	})
+	
+	$(this).on("click","#btnPatitaMediana",function(e){
+		e.preventDefault();
+		$('#patitaGroup').removeClass("con-error");
+		$('#btnPatitaGrande').removeClass("icon-button-active");
+		$('#btnPatitaMediana').addClass("icon-button-active");
+		$('#btnPatitaChica').removeClass("icon-button-active");
+	})
+	
+	$(this).on("click","#btnPatitaChica",function(e){
+		e.preventDefault();
+		$('#patitaGroup').removeClass("con-error");
+		$('#btnPatitaGrande').removeClass("icon-button-active");
+		$('#btnPatitaMediana').removeClass("icon-button-active");
+		$('#btnPatitaChica').addClass("icon-button-active");
+	})
+	
+	$(this).on("click","#btnTijeraGrande",function(e){
+		e.preventDefault();
+		$('#pelajeGroup').removeClass("con-error");
+		$('#btnTijeraGrande').addClass("icon-button-active");
+		$('#btnTijeraChica').removeClass("icon-button-active");	
+	})
+	
+	$(this).on("click","#btnTijeraChica",function(e){
+		e.preventDefault();
+		$('#pelajeGroup').removeClass("con-error");
+		$('#btnTijeraGrande').removeClass("icon-button-active");
+		$('#btnTijeraChica').addClass("icon-button-active");
+	})
+//-------------------------------------QUITAR ALERTAS DE ERROR--------------------------------------////
+	//	QUITAR ALERTAS DE ERROR AL CAMPO
+	$("#nombre").change(function(){
+		$('#nombreGroup').removeClass("has-error");
+		$("#completarnombre").remove();
+	})
+	//	QUITAR ALERTAS DE ERROR AL CAMPO
+	$("#apellido").change(function(){
+		$('#apellidoGroup').removeClass("has-error");
+		$("#completarapellido").remove();	
+	})
+	//	QUITAR ALERTAS DE ERROR AL CAMPO
+	$("#dni").change(function(){
+		$('#dniGroup').removeClass("has-error");
+		$("#completardni").remove();	
+	})
+	//	QUITAR ALERTAS DE ERROR AL CAMPO	
+	$("#telefono").change(function(){
+		$('#telefonoGroup').removeClass("has-error");
+		$("#completartelefono").remove();	
+	})
+//-------------------------------------------------------------------------------------------------------------////
 });
 	

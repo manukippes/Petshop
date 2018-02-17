@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="css/estilos.css" type="text/css">
 		<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
 		<link rel="shortcut icon" href="#">
-
+		<jsp:include page="Navbar.jsp" />
 		<title>SGPS - Modificar cliente</title>
 	</head>
 	<body onload="iniciar('administracion');">
@@ -37,9 +37,8 @@
 		            	Usuario cli = ((Usuario) session.getAttribute("cliente")); 
 		            	ArrayList<Mascota> listadoMascota = cli.getMascotas();
 		            	%>
-		            	<!-- Input de idUsuario -->
-			            		
-							    <input type="text" class="hidden" name="idUsuario" id="idUsuario" aria-describedby="usuarioHelp" value="<%= cli.getIdUsuario() %>">
+		            		<!-- Input de idUsuario -->
+			            		<input type="text" class="hidden" name="idUsuario" id="idUsuario" aria-describedby="usuarioHelp" value="<%= cli.getIdUsuario() %>">
 		            	
 		            	  	<!-- Input de nombre -->
 			            		<label class="sr-only">Nombre</label>
@@ -242,7 +241,7 @@
 										<hr class="hrModal">
 										<div class="form-group row container-fluid">
 											<div class="col-lg-12 col-md-12">
-												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Confirmar</h4></button>
+												<button class="col-lg-3 col-md-12 btn btn-primary pull-right btnAgregarMascotaModal" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Confirmar</h4></button>
 											</div>
 										</div>
 									</div>								

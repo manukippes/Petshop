@@ -302,16 +302,16 @@ $(document).ready(function() {
 	    				 
 	    				 respuesta = true;	
 	    			 
-	    			 }else {alert("Para agregar primero debes ingresar la fecha de nacimiento");
+	    			 }else {alertError("Para agregar primero debes ingresar la fecha de nacimiento");
 	    			 	$('#fechaNacimientoMascotaGroup').addClass("has-error");}
 	    			 
-	    		 }else{alert("Para agregar primero debes seleccionar un pelaje de la mascota");
+	    		 }else{alertError("Para agregar primero debes seleccionar un pelaje de la mascota");
 	    		 $('#pelajeGroup').addClass("con-error");}
 	    	
-	    	}else{alert("Para agregar primero debes seleccionar un tamaño de la mascota");
+	    	}else{alertError("Para agregar primero debes seleccionar un tamaño de la mascota");
 	    	$('#patitaGroup').addClass("con-error");}
 			
-		}else {alert("Para agregar primero debes ingresar un nombre");
+		}else {alertError("Para agregar primero debes ingresar un nombre");
 		$('#nombreMascotaGroup').addClass("has-error");}
 			
 		if (respuesta){			
@@ -467,7 +467,7 @@ $(document).ready(function() {
 										setTimeout("$(location).attr('href','Ventas');",3500);
 									}
 									if (data == 2){
-										prompt("ERROR AL GRABAR LAS MASCOTAS")
+										alertError("ERROR AL GRABAR LAS MASCOTAS");
 									}
 									if (data == 3){
 										$("#emailGroup").addClass("has-error");
@@ -562,7 +562,7 @@ $(document).ready(function() {
 						
 						}
 						if (data==0){
-							alert("ERROR");
+							alertError("ERROR");
 						}
 	                    
 					}
@@ -599,7 +599,7 @@ $(document).ready(function() {
 	$(this).on("click", "#btnVerCliente", function(e){
 		e.preventDefault();
 	    if($('#cliente').val() == "cliente"){
-			alert("Para modificar el cliente primero debes seleccionarlo");
+			alertError("Para modificar el cliente primero debes seleccionarlo");
 		}else{	
 			var idCliente = $('#cliente').val();
 	        
@@ -618,7 +618,7 @@ $(document).ready(function() {
 					} 
 					else
 					{
-						alert("No es posible modificar el cliente.");
+						alertError("No es posible modificar el cliente.");
 					}
                     
 				}
@@ -631,7 +631,7 @@ $(document).ready(function() {
 	$(this).on("click", "#btnBorrarCliente", function(e){
 		e.preventDefault();
 	    if($('#cliente').val() == "cliente"){
-			alert("Para eliminar el cliente primero debes seleccionarlo");
+			alertError("Para eliminar el cliente primero debes seleccionarlo");
 		}else{
 			var idCliente = $('#cliente').val();
 	        
@@ -645,11 +645,11 @@ $(document).ready(function() {
 				success : function(data){
 					if (data ==1)
 					{
-						confirm("Se elimin&oacute; el cliente.");
+						alertConfirm("Se elimin&oacute; el cliente.");
 					} 
 					else
 					{
-						alert("No se pudo eliminar el cliente.");
+						alertError("No se pudo eliminar el cliente.");
 					}
                     
 				}

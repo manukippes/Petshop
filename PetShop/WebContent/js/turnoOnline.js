@@ -211,9 +211,13 @@ $(document).ready(function() {
 			success : function(respuesta){
 				//alertError(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
 				if (respuesta == 1){
-					if(prompt("Turno creado Exitosamente")==""){
+					var opcion = alertDetiene("Turno creado Exitosamente");
+					if(opcion){
 						$(location).attr('href','Turnos');
+					}else{
+						alertError("No se pudo mostrar el popUp");
 					}
+					
 				}else{
 					alertError("Error al cargar el turno");
 				}

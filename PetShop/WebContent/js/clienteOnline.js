@@ -591,14 +591,14 @@ $(document).ready(function() {
 								setTimeout("$(location).attr('href','PrimerIngreso');",3500);
 							}
 							if (data == 2){
-								prompt("ERROR AL GRABAR LAS MASCOTAS")
+								alertError("ERROR AL GRABAR LAS MASCOTAS")
 							}
 							if (data == 4){
 								$("#emailGroup").addClass("has-error");
 								$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
 							}
 						} else {
-							alert("ERROR");
+							alertError("ERROR");
 						}	
 	                    
 					}
@@ -683,7 +683,7 @@ $(document).ready(function() {
 							validarEmail();
 						}
 						if (data==0){
-							alert("ERROR");
+							alertError("ERROR");
 						}
 	                    
 					}

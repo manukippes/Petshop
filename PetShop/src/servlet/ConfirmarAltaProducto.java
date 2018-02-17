@@ -66,6 +66,7 @@ public class ConfirmarAltaProducto extends HttpServlet {
 		Producto productoActual = new Producto();								//CREO UNA INSTANCIA DE PRODUCTO
 		ControladorDeProducto ctrlProducto = new ControladorDeProducto();		//CREO UNA INSTANCIA DE CONTROLADOR DE PRODUCTO
 		Subcategoria subcate = new Subcategoria();								//CREO UNA INSTANCIA DE SUBCATEGORIA (DE PRODUCTO)
+		int resp = 0;
 		
 		//OBTENGO TODOS LOS PARAMETROS DEL FORM ENVIADO
 		
@@ -115,9 +116,10 @@ public class ConfirmarAltaProducto extends HttpServlet {
 				
 			}else{
 				if(ctrlProducto.agregarProducto(productoActual)){
-					response.getWriter().println("Producto creado exitosamente");
+					resp=1;
+					response.getWriter().println(resp);
 				}else{
-					response.getWriter().println("Error en la creacion del producto");
+					response.getWriter().println(resp);
 				};			
 			};
 			

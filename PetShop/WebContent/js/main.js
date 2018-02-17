@@ -26,126 +26,69 @@
     			break;
     		}
 }
+
  
-function alertError(mensaje)
-{
-    var dgcTiempo=500;
-    var ventanaCS="<div class='modal fade' id='alert'>" +
-    		"			<div class='modal-dialog'>" +
-    		"				<div class='modal-content'>" +
-    		"					<div class='modal-header'>" +
-    		"						<div class='pull-right'>" +
-    		"							<button type='button' id='btnCerrarAlertX' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>" +
-    		"						</div>" +
-    		"						<div class='container'>" +
-    		"							<h3 class='text-danger'><span class='glyphicon glyphicon-warning-sign'></span>  Disculpe, algo no est&aacute; bien</h3>" +
-    		"						</div>" +
-    		"					</div>" +
-    		"					<div class='modal-body'>" +						
-    		"						<br><div class='container-fluid'>" +
-    		"								<p class='text-info'> "+mensaje+"</p><br>" +
-    		"							</div>" +
-    		//"					</div>" +
-    		//"					<div class='modal-footer'>" +
-    		//"						<button class='btn btn-primary' id='btnCerrarAlert'>Aceptar</button>" +
-    		"					</div>" +
-    		"				</div>" +
-    		"			</div>" +
-    		"		</div>";
-    	$('body').append(ventanaCS);
-    	$('#alert').modal('toggle');
-    	$('#btnCerrarAlertX').click(function(e) {
-    		$('#alert').modal('toggle');
-    		setTimeout("$('#alert').remove()",dgcTiempo);
-    	})
-
-}
-
-function alertExito(mensaje)
-{
-
-	var dgcTiempo=500;
-    var ventanaCS="<div class='modal fade' id='alert'>" +
-    		"			<div class='modal-dialog'>" +
-    		"				<div class='modal-content'>" +
-    		"					<div class='modal-header'>" +
-    		"						<div class='pull-right'>" +
-    		"							<button type='button' id='btnCerrarAlertX' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>" +
-    		"						</div>" +
-    		"						<div class='container'>" +
-    		"							<h3 class='text-success'><span class='glyphicon glyphicon-ok'></span>  Felicitaciones! </h3>" +
-    		"						</div>" +
-    		"					</div>" +
-    		"					<div class='modal-body'>" +						
-    		"						<br><div class='container-fluid'>" +
-    		"								<p class='text-info'> "+mensaje+"</p><br>" +
-    		"							</div>" +
-    		//"					</div>" +
-    		//"					<div class='modal-footer'>" +
-    		//"						<button class='btn btn-primary' id='btnCerrarAlert'>Aceptar</button>" +
-    		"					</div>" +
-    		"				</div>" +
-    		"			</div>" +
-    		"		</div>";
-    	$('body').append(ventanaCS);
-    	$('#alert').modal('toggle');
-    	$('#btnCerrarAlertX').click(function(e) {
-    		$('#alert').modal('toggle');
-    		setTimeout("$('#alert').remove()",dgcTiempo);
-    	})
-
-}
-function alertConfirmar(mensaje)
-{
-
-	var dgcTiempo=500;
-    var ventanaCS="<div class='modal fade' id='alert'>" +
-    		"			<div class='modal-dialog'>" +
-    		"				<div class='modal-content'>" +
-    		"					<div class='modal-header'>" +
-    		"						<div class='pull-right'>" +
-    		"							<button type='button' id='btnCerrarAlertX' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>" +
-    		"						</div>" +
-    		"						<div class='container'>" +
-    		"							<h3 class='text-success'><span class='glyphicon glyphicon-ok'></span> Atencion </h3>" +
-    		"						</div>" +
-    		"					</div>" +
-    		"					<div class='modal-body'>" +						
-    		"						<br><div class='container-fluid'>" +
-    		"								<p class='text-info'> "+mensaje+"</p><br>" +
-    		"							</div>" +
-    		//"					</div>" +
-    		//"					<div class='modal-footer'>" +
-    		//"						<button class='btn btn-primary' id='btnCerrarAlert'>Aceptar</button>" +
-    		"					</div>" +
-    		"				</div>" +
-    		"			</div>" +
-    		"		</div>";
-    	$('body').append(ventanaCS);
-    	$('#alert').modal('toggle');
-    	$('#btnCerrarAlertX').click(function(e) {
-    		$('#alert').modal('toggle');
-    		setTimeout("$('#alert').remove()",dgcTiempo);
-    	})
-
-}
-/*window.prompt = function (message) {
-	
-	alertExito(message);
-	
-};*/
-
-/*window.alert = function (message) {
-
-	alertError(message);		//Llama al alert de error
-
-};
-
-window.confirm = function(message){
-	
-	alertConfirmar(message);
-	
-};*/
+ function alertError(mensaje){
+	 swal ( {
+		 title : "Error!",
+		 text : mensaje,
+		 icon : "error" ,
+		 button: {
+			    text: "Aceptar",
+			    value: true,
+			    visible: true,
+			    className: "",
+			    closeModal: true
+			  }
+		} ) ;
+ }
+ 
+ function alertOk(mensaje){
+	 swal ( {
+		 title : "Bien hecho!",
+		 text : mensaje,
+		 icon : "success" , 
+		 button: {
+			    text: "Aceptar",
+			    value: true,
+			    visible: true,
+			    className: "",
+			    closeModal: true
+			  }
+		} ) ;
+ }
+ 
+ function alertConfirm(mensaje){
+	 swal ( {
+		 title : "Atenci\u00F3n!",
+		 text : mensaje,
+		 icon : "info" , 
+		 button: {
+			 cancel: 
+			 	  {
+				    text: "Cancelar",
+				    value: null,
+				    visible: false,
+				    className: "",
+				    closeModal: true,
+				  },
+				  confirm: {
+				    text: "Aceptar",
+				    value: true,
+				    visible: true,
+				    className: "",
+				    closeModal: true
+				  }
+			  }
+		} )
+		.then((respuesta) => {
+			  if (respuesta) {
+			    return true;
+			  } else {
+			    return false;
+			  }
+			});
+ }
 
 function destacarCampo(nombre){
 	$('#'+nombre).addClass("has-error");
@@ -189,7 +132,7 @@ $(document).ready(function() {
 	$(this).on("click", "#btnAgregarClienteSeleccionado", function(e){
 	    e.preventDefault();
 	    if($('#cliente').val() == "cliente"){
-			alert("Para agregar primero debes seleccionar un cliente");
+			alertError("Para agregar primero debes seleccionar un cliente");
 		}else{
 			$('#buscarCliente').modal('toggle');
 	        $('#btnQuitarCliente').removeClass("hidden");

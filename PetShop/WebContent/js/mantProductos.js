@@ -37,7 +37,7 @@ function validarCampos(nombre, presentacion, precio,categoria,subcategoria){
 										var name = archivos[i].name;
 										var ext = name.substring(name.lastIndexOf('.')).toLowerCase();	
 										if (ext!='.jpg'){
-											alert("El archivo "+name+" no es v\u00e1lido, solo se aceptan imagenes en .JPG");
+											alertError("El archivo "+name+" no es v\u00e1lido, solo se aceptan imagenes en .JPG");
 											document.getElementById('imagenGroup').classList.add("has-error");											
 											return false;
 										}
@@ -45,32 +45,32 @@ function validarCampos(nombre, presentacion, precio,categoria,subcategoria){
 								
 								return true;
 								}else{
-									alert("El m\u00e1aximo n\u00famero de archivos permitidos es uno")
+									alertError("El m\u00e1aximo n\u00famero de archivos permitidos es uno")
 									document.getElementById('imagenGroup').classList.add("has-error");
 									}
 							}else{
-								alert("No elegiste ninguna imagen");
+								alertError("No elegiste ninguna imagen");
 								document.getElementById('imagenGroup').classList.add("has-error");
 								}
 						}
 					}else{
-						alert("Ups! Ingresaste un precio no v\u00e1lido, pod\u00e9s usar n\u00fameros enteros o decimales");
+						alertError("Ups! Ingresaste un precio no v\u00e1lido, pod\u00e9s usar n\u00fameros enteros o decimales");
 						document.getElementById('precioGroup').classList.add("has-error");
 						}
 				}else{
-					alert("Ups! Ingresaste una presentaci\u00f3n no v\u00e1lida, debe tener entre 4 y 30 caracteres");
+					alertError("Ups! Ingresaste una presentaci\u00f3n no v\u00e1lida, debe tener entre 4 y 30 caracteres");
 					document.getElementById('presentacionGroup').classList.add("has-error");
 					}
 			}else{
-				alert("Ups! Ingresaste un nombre no v\u00e1lido, debe tener entre 4 y 30 caracteres");
+				alertError("Ups! Ingresaste un nombre no v\u00e1lido, debe tener entre 4 y 30 caracteres");
 				document.getElementById('nombreGroup').classList.add("has-error"); //Obtengo el elemento del DOM con id="nombreGroup" yle agrego la clase bootstrap has-error
 				}
 		}else{
-			alert("Ups! No seleccionaste una subcategor\u00eda");
+			alertError("Ups! No seleccionaste una subcategor\u00eda");
 			document.getElementById('subcategoriaGroup').classList.add("has-error");
 			}
 	}else{
-		alert("Ups! No seleccionaste una categor\u00eda");
+		alertError("Ups! No seleccionaste una categor\u00eda");
 		document.getElementById('categoriaGroup').classList.add("has-error");
 		}	
 	
@@ -81,15 +81,14 @@ function eliminarFila(e){
 	e.preventDefault();  //detiene la accion del boton (VIDEO 10)
 	
 	var nombreProducto = $(this).parent().parent().parent().find('#fecha').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
-	var opcion = confirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
+	var opcion = alertConfirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
 	if (opcion){
 		var fila =$(this).parent().parent().parent()
 		var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
-		alert(idProducto);
-		
+				
 		var data={idProducto : idProducto};
 		$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
-			//alert(res);    //Muestra la respuesta de ejecutar EliminarProducto
+			//alertError(res);    //Muestra la respuesta de ejecutar EliminarProducto
 			fila.remove();
 			})
 		}
@@ -185,7 +184,11 @@ $(document).ready(function() {
 				contentType : false,
 				processData : false,
 				success : function(data){
-					confirm(data);
+					if(data==1){
+						alertOk("Producto modificado exitosamente");
+					}else{
+						alertError("Error en la modificaci\u00F3n del producto");
+					}
 				}
 			});
 		}
@@ -208,7 +211,11 @@ $(document).ready(function() {
 				contentType : false,
 				processData : false,
 				success : function(data){
-				confirm(data);
+					if(data==1){
+						alertOk("Producto creado exitosamente");
+					}else{
+						alertError("Error en la creacion del producto");
+					}
 				}
 			});
 		}
@@ -240,13 +247,13 @@ $(document).ready(function() {
 		e.preventDefault();  //detiene la accion del boton (VIDEO 10)
 		
 		var nombreProducto = $(this).parent().parent().parent().find('#nombreProducto').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
-		var opcion = confirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
+		var opcion = alertconfirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
 		if (opcion){
 			var fila =$(this).parent().parent().parent()
 			var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
 			var data={idProducto : idProducto};
 			$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
-				//alert(res);    //Muestra la respuesta de ejecutar EliminarProducto
+				//alertError(res);    //Muestra la respuesta de ejecutar EliminarProducto
 				fila.remove();
 			});
 		}

@@ -259,7 +259,7 @@
 	</div>
 	
 	<jsp:include page="jsGeneral.jsp" /> 
-	<script type="text/javascript" src="js/turnos.js"></script>> 
+	<script type="text/javascript" src="/Petshop/js/turnos.js"></script>
 	 
 </body>
 </html>

@@ -82,7 +82,7 @@ function validarDatosTurno(){
 		}else{alert("Debes seleccionar un largo del pelaje")
 				$('#pelajeGroup').addClass("con-error");}
 		
-	}else{alert("Debes seleccionar un tama&ntilde;o de mascota");
+	}else{alertError("Debes seleccionar un tama\u00f1o de mascota");
 			$("#patitaGroup").addClass("con-error")}
 return resultado;
 }

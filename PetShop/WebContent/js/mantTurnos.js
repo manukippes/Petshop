@@ -86,7 +86,7 @@ function eliminarFila(e){
 	
 	var fecha = $(this).parent().parent().parent().find('#fecha').text();
 	var fecha = $(this).parent().parent().parent().find('#mascota').text();
-	var opcion = confirm("Seguro quer\u00e9s eliminar el turno de fecha "+fecha+" para la mascota "+mascota+"?");
+	var opcion = alertconfirm("Seguro quer\u00e9s eliminar el turno de fecha "+fecha+" para la mascota "+mascota+"?");
 	/*if (opcion){
 		var fila =$(this).parent().parent().parent()
 		var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
@@ -192,7 +192,7 @@ $(document).ready(function() {
 		
 		var fecha = $(this).parent().parent().parent().find('#fecha').text();
 		var mascota = $(this).parent().parent().parent().find('#mascota').text();
-		var opcion = confirm("Seguro quer\u00e9s eliminar el turno de fecha "+fecha+" para la mascota "+mascota+"?");
+		var opcion = alertconfirm("Seguro quer\u00e9s eliminar el turno de fecha "+fecha+" para la mascota "+mascota+"?");
 		if (opcion){
 			var fila =$(this).parent().parent().parent()
 			var idTurno = fila.find('#idTurno').text(); 		//captura el idturno dentro de la estructura de la pagina

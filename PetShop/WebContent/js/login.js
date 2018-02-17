@@ -72,15 +72,13 @@ $(document).ready(function() {
 					$('#confirmacionEnvio').empty();
 					$('#confirmacionEnvio').append("<span class='fa fa-check'></span> Env&iacute;o confirmado, por favor verific&aacute; tu casilla");
 					
-					
-					//confirm("Email enviado Exitosamente");
 				}else{
 					$('#confirmacionEnvio').removeClass("alert-success");
 					$('#confirmacionEnvio').addClass("alert-danger");
 					$('#confirmacionEnvio').removeClass("hidden");
 					$('#confirmacionEnvio').empty();
 					$('#confirmacionEnvio').append("<span class='fa fa-exclamation' style='font-size:20px'></span> No se pudo enviar el correo, la direcci&oacute;n ingresada no corresponde a un usuario");
-					//alert("Error al enviar el Email");
+					
 				}
 			});
 						

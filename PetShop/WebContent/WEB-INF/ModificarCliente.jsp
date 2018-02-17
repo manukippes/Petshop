@@ -119,7 +119,9 @@
 													<td id='fechaNacimiento'><%=masco.getFechaNacimiento().toString()%></td>
 													<td class='col-sm-3 col-lg-2'>
 														<div class='input-group'>
-															<a class='btn btn-danger btnQuitarMascota' href='\'>Quitar</a>
+															<a class='btn btn-info btnModificarMascota' title='Editar mascota' href='\'><span class='fa fa-pencil'></span> </a>
+														
+															<a class='btn btn-danger btnQuitarMascota' title='Quitar mascota' href='\'><span class='fa fa-times'></span> </a>
 														</div>
 													</td>
 													<td id='observacion' class='hidden'><%=masco.getObservaciones()%></td>

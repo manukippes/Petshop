@@ -88,10 +88,11 @@
 										<thead>
 											<tr>
 											    <th>Nombre</th>
-											    <th>Pelaje</th>
 											    <th>Tamaño</th>
+											    <th>Pelaje</th>
 											    <th>Fecha de Nacimiento</th>
 											    <th>Quitar</th>
+											    <th class='hidden'></th>
 											</tr>
 										</thead>
   										<tbody>	
@@ -226,7 +227,7 @@
 													</div>
 													<div class="col-xs-12 col-sm-10 align-middle">
 														<br>
-														<span class="text-success align-middle">Estamos preparando todo para vos, por favor aguard&aacute; un instante</span>
+														<span class="text-success align-middle">Estamos guardando los datos del cliente, por favor aguard&aacute; un instante</span>
 													
 													</div>
 													<br>
@@ -235,7 +236,7 @@
 													<div id="barraProgreso" class="col-xs-12 col-sm-10">
 														<div class="progress ">
 															<div class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" style="width:100%;min-width:100%";>
-																<span class="">Cargando</span>
+																<span class="">Grabando...</span>
 															</div>
 														</div>
 													</div>									

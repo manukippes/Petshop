@@ -46,6 +46,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
 		boolean bandera = false;
 		ArrayList<Mascota> mascotasUsuario = new ArrayList<Mascota>();
+		
 	
 		String json = request.getParameter("jsonData");
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
@@ -87,57 +88,75 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				{
 					try {
 						 for (JsonElement obj : mascotas) 
-						 {
-							 JsonObject gsonObj = obj.getAsJsonObject();
-							 String nombreMasco = gsonObj.get("nombreMascota").getAsString();
-							 String tamanioMasco = gsonObj.get("tamanioMascota").getAsString();
-							 String pelajeMasco = gsonObj.get("pelajeMascota").getAsString();
-							 String fechaMasco = gsonObj.get("fechaNacimientoMascota").getAsString();
-							 String observacionesMasco = gsonObj.get("observacionesMascota").getAsString();
+						 {						 
+							JsonObject gsonObj = obj.getAsJsonObject();
+							String idMasco = gsonObj.get("idMascota").getAsString();
+							String nombreMasco = gsonObj.get("nombreMascota").getAsString();
+							String tamanioMasco = gsonObj.get("tamanioMascota").getAsString();
+							String pelajeMasco = gsonObj.get("pelajeMascota").getAsString();
+							String fechaMasco = gsonObj.get("fechaNacimientoMascota").getAsString();
+							String observacionesMasco = gsonObj.get("observacionesMascota").getAsString();
 								
-						 
-								Mascota masco = new Mascota();
-								masco.setNombre(nombreMasco);
+						 	Mascota masco = new Mascota();
+						 	
+						 	int idMascotaActual=0;
+							if(!(idMasco.equals(""))){
+								idMascotaActual = Integer.parseInt(idMasco);
+							}
+						 	masco.setIdMascota(idMascotaActual);
+							masco.setNombre(nombreMasco);
+							
+							SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			
+							Date fechaDate = fecha.parse(fechaMasco);
+							java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
+							masco.setFechaNacimiento(sqlDate);
+							
+							masco.setObservaciones(observacionesMasco);
+							
+							masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
+							
+							masco.setUsuario(usu);
+							
+							masco.setEstado(1);
+							
+							if(masco.getIdMascota()==0){
+								ctrlMascota.agregarMascota(masco);
+								//System.out.println("SE AGREGA"+masco.getNombre());
+							}else{
 								
-								SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			//FECHA DEL TURNO
-								Date fechaDate = fecha.parse(fechaMasco);
-								java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
-								masco.setFechaNacimiento(sqlDate);
-								
-								masco.setObservaciones(observacionesMasco);
-								
-								masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
-								
-								masco.setUsuario(usu);
-								
-								
-								if(!(ctrlMascota.agregarMascota(masco))){
-									mascotasUsuario.add(masco);
-									bandera = false;
+								if(masco.getNombre().equals("QuitarMascota")){
+									ctrlMascota.eliminarMascota(masco);
+									//System.out.println("SE ELIMINA"+masco.getNombre());
 								}else{
-									bandera = true;
+									ctrlMascota.modificarMascota(masco);
+									//System.out.println("SE MODIFICA"+masco.getNombre());
 								}
-						 }
+							}
+							}
+						 System.out.println(usuario);
 						 if(!usuario.equals("")){
+							 
 							 usu.setMascotas(mascotasUsuario);
 							request.getSession().setAttribute("user", usu);
 						 }
 					} 
 					catch (Exception e) {
 						response.getWriter().println(0);
+						System.out.println("ERROR");
 						e.printStackTrace();
 					}
 			}
 			if(bandera){
 				 response.getWriter().println(1);	
+				
 			 }else{
 				 response.getWriter().println(2);
 			 }
 		}
 		catch (MySQLIntegrityConstraintViolationException mailExistente) {
-			response.getWriter().println(4);
+			response.getWriter().println(3);
 			mailExistente.printStackTrace();
-			System.out.println("ERROR DE MAIL");
+			
 		}
 
 		catch (Exception e1) {

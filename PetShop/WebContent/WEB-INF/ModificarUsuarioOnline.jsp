@@ -190,7 +190,7 @@
 									</div>
 									<div class="modal-body">
 										<div class="form-group row container-fluid">
-										<!-- Input de idUsuario -->
+										<!-- Input de idMascota -->
 			            		
 							   					 <input type="text" class="hidden" name="idMascotaHidden" id="idMascotaHidden" aria-describedby="idMascotaHelp">
 										
@@ -281,8 +281,10 @@
 								</div>
 							</div>
 						</div>
-						<!-- PANEL MODAL CONFIRMACION -->
+						
 						<a href="#confirmacionmodal" class='hidden' id='btnHidden' data-toggle='modal'>botonazo</a>
+						
+						<!-- PANEL MODAL CONFIRMACION -->
 						<div class="modal fade" id="confirmacionmodal">
 							<div class="modal-dialog">
 								<div class="modal-content">

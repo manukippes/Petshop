@@ -610,7 +610,7 @@ $(document).ready(function() {
 		}
 	})
 	
-	/// ALTA DE CLIENTE ///
+	/// MODIFICACION CLIENTE ///
 	$('#btnModificarUsuario').click(function(e){
 		e.preventDefault();
 		$('#completaremail').remove();

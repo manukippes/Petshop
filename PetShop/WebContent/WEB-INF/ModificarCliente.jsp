@@ -37,6 +37,10 @@
 		            	Usuario cli = ((Usuario) session.getAttribute("cliente")); 
 		            	ArrayList<Mascota> listadoMascota = cli.getMascotas();
 		            	%>
+		            	<!-- Input de idUsuario -->
+			            		
+							    <input type="text" class="hidden" name="idUsuario" id="idUsuario" aria-describedby="usuarioHelp" value="<%= cli.getIdUsuario() %>">
+		            	
 		            	  	<!-- Input de nombre -->
 			            		<label class="sr-only">Nombre</label>
 							    <div class="col-lg-6 col-md-12" id="nombreGroup">
@@ -90,7 +94,7 @@
 						<div class="form-group row ">
 							<label class="sr-only">Mascota</label>
 							<div class="col-lg-3 col-md-12">
-								<a href="#agregarAlModificarMascota" class="btn btn-primary form-control" id="btnAgregarMascota" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span> Agregar Mascota</a>
+								<a href="#agregarMascotaModificar" class="btn btn-primary form-control" id="btnAgregarMascota" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span> Agregar Mascota</a>
 							</div>
 								<div class="col-lg-9 col-md-12" id="MascotaGroup">	
 								<%String hidden = " hidden";if(!(listadoMascota.isEmpty()) || listadoMascota.size() != 0){hidden="";}%>
@@ -113,6 +117,7 @@
   												{					
   											%>
   												<tr>
+  													<td class="hidden" id='idMascota'><%=masco.getIdMascota() %></td>
 	  												<td id='nombreMascota'><%=masco.getNombre()%></td> 
 													<td id='tamanio'><%=masco.getTipoMascota().getTamanio()%></td>
 													<td id='pelaje'><%=masco.getTipoMascota().getPelo()%></td>
@@ -140,12 +145,12 @@
 								<input type="checkbox" id="habilitado" <% int estado = cli.getEstado();if(estado==1){%>checked<%}%>><small id="habilitadoHelp" class="form-text text-muted"><strong> Habilitado</strong></small>
 							</div>
 							<div class="col-lg-12">
-								<input type="submit" id="btnAgregarCliente" value="Agregar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">
+								<input type="submit" id="btnModificarUsuario" value="Modificar" class="col-lg-2 col-xs-12 btn btn-primary btn-lg pull-right">
 							</div>
 						</div>
 						
 						<!-- PANEL MODAL AGREGAR MASCOTA -->
-						<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="agregarAlModificarMascota">
+						<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="agregarMascotaModificar">
 							<div class="modal-dialog modal-lg">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -154,6 +159,10 @@
 									</div>
 									<div class="modal-body">
 										<div class="form-group row container-fluid">
+										
+											<!-- Input de idMascota -->
+							   					 <input type="text" class="hidden" name="idMascotaHidden" id="idMascotaHidden" aria-describedby="idMascotaHelp">
+										
 											<!-- Input de Nombre Mascota -->
 												<label class="sr-only">Nombre</label>
 											    <div class="col-lg-12 col-md-12" id="nombreMascotaGroup">
@@ -233,14 +242,60 @@
 										<hr class="hrModal">
 										<div class="form-group row container-fluid">
 											<div class="col-lg-12 col-md-12">
-												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Agregar</h4></button>
+												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Confirmar</h4></button>
 											</div>
 										</div>
 									</div>								
 								</div>
 							</div>
 						</div>
+						<!-- PANEL MODAL CONFIRMACION -->
 						
+						<a href="#confirmacionmodal" class="hidden" id='btnHidden' data-toggle='modal'>botonazo</a>
+						<div class="modal fade" id="confirmacionmodal">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<strong class="text-success"><span class="fa fa-check"></span> MODIFICACI&Oacute;N EXITOSA</strong>
+										
+									</div>
+									<div class="modal-body">
+										<div class="container-fluid">
+											<div class="form-horizontal form-group">
+												<br>
+												<div class="row-inline">
+													<div class="col-xs-12 col-sm-2 centrado">
+														<p><span class="fa fa-user-circle text-info" style="font-size:70px"></span></p>
+													</div>
+													<div class="col-xs-12 col-sm-10 align-middle">
+														<br>
+														<span class="text-success align-middle">Por favor aguard&aacute; un instante mientras actualizamos los datos del cliente</span>
+													
+													</div>
+													<br>
+													<br>
+													<br>
+													<div id="barraProgreso" class="col-xs-12 col-sm-10">
+														<div class="progress ">
+															<div class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" style="width:100%;min-width:100%";>
+																<span class="">Guardando datos...</span>
+															</div>
+														</div>
+													</div>									
+															
+												</div>
+												<div class="row">
+													<br>
+													<br>
+												</div>
+																		
+												<br>
+											</div>
+										</div>								
+									</div>
+								</div>
+							</div>
+						</div>
 		            </form> 
 		        </div>
 		   	</div>

@@ -105,8 +105,17 @@
 <div class="modal fade" id="confirmacion">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-body">
-				<h4>¿Seguro desea salir?</h4>
+			<div class="modal-header">
+				<h4><strong>Sistema de Gesti&oacute;n de Pet Shops</strong></h4>
+			</div>
+			<div class="modal-body container-fluid">
+				<div class="col-xs-3">
+					<span class="fa fa-sign-out" style="font-size:50px"></span>
+				</div>
+				<div class="col-xs-9">
+					<h4> ¿Seguro deseas salir?</h4>
+				</div>
+				
 			</div>
 			<div class="modal-footer">
 				<a href="index.html" class="btn btn-default" aria-hidden="true"> Salir </a>

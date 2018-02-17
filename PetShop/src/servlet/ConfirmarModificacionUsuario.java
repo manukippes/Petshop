@@ -53,6 +53,11 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 			Usuario usu = new Usuario();
 			ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 			ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
+			Usuario sessionUser = (Usuario) request.getSession().getAttribute("user");
+			Boolean usuarioOnline = false;
+			if(sessionUser.getTipoUsuario().equals("Online")){
+				usuarioOnline = true;
+			}
 		
 			String json = request.getParameter("jsonData");
 			JsonObject cliente = (JsonObject) new JsonParser().parse(json);
@@ -75,8 +80,14 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 			
 			try {
 				usu.setIdUsuario(Integer.parseInt(idUsuario));
-				usu.setUsuarioLogin(usuario);
-				usu.setPassword(password);
+				if(!usuario.equals("")){							//Si viene vacio estoy en el modulo de administracion
+					usu.setUsuarioLogin(usuario);
+					usu.setPassword(password);
+				}else{
+					Usuario userTemp = ctrlUsuario.getUsuario(usu);		//En este caso recupero los datos que ya tenia el usuario
+					usu.setUsuarioLogin(userTemp.getUsuarioLogin());
+					usu.setPassword(userTemp.getPassword());
+				}
 				usu.setNombre(nombre);
 				usu.setApellido(apellido);
 				usu.setDni(dni);
@@ -84,7 +95,7 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 				usu.setTelefono(telefono);
 				usu.setEmail(email);
 				usu.setEstado(habilitado);
-				usu.setTipoUsuario("Online");
+				usu.setTipoUsuario("Online");							//SOLO SE MODIFICAN USUARIOS ONLINE!!
 				usu.setMascotas(new ArrayList<Mascota>());
 				usu = ctrlUsuario.modificarUsuario(usu);
 
@@ -142,8 +153,10 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 				}
 				
 				usu.setMascotas(ctrlMascota.getMascotas(usu));
-				request.getSession().removeAttribute("user");
-				request.getSession().setAttribute("user", usu);
+				if(usuarioOnline){
+					request.getSession().removeAttribute("user");
+					request.getSession().setAttribute("user", usu);
+				}
 				response.getWriter().println(1);		 
 				
 				

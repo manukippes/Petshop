@@ -1,10 +1,82 @@
 /**
  * 
  */
+function resaltarCampo(campo,nombre){
+	$("#"+campo+"Group").addClass("has-error");
+	$("#"+campo).focus();
+	if(!($("#completar"+campo).length)){
+		$("<small class='form-text text-muted text-danger' id='completar"+campo+"'>Debe completar el campo "+nombre+"</small>").insertAfter("#"+campo);
+	}
+}
+function validarEmail(){
+	
+	$('#completaremail').remove();
+	$("#emailGroup").removeClass("has-error");
+	
+	var validaMail= false;
+	
+	var email = $('#email').val();
+	
+	emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    
+    if (emailRegex.test(email)) {
+    	validaMail=true;
+    } else {
+    	validaMail = false;
+    }
+    
+    if(validaMail){ 
+    	var parametro = { email : email }
+		var parametros = JSON.stringify(parametro);
+		
+		$.ajax({
+				url : "ValidarMail",
+				type : "post",
+				data :  {jsonData : parametros},
+				success : function(data){
+					if (data == 1)
+					{
+						$("#emailGroup").addClass("has-error");
+						$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+						return false;
+					} 
+					else
+					{
+						$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
+						return true;
+					}           
+				}
+		})
+    } else {
+    	$("#emailGroup").addClass("has-error");
+    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
+    	return false;
+    }
+}
 
-
+function validarEmailExistente(){
+	
+	$('#completaremail').remove();
+	$("#emailGroup").removeClass("has-error");
+	
+	var validaMail= false;
+	
+	var email = $('#email').val();
+	
+	emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+	
+	if(emailRegex.test(email)){
+		return true;
+	}else{
+		$("#emailGroup").addClass("has-error");
+		$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
+	return false;
+	}
+    
+}
 /// LIMPIAR CAMPOS UNA VEZ QUE SE AGREGO EL CLIENTE Y SU MASCOTA ///
 function limpiarCampos(){
+	
 	$("#nombre").val("");
 	$("#apellido").val("");
 	$("#dni").val("");
@@ -25,14 +97,14 @@ function limpiarCamposModal(){
 		$('#btnTijeraChica').removeClass("icon-button-active")
 		$('#btnTijeraGrande').removeClass("icon-button-active")
 		$("#fechaNacimientoMascota").val("");
-		$("#observacionesMascota").val("");	
-		
+		$("#observacionesMascota").val("");
+		$("#idMascotaHidden").val("");			
 }
 
 /// VALIDO QUE LOS DATOS OBLIGATORIOS DEL CLIENTE ESTEN COMPLETOS ///
-function validar(){
-	var nombre, apellido, telefono;
-	
+function validar(usuarioRegistrado){
+
+	var nombre, apellido, telefono,telefonoValido,dniValido,emailValido;
 	nombre = false;
 	if ($("#nombre").val() != "") {
 		nombre = true;
@@ -48,67 +120,151 @@ function validar(){
 		telefono = true;
 	}
 	
+	telefonoValido = true;
+	if(isNaN($('#telefono').val())){
+		telefonoValido=false;
+	}
+	dniValido = true;
 	if(isNaN($('#dni').val())){
-		alert("Debe ingresar s&oacute;lo n&uacute;meros en el campo Dni.");		
-	}else if(isNaN($('#telefono').val())){
-		alert("Debe ingresar s&oacute;lo n&uacute;meros en el campo Telefono.");
+		dniValido=false;
+	}
+	emailValido = true;
+	$('#completaremail').remove();
+	
+	if(usuarioRegistrado){
+		if($('#email').val()!=""){
+			emailValido=validarEmailExistente();
+		}
+	}else{
+		if($('#email').val()!=""){
+			emailValido = validarEmail();
+		}
 	}
 		
+	
 	if (nombre) {
 		if (apellido) {
+			if(dniValido){
 				if (telefono) {
-					return true;
-				}
-				else{
-					$("#telefonoGroup").addClass("has-error");
-					$("#telefono").focus();
-					if(!($("#completarTelefono").length)){
-						$("<small class='form-text text-muted text-danger' id='completarTelefono'>Debe completar el campo: Tel&eacute;fono</small>").insertAfter("#telefono");
+					if(telefonoValido){ 
+						if(emailValido){	
+							return true; 	
+						}
+						else {
+							return false
+						}
+						
+					}
+					else {
+						$("#completartelefono").remove();
+						$("#telefonoGroup").addClass("has-error");
+						$("<small class='form-text text-muted text-danger' id='completartelefono'>Debes ingresar s&oacute;lo n&uacute;meros en el campo tel&eacute;fono</small>").insertAfter("#telefono");	
 					}
 				}
+				else{
+					resaltarCampo("telefono","Telefono");	
+				}
+			}
+			else{
+				$("#completardni").remove();
+				$("#dniGroup").addClass("has-error");
+				$("<small class='form-text text-muted text-danger' id='completardni'>Debes ingresar s&oacute;lo n&uacute;meros en el campo DNI</small>").insertAfter("#dni");
+				
+			}
+		} else {
+			resaltarCampo("apellido","Apellido")
 		}
-		else{
-			$("#apellidoGroup").addClass("has-error");
-			$("#apellido").focus();
-			if(!($("#completarApellido").length)){
-				$("<small class='form-text text-muted text-danger' id='completarApellido'>Debe completar el campo: Apellido</small>").insertAfter("#apellido");
-		    }
-		}
-	}
-	else{
+	} else {
 		$("#nombreGroup").addClass("has-error");
 		$("#nombre").focus();
-		if(!($("#completarNombre").length)){
-			$("<small class='form-text text-muted text-danger' id='completarNombre'>Debe completar el campo: Nombre</small>").insertAfter("#nombre");
+		if(!($("#completarnombre").length)){
+			$("<small class='form-text text-muted text-danger' id='completarnombre'>Debe completar el campo Nombre</small>").insertAfter("#nombre");
 		}
 	}
+}
 	
 	$("#nombre").change(function(){
 
 		$('#nombreGroup').removeClass("has-error");
-		$("#completarNombre").remove();
+		$("#completarnombre").remove();
 		
 	})
 
 	$("#apellido").change(function(){
 
 		$('#apellidoGroup').removeClass("has-error");
-		$("#completarApellido").remove();
+		$("#completarapellido").remove();
+		
+	})
+	$("#dni").change(function(){
+
+		$('#dniGroup').removeClass("has-error");
+		$("#completardni").remove();
 		
 	})
 	
 	$("#telefono").change(function(){
 
 		$('#telefonoGroup').removeClass("has-error");
-		$("#completarTelefono").remove();
+		$("#completartelefono").remove();
 		
 	})
 	
-} 
+ 
 
 $(document).ready(function() {
 	
+	var agregar=true;
 	var valido = false;
+	
+	$("#email").change(function(){
+		$('#completaremail').remove();
+		validarEmailExistente();
+	})
+	$(this).on("click", ".btnModificarMascota", function(e){
+			    e.preventDefault();
+			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+				var fila =$(this).parent().parent().parent()
+				
+				agregar = false;	
+				
+				var idMascota = fila.find("#idMascota").text();
+				var nombreMascota = fila.find('#nombreMascota').text();
+				var tamanio = fila.find('#tamanio').text();
+				var pelaje = fila.find('#pelaje').text();
+				var fechaNacimiento = fila.find('#fechaNacimiento').text();
+				var observacion = fila.find('#observacion').text();
+				switch (tamanio){
+				case "Grande":
+					$('#btnPatitaGrande').addClass("icon-button-active");
+					break;
+				case "Mediano":
+					$('#btnPatitaMediana').addClass("icon-button-active");
+					break;
+				case "Chico":
+					$('#btnPatitaChica').addClass("icon-button-active");
+					break;
+				};
+				switch (pelaje){
+				case "Largo":
+					$('#btnTijeraGrande').addClass("icon-button-active");
+					break;
+				case "Corto":
+					$('#btnTijeraChica').addClass("icon-button-active");
+					break;
+				}
+				
+				$("#idMascotaHidden").val(idMascota);
+				$('.nombreMascota').val(nombreMascota);
+				$('#fechaNacimientoMascota').val(fechaNacimiento);
+				$('#observacionesMascota').val(observacion);
+				$('#agregarMascotaModificar').modal('toggle');
+				//$('#btnAgregarMascota').click();
+				
+				
+				
+				
+			});	
 	
 		//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
 			$(this).on("click","#btnPatitaGrande",function(e){
@@ -155,13 +311,27 @@ $(document).ready(function() {
 	//}
 			
 			$(this).on("click", ".btnQuitarMascota", function(e){
-	    e.preventDefault();
-	    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
-		var fila =$(this).parent().parent().parent()
+			    e.preventDefault();
+			   
+			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+				var fila =$(this).parent().parent().parent()
+				var cantFilas = $("#tableMas tr").length; //OBTENGO LA CANTIDAD DE FILAS DE LA TABLA 
+				
+				if (cantFilas <= 1){
+					$('#tablaMascota').addClass("hidden");
+				}
+						
+				var idMascota = fila.find('#idMascota').text();
+				
+				if(idMascota!=""){
+					fila.addClass("hidden");
+					fila.find('#nombreMascota').text("QuitarMascota");
+				}else{
 
-		fila.remove();
-		
-		});
+					fila.remove();
+				}
+				
+			});	
 			
 	
 	
@@ -247,31 +417,63 @@ $(document).ready(function() {
 				pelaje ="Corto";
 			}
 			
-	        
+			if(agregar){
 	        $('<tr>',{
-				'html' : "<td id='nombreMascota'>"+nombre+"</td>" +
+				'html' : "<td class='hidden' id='idMascota'></td>" +
+				"			<td id='nombreMascota'>"+nombre+"</td>" +
 				"			<td id='tamanio'>"+tamanio+"</td>" +
 				"			<td id='pelaje'>"+pelaje+"</td>" +
 				"			<td id='fechaNacimiento'>"+fechaNacimiento+"</td>" +
 				"			<td class='col-sm-3 col-lg-2'>" +
 				"				<div class='input-group'>" +
-				"					<a class='btn btn-danger btnQuitarMascota' href='\'>Quitar</a>" +
+				"					<a class='btn btn-info btnModificarMascota' title='Editar mascota' href='\'><span class='fa fa-pencil'></span> </a>" +
+				"					<a class='btn btn-danger btnQuitarMascota' title='Quitar mascota' href='\'><span class='fa fa-times'></span> </a>" +
 				"				</div>" +
 				"			</td>"+
 				"			<td id='observacion' class='hidden'>"+observacion+"</td>"		
 				}).appendTo(".tableMas > tbody");  
 	        
 	        
-			$('#agregarAlModificarMascota').modal('toggle');
 	        $('#tablaMascota').removeClass("hidden");
-			}	        
-	       limpiarCamposModal();
+	        limpiarCamposModal();
+	        $('#agregarMascotaModificar').modal('toggle');
+			}else{
+				
+				$('#agregarMascotaModificar').modal('toggle');
+				
+				var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+				var cantidad = filas.length; 
+				if (filas.length != 1){
+					
+					var idMascotaInput = $('#idMascotaHidden').val();
+					$.each(filas,function(i,fila) {
+						//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
+						var idMascota = fila.cells[0].innerHTML;
+						
+						if(idMascota==idMascotaInput){
+							
+							fila.cells[1].innerHTML=nombre;
+							fila.cells[2].innerHTML=tamanio;
+							fila.cells[3].innerHTML=pelaje;
+							fila.cells[4].innerHTML=fechaNacimiento;
+							fila.cells[6].innerHTML=observacion;
+							
+						}
+						
+					})		
+				}
+				
+				limpiarCamposModal();
+			}
+			
+			}
 		})
 		
 	/// ALTA DE CLIENTE ///
 	$('#btnAgregarCliente').click(function(e){
 		e.preventDefault();
-		var resultado = validar();
+		$('#completaremail').remove();
+		var resultado = validar(false);
 		var arregloMascotas = [];
 		
 		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
@@ -292,26 +494,24 @@ $(document).ready(function() {
 			})		
 		}
 		
-		if(($("#email").val()=="")){
-			valido = true;
-		}
-				
+						
 		if(resultado)
-		{	if( valido){
-					var nombre = $("#nombre").val();
-					var apellido = $("#apellido").val();
-					var dni = $("#dni").val();
-					var direccion = $("#direccion").val();
-					var telefono = $("#telefono").val();
-					var email = $("#email").val();
-					var habilitado = 0;
-					if($("#habilitado").is(':checked')){
-						habilitado = 1;
-					};
-					var usuario = "null";
-					var password = "null";
-					
-					var parametro = {
+		{
+			
+			var nombre = $("#nombre").val();
+			var apellido = $("#apellido").val();
+			var dni = $("#dni").val();
+			var direccion = $("#direccion").val();
+			var telefono = $("#telefono").val();
+			var email = $("#email").val();
+			var habilitado = 0;
+			if($("#habilitado").is(':checked')){
+				habilitado = 1;
+			};
+			var usuario = "null";
+			var password = "null";
+			
+			var parametro = {
 						usuario : usuario,
 						password : password,
 						nombre : nombre,
@@ -333,24 +533,111 @@ $(document).ready(function() {
 							type : "post",
 							data : {jsonData : parametros},
 							success : function(data){
-								if (data == 1)
-								{
-									confirm("Se agreg&oacute; el cliente correctamente.");
+								if (data == 1){
+									
+									$("#btnHidden").click();
+								
 									limpiarCampos();
+									setTimeout("$(location).attr('href','PrimerIngreso');",3500);
+									
 								} 
-								else
-								{
-									alert("No se pudo agregar el cliente.");
+								else{
+									if (data == 2){
+									
+									}
+						
 								}
-			                    
 							}
 					})
-				}else{
-					alert("Debe ingresar un email v&aacute;lido.");
 				}
-			}
+
 	})
-	
+	/// MODIFICACION DE CLIENTE ///
+	$('#btnModificarUsuario').click(function(e){
+		e.preventDefault();
+		$('#completaremail').remove();
+		
+		var resultado = validar(true);
+		var arregloMascotas = [];
+		
+		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+		var cantidad = filas.length; 
+		if (filas.length != 1){
+			$.each(filas,function(i,fila) {
+				//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
+				if(i>0){
+					var idMascota = fila.cells[0].innerHTML;
+					var nombreMascota = fila.cells[1].innerHTML;
+					var tamanioMascota = fila.cells[2].innerHTML;
+					var pelajeMascota = fila.cells[3].innerHTML;
+					var fechaNacimientoMascota = fila.cells[4].innerHTML;
+					var observacionesMascota = fila.cells[6].innerHTML;
+					var elementoMascota = {idMascota,nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
+					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
+				}
+				
+			})		
+		}
+		
+		if(resultado)
+		{
+			var idUsuario = $("#idUsuario").val(); 
+			var usuario = "";
+			var password = "";
+			var nombre = $("#nombre").val();
+			var apellido = $("#apellido").val();
+			var dni = $("#dni").val();
+			var direccion = $("#direccion").val();
+			var telefono = $("#telefono").val();
+			var email = $("#email").val();
+			var habilitado = 0;
+			if($("#habilitado").is(':checked')){
+				habilitado = 1;
+			};
+			
+			var parametro = {
+				idUsuario : idUsuario,	
+				usuario : usuario,
+				password : password,
+				nombre : nombre,
+				apellido : apellido,
+				dni : dni,
+				direccion : direccion,
+				telefono : telefono,
+				email : email,
+				habilitado : habilitado,
+				arregloMascotas : arregloMascotas	
+			}
+			
+		
+			var parametros = JSON.stringify(parametro);
+			
+			
+			$.ajax({
+					url : "ConfirmarModificacionUsuario",
+					type : "post",
+					data : {jsonData : parametros},
+					success : function(data){
+						if (data == 1)
+						{
+							$("#btnHidden").click();
+						
+							//limpiarCampos();
+							setTimeout("$(location).attr('href','Ventas');",3500);
+							
+						} 
+						if (data == 2)
+						{
+							validarEmail();
+						}
+						if (data==0){
+							alert("ERROR");
+						}
+	                    
+					}
+			})
+		}
+	})
 	//CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL
 	$(this).on("click", "#btnBusquedaCliente", function(e){
 	    e.preventDefault();

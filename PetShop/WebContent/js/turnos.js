@@ -62,24 +62,24 @@ function validarDatosTurno(){
 								if(validaMascota){
 									resultado = true;
 												
-								}else{alert("Debes seleccionar una mascota del cliente");
+								}else{alertError("Debes seleccionar una mascota del cliente");
 								$('#mascotaGroup').addClass("has-error");}
 						
-							}else{alert("Debes seleccionar un cliente registrado");}
+							}else{alertError("Debes seleccionar un cliente registrado");}
 					
-						}else{alert("Debes seleccionar una frecuencia de repeticion");
+						}else{alertError("Debes seleccionar una frecuencia de repeticion");
 								$('#repetirRadioGroup').addClass("con-error");}
 				
-					}else{alert("Debes seleccionar un horario disponible");
+					}else{alertError("Debes seleccionar un horario disponible");
 							$('#horarioGroup').addClass("has-error");}
 					
-				}else{alert("Debes seleccionar una fecha para el turno");
+				}else{alertError("Debes seleccionar una fecha para el turno");
 						$('#fechaGroup').addClass("has-error");}
 				
-			}else{alert("Debes seleccionar un tipo de servicio");
+			}else{alertError("Debes seleccionar un tipo de servicio");
 					$('#servicioGroup').addClass("has-error");}
 			
-		}else{alert("Debes seleccionar un largo del pelaje")
+		}else{alertError("Debes seleccionar un largo del pelaje")
 				$('#pelajeGroup').addClass("con-error");}
 		
 	}else{alertError("Debes seleccionar un tama\u00f1o de mascota");
@@ -322,13 +322,13 @@ $(document).ready(function() {
 				conRetiro : conRetiro
 				}
 		var parametros = JSON.stringify(parametro);
-		//alert(parametros);
+		//alertError(parametros);
 		$.ajax({
 			type : "post",
 			url : "CargarDatosTurno",
 			data : {jsonData : parametros},
 			success : function(respuesta){
-				//alert(respuesta);
+				//alertError(respuesta);
 				$(location).attr('href',"TurnosPaso2");
 				
 			}
@@ -347,19 +347,22 @@ $(document).ready(function() {
 						observaciones : observaciones
 						}
 		var parametros = JSON.stringify(parametro);
-		//alert(parametros);
+		//alertError(parametros);
 		$.ajax({
 			type : "post",
 			url : "ProcesarTurno",
 			data : {jsonData : parametros},
 			success : function(respuesta){
-				//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
+				//alertError(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
 				if (respuesta){
-					if(prompt("Turno creado Exitosamente")==""){
+					var opcion = alertDetiene("Turno creado Exitosamente");
+					if(opcion){
 						$(location).attr('href','Turnos');
+					}else{
+						alertError("Error al mostrat el pop up");
 					}
 				}else{
-					alert("Error al cargar el turno");
+					alertError("Error al cargar el turno");
 				}
 			}
 		}); 
@@ -367,8 +370,7 @@ $(document).ready(function() {
 	
 	$('#btnContinuarModificacion').click(function(e){
 		e.preventDefault();
-		var variable = confirm("hola");
-		
+				
 		var resultado = validarDatosTurno();
 		if(resultado){
 					//////////////////////PROCESAR TURNO///////////////////////////////
@@ -468,13 +470,13 @@ $(document).ready(function() {
 					conRetiro : conRetiro
 					}
 			var parametros = JSON.stringify(parametro);
-			//alert(parametros);
+			//alertError(parametros);
 			$.ajax({
 				type : "post",
 				url : "CargarDatosTurno",
 				data : {jsonData : parametros},
 				success : function(respuesta){
-					//alert(respuesta);
+					//alertError(respuesta);
 					$(location).attr('href',"ModificarTurnoPaso2");
 					
 				}
@@ -493,19 +495,22 @@ $(document).ready(function() {
 						observaciones : observaciones
 						}
 		var parametros = JSON.stringify(parametro);
-		//alert(parametros);
+		//alertError(parametros);
 		$.ajax({
 			type : "post",
 			url : "ProcesarTurno",
 			data : {jsonData : parametros},
 			success : function(respuesta){
-				//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
+				//alertError(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
 				if (respuesta){
-					if(prompt("Turno modificado Exitosamente")==""){
+					var opcion = alertDetiene("Turno modificado Exitosamente");
+					if(opcion){
 						$(location).attr('href','Turnos');
+					}else{
+						alertError("Error al mostrat el pop up");
 					}
 				}else{
-					alert("Error al modificar el turno");
+					alertError("Error al modificar el turno");
 				}
 			}
 		}); 

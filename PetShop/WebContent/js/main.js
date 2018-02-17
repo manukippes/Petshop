@@ -89,6 +89,30 @@
 			  }
 			});
  }
+ 
+ function alertDetiene(mensaje){
+	 swal ( {
+		  title : "Bien hecho!", 
+		  text : mensaje, 
+		  icon : " success " , 
+		  buttons: {
+			    cancel: false,
+			    confirm: true,
+			  },
+		} )
+		. then ( 
+		( acepto ) =>  
+		{ 
+			  if ( acepto ) 
+			  {  
+				 return true;
+			  } else 
+			  {  
+			    return false;
+			  }
+		}
+		) ;
+}
 
 function destacarCampo(nombre){
 	$('#'+nombre).addClass("has-error");

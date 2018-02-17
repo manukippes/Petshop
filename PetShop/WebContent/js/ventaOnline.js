@@ -33,7 +33,7 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad,ima
 			if (i>0){
 				if (fila.cells[1].innerHTML==idProducto){
 					bandera=true;
-					alert("Este producto ya est&aacute; en tu carrito de compras");
+					alertError("Este producto ya est&aacute; en tu carrito de compras");
 				}
 			}			
 		})
@@ -73,7 +73,7 @@ function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad,ima
 				
 
 			}else{
-				alert("Para agregar un producto debes ingresar la cantidad");
+				alertError("Para agregar un producto debes ingresar la cantidad");
 			}
 		}
 	}
@@ -179,12 +179,12 @@ $(document).ready(function() {
 				if(cantidadAgregar>0){		//VALIDO QUE LA CANTIDAD A AGREGAR NO SEA 0
 					agregarProductoVenta(idAgregar,nombreAgregar,presentacionAgregar,precioAgregar,cantidadAgregar,imagenAgregar,cantidadMaxima);
 				}else{
-					alert("La cantidad ingresada debe ser mayor a 0 unidades")
+					alertError("La cantidad ingresada debe ser mayor a 0 unidades")
 				}
 			}else{
-				alert("El stock disponible de "+nombreAgregar+", "+presentacionAgregar+" es: "+cantidadMaxima+" unidades. Seleccion\u00e1 una cantidad menor.");
+				alertError("El stock disponible de "+nombreAgregar+", "+presentacionAgregar+" es: "+cantidadMaxima+" unidades. Seleccion\u00e1 una cantidad menor.");
 			}
-		}else {alert("Para agregar un producto debes ingresar la cantidad")}
+		}else {alertError("Para agregar un producto debes ingresar la cantidad")}
 	});
 	
 	//CAPTURO EL CLICK EN QUITAR PRODUCTO DE LA VENTA
@@ -216,7 +216,7 @@ $(document).ready(function() {
 		var validaCantidad = true;
 		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
 		if (filas.length == 1){
-			alert("No seleccionaste ningun producto");
+			alertError("No seleccionaste ningun producto");
 		}else{
 			var arregloProductos = [];
 			$.each(filas,function(i,fila){
@@ -227,7 +227,6 @@ $(document).ready(function() {
 					var cantidad = row.find(".cantidadProducto").val();
 					var stockDisponible = row.find(".cantidadProducto").attr("max");
 					if (cantidad > stockDisponible){
-						//prompt("La cantidad maxima de "+idProducto+" es: "+stockDisponible+" y vos ingresaste "+cantidad);
 						validaCantidad = false;
 						row.find("#cantidadProductoGroup").addClass("has-error");
 					}else{
@@ -244,12 +243,12 @@ $(document).ready(function() {
 					url : "CargarProductosVenta",
 					data : {jsonData : parametro},
 					success : function(respuesta){
-						//alert(respuesta);
+						//alertError(respuesta);
 						$(location).attr('href',"VentaOnlinePaso2");
 					}	
 				})
 			} else {
-				alert("Se ha ingresado una cantidad superior al stock disponible");
+				alertError("Se ha ingresado una cantidad superior al stock disponible");
 			}
 			
 		}
@@ -456,12 +455,12 @@ $(document).ready(function() {
 			case "2":
 			case "3":
 				if($('#tarjeta').val()=="tarjeta"){
-					alert("Debes seleccionar una tarjeta");
+					alertError("Debes seleccionar una tarjeta");
 				}else{
 					tarjeta = $('#tarjeta').val();
 					if (tarjeta==3){
 						if ($('#cuotas').val() == "cuotas"){
-							alert("Debes seleccionar un plan de cuotas")
+							alertError("Debes seleccionar un plan de cuotas")
 						}else{
 							cuotas = $('#cuotas').val();
 							medioPagoValido=true;
@@ -473,7 +472,7 @@ $(document).ready(function() {
 				}
 				break;
 			}
-		}else{alert("Debes seleccionar un medio de pago para continuar");}
+		}else{alertError("Debes seleccionar un medio de pago para continuar");}
 		if (cuotas == null){
 			cuotas="0";
 		}
@@ -495,19 +494,21 @@ $(document).ready(function() {
 							observaciones : observaciones
 							}
 			var parametros = JSON.stringify(parametro);
-			//alert(parametros);
+			//alertError(parametros);
 			$.ajax({
 				type : "post",
 				url : "ProcesarVenta",
 				data : {jsonData : parametros},
 				success : function(respuesta){
-					//alert(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
-					if (respuesta){
-						if(prompt("Venta cargada Exitosamente")==""){
+					if (respuesta == 1){
+						var opcion = alertDetiene("Venta cargada Exitosamente");
+						if(opcion){
 							$(location).attr('href','VentaOnline');
+						}else{
+							alertError("No se pudo mostrar el popUp");
 						}
 					}else{
-						alert("Error al cargar la venta");
+						alertError("Error al cargar la venta");
 					}
 				}
 			}); 

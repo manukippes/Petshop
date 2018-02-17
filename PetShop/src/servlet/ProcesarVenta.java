@@ -74,6 +74,7 @@ public class ProcesarVenta extends HttpServlet {
 		int idTarjeta = (int) campos.get("tarjeta").getAsInt();
 		int idCuotas = (int) campos.get("cuotas").getAsInt();
 		String observaciones = (String) campos.get("observaciones").getAsString();
+		int resp = 0;
 		
 		//CREAR LOS PARAMETROS NECESARIOS PARA AGREGAR UNA VENTA A LA BD
 		boolean bandera;		//VALIDACION DE OPERACION EXITOSA
@@ -182,9 +183,10 @@ public class ProcesarVenta extends HttpServlet {
 			bandera = ctrlVenta.modificarVenta(ventaActual);		//UNA VEZ CARGADAS TODAS LAS FILAS ACTUALIZO EL TOTAL DE LA VENTA
 			
 			if(bandera){
-				response.getWriter().println(true);	
+				resp = 1;
+				response.getWriter().println(resp);	
 			}else{
-				response.getWriter().println(false);	
+				response.getWriter().println(resp);	
 			}
 				
 		} catch (Exception e) {

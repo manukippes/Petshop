@@ -135,7 +135,7 @@ function alertConfirmar(mensaje)
 	
 };*/
 
-window.alert = function (message) {
+/*window.alert = function (message) {
 
 	alertError(message);		//Llama al alert de error
 
@@ -145,7 +145,7 @@ window.confirm = function(message){
 	
 	alertConfirmar(message);
 	
-};
+};*/
 
 function destacarCampo(nombre){
 	$('#'+nombre).addClass("has-error");

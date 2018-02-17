@@ -232,7 +232,7 @@
 										<hr class="hrModal">
 										<div class="form-group row container-fluid">
 											<div class="col-lg-12 col-md-12">
-												<button class="col-lg-3 col-md-12 btn btn-primary pull-right" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Agregar</h4></button>
+												<button class="col-lg-3 col-md-12 btn btn-primary pull-right btnAgregarMascotaModal" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Agregar</h4></button>
 											</div>
 										</div>
 									</div>								

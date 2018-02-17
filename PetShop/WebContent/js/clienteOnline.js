@@ -395,7 +395,7 @@ $(document).ready(function() {
 	
 	
 	/// AGREGAR MASCOTAS ///
-	$('#btnAgregarMascotaModal').on("click",function(e){
+	$('.btnAgregarMascotaModal').on("click",function(e){
 	    e.preventDefault();
 	    
 	    

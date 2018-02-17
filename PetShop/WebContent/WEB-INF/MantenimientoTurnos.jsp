@@ -9,10 +9,7 @@
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 	<meta charset="UTF-8">
-	
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="css/estilos.css" type="text/css">	
-	<link rel="stylesheet" href="font-awesome/css/font-awesome.css" type="text/css">
+	<jsp:include page="cssGeneral.jsp" />
 	
 	<title>SGPS - Mantenimiento de Turnos</title>
 </head>
@@ -178,9 +175,7 @@
 			</div>
 	  	</div>
 	  	
-		<script type="text/javascript" src="/Petshop/js/jquery-latest.js"></script>
-		<script type="text/javascript" src="/Petshop/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
+		<jsp:include page="jsGeneral.jsp" />
 		<script type="text/javascript" src="js/mantTurnos.js"></script>
 		
 	</body>

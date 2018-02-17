@@ -533,20 +533,22 @@ $(document).ready(function() {
 							type : "post",
 							data : {jsonData : parametros},
 							success : function(data){
-								if (data == 1){
-									
-									$("#btnHidden").click();
-								
-									limpiarCampos();
-									setTimeout("$(location).attr('href','PrimerIngreso');",3500);
-									
-								} 
-								else{
-									if (data == 2){
-									
+								if (data != 0){
+									if (data == 1){
+										$("#btnHidden").click();
+										limpiarCampos();
+										setTimeout("$(location).attr('href','Ventas');",3500);
 									}
-						
-								}
+									if (data == 2){
+										prompt("ERROR AL GRABAR LAS MASCOTAS")
+									}
+									if (data == 4){
+										$("#emailGroup").addClass("has-error");
+										$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+									}
+								} else {
+									alert("ERROR");
+								}	
 							}
 					})
 				}

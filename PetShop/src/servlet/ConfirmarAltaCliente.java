@@ -16,6 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import entidades.Mascota;
 import entidades.Usuario;
@@ -44,7 +45,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		ControladorDeMascota ctrlMascota = new ControladorDeMascota();
 		ControladorDeTipoMascota ctrlTipoMascota = new ControladorDeTipoMascota();
 		boolean bandera = false;
-
+		ArrayList<Mascota> mascotasUsuario = new ArrayList<Mascota>();
 	
 		String json = request.getParameter("jsonData");
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
@@ -78,9 +79,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				usu.setTipoUsuario("Online");
 				usu.setMascotas(new ArrayList<Mascota>());
 				usu = ctrlUsuario.agregarUsuario(usu);
-				if(!usuario.equals("")){
-					request.getSession().setAttribute("user", usu);
-				}
+				
 				bandera = true;
 
 				JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
@@ -111,11 +110,17 @@ public class ConfirmarAltaCliente extends HttpServlet {
 								
 								masco.setUsuario(usu);
 								
+								
 								if(!(ctrlMascota.agregarMascota(masco))){
+									mascotasUsuario.add(masco);
 									bandera = false;
 								}else{
 									bandera = true;
 								}
+						 }
+						 if(!usuario.equals("")){
+							 usu.setMascotas(mascotasUsuario);
+							request.getSession().setAttribute("user", usu);
 						 }
 					} 
 					catch (Exception e) {
@@ -123,17 +128,24 @@ public class ConfirmarAltaCliente extends HttpServlet {
 						e.printStackTrace();
 					}
 			}
+			if(bandera){
+				 response.getWriter().println(1);	
+			 }else{
+				 response.getWriter().println(2);
+			 }
 		}
+		catch (MySQLIntegrityConstraintViolationException mailExistente) {
+			response.getWriter().println(4);
+			mailExistente.printStackTrace();
+			System.out.println("ERROR DE MAIL");
+		}
+
 		catch (Exception e1) {
 		response.getWriter().println(0);
 		e1.printStackTrace();
 		}
 		
 		
-		if(bandera){
-			 response.getWriter().println(1);	
-		 }else{
-			 response.getWriter().println(0);
-		 }
+		
 	}
 }

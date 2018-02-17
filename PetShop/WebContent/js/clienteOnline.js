@@ -152,19 +152,11 @@ function validar(usuarioRegistrado){
 	emailValido = true;
 	$('#completaremail').remove();
 	
-	if(usuarioRegistrado){
-		if($('#email').val()!=""){
-			emailValido=validarEmailExistente();
-		}
-	}else{
-		if($('#email').val()!=""){
-			emailValido = validarEmail();
-		}
+	
+	if($('#email').val()!=""){
+		emailValido=validarEmailExistente();
 	}
-	
-	
-	
-	
+
 	
 	if(usuario){
 		if(contrasenia){
@@ -530,9 +522,11 @@ $(document).ready(function() {
 		
 	/// ALTA DE CLIENTE ///
 	$('#btnAltaClienteOnline').click(function(e){
+		
 		e.preventDefault();
 		$('#completaremail').remove();
 		var resultado = validar(false);
+		
 		var arregloMascotas = [];
 		
 		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
@@ -590,20 +584,22 @@ $(document).ready(function() {
 					type : "post",
 					data : {jsonData : parametros},
 					success : function(data){
-						if (data == 1){
-							
-							$("#btnHidden").click();
-						
-							limpiarCampos();
-							setTimeout("$(location).attr('href','PrimerIngreso');",3500);
-							
-						} 
-						else{
-							if (data == 2){
-							
+						if (data != 0){
+							if (data == 1){
+								$("#btnHidden").click();
+								limpiarCampos();
+								setTimeout("$(location).attr('href','PrimerIngreso');",3500);
 							}
-				
-						}
+							if (data == 2){
+								prompt("ERROR AL GRABAR LAS MASCOTAS")
+							}
+							if (data == 4){
+								$("#emailGroup").addClass("has-error");
+								$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+							}
+						} else {
+							alert("ERROR");
+						}	
 	                    
 					}
 			})

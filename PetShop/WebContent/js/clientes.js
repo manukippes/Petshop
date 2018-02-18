@@ -637,7 +637,7 @@ $(document).ready(function() {
 	        
 			swal ( {
 				 title : "Atenci\u00F3n!",
-				 text : "¿Seguro quer\u00e9s eliminar el cliente?",
+				 text : "Seguro quer\u00e9s eliminar el cliente?",
 				 icon : "info" , 
 				 buttons: {
 					 confirm: {
@@ -673,7 +673,7 @@ $(document).ready(function() {
 									} 
 									else
 									{
-										alertError("No se pudo eliminar el cliente.");
+										alertError("No se pudo eliminar el cliente. Ya se encuentra utilizado.");
 									}
 				                    
 								}

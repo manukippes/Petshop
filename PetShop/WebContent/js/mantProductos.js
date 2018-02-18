@@ -268,13 +268,13 @@ $(document).on('click','.btnEliminarProducto',function(e){
 								} 
 								else
 								{
-									alertError("ERROR al eliminar el producto, ya se encuentra utilizado.");
+									alertError("Al eliminar el producto, ya se encuentra utilizado.");
 								}
 			                    
 							}
 				        })	   
 				  }else{
-					  alertError("No se va a eliminar");
+					  return false;
 				  }
 				});
 });

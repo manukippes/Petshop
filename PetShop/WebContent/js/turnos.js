@@ -357,7 +357,7 @@ $(document).ready(function() {
 				if (respuesta == 1){
 					swal ( {
 						  title : "Bien hecho!", 
-						  text : "Turno creado Exitosamente", 
+						  text : "Turno creado exitosamente", 
 						  icon : "success" , 
 						  buttons: {
 							    cancel: false,
@@ -516,7 +516,7 @@ $(document).ready(function() {
 				if (respuesta ==1){
 					swal ( {
 						  title : "Bien hecho!", 
-						  text : "Turno creado Exitosamente", 
+						  text : "Turno modificado exitosamente", 
 						  icon : "success" , 
 						  buttons: {
 							    cancel: false,

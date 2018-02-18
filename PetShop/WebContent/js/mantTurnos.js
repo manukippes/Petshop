@@ -174,19 +174,44 @@ $(document).ready(function() {
 		
 		var fecha = $(this).parent().parent().parent().find('#fecha').text();
 		var mascota = $(this).parent().parent().parent().find('#mascota').text();
-		var opcion = alertconfirm("Seguro quer\u00e9s eliminar el turno de fecha "+fecha+" para la mascota "+mascota+"?");
-		if (opcion){
-			var fila =$(this).parent().parent().parent()
-			var idTurno = fila.find('#idTurno').text(); 		//captura el idturno dentro de la estructura de la pagina
-			var parametro = {idTurno : idTurno};	
-			
-			$.post("CancelarTurno",$.param(parametro),function(responseJson){
-				
-				filtrarTabla();
+		
+		swal ( {
+			 title : "Atenci\u00F3n!",
+			 text : "Seguro quer\u00e9s eliminar el turno de fecha "+fecha+" para la mascota "+mascota+"?",
+			 icon : "info" , 
+			 button: {
+				 cancel: 
+				 	  {
+					    text: "Cancelar",
+					    value: null,
+					    visible: false,
+					    className: "",
+					    closeModal: true,
+					  },
+					  confirm: {
+					    text: "Aceptar",
+					    value: true,
+					    visible: true,
+					    className: "",
+					    closeModal: true
+					  }
+				  }
+			} )
+			.then((respuesta) => {
+				  if (respuesta) {
+					  var fila =$(this).parent().parent().parent()
+						var idTurno = fila.find('#idTurno').text(); 		//captura el idturno dentro de la estructura de la pagina
+						var parametro = {idTurno : idTurno};	
+						
+						$.post("CancelarTurno",$.param(parametro),function(responseJson){
+							
+							filtrarTabla();
+						});
+
+				  }else{
+					  return false;
+				  }
 			});
-		}
 	});
-	
-	
-	
+
 })

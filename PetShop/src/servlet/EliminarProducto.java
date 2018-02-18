@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import entidades.Producto;
 import logica.ControladorDeProducto;
 
@@ -40,17 +43,22 @@ public class EliminarProducto extends HttpServlet {
             throws ServletException, IOException {
         
     	response.setContentType("text/html;charset=UTF-8");
+    	
+    	String json = request.getParameter("jsonData");
+		JsonObject producto = (JsonObject) new JsonParser().parse(json);
         
-        int idProducto = Integer.parseInt(request.getParameter("idProducto"));
+        int idProducto = (int) producto.get("idProducto").getAsInt();
         ControladorDeProducto ctrlProducto = new ControladorDeProducto();
         Producto prod = new Producto();
         prod.setIdProducto(idProducto);
+        int resp = 0;
         
         try{
         	if(ctrlProducto.eliminarProducto(prod)){
-                response.getWriter().println("Producto eliminado exitosamente");
+        		resp=1;
+                response.getWriter().println(resp);
             }else{
-                response.getWriter().println("ERROR al eliminar el producto");
+                response.getWriter().println(resp);
             }
         }catch (Exception e){
         	e.printStackTrace();

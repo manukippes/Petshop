@@ -77,24 +77,6 @@ function validarCampos(nombre, presentacion, precio,categoria,subcategoria){
 	return false;
 	}
 
-function eliminarFila(e){
-	e.preventDefault();  //detiene la accion del boton (VIDEO 10)
-	
-	var nombreProducto = $(this).parent().parent().parent().find('#fecha').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
-	var opcion = alertConfirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
-	if (opcion){
-		var fila =$(this).parent().parent().parent()
-		var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
-				
-		var data={idProducto : idProducto};
-		$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
-			//alertError(res);    //Muestra la respuesta de ejecutar EliminarProducto
-			fila.remove();
-			})
-		}
-	
-	}
-
 function filtrarTabla(){
 	
 	var dispositivo="";
@@ -243,21 +225,60 @@ $(document).ready(function() {
 	});
 	
 	
-	$(document).on('click','.btnEliminarProducto',function(e){
+$(document).on('click','.btnEliminarProducto',function(e){
 		e.preventDefault();  //detiene la accion del boton (VIDEO 10)
-		
 		var nombreProducto = $(this).parent().parent().parent().find('#nombreProducto').text()+" "+$(this).parent().parent().parent().find('#presentacionProducto').text();
-		var opcion = alertconfirm("Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?");
-		if (opcion){
-			var fila =$(this).parent().parent().parent()
-			var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
-			var data={idProducto : idProducto};
-			$.post("EliminarProducto",data,function(res,est,jqXHR){ //Llama al servlet, le pasa data y ejecuta una funcion con un resultado, un estado y un ....
-				//alertError(res);    //Muestra la respuesta de ejecutar EliminarProducto
-				fila.remove();
-			});
-		}
-	});
+		swal ( {
+			 title : "Atenci\u00F3n!",
+			 text : "Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?",
+			 icon : "info" , 
+			 button: {
+				 cancel: 
+				 	  {
+					    text: "Cancelar",
+					    value: null,
+					    visible: false,
+					    className: "",
+					    closeModal: true,
+					  },
+					  confirm: {
+					    text: "Aceptar",
+					    value: true,
+					    visible: true,
+					    className: "",
+					    closeModal: true
+					  }
+				  }
+			} )
+			.then((respuesta) => {
+				  if (respuesta) {
+					  var fila =$(this).parent().parent().parent()
+						var idProducto = fila.find('#idProducto').text();//captura el idproducto dentro de la estructura de la pagina
+						var parametro={idProducto : idProducto};
+				        var parametros = JSON.stringify(parametro);
+					 	$.ajax({
+							url : "EliminarProducto",
+							type : "post",
+							data : {jsonData : parametros},
+							success : function(data){
+								if (data == 1)
+								{
+									fila.remove();
+									alertOk("Producto eliminado exitosamente");
+								} 
+								else
+								{
+									alertError("ERROR al eliminar el producto, ya se encuentra utilizado.");
+								}
+			                    
+							}
+				        })	   
+				  }else{
+					  return false;
+				  }
+				});
+});
+
 	
 	//VALIDACION EN DISPOSITIVOS DE ESCRITORIO
 	

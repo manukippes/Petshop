@@ -58,38 +58,6 @@
 		} ) ;
  }
  
- function alertConfirm(mensaje){
-	 swal ( {
-		 title : "Atenci\u00F3n!",
-		 text : mensaje,
-		 icon : "info" , 
-		 button: {
-			 cancel: 
-			 	  {
-				    text: "Cancelar",
-				    value: null,
-				    visible: false,
-				    className: "",
-				    closeModal: true,
-				  },
-				  confirm: {
-				    text: "Aceptar",
-				    value: true,
-				    visible: true,
-				    className: "",
-				    closeModal: true
-				  }
-			  }
-		} )
-		.then((respuesta) => {
-			  if (respuesta) {
-			    return true;
-			  } else {
-			    return false;
-			  }
-			});
- }
- 
 function destacarCampo(nombre){
 	$('#'+nombre).addClass("has-error");
 	clearTimeout();

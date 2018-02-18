@@ -635,25 +635,53 @@ $(document).ready(function() {
 		}else{
 			var idCliente = $('#cliente').val();
 	        
-	        parametro = {idCliente : idCliente};
-	        var parametros = JSON.stringify(parametro);
-	        
-	        $.ajax({
-				url : "EliminarCliente",
-				type : "post",
-				data : {jsonData : parametros},
-				success : function(data){
-					if (data ==1)
-					{
-						alertConfirm("Se elimin&oacute; el cliente.");
-					} 
-					else
-					{
-						alertError("No se pudo eliminar el cliente.");
-					}
-                    
-				}
-	        })	   
+			swal ( {
+				 title : "Atenci\u00F3n!",
+				 text : "¿Seguro quer\u00e9s eliminar el cliente?",
+				 icon : "info" , 
+				 button: {
+					 cancel: 
+					 	  {
+						    text: "Cancelar",
+						    value: null,
+						    visible: false,
+						    className: "",
+						    closeModal: true,
+						  },
+						  confirm: {
+						    text: "Aceptar",
+						    value: true,
+						    visible: true,
+						    className: "",
+						    closeModal: true
+						  }
+					  }
+				} )
+				.then((respuesta) => {
+					  if (respuesta) {
+						  parametro = {idCliente : idCliente};
+					        var parametros = JSON.stringify(parametro);
+					        
+					        $.ajax({
+								url : "EliminarCliente",
+								type : "post",
+								data : {jsonData : parametros},
+								success : function(data){
+									if (data ==1)
+									{
+										alertOk("Se elimin\u00F3 el cliente.");
+									} 
+									else
+									{
+										alertError("No se pudo eliminar el cliente.");
+									}
+				                    
+								}
+					        })   
+					  }else{
+						  return false;
+					  }
+					});
 		}
 		
 	})

@@ -637,7 +637,7 @@ $(document).ready(function() {
 	        
 			swal ( {
 				 title : "Atenci\u00F3n!",
-				 text : "Seguro quer\u00e9s eliminar el cliente?",
+				 text : "Seguro quer\u00e9s inhabilitar el cliente?",
 				 icon : "info" , 
 				 buttons: {
 					 confirm: {
@@ -669,11 +669,11 @@ $(document).ready(function() {
 								success : function(data){
 									if (data ==1)
 									{
-										alertOk("Se elimin\u00F3 el cliente.");
+										alertOk("Se inhabilit\u00F3 el cliente.");
 									} 
 									else
 									{
-										alertError("No se pudo eliminar el cliente. Ya se encuentra utilizado.");
+										alertError("No se pudo inhabilitar el cliente. Ya se encuentra utilizado.");
 									}
 				                    
 								}

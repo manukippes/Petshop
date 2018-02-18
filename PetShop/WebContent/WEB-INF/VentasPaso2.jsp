@@ -228,10 +228,8 @@
 			</div>
 		</div>
 	
-		<script type="text/javascript" src="/Petshop/js/jquery-latest.js"></script>
-		<script type="text/javascript" src="/Petshop/js/bootstrap.min.js"></script>	
-		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/ventas.js"></script>
+		<jsp:include page="jsGeneral.jsp" />
+		<script type="text/javascript" src="/Petshop/js/ventas.js"></script>
 		
 	</body>
 

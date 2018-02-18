@@ -178,77 +178,7 @@
 				
 				
 				
-					<!-- Carrito de compras -->
-					<div class="modal fade" id="carrito">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4><strong class="text-muted"><span class="fa fa-shopping-cart" style="font-size:35px;"></span> &nbsp;&nbsp;MI CARRITO DE COMPRAS</strong>
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
-								</div>
-								<div class="modal-body">
-									<div class="table-responsive">
-										<h5 class="text-muted text-center" id="carritoVacio">No hay productos en el carrito</h5>
-										<table id="tablaVentaActual" class="table table-striped table-hover tablaVentaActual hidden">
-											<thead>
-												<tr class="active hidden">
-													<th>
-														<div class="imagen">
-															<label class="sr-only">Imagen de producto</label>
-														</div>
-													</th>
-													<th class="hidden">
-														<div class="idProducto">
-															<label class="sr-only">Id Producto</label>
-															<span>Id Producto</span>
-														</div>
-													</th>
-													<th id="nombreProducto">
-														<label class="sr-only">Nombre de Producto</label>
-														<span>Nombre</span>
-													</th>
-													<th id="presentacionProducto">
-														<label class="sr-only">Presentacion</label>
-														<span>Presentaci&oacute;n</span>
-													<th>
-														<label class="sr-only">Precio</label>
-														<span>Precio</span>	
-													</th>
-													<th>
-														<label class="sr-only">Cantidad</label>
-														<span>Cantidad</span>				
-													</th>
-													<th> 
-														<div class="col-sm-3 col-lg-2 input-group">
-														</div>
-													</th>
-												</tr>
-											</thead>
-											<tbody>
-											
-									 		</tbody>
-										</table>
-									</div>
-													
-									<div class="form-group row hidden" id="subtotalGroup">
-										<label class="sr-only">Subtotal</label>
-									    <div class="col-sm-6 col-lg-4 pull-right">
-									    	<small id="subtotalHelp" class="form-text text-muted">Subtotal</small>
-									    	<div class="input-group">
-									    		<span class="input-group-addon"><small>$</small></span>
-												<input class="form-control" type="text" name="subtotal" class="subtotal" value="0" id="subtotal" placeholder="Subtotal" disabled>
-									    	</div>
-										</div>
-									</div>
-								</div>
-								<div class="modal-footer">
-									<div class="pull-right">
-										<button class="btn btn-primary btn-group-justified" type="submit" id="btnContinuar"><span class="fa fa-cart-arrow-down"></span> Finalizar Compra </button>
-									</div>
-								</div>								
-							</div>
-						</div>
-					</div>
+					
 				
 			</form>
 			</div>

@@ -1,4 +1,6 @@
 <%@page import="entidades.Usuario"%>
+<%@page import="entidades.Producto"%>
+<%@page import="logica.ControladorDeProducto"%>
 <%@page import="java.util.ArrayList"%>
 <div class="container">
 	<br>
@@ -78,7 +80,8 @@
 						<li id="turnosTab" class=""><a href="TurnoOnline"><span class="fa fa-calendar"></span> Turnos</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-					<%ArrayList<ArrayList<String>> listado = (ArrayList<ArrayList<String>>) session.getAttribute("productosVenta");
+					<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+					ArrayList<ArrayList<String>> listado = (ArrayList<ArrayList<String>>) session.getAttribute("productosVenta");
 					int cantidad = listado.size();%>
 						<li><a href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span> Mi Carrito <span class="badge" id="articulosCarrito"><%=cantidad %></span></a></li>
 						<li class="dropdown">
@@ -98,6 +101,115 @@
 				</div>	
 			</div>
 		</nav>
+		<!-- Carrito de compras -->
+					<div class="modal fade" id="carrito">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4><strong class="text-muted"><span class="fa fa-shopping-cart" style="font-size:35px;"></span> &nbsp;&nbsp;MI CARRITO DE COMPRAS</strong>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+								</div>
+								<div class="modal-body">
+									<div class="table-responsive">
+									<%String hayProductos = " hidden"; 
+									if(cantidad==0){hayProductos ="";}%>
+										<h5 class="text-muted text-center <%=hayProductos %>" id="carritoVacio">No hay productos en el carrito</h5>
+										<table id="tablaVentaActual" class="table table-striped table-hover tablaVentaActual">
+											<thead>
+												<tr class="active hidden">
+													<th>
+														<div class="imagen">
+															<label class="sr-only">Imagen de producto</label>
+														</div>
+													</th>
+													<th class="hidden">
+														<div class="idProducto">
+															<label class="sr-only">Id Producto</label>
+															<span>Id Producto</span>
+														</div>
+													</th>
+													<th id="nombreProducto">
+														<label class="sr-only">Nombre de Producto</label>
+														<span>Nombre</span>
+													</th>
+													<th id="presentacionProducto">
+														<label class="sr-only">Presentacion</label>
+														<span>Presentaci&oacute;n</span>
+													<th>
+														<label class="sr-only">Precio</label>
+														<span>Precio</span>	
+													</th>
+													<th>
+														<label class="sr-only">Cantidad</label>
+														<span>Cantidad</span>				
+													</th>
+													<th> 
+														<div class="col-sm-3 col-lg-2 input-group">
+														</div>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												
+													<%Double subtotal =0.0;
+													for(ArrayList<String> prodcant : listado){
+														Producto producto = new Producto();
+														producto.setIdProducto(Integer.parseInt(prodcant.get(0)));
+														producto = ctrlProducto.getProducto(producto);
+														int cantidadProducto = Integer.parseInt(prodcant.get(1));
+														subtotal += (cantidadProducto*producto.getPrecio());	
+													%>
+												<tr>
+													<td id="imagen">
+														<div class="img-hover">
+															<a href="<%=producto.getImagen() %>" class="preview" title="<%=producto.getNombre() %>,<%=producto.getPresentacion() %>"><img class="img-thumbnail" src="<%=producto.getImagen()%>" width="50px" height="50px"/></a>
+														</div>
+													</td> 
+													<td id="idProducto" class="hidden"><%=producto.getIdProducto() %></td>
+													<td id="nombreProducto"><%=producto.getNombre() %></td>
+													<td id="presentacionProducto"><%=producto.getPresentacion()%></td>
+													<td id="precioProducto"><%=producto.getPrecio() %></td>
+													<td>
+														<div class="" id="cantidadProductoGroup">
+															<input id="scrollCantidadProducto" type="number" class="form-control cantidadProducto" min="0" max="<%=producto.getStock() %>" value="<%=cantidadProducto %>"></input>
+														</div>
+													</td>
+													<td class="col-sm-3 col-lg-2">
+														<div class="input-group">
+															<a class="btn btn-danger btnEliminarProductoVenta" href="\"><span class="fa fa-times"></span></a>
+														</div>
+													</td>
+												</tr>
+												<%} %>
+									 		</tbody>
+										</table>
+									</div>
+									<%String noHayProductos = ""; 
+									if(cantidad==0){noHayProductos =" hidden";}
+									else{
+										
+									}
+									
+									%>				
+									<div class="form-group row <%=noHayProductos %>" id="subtotalGroup">
+										<label class="sr-only">Subtotal</label>
+									    <div class="col-sm-6 col-lg-4 pull-right">
+									    	<small id="subtotalHelp" class="form-text text-muted">Subtotal</small>
+									    	<div class="input-group">
+									    		<span class="input-group-addon"><small>$</small></span>
+												<input class="form-control" type="text" name="subtotal" class="subtotal" value="<%=subtotal %>" id="subtotal" placeholder="Subtotal" disabled>
+									    	</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<div class="pull-right">
+										<button class="btn btn-primary btn-group-justified" type="submit" id="btnContinuar"><span class="fa fa-cart-arrow-down"></span> Finalizar Compra </button>
+									</div>
+								</div>								
+							</div>
+						</div>
+					</div>
 		<%
 			break;
 		} 

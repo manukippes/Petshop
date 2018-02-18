@@ -332,5 +332,6 @@
 		</div>
 			<jsp:include page="jsGeneral.jsp" />
 			<script type="text/javascript" src="js/clienteOnline.js"></script>
+			<script type="text/javascript" src="js/ventaOnline.js"></script>
 	</body>
 </html>

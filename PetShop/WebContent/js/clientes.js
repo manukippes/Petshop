@@ -637,24 +637,24 @@ $(document).ready(function() {
 	        
 			swal ( {
 				 title : "Atenci\u00F3n!",
-				 text : "¿Seguro quer\u00e9s eliminar el cliente?",
+				 text : "Seguro quer\u00e9s eliminar el cliente?",
 				 icon : "info" , 
-				 button: {
-					 cancel: 
-					 	  {
-						    text: "Cancelar",
-						    value: null,
-						    visible: false,
-						    className: "",
-						    closeModal: true,
-						  },
-						  confirm: {
+				 buttons: {
+					 confirm: {
 						    text: "Aceptar",
 						    value: true,
 						    visible: true,
 						    className: "",
 						    closeModal: true
+						  },
+					 cancel: 
+					 	  { text: "Cancelar",
+						    value: false,
+						    visible: true,
+						    className: "",
+						    closeModal: true,
 						  }
+						  
 					  }
 				} )
 				.then((respuesta) => {
@@ -673,7 +673,7 @@ $(document).ready(function() {
 									} 
 									else
 									{
-										alertError("No se pudo eliminar el cliente.");
+										alertError("No se pudo eliminar el cliente. Ya se encuentra utilizado.");
 									}
 				                    
 								}

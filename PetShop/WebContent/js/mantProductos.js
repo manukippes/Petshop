@@ -232,22 +232,22 @@ $(document).on('click','.btnEliminarProducto',function(e){
 			 title : "Atenci\u00F3n!",
 			 text : "Seguro quer\u00e9s eliminar el producto "+nombreProducto+" ?",
 			 icon : "info" , 
-			 button: {
-				 cancel: 
-				 	  {
-					    text: "Cancelar",
-					    value: null,
-					    visible: false,
-					    className: "",
-					    closeModal: true,
-					  },
-					  confirm: {
+			 buttons: {
+				 confirm: {
 					    text: "Aceptar",
 					    value: true,
 					    visible: true,
 					    className: "",
 					    closeModal: true
+					  },
+				 cancel: 
+				 	  { text: "Cancelar",
+					    value: false,
+					    visible: true,
+					    className: "",
+					    closeModal: true,
 					  }
+					  
 				  }
 			} )
 			.then((respuesta) => {
@@ -268,7 +268,7 @@ $(document).on('click','.btnEliminarProducto',function(e){
 								} 
 								else
 								{
-									alertError("ERROR al eliminar el producto, ya se encuentra utilizado.");
+									alertError("Al eliminar el producto, ya se encuentra utilizado.");
 								}
 			                    
 							}

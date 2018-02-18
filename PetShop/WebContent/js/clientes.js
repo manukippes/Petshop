@@ -474,7 +474,7 @@ $(document).ready(function() {
 										$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
 									}
 								} else {
-									prompt("ERROR");
+									alertError("ERROR");
 								}	
 							}
 					})

@@ -1,7 +1,6 @@
 /**
  * 
  */
-
 function calcularSubtotal(){
 	
 	var subtotal = 0.0;

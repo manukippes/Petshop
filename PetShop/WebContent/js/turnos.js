@@ -354,13 +354,24 @@ $(document).ready(function() {
 			data : {jsonData : parametros},
 			success : function(respuesta){
 				//alertError(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
-				if (respuesta){
-					var opcion = alertDetiene("Turno creado Exitosamente");
-					if(opcion){
-						$(location).attr('href','Turnos');
-					}else{
-						alertError("Error al mostrat el pop up");
-					}
+				if (respuesta == 1){
+					swal ( {
+						  title : "Bien hecho!", 
+						  text : "Turno creado Exitosamente", 
+						  icon : "success" , 
+						  buttons: {
+							    cancel: false,
+							    confirm: true,
+							  },
+						} )
+						
+					 .then((willDelete) => {
+						  if (willDelete) {
+							  $(location).attr('href','Turnos');
+						  } else {
+							  alertError("No se pudo mostrar el popUp");
+						  }
+						});
 				}else{
 					alertError("Error al cargar el turno");
 				}
@@ -502,13 +513,24 @@ $(document).ready(function() {
 			data : {jsonData : parametros},
 			success : function(respuesta){
 				//alertError(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
-				if (respuesta){
-					var opcion = alertDetiene("Turno modificado Exitosamente");
-					if(opcion){
-						$(location).attr('href','Turnos');
-					}else{
-						alertError("Error al mostrat el pop up");
-					}
+				if (respuesta ==1){
+					swal ( {
+						  title : "Bien hecho!", 
+						  text : "Turno creado Exitosamente", 
+						  icon : "success" , 
+						  buttons: {
+							    cancel: false,
+							    confirm: true,
+							  },
+						} )
+						
+					 .then((willDelete) => {
+						  if (willDelete) {
+							  $(location).attr('href','Turnos');
+						  } else {
+							  alertError("No se pudo mostrar el popUp");
+						  }
+						});
 				}else{
 					alertError("Error al modificar el turno");
 				}

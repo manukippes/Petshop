@@ -66,7 +66,6 @@ public class agregarAlCarrito extends HttpServlet {
 			productosVenta.add(prodCant);							//AGREGO EL ELEMENTO A LA VENTA
 		}
 		
-		System.out.println(productosVenta.size());
 		request.getSession().removeAttribute("productosVenta");
 		request.getSession().setAttribute("productosVenta", productosVenta);
 	}

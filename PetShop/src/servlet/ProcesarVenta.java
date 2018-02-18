@@ -184,6 +184,9 @@ public class ProcesarVenta extends HttpServlet {
 			
 			if(bandera){
 				resp = 1;
+				request.getSession().removeAttribute("productosVenta");
+				productosVenta = new ArrayList<ArrayList<String>>();
+				request.getSession().setAttribute("productosVenta", productosVenta);
 				response.getWriter().println(resp);	
 			}else{
 				response.getWriter().println(resp);	

@@ -170,8 +170,8 @@
 													<td id="presentacionProducto"><%=producto.getPresentacion()%></td>
 													<td id="precioProducto"><%=producto.getPrecio() %></td>
 													<td>
-														<div class="" id="cantidadProductoGroup">
-															<input id="scrollCantidadProducto" type="number" class="form-control cantidadProducto" min="0" max="<%=producto.getStock() %>" value="<%=cantidadProducto %>"></input>
+														<div class="scrollCantidadProductoGroup">
+															<input id="scrollCantidadProducto" type="number" class="form-control scrollCantidadProducto" min="0" max="<%=producto.getStock() %>" value="<%=cantidadProducto %>"></input>
 														</div>
 													</td>
 													<td class="col-sm-3 col-lg-2">
@@ -204,7 +204,7 @@
 								</div>
 								<div class="modal-footer">
 									<div class="pull-right">
-										<button class="btn btn-primary btn-group-justified" type="submit" id="btnContinuar"><span class="fa fa-cart-arrow-down"></span> Finalizar Compra </button>
+										<button class="btn btn-primary btn-group-justified btnContinuar" type="submit" id="btnContinuar"><span class="fa fa-cart-arrow-down"></span> Finalizar Compra </button>
 									</div>
 								</div>								
 							</div>

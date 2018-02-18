@@ -1,6 +1,40 @@
 /**
  * 
  */
+function confirmar (){
+	
+	swal ( {
+		 title : "Atenci\u00F3n!",
+		 text : "Ingresaste un valor cero, quer\u00e9s eliminar el producto de la venta?",
+		 icon : "info" ,
+		 confirmButtonClass: "btn-success",
+		 buttons: {
+			cancel: 
+			 	  {
+				    text: "Cancelar",
+				    value: false,
+				    visible: true,
+				    className: "",
+				    closeModal: true,
+				  },
+			confirm: {
+				    text: "Eliminar",
+				    value: true,
+				    visible: true,
+				    className: "",
+				    closeModal: true
+				  }
+			  }
+		})
+		.then((respuesta) => {
+			if(respuesta) {
+				return true;			  
+			}else{
+				return false;
+			}
+		});
+		
+}
 function calcularSubtotal(){
 	
 	var subtotal = 0.0;
@@ -16,6 +50,13 @@ function calcularSubtotal(){
 			}
 	})
 	$("#subtotal").val(subtotal.toFixed(2));
+	if($("#subtotal").val()==0.0){
+		$("#subtotalGroup").addClass("hidden");
+		$("#carritoVacio").removeClass("hidden");
+		}else{
+			$("#subtotalGroup").removeClass("hidden");
+			$("#carritoVacio").addClass("hidden");
+		}
 }
 
 function agregarProductoVenta(idProducto,cantidad){
@@ -125,36 +166,70 @@ $(document).ready(function() {
 	//-----------------------------DETECTO CAMBIOS EN CANTIDAD AGREGADA EN EL CARRITO----------------------------------//
 	$(document).on('click','#scrollCantidadProducto',function(e){					//HACIENDO CLICK
 		$(this).parent().removeClass("has-error");
+		//$(this).parent().find("#errorCantidad").remove();
 		
 	})
 	
 	$(document).on('change','#scrollCantidadProducto',function(e){					//CAMBIOS EN GENERAL
 		
+		
 		var fila = $(this).parent().parent().parent();		
 		
 		var idProducto = fila.find('#idProducto').text();
-		var cantidad = fila.find('#scrollCantidadProducto').val();
+		var cantidad = fila.find('.scrollCantidadProducto').val();
+		var cantidadMaxima = fila.find('.scrollCantidadProducto').attr("max");
 		
-		if(cantidad==0){
-			$('#cantidadProductoGroup').addClass("has-error");
-			$("<small class='form-text text-muted text-danger' id='errorCantidad'>Valor Inv&aacute;lido</small>").insertAfter("#cantidadProductoGroup");
-		}else{
-			$('#errorCantidad').remove();
-			//AGREGO EL PRODUCTO A LA SESION
+		if (parseInt(cantidad) > parseInt(cantidadMaxima)){
+			alertError("Ingresaste una cantidad superior al maximo disponible");
+			fila.find('.scrollCantidadProducto').val(cantidadMaxima);
+			cantidad = cantidadMaxima;
 			$.ajax({
 				type : "post",
 				url : "agregarAlCarrito",
 				data : {idProducto : idProducto,
 						cantidad : cantidad
 						},
-				success : function(respuesta){
-					//alertError(respuesta);				
-				}	
+				success : function(respuesta){}
 			})
-			calcularSubtotal();
+		}else{
+			
+			if(cantidad==0){
+				alert(idProducto);
+				var confirmacion = confirmar();
+				alert(confirmacion);
+				//confirmar("Ha ingresado un valor 0, desea quitar el producto?");
+				if(confirmacion){
+					$.ajax({
+					type : "post",
+					url : "QuitarDelCarrito",
+					data : {idProducto : idProducto
+							},
+					success : function(respuesta){}	
+					})
+					fila.remove();
+					$("#articulosCarrito").text(parseInt($("#articulosCarrito").text())-1);
+					calcularSubtotal();
+				}else{
+					fila.find('.scrollCantidadProducto').val(1);
+				}
+				
+			} else{
+				
+				//AGREGO EL PRODUCTO A LA SESION
+				$.ajax({
+					type : "post",
+					url : "agregarAlCarrito",
+					data : {idProducto : idProducto,
+							cantidad : cantidad
+							},
+					success : function(respuesta){
+						//alertError(respuesta);				
+					}	
+				})
+				calcularSubtotal();
+			}
 		}
-		
-		
+	
 	})
 	
 	//------------------------DETECTO EL CLICK EN AGREGAR DE LA FILA DE UN PRODUCTO------------------------------//
@@ -212,6 +287,7 @@ $(document).ready(function() {
 		//QUITO EL PRODUCTO DE LA TABLA SIN RECARGAR LA PAGINA
 		fila.remove();
 		
+		
 		calcularSubtotal();
 		$("#articulosCarrito").text(parseInt($("#articulosCarrito").text())-1);
 		
@@ -226,48 +302,39 @@ $(document).ready(function() {
 		});
 	
 	//-----------------------------------CAPTURO EL CLICK EN CONTINUAR (VENTA PASO 1)------------------------------//
-	$(document).on('click','#btnContinuar',function(e){
+	$(document).on('click','.btnContinuar',function(e){
 		e.preventDefault();
 		
+		$('.tablaVentaActual').removeClass("hidden");
 		var validaCantidad = true;
 		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
 		if (filas.length == 1){
 			alertError("No seleccionaste ningun producto");
+			
 		}else{
-			var arregloProductos = [];
 			$.each(filas,function(i,fila){
 				if(i>0){
 					//OBTENGO DE CADA ARTICULO EL ID Y LA CANTIDAD A COMPRAR
 					var row = $(this).closest('tr');
-					var idProducto = row.find("#idProducto").text();
-					var cantidad = row.find(".cantidadProducto").val();
-					var stockDisponible = row.find(".cantidadProducto").attr("max");
-					if (cantidad > stockDisponible){
-						validaCantidad = false;
-						row.find("#cantidadProductoGroup").addClass("has-error");
-					}else{
-						var elemento = {idProducto,cantidad};
-						arregloProductos.push(elemento); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
-					}
+
+					var cantidad = row.find(".scrollCantidadProducto").val();
+					var stockDisponible = row.find(".scrollCantidadProducto").attr("max");
+					//
 					
+					if (parseInt(cantidad) > parseInt(stockDisponible)){
+						validaCantidad = false;
 					}
-				})
-			var parametro = JSON.stringify(arregloProductos);
+				}
+			})
+		
 			if(validaCantidad){
-				$.ajax({
-					type : "post",
-					url : "CargarProductosVenta",
-					data : {jsonData : parametro},
-					success : function(respuesta){
-						//alertError(respuesta);
-						$(location).attr('href',"VentaOnlinePaso2");
-					}	
-				})
+				
+				$(location).attr('href',"VentaOnlinePaso2");
 			} else {
 				alertError("Se ha ingresado una cantidad superior al stock disponible");
 			}
-			
 		}
+
 	})
 		 
 	//CAPTURO EL CAMBIO DEL COMBO DE MEDIO DE PAGO
@@ -450,6 +517,7 @@ $(document).ready(function() {
 	    }
 	})
 
+	//-----------------------------------CLICK EN BOTON FINALIZAR EN VENTAONLINE PASO2
 	
 	$(document).on("click", "#confirmarVenta", function(e){
 	    e.preventDefault();
@@ -541,5 +609,6 @@ $(document).ready(function() {
 			}); 
 		}
 	})
+
 	
 })

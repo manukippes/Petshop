@@ -33,7 +33,7 @@
 						<h4>Est&aacute;s por comprar:</h4>
 					</div>
 					<div class="table-responsive">
-						<table id="tablaVentaActual" class="table table-striped table-hover tablaVentaActual">
+						<table id="tablaVentaActualPaso2" class="table table-striped table-hover tablaVentaActualPaso2">
 							<thead>
 								<tr class="active">
 									<th class="hidden">
@@ -50,6 +50,7 @@
 									<th id="presentacionProducto">
 										<label class="sr-only">Presentacion</label>
 										<span>Presentaci&oacute;n</span>
+									</th>
 									<th>
 										<label class="sr-only">Precio</label>
 										<span>Precio</span>	

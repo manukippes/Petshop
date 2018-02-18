@@ -517,12 +517,23 @@ $(document).ready(function() {
 				data : {jsonData : parametros},
 				success : function(respuesta){
 					if (respuesta == 1){
-						var opcion = alertDetiene("Venta cargada Exitosamente");
-						if(opcion){
-							$(location).attr('href','VentaOnline');
-						}else{
-							alertError("No se pudo mostrar el popUp");
-						}
+						swal ( {
+							  title : "Bien hecho!", 
+							  text : "Venta cargada Exitosamente", 
+							  icon : "success" , 
+							  buttons: {
+								    cancel: false,
+								    confirm: true,
+								  },
+							} )
+							
+						 .then((willDelete) => {
+							  if (willDelete) {
+								  $(location).attr('href','VentaOnline');
+							  } else {
+								  alertError("No se pudo mostrar el popUp");
+							  }
+							});
 					}else{
 						alertError("Error al cargar la venta");
 					}

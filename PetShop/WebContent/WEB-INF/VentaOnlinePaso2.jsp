@@ -16,6 +16,19 @@
 		<jsp:include page="cssGeneral.jsp" />
 		
 		<title>Sistema de Gestion de Pet Shops</title>
+		<script type="text/javascript" src="/Petshop/js/jquery/jquery-latest.js"></script>
+		<script type="text/javascript" src="/Petshop/js/bootstrap/bootstrap.min.js"></script>
+		<script>
+		$(document).ready(function() {
+			
+			$(document).on("hide.bs.modal","#carrito",function(){
+				$(location).attr('href',"VentaOnlinePaso2");
+			})
+			
+		})
+		
+		
+		</script>
 	</head>
 	<body onload="iniciar('ventas');">
 		<jsp:include page="Navbar.jsp" />		 

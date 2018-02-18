@@ -1,40 +1,7 @@
 /**
  * 
  */
-function confirmar (){
-	
-	swal ( {
-		 title : "Atenci\u00F3n!",
-		 text : "Ingresaste un valor cero, quer\u00e9s eliminar el producto de la venta?",
-		 icon : "info" ,
-		 confirmButtonClass: "btn-success",
-		 buttons: {
-			cancel: 
-			 	  {
-				    text: "Cancelar",
-				    value: false,
-				    visible: true,
-				    className: "",
-				    closeModal: true,
-				  },
-			confirm: {
-				    text: "Eliminar",
-				    value: true,
-				    visible: true,
-				    className: "",
-				    closeModal: true
-				  }
-			  }
-		})
-		.then((respuesta) => {
-			if(respuesta) {
-				return true;			  
-			}else{
-				return false;
-			}
-		});
-		
-}
+
 function calcularSubtotal(){
 	
 	var subtotal = 0.0;
@@ -194,25 +161,9 @@ $(document).ready(function() {
 		}else{
 			
 			if(cantidad==0){
-				alert(idProducto);
-				var confirmacion = confirmar();
-				alert(confirmacion);
-				//confirmar("Ha ingresado un valor 0, desea quitar el producto?");
-				if(confirmacion){
-					$.ajax({
-					type : "post",
-					url : "QuitarDelCarrito",
-					data : {idProducto : idProducto
-							},
-					success : function(respuesta){}	
-					})
-					fila.remove();
-					$("#articulosCarrito").text(parseInt($("#articulosCarrito").text())-1);
-					calcularSubtotal();
-				}else{
-					fila.find('.scrollCantidadProducto').val(1);
-				}
-				
+				alertError("La cantidad m\u00EDnima de un producto es 0, sin\u00f3 pod\u00e9s eliminarlo de la venta");
+				fila.find('.scrollCantidadProducto').val(1);
+							
 			} else{
 				
 				//AGREGO EL PRODUCTO A LA SESION

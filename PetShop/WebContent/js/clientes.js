@@ -639,22 +639,22 @@ $(document).ready(function() {
 				 title : "Atenci\u00F3n!",
 				 text : "¿Seguro quer\u00e9s eliminar el cliente?",
 				 icon : "info" , 
-				 button: {
-					 cancel: 
-					 	  {
-						    text: "Cancelar",
-						    value: null,
-						    visible: false,
-						    className: "",
-						    closeModal: true,
-						  },
-						  confirm: {
+				 buttons: {
+					 confirm: {
 						    text: "Aceptar",
 						    value: true,
 						    visible: true,
 						    className: "",
 						    closeModal: true
+						  },
+					 cancel: 
+					 	  { text: "Cancelar",
+						    value: false,
+						    visible: true,
+						    className: "",
+						    closeModal: true,
 						  }
+						  
 					  }
 				} )
 				.then((respuesta) => {

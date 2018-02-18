@@ -109,9 +109,10 @@ public class ConfirmarAltaProducto extends HttpServlet {
 			if (campos.get(0).equals("modificacion")){									//DETERMINO SI ES ALTA O MODIFICACION
 				productoActual.setIdProducto(Integer.parseInt(campos.get(9)));	//LE SETEO LA ID QUE VIENE COMO PARAMETRO AL PRODUCTO
 				if(ctrlProducto.modificarProducto(productoActual)){
-					response.getWriter().println("Producto modificado exitosamente");
+					resp=1;
+					response.getWriter().println(resp);
 				}else{
-					response.getWriter().println("Error al modificar el producto");
+					response.getWriter().println(resp);
 				};
 				
 			}else{

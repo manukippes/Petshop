@@ -211,13 +211,24 @@ $(document).ready(function() {
 			success : function(respuesta){
 				//alertError(respuesta);		//NO DETIENE LA EJECUCION POR LO QUE NO SE MUESTRA
 				if (respuesta == 1){
-					var opcion = alertDetiene("Turno creado Exitosamente");
-					if(opcion){
-						$(location).attr('href','Turnos');
-					}else{
-						alertError("No se pudo mostrar el popUp");
-					}
-					
+					swal ( {
+						  title : "Bien hecho!", 
+						  text : "Turno creado Exitosamente", 
+						  icon : "success" , 
+						  buttons: {
+							    cancel: false,
+							    confirm: true,
+							  },
+						} )
+						
+					 .then((willDelete) => {
+						  if (willDelete) {
+							  $(location).attr('href','Turnos');
+						  } else {
+							  alertError("No se pudo mostrar el popUp");
+						  }
+						});
+				
 				}else{
 					alertError("Error al cargar el turno");
 				}

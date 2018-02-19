@@ -6,6 +6,12 @@
 	<br>
 	<header>
 		<% Usuario usuarioNavbar = (Usuario) session.getAttribute("user");
+		ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+		ArrayList<ArrayList<String>> listado = (ArrayList<ArrayList<String>>) session.getAttribute("productosVenta");
+		int cantidad = listado.size();
+		String noHayProductos = ""; 
+		String ventaPendiente = "Hay una venta pendiente de finalizar";
+		if(cantidad==0){noHayProductos =" hidden"; ventaPendiente="Ventas";}
 			switch (usuarioNavbar.getTipoUsuario()){
 				case "Administrador":
 		%>	
@@ -25,7 +31,7 @@
 				
 				<div class="collapse navbar-collapse" id="navbar-1">
 					<ul class="nav navbar-nav">
-						<li id="ventasTab" class=""><a href="Ventas"><span class="fa fa-shopping-bag"></span> Ventas</a></li>
+						<li id="ventasTab" class=""><a href="Ventas" title="<%=ventaPendiente%>"><span class="fa fa-shopping-bag"></span> Ventas <span class="fa fa-bookmark text-danger<%=noHayProductos %>" style="vertical-align:text-top;font-size:10px"></span></a></li>
 						<li id="turnosTab" class=""><a href="Turnos"><span class="fa fa-calendar"></span> Turnos</a></li>
 						<li id="comprobantesVentasTab" class=""><a href="ComprobantesVentas"><span class="fa fa-th-list"></span> Comprobantes de Ventas</a></li>
 						<li class="dropdown" id="administracionTab">
@@ -80,9 +86,7 @@
 						<li id="turnosTab" class=""><a href="TurnoOnline"><span class="fa fa-calendar"></span> Turnos</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-					<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
-					ArrayList<ArrayList<String>> listado = (ArrayList<ArrayList<String>>) session.getAttribute("productosVenta");
-					int cantidad = listado.size();%>
+					
 						<li><a href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span> Mi Carrito <span class="badge" id="articulosCarrito"><%=cantidad %></span></a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
@@ -184,13 +188,9 @@
 									 		</tbody>
 										</table>
 									</div>
-									<%String noHayProductos = ""; 
-									if(cantidad==0){noHayProductos =" hidden";}
-									else{
-										
-									}
 									
-									%>				
+									
+										
 									<div class="form-group row <%=noHayProductos %>" id="subtotalGroup">
 										<label class="sr-only">Subtotal</label>
 									    <div class="col-sm-6 col-lg-4 pull-right">

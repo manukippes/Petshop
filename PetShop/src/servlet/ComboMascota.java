@@ -65,6 +65,7 @@ public class ComboMascota extends HttpServlet {
 		
 		List<Mascota> lista = new ArrayList<>();  //convierto el arraylist en list
 		for(Mascota mascota : mascotas){
+			mascota.setUsuario(new Usuario());		//LE BORRO EL USUARIO PORQUE TIENE DENTRO UN LISTADO DE MASCOTAS
 			lista.add(mascota);
 		}
 		String json = new Gson().toJson(lista);

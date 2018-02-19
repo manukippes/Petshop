@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import entidades.Mascota;
 import entidades.Usuario;
 import logica.ControladorDeUsuario;
 
@@ -60,10 +61,12 @@ public class ObtenerCliente extends HttpServlet {
 		
 		List<Usuario> lista = new ArrayList<>();  //convierto el arraylist en list
 		for(Usuario usuario : usuarios){
+			usuario.setMascotas(new ArrayList<Mascota>());
 			lista.add(usuario);
 		}
+		
 		String json = new Gson().toJson(lista);
-
+		System.out.println(json);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(json);

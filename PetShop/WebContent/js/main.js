@@ -80,12 +80,18 @@ $(document).ready(function() {
 			var parametro = {inputCliente : inputCliente};
 			$('#cliente').prop('disabled',false);
 			$.post("ComboClientes",$.param(parametro),function(responseJson){
-				alert(responseJson.length);
+				var cantEncontrados=0;
 				$('#cliente').empty();
 				$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
 				$.each(responseJson,function(index, usuarios){
 					$('#cliente').append($('<option value="'+usuarios.idUsuario+'">'+usuarios.apellido+', '+usuarios.nombre+'</option>'));
+					cantEncontrados++;
 				});
+				
+				if (cantEncontrados == 0){
+					$('#cliente').prop('disabled',true);
+					alertError("No se ha encontrado ning\u00fan cliente, record\u00e1 que pod\u00e9s agregarlos desde el m\u00f3dulo administraci\u00f3n");
+				}
 			});
 		}else{
 			$('#cliente').empty();

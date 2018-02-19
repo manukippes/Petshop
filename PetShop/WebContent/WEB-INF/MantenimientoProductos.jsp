@@ -13,7 +13,7 @@
 	
 	<title>SGPS - Mantenimiento de Productos</title>
 </head>
-<body onload="iniciar('administracion');">
+<body onload="iniciar('administracion');filtrarTabla();">
 	<jsp:include page="Navbar.jsp" />
 	
 	<div class="container panel panel-default colorPanel">
@@ -104,9 +104,11 @@
 							</div>							
 						</th>
 						<th class="col-sm-3 col-lg-2"> 
-							<div class="input-group">
-								<span>Acciones </span>
-							</div>
+							<div class="input group input-group-sm">
+									<input type="button" id="btnLimpiarfiltros" name="limpiarFiltros" class="btn btn-primary btnLimpiarfiltros hidden-xs" value="Limpiar Filtros"></input>
+									<hr class="hidden-xs">
+									<div>Acciones&nbsp;</div>
+								</div>
 						</th>
 					</tr>
 				</thead>

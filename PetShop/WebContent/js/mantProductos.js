@@ -167,7 +167,28 @@ $(document).ready(function() {
 				processData : false,
 				success : function(data){
 					if(data==1){
-						alertOk("Producto modificado exitosamente");
+						swal ( {
+							 title : "Bien hecho!",
+							 text : "Producto modificado exitosamente",
+							 icon : "success" , 
+							 buttons: {
+								 confirm: {
+									    text: "Aceptar",
+									    value: true,
+									    visible: true,
+									    className: "",
+									    closeModal: true
+									  },									  
+								  }
+							} )
+						.then((respuesta) => {
+							if(respuesta){
+								$(location).attr('href',"MantenimientoProductos");	
+							}else{
+								$(location).attr('href',"MantenimientoProductos");	
+							}
+						})
+
 					}else{
 						alertError("Error en la modificaci\u00F3n del producto");
 					}
@@ -354,5 +375,16 @@ $(document).on('click','.btnEliminarProducto',function(e){
 		filtrarTabla();
 	});
 	
-	
+	$('.btnLimpiarfiltros').click(function(){
+		
+		$('#filtrarNombre').val("");
+		$('#filtrarIdProducto').val("");
+		$('#filtrarPresentacion').val("");
+		$('#filtrarPrecioDesde').val("");
+		$('#filtrarPrecioHasta').val("");
+		$('#filtrarStockDesde').val("");
+		$('#filtrarStockHasta').val("");
+		filtrarTabla();
+
+	})
 })

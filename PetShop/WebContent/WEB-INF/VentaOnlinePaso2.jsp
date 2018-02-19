@@ -16,19 +16,7 @@
 		<jsp:include page="cssGeneral.jsp" />
 		
 		<title>Sistema de Gestion de Pet Shops</title>
-		<script type="text/javascript" src="/Petshop/js/jquery/jquery-latest.js"></script>
-		<script type="text/javascript" src="/Petshop/js/bootstrap/bootstrap.min.js"></script>
-		<script>
-		$(document).ready(function() {
-			
-			$(document).on("hide.bs.modal","#carrito",function(){
-				$(location).attr('href',"VentaOnlinePaso2");
-			})
-			
-		})
-		
-		
-		</script>
+
 	</head>
 	<body onload="iniciar('ventas');">
 		<jsp:include page="Navbar.jsp" />		 
@@ -88,6 +76,7 @@
 								BigDecimal cantidad = BigDecimal.valueOf(0,2);
 								BigDecimal total = BigDecimal.valueOf(0,2);
 								BigDecimal precio = BigDecimal.valueOf(0,2);
+								BigDecimal subtotal = BigDecimal.valueOf(0,2);
 
 								for(ArrayList<String> producto : productos){
 									prod.setIdProducto(Integer.parseInt(producto.get(0)));
@@ -95,6 +84,8 @@
 									precio = BigDecimal.valueOf(prod.getPrecio());
 									cantidad = BigDecimal.valueOf(Double.parseDouble(producto.get(1)));
 									total = total.add(cantidad.multiply(precio));
+									total = total.setScale(2, java.math.RoundingMode.CEILING);
+									subtotal = (precio.multiply(cantidad)).setScale(2, java.math.RoundingMode.CEILING);
 								%>
 								<tr class="">
 									<td class="hidden"><%=prod.getIdProducto() %></td>
@@ -105,9 +96,9 @@
 									</td>
 									<td class="align-middle"><%=prod.getNombre() %></td>
 									<td><%=prod.getPresentacion() %></td>
-									<td><%=prod.getPrecio() %></td>
+									<td><span class='fa fa-dollar'></span> <%=prod.getPrecio() %></td>
 									<td><%=producto.get(1) %></td>
-									<td><%=precio.multiply(cantidad)%></td>
+									<td><span class='fa fa-dollar'></span> <%=subtotal%></td>
 								</tr>
 								<%
 								}
@@ -277,6 +268,7 @@
 	
 		<jsp:include page="jsGeneral.jsp" />
 		<script type="text/javascript" src="js/ventaOnline.js"></script>
+		<script type="text/javascript" src="js/ventaOnlinePaso2.js"></script>
 		
 	</body>
 

@@ -79,6 +79,7 @@
 							</tr>
 						</thead>
 						<tbody>
+						
 				 		</tbody>
 					</table>
 				</div>
@@ -86,6 +87,9 @@
 				<div class="input-group">
 					<h4>Productos de la venta actual</h4>
 				</div>
+				<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+				ArrayList<ArrayList<String>> listado = (ArrayList<ArrayList<String>>) session.getAttribute("productosVenta");
+				int cantidad = listado.size();%>
 				<div class="table-responsive">
 					<table id="tablaVentaActual" class="table table-striped table-hover tablaVentaActual">
 						<thead>
@@ -119,7 +123,27 @@
 							</tr>
 						</thead>
 						<tbody>
-						
+							<%Double subtotal =0.0;
+							for(ArrayList<String> prodcant : listado){
+								Producto producto = new Producto();
+								producto.setIdProducto(Integer.parseInt(prodcant.get(0)));
+								producto = ctrlProducto.getProducto(producto);
+								int cantidadProducto = Integer.parseInt(prodcant.get(1));
+								subtotal += (cantidadProducto*producto.getPrecio());	
+							%>
+							<tr>
+								<td id="idProducto"><%=producto.getIdProducto() %></td>
+								<td id="nombreProducto"><%=producto.getNombre() %></td>
+								<td id="presentacionProducto"><%=producto.getPresentacion()%></td>
+								<td id="precioProducto"><span class="fa fa-dollar"></span> <%=producto.getPrecio() %></td>
+								<td id='cantidadProducto'><%=cantidadProducto %></td>
+								<td class="col-sm-3 col-lg-2">
+									<div class="input-group">
+										<a class="btn btn-danger btnEliminarProductoVenta" href="\"><span class="fa fa-times"></span></a>
+									</div>
+								</td>
+							</tr>
+							<%} %>
 				 		</tbody>
 					</table>
 				</div>
@@ -129,7 +153,7 @@
 				    	<small id="subtotalHelp" class="form-text text-muted">Subtotal</small>
 				    	<div class="input-group">
 				    		<span class="input-group-addon"><small>$</small></span>
-							<input class="form-control" type="text" name="subtotal" value="0" id="subtotal" placeholder="Subtotal" disabled>
+							<input class="form-control" type="text" name="subtotal" value="<%=subtotal %>" id="subtotal" placeholder="Subtotal" disabled>
 				    	</div>
 					</div>
 				</div>
@@ -149,7 +173,7 @@
 						    				<label class="sr-only">Selecciona una categoria</label>
 										    <select class="form-control" name="categoriaSeleccionada" id="categoria" aria-describedby="categoriaHelp" required>
 										    	<option value="categoria">Seleccion&aacute; una categor&iacute;a</option>
-										    	<% ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+										    	<% 
 										    		ArrayList<Categoria> categorias = ctrlProducto.getCategorias();
 										    		for(Categoria cate : categorias){
 										    			%>
@@ -174,7 +198,7 @@
 										</div>								
 									</div>
 									<br>
-
+									
 									<div class="table-responsive">
 										<table id="tablaAgregarProducto" class="table table-striped table-hover tablaAgregarProducto">
 											<thead>
@@ -210,6 +234,7 @@
 											</thead>
 											<tbody>
 												
+													
 									 		</tbody>
 										</table>
 									</div>									

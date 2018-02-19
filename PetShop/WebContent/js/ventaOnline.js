@@ -81,7 +81,7 @@ function buscarProductosVenta(inputProducto){
 				"			<td class='hidden' id='idProducto'>"+productos.idProducto+"</td>" +
 				"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 				"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
-				"			<td id='precioProducto'>"+productos.precio+"</td>" +
+				"			<td id='precioProducto'><span class='fa fa-dollar'></span> "+productos.precio+"</td>" +
 				"			<td>" +
 				"				<input id='cantidad' type='number' class='form-control cantidad' min='0' max="+productos.stock+"></input>" +
 				"			</td>" +
@@ -229,9 +229,7 @@ $(document).ready(function() {
 			data : {idProducto : idProducto
 					},
 			success : function(respuesta){
-				//alertError(respuesta);
-				//$(location).attr('href',"VentaOnlinePaso2");
-				alert("se elimino");
+				
 			}	
 		})
 		
@@ -419,7 +417,7 @@ $(document).ready(function() {
 					"			<td class='hidden' id='idProducto'>"+productos.idProducto+"</td>" +
 					"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 					"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
-					"			<td id='precioProducto'>"+productos.precio+"</td>" +
+					"			<td id='precioProducto'><span class='fa fa-dollar'></span> "+productos.precio+"</td>" +
 					"			<td>" +
 					"				<input id='cantidad' type='number' class='form-control cantidad' min='0' max="+productos.stock+"></input>" +
 					"			</td>" +
@@ -433,7 +431,7 @@ $(document).ready(function() {
 			})
 		})
 	})
-	$(this).on("change", "#soloStock", function(e){
+	/*$(this).on("change", "#soloStock", function(e){
 	    e.preventDefault();
 	    
 	    var idSubcategoria = $('#subcategoria').val();
@@ -453,7 +451,7 @@ $(document).ready(function() {
 	 					'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
 	 					"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 	 					"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
-	 					"			<td id='precioProducto'>"+productos.precio+"</td>" +
+	 					"			<td id='precioProducto'><span class='fa fa-dollar'> "+productos.precio+"</td>" +
 	 					"			<td>" +
 	 					"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
 	 					"			</td>" +
@@ -466,7 +464,7 @@ $(document).ready(function() {
 	 			})
 	 		})
 	    }
-	})
+	})*/
 
 	//-----------------------------------CLICK EN BOTON FINALIZAR EN VENTAONLINE PASO2
 	

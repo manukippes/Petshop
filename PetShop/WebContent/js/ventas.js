@@ -1,49 +1,56 @@
 /**
  * 
  */
+function calcularSubtotal(){
+	
+	var subtotal = 0.0;
+	var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
+	
+	$.each(filas,function(i,fila){
+		if(i>0){
+			//OBTENGO DE CADA ARTICULO EL ID Y LA CANTIDAD A COMPRAR
+			var row = $(this).closest('tr');
+			var cantidad = row.find('#cantidadProducto').text();
+			var precio = row.find("#precioProducto").text();
+			subtotal += (parseFloat(precio)*parseFloat(cantidad));
+			}
+	})
+	$("#subtotal").val(subtotal.toFixed(2));
 
-function agregarProductoVenta(idProducto,nombre,presentacion,precio,cantidad){
+}
+function agregarProductoVenta(idProducto,cantidad){
 	
 		var filas = $(".tablaVentaActual tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
 		var bandera = false;
 		//RECORRO LA TABLA 	VERIFICANDO QUE NO ESTE AGREGADO EL PRODUCTO
+
 		$.each(filas,function(i,fila){
 			if (i>0){
 				if (fila.cells[0].innerHTML==idProducto){
 					bandera=true;
-					alertError("Este producto ya est&aacute; en la venta, para modificarlo debes quitarlo primero");
 				}
 			}			
 		})
 		
 		if (!bandera){
-			//AGREGA EL PRODUCTO A LA TABLA DE VENTA SI SE INGRESO UNA CANTIDAD
-			if (cantidad.length != 0){
-				$('<tr>',{
-					'html' : "<td id='idProducto'>"+idProducto+"</td>" +
-					"			<td id='nombreProducto'>"+nombre+"</td>" +
-					"			<td id='presentacionProducto'>"+presentacion+"</td>" +
-					"			<td id='precioProducto'>"+precio+"</td>" +
-					"			<td id='cantidadProducto'>"+cantidad+"</td>" +
-					"			<td class='col-sm-3 col-lg-2'>" +
-					"				<div class='input-group'>" +
-					"					<a class='btn btn-danger btnEliminarProductoVenta' href='\'>Quitar</a>" +
-					"				</div>" +
-					"			</td>"
-					}).appendTo(".tablaVentaActual > tbody");
-				
-				
-				var subtotal = parseFloat($("#subtotal").val());
-				
-				subtotal += (parseFloat(cantidad)*parseFloat(precio));
-				
-				$("#subtotal").val(subtotal.toFixed(2));
+			
+			$.ajax({
+				type : "post",
+				url : "agregarAlCarrito",
+				data : {idProducto : idProducto,
+						cantidad : cantidad
+						},
+				success : function(respuesta){
+					
+					$(location).attr('href',"Ventas");					//RECARGO LA PAGINA PARA ACTUALIZAR LA VENTA
+				}	
+			})
 
-			}else{
-				alertError("Para agregar un producto debes ingresar la cantidad");
-			}
+		}else{
+			alertError("Este producto ya est\u00e1 en la venta, para modificarlo debes quitarlo primero");
 		}
 	}
+	
 
 function buscarProductosVenta(inputProducto){
 
@@ -58,7 +65,7 @@ function buscarProductosVenta(inputProducto){
 				'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
 				"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 				"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
-				"			<td id='precioProducto'>"+productos.precio+"</td>" +
+				"			<td id='precioProducto'><span class='fa fa-dollar'></span> "+productos.precio+"</td>" +
 				"			<td>" +
 				"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
 				"			</td>" +
@@ -101,18 +108,20 @@ $(document).ready(function() {
 		var fila =$(this).parent().parent().parent()
 		
 		
-		var idAgregar = fila.find('#idProducto').text();
+		var idProducto = fila.find('#idProducto').text();
 		var nombreAgregar = fila.find('#nombreProducto').text();
 		var presentacionAgregar = fila.find('#presentacionProducto').text();
-		var cantidadAgregar = fila.find('#cantidad').val();
+		var cantidad = fila.find('#cantidad').val();
 		var precioAgregar = fila.find('#precioProducto').text();
 		
 		var cantidadMaxima = fila.find('#cantidad').attr('max');
 		
-		if (cantidadAgregar!=""){
-			if (parseInt(cantidadAgregar) <= parseInt(cantidadMaxima)){ //VALIDO QUE NO SE EXCEDA DEL STOCK DISPONIBLE
-				if(cantidadAgregar>0){		//VALIDO QUE LA CANTIDAD A AGREGAR NO SEA 0
-					agregarProductoVenta(idAgregar,nombreAgregar,presentacionAgregar,precioAgregar,cantidadAgregar);
+		if (cantidad!=""){
+			if (parseInt(cantidad) <= parseInt(cantidadMaxima)){ //VALIDO QUE NO SE EXCEDA DEL STOCK DISPONIBLE
+				if(cantidad>0){		//VALIDO QUE LA CANTIDAD A AGREGAR NO SEA 0
+					
+					agregarProductoVenta(idProducto,cantidad);
+					
 				}else{
 					alertError("La cantidad ingresada debe ser mayor a 0 unidades")
 				}
@@ -128,19 +137,22 @@ $(document).ready(function() {
 		
 		//OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
 		var fila =$(this).parent().parent().parent()
-		//OBTENGO EL SUBTOTAL ACTUAL
-		var subtotal = parseFloat($("#subtotal").val());
+		var idProducto = fila.find("#idProducto").text();
 		
-		//OBTENGO PRECIO Y CANTIDAD DEL PRODUCTO A BORRAR
-		var precio = fila.find("#precioProducto").text();
-		var cantidad = fila.find("#cantidadProducto").text();
 		
-		//RESTO AL SUBTOTAL EL IMPORTE CALCULADO
+		$.ajax({
+			type : "post",
+			url : "QuitarDelCarrito",
+			data : {idProducto : idProducto
+					},
+			success : function(respuesta){
+				
+			}	
+		})
 		
-		subtotal -= (parseFloat(precio)*parseFloat(cantidad));
 		
-		$("#subtotal").val(subtotal.toFixed(2));
 		fila.remove();
+		calcularSubtotal();
 		
 		});
 	
@@ -297,7 +309,7 @@ $(document).ready(function() {
 					'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
 					"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 					"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
-					"			<td id='precioProducto'>"+productos.precio+"</td>" +
+					"			<td id='precioProducto'><span class='fa fa-dollar'></span> "+productos.precio+"</td>" +
 					"			<td>" +
 					"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
 					"			</td>" +
@@ -331,7 +343,7 @@ $(document).ready(function() {
 	 					'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
 	 					"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
 	 					"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
-	 					"			<td id='precioProducto'>"+productos.precio+"</td>" +
+	 					"			<td id='precioProducto'><span class='fa fa-dollar'></span> "+productos.precio+"</td>" +
 	 					"			<td>" +
 	 					"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
 	 					"			</td>" +

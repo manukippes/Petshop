@@ -76,6 +76,7 @@
 								BigDecimal cantidad = BigDecimal.valueOf(0,2);
 								BigDecimal total = BigDecimal.valueOf(0,2);
 								BigDecimal precio = BigDecimal.valueOf(0,2);
+								BigDecimal subtotal = BigDecimal.valueOf(0,2);
 
 								for(ArrayList<String> producto : productos){
 									prod.setIdProducto(Integer.parseInt(producto.get(0)));
@@ -83,14 +84,16 @@
 									precio = BigDecimal.valueOf(prod.getPrecio());
 									cantidad = BigDecimal.valueOf(Double.parseDouble(producto.get(1)));
 									total = total.add(cantidad.multiply(precio));
+									total = total.setScale(2, java.math.RoundingMode.CEILING);
+									subtotal = (precio.multiply(cantidad)).setScale(2, java.math.RoundingMode.CEILING);
 								%>
 								<tr class="">
 									<td><%=prod.getIdProducto() %></td>
 									<td><%=prod.getNombre() %></td>
 									<td><%=prod.getPresentacion() %></td>
-									<td><%=prod.getPrecio() %></td>
+									<td><span class="fa fa-dollar"></span> <%=prod.getPrecio() %></td>
 									<td><%=producto.get(1) %></td>
-									<td><%=precio.multiply(cantidad)%></td>
+									<td><span class="fa fa-dollar"></span> <%=subtotal%></td>
 								</tr>
 								<%
 								}

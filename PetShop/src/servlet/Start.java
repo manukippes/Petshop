@@ -56,6 +56,10 @@ public class Start extends HttpServlet {
 			if(usuario.getEstado()==1){
 				request.getSession().setAttribute("user", usuario); //crea o recupera una sesion si ya esta creada	
 				request.getSession().setAttribute("turnoPendiente", false);
+				
+				ArrayList<ArrayList<String>> productosVenta = new ArrayList<ArrayList<String>>();
+				request.getSession().setAttribute("productosVenta", productosVenta);
+				
 				switch (usuario.getTipoUsuario()){
 				
 					case "Administrador":
@@ -63,8 +67,6 @@ public class Start extends HttpServlet {
 						break;
 						
 					case "Online":
-						ArrayList<ArrayList<String>> productosVenta = new ArrayList<ArrayList<String>>();
-						request.getSession().setAttribute("productosVenta", productosVenta);
 						response.getWriter().println(2);
 						break;
 				}								

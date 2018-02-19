@@ -168,7 +168,7 @@
 													<td id="idProducto" class="hidden"><%=producto.getIdProducto() %></td>
 													<td id="nombreProducto"><%=producto.getNombre() %></td>
 													<td id="presentacionProducto"><%=producto.getPresentacion()%></td>
-													<td id="precioProducto"><%=producto.getPrecio() %></td>
+													<td id="precioProducto"><span class="fa fa-dollar"></span> <%=producto.getPrecio() %></td>
 													<td>
 														<div class="scrollCantidadProductoGroup">
 															<input id="scrollCantidadProducto" type="number" class="form-control scrollCantidadProducto" min="0" max="<%=producto.getStock() %>" value="<%=cantidadProducto %>"></input>

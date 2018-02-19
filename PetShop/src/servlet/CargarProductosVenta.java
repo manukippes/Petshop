@@ -58,6 +58,7 @@ public class CargarProductosVenta extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String json = request.getParameter("jsonData");
+	
 		
 		ArrayList<ArrayList<String>> productosVenta = new ArrayList<ArrayList<String>>();
 		

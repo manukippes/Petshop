@@ -39,7 +39,7 @@
 						<button class="btn btn-primary form-control" id="buscarProductosVenta"> <span class="glyphicon glyphicon-search" ></span> Buscar </button>
 					</div>
 					<div class="col-sm-3 col-xs-12 ">
-						<a href="#listadoProductos" class="btn btn-default form-control" data-toggle="modal"> Listado <span class="glyphicon glyphicon-th-list"></span> </a>
+						<a href="#listadoProductos" class="btn btn-default form-control" data-toggle="modal"> Buscar por Categor&iacute;a <span class="glyphicon glyphicon-th-list"></span> </a>
 					
 					</div>		
 				</div>

@@ -80,6 +80,7 @@ $(document).ready(function() {
 			var parametro = {inputCliente : inputCliente};
 			$('#cliente').prop('disabled',false);
 			$.post("ComboClientes",$.param(parametro),function(responseJson){
+				alert(responseJson.length);
 				$('#cliente').empty();
 				$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
 				$.each(responseJson,function(index, usuarios){

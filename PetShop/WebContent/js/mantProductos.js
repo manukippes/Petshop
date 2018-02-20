@@ -79,6 +79,10 @@ function validarCampos(nombre, presentacion, precio,categoria,subcategoria){
 
 function filtrarTabla(){
 	
+
+	$('#sinProductos').remove();
+	var hayProductos = 0;
+	
 	var dispositivo="";
 	if (screen.width < 768){
 		dispositivo="smartphone"
@@ -122,6 +126,8 @@ function filtrarTabla(){
 	$('#tabla > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
 	
 	$.post("FiltraProductos",$.param(parametro),function(responseJson){
+		
+		
 		$.each(responseJson,function(index, productos){
 			$('<tr>',{
 				'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
@@ -135,12 +141,18 @@ function filtrarTabla(){
 				"					<a class='btn btn-primary' id='btnModificarProducto'  href='ModificarProducto?id="+productos.idProducto+"'>Modificar</a>" +
 				"				</div>" +
 				"			</td>"
-				}).appendTo("table > tbody");			
+				}).appendTo("table > tbody");		
+				hayProductos++;
 			})
+			
+			if (hayProductos == 0){
+				$("<h4 class='form-text text-muted' id='sinProductos'>No se encontraron productos para los filtros ingresados</h4>").insertAfter("#tabla");
+			}else{
+				//no hay accion
+				}
 		})
 		
-		var cantFilas = $("table tbody tr").length; 
-		alert (cantFilas);
+	
 	}
 
 $(document).ready(function() {

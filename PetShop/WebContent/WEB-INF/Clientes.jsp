@@ -22,13 +22,14 @@
 				<form class="form" action="ModificarConsultarCliente" method="post" enctype="multipart/form-data" id="form_clientes">
 					<div class="form-group row">
 					<!-- Input cliente -->	
-						 <div class="col-lg-6 col-md-12" id="nombreGroup">
-						    <div class="input-group">
+						 <div class="col-lg-6 col-md-12" >
+						    <div class="input-group" id="nombreGroup">
 						      <input type="text" class="form-control" name="inputCliente" id="inputCliente" placeholder="Ingres&aacute; nombre, apellido o id del cliente">
 						      <span class="input-group-btn">
 						        <button class="btn btn-primary" type="button" id="btnBusquedaCliente"><span class="glyphicon glyphicon-search"></span></button>
 						      </span>
 						    </div>
+						   
 						 </div>
 					
 					<!-- Seleccionar cliente -->	

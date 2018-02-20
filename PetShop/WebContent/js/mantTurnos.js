@@ -86,7 +86,7 @@ function filtrarTabla(){
 				hayTurnos++;
 			})
 		
-			alert(hayTurnos);
+			
 		if (hayTurnos == 0){
 			$("<h4 class='form-text text-muted' id='sinTurnos'>No se encontraron turnos para los filtros ingresados</h4>").insertAfter("#tabla");
 		}else{

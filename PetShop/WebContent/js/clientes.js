@@ -572,21 +572,34 @@ $(document).ready(function() {
 	//-----------------------------------CAPTURO EL CLICK DEL BOTON BUSCAR EN EL PANEL MODAL---------------------------------//
 	$(this).on("click", "#btnBusquedaCliente", function(e){
 	    e.preventDefault();
-		
+	    $("#sinResultados").remove();
+	    
+	    var hayResultados=0;
+	    
 		var inputCliente = $('#inputCliente').val();
 		if(inputCliente!=""){
 			var parametro = {inputCliente : inputCliente};
 			$('#cliente').prop('disabled',false);
 			
 			$.post("ObtenerTodosClientes",$.param(parametro),function(responseJson){
+				
 				$('#cliente').empty();
 				$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
 				$.each(responseJson,function(index, usuarios){
 					$('#cliente').append($('<option value="'+usuarios.idUsuario+'">'+usuarios.apellido+', '+usuarios.nombre+'</option>'));
+					hayResultados++;
 				});
+				
+				if (hayResultados==0){
+					$('#cliente').prop('disabled',true);
+					$("<small class='form-text text-danger' id='sinResultados'>No se encontraron clientes que coincidan con '"+inputCliente+"'</small>").insertAfter("#nombreGroup");
+				}
+				
+				
 			});
 		}else{
 			$('#cliente').empty();
+			$("<small class='form-text text-danger' id='sinResultados'>No ingresaste nombre o apellido</small>").insertAfter("#nombreGroup");
 			$('#cliente').append($('<option value="cliente">Seleccion&aacute; un cliente</option>'));
 			$('#cliente').prop('disabled',true);
 			$('#inputClienteGroup').addClass("has-error");

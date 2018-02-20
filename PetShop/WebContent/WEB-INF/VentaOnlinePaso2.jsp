@@ -193,6 +193,7 @@
 					<div class="input-group">
 						<h4>Datos de contacto:</h4>
 					</div>
+					
 					<div class="table" id="tablaClienteSeleccionado">
 						<table class="table table-striped" >
 							<tr id="idUsuario">
@@ -203,7 +204,32 @@
 							</tr>
 						</table>
 					</div>
+					
 					<hr class="divisor">
+					<div class="form-group row">
+						<div id="enviosRadioGroup" class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+							<div class="radio col-xs-6 col-sm-12" >
+								<label for ="retiroLocal">
+									<input type="radio" name="opcion" value="local" class="rbutton" checked> Retiro en local
+								</label>
+							</div>
+							<div class="radio col-xs-6 col-sm-12" >
+								<label for ="envioDomicilio">
+									<input type="radio" name="opcion" value="domicilio" class="rbutton"> Env&iacute;o a domicilio
+								</label>
+							</div>
+						</div>
+						<div class="visible-xs">
+							<br>
+							<br>
+							<br>
+						</div>
+						
+						<div id="domicilioEnvioGroup" class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+							<small id="domicilioEnvioHelp" class="form-text text-muted"><strong>Domicilio env&iacute;o</strong></small>
+							<input type="text" class="form-control" name="domicilioEnvio" id="domicilioEnvio" aria-describedby="domicilioEnvioHelp" placeholder="Ingres&aacute; la direcci&oacute;n de destino de la compra" disabled>
+						</div>	
+					</div>
 					<div class="input-group">
 						<h4>Observaciones</h4>
 					</div>

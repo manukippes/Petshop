@@ -69,10 +69,16 @@ public class ProcesarVenta extends HttpServlet {
 		
 		JsonObject campos = (JsonObject) new JsonParser().parse(json);
 		
+		Boolean conEnvio = true;
 		int idUsuario = (int) campos.get("idUsuario").getAsInt();
 		int idMedioPago = (int) campos.get("medioPago").getAsInt();
 		int idTarjeta = (int) campos.get("tarjeta").getAsInt();
 		int idCuotas = (int) campos.get("cuotas").getAsInt();
+		String domicilio = (String) campos.get("domicilio").getAsString();
+		if (domicilio.equals("")){
+			domicilio = null;
+			conEnvio = false;
+		}
 		String observaciones = (String) campos.get("observaciones").getAsString();
 		int resp = 0;
 		
@@ -124,8 +130,8 @@ public class ProcesarVenta extends HttpServlet {
 			}
 			
 			ventaActual.setDatosOpcionales(observaciones);						//OBSERVACIONES			
-			ventaActual.setDomicilio("");										//DOMICILIO
-			ventaActual.setEnvioDom(false);										//ENVIODOMICILIO
+			ventaActual.setDomicilio(domicilio);								//DOMICILIO
+			ventaActual.setEnvioDom(conEnvio);									//ENVIODOMICILIO
 			ventaActual.setEstado("Finalizada");								//ESTADO
 			
 			//OBTENGO LA FECHA ACTUAL

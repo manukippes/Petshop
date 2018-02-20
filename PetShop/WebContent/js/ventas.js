@@ -373,6 +373,7 @@ $(document).ready(function() {
 		var tarjeta ="0";
 		var cuotas ="0";
 		var medioPago ="0";
+		var domicilio="";				//en ventas administrador no contamos con envio a domicilio
 		
 		//VALIDACION DE MEDIO DE PAGO
 		if(!($('#medioPago').val()=="seleccione un medio")){		
@@ -414,6 +415,7 @@ $(document).ready(function() {
 				idUsuario = $('#idUsuario').val();
 			};
 			
+			
 			//RECUPERO OBSERVACIONES
 			
 			var observaciones = $('#observaciones').val();
@@ -422,6 +424,7 @@ $(document).ready(function() {
 							tarjeta : tarjeta,
 							cuotas : cuotas,
 							idUsuario : idUsuario,
+							domicilio : domicilio,
 							observaciones : observaciones
 							}
 			var parametros = JSON.stringify(parametro);

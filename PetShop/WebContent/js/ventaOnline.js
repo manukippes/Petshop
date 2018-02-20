@@ -121,8 +121,26 @@ function buscarProductosVenta(inputProducto){
 
 ////////////////
 $(document).ready(function() {
+		
+	$(".rbutton").click(function(){
+		
+		$('#enviosRadioGroup').removeClass("con-error");
+		var opcionElegida=$('input[name=opcion]:checked').val();
+		if (opcionElegida == "local"){
+			$('#domicilioEnvio').prop("disabled",true);
+			$('#domicilioEnvio').val("");
+		}else{
+			$('#domicilioEnvio').prop("disabled",false);
+			$('#domicilioEnvio').val($("#direccionCliente").text());
+		}
+		
+	})
+	$("#domicilioEnvio").change(function(){
+		$('#completardomicilio').remove();
+		$('#domicilioEnvioGroup').removeClass("has-error");
+	})
 	
-
+	
 	//DETECTO CLICK EN INPUT DE FILTRAR POR NOMBRE
 	$('#buscarProductosVenta').click(function(e){
 		e.preventDefault();
@@ -442,50 +460,22 @@ $(document).ready(function() {
 			})
 		})
 	})
-	/*$(this).on("change", "#soloStock", function(e){
-	    e.preventDefault();
-	    
-	    var idSubcategoria = $('#subcategoria').val();
-	    if(idSubcategoria!="subcategoria"){
-	    	 if ($('#soloStock').is(":checked")){
-	 	    	var soloStock = true;
-	 	    }else{
-	 	    	var soloStock = false;
-	 	    }
-	 		var parametro = {idSubcategoria : idSubcategoria,
-	 						soloStock : soloStock
-	 						};
-	 		$.post("ProductosSubcategoria",$.param(parametro),function(responseJson){
-	 			$('#tablaAgregarProducto > tbody').html("");
-	 			$.each(responseJson,function(index, productos){
-	 				$('<tr>',{
-	 					'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
-	 					"			<td id='nombreProducto'>"+productos.nombre+"</td>" +
-	 					"			<td id='presentacionProducto'>"+productos.presentacion+"</td>" +
-	 					"			<td id='precioProducto'><span class='fa fa-dollar'> "+productos.precio+"</td>" +
-	 					"			<td>" +
-	 					"				<input id='cantidad' type='number' class='form-control' min='0' max="+productos.stock+"></input>" +
-	 					"			</td>" +
-	 					"			<td class='col-sm-3 col-lg-2'>" +
-	 					"				<div class='input-group'>" +
-	 					"					<a class='btn btn-info btnAgregarProductoVenta' href='\'><span class='glyphicon glyphicon-plus'></span> Agregar</a>" +
-	 					"				</div>" +
-	 					"			</td>"
-	 					}).appendTo('#tablaAgregarProducto > tbody');
-	 			})
-	 		})
-	    }
-	})*/
+
 
 	//-----------------------------------CLICK EN BOTON FINALIZAR EN VENTAONLINE PASO2
 	
 	$(document).on("click", "#confirmarVenta", function(e){
 	    e.preventDefault();
+	   
 
 	    var medioPagoValido = false;
 		var tarjeta ="0";
 		var cuotas ="0";
 		var medioPago ="0";
+		var domicilio ="";
+		var direccionValida = true;
+		
+		
 		
 		//VALIDACION DE MEDIO DE PAGO
 		if(!($('#medioPago').val()=="seleccione un medio")){		
@@ -516,59 +506,81 @@ $(document).ready(function() {
 				}
 				break;
 			}
-		}else{alertError("Debes seleccionar un medio de pago para continuar");}
+		}
+		else{
+			alertError("Debes seleccionar un medio de pago para continuar");
+		}
+		
 		if (cuotas == null){
 			cuotas="0";
 		}
-		if(medioPagoValido){
-			//VALIDACION DE USUARIO
-			var idUsuario ="0";
-			if (!($('#idUsuario').val()=="")){
-				idUsuario = $('#idUsuario').val();
-			};
-			
-			//RECUPERO OBSERVACIONES
-			
-			var observaciones = $('#observaciones').val();
-			var parametro = {
-							medioPago : medioPago,
-							tarjeta : tarjeta,
-							cuotas : cuotas,
-							idUsuario : idUsuario,
-							observaciones : observaciones
-							}
-			var parametros = JSON.stringify(parametro);
-			//alertError(parametros);
-			$.ajax({
-				type : "post",
-				url : "ProcesarVenta",
-				data : {jsonData : parametros},
-				success : function(respuesta){
-					if (respuesta == 1){
-						swal ( {
-							  title : "Bien hecho!", 
-							  text : "Venta cargada Exitosamente", 
-							  icon : "success" , 
-							  buttons: {
-								    cancel: false,
-								    confirm: true,
-								  },
-							} )
-							
-						 .then((willDelete) => {
-							  if (willDelete) {
-								  $(location).attr('href','VentaOnline');
-							  } else {
-								  alertError("No se pudo mostrar el popUp");
-							  }
-							});
-					}else{
-						alertError("Error al cargar la venta");
-					}
-				}
-			}); 
-		}
-	})
-
+		
+		var opcionElegida=$('input[name=opcion]:checked').val();
+		if (opcionElegida == "domicilio"){
+			if($("#domicilioEnvio").val()==""){
+				direccionValida=false;
+			}else{
+				domicilio = $("#domicilioEnvio").val()
+			}
+		};
 	
+		
+		if(medioPagoValido){
+			//VALIDACION DE ENVIO
+			
+			if(direccionValida){
+				//VALIDACION DE USUARIO
+				var idUsuario ="0";
+				if (!($('#idUsuario').val()=="")){
+					idUsuario = $('#idUsuario').val();
+				};
+				
+				//RECUPERO OBSERVACIONES
+				
+				var observaciones = $('#observaciones').val();
+				var parametro = {
+								medioPago : medioPago,
+								tarjeta : tarjeta,
+								cuotas : cuotas,
+								idUsuario : idUsuario,
+								domicilio : domicilio,
+								observaciones : observaciones
+								}
+				var parametros = JSON.stringify(parametro);
+				//alertError(parametros);
+				$.ajax({
+					type : "post",
+					url : "ProcesarVenta",
+					data : {jsonData : parametros},
+					success : function(respuesta){
+						if (respuesta == 1){
+							swal ( {
+								  title : "Bien hecho!", 
+								  text : "Compra cargada Exitosamente", 
+								  icon : "success" , 
+								  buttons: {
+									    cancel: false,
+									    confirm: true,
+									  },
+								} )
+								
+							 .then((willDelete) => {
+								  if (willDelete) {
+									  $(location).attr('href','VentaOnline');
+								  } else {
+									  alertError("No se pudo mostrar el popUp");
+								  }
+								});
+						}else{
+							alertError("Error al cargar la venta");
+						}
+					}
+				}); 
+			} else {
+				
+				$('#domicilioEnvioGroup').addClass("has-error");
+				$("<small class='form-text text-danger' id='completardomicilio'>Debes completar la direcci&oacute;n de env&iacute;o</small>").insertAfter("#domicilioEnvio");
+			}
+		}	
+	})
 })

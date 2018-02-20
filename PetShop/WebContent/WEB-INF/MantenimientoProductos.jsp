@@ -17,51 +17,52 @@
 	<jsp:include page="Navbar.jsp" />
 	
 	<div class="container panel panel-default colorPanel">
-	 <div class="panel-body">">
+	 <div class="panel-body">
 		<br>
-		<br>	
-		<h4><strong>M&Oacute;DULO DE MANTENIMIENTO DE PRODUCTOS</strong></h4>
-		<hr>
+		<br>
+		<div class="hidden-print">	
+			<h4><strong>M&Oacute;DULO DE MANTENIMIENTO DE PRODUCTOS</strong></h4>
+			<hr>
 		
-		<h5>Para dar de alta un nuevo producto:</h5>
-		<div class="col-12 btn-group-justified">
+			<h5>Para dar de alta un nuevo producto:</h5>
+			<div class="col-12 btn-group-justified">
+				
+				<a href="AgregarProducto" type="button" class="btn btn-primary">ALTA NUEVO PRODUCTO</a>
+			</div>
+			<hr>
+			<h5>Para modificar o eliminar un producto existente:</h5>
+			<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+			ArrayList<Producto> productos = ctrlProducto.getProductos(); %>
 			
-			<a href="AgregarProducto" type="button" class="btn btn-primary">ALTA NUEVO PRODUCTO</a>
-		</div>
-		<hr>
-		<h5>Para modificar o eliminar un producto existente:</h5>
-		<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
-		ArrayList<Producto> productos = ctrlProducto.getProductos(); %>
-		
-		
-		
-		<div class="panel-group visible-xs" id="acordeon" role="tablist">
-			<div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="heading1">
-					<h4 class="panel-title">
-						<div class="container">
-							<a href="#collapse1" data-toggle="collapse" data-parent="#accordion" class="col-xs-12 btn btn-default">
-								<span>Filtrar Listado</span>
-							</a>
-						</div>	
-					</h4>
-				</div>
-				<div id="collapse1" class="panel-collapse collapse">
-					<div class="panel-body">
-						<div class="input-group input-group-sm">
-							<input type="number" min="1" id="filtrarIdProductoxs" name="filtrarIdProductoxs" title="Filtrar por Id" class="form-control" aria-describedby="idHelp" placeholder="Filtrar por Id de Producto"></input>
-							<input type="text" id="filtrarNombrexs" name="filtrarNombrexs" title="Filtrar por nombre" class="form-control" placeholder="Filtrar por Nombre"></input>
-							<input type="text" id="filtrarPresentacionxs" name="filtrarPresentacionxs" title="Filtrar por presentacion" class="form-control" placeholder="Filtrar por Presentaci&oacute;n"></input>
-							<input type="text" id="filtrarPrecioDesdexs" name="filtrarPrecioDesdexs" class="form-control" title="Filtrar precios desde" placeholder="Filtrar Precios Desde"></input>
-							<input type="text" id="filtrarPrecioHastaxs" name="filtrarPrecioHastaxs" class="form-control" title="Filtrar precios hasta"placeholder="Filtrar Precios Hasta"></input>
-							<input type="number" id="filtrarStockDesdexs" name="filtrarStockDesdexs" title="Filtrar stock desde" class="form-control" placeholder="Filtrar Stock Desde"></input>
-							<input type="number" id="filtrarStockHastaxs" name="filtrarStockHastaxs" title="Filtrar stock hasta" class="form-control" placeholder="Filtrar Stock Hasta"></input>
+			
+			
+			<div class="panel-group visible-xs" id="acordeon" role="tablist">
+				<div class="panel panel-default">
+					<div class="panel-heading" role="tab" id="heading1">
+						<h4 class="panel-title">
+							<div class="container">
+								<a href="#collapse1" data-toggle="collapse" data-parent="#accordion" class="col-xs-12 btn btn-default">
+									<span>Filtrar Listado</span>
+								</a>
+							</div>	
+						</h4>
+					</div>
+					<div id="collapse1" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="input-group input-group-sm">
+								<input type="number" min="1" id="filtrarIdProductoxs" name="filtrarIdProductoxs" title="Filtrar por Id" class="form-control" aria-describedby="idHelp" placeholder="Filtrar por Id de Producto"></input>
+								<input type="text" id="filtrarNombrexs" name="filtrarNombrexs" title="Filtrar por nombre" class="form-control" placeholder="Filtrar por Nombre"></input>
+								<input type="text" id="filtrarPresentacionxs" name="filtrarPresentacionxs" title="Filtrar por presentacion" class="form-control" placeholder="Filtrar por Presentaci&oacute;n"></input>
+								<input type="text" id="filtrarPrecioDesdexs" name="filtrarPrecioDesdexs" class="form-control" title="Filtrar precios desde" placeholder="Filtrar Precios Desde"></input>
+								<input type="text" id="filtrarPrecioHastaxs" name="filtrarPrecioHastaxs" class="form-control" title="Filtrar precios hasta"placeholder="Filtrar Precios Hasta"></input>
+								<input type="number" id="filtrarStockDesdexs" name="filtrarStockDesdexs" title="Filtrar stock desde" class="form-control" placeholder="Filtrar Stock Desde"></input>
+								<input type="number" id="filtrarStockHastaxs" name="filtrarStockHastaxs" title="Filtrar stock hasta" class="form-control" placeholder="Filtrar Stock Hasta"></input>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-			
+		</div>	
 		<div class="table-responsive">
 			<table id="tabla" class="table table-striped table-hover tablaResultados">
 				<thead>
@@ -105,6 +106,7 @@
 						</th>
 						<th class="col-sm-3 col-lg-2"> 
 							<div class="input group input-group-sm">
+									<button id="btnImprimir" class="btn btn-info hidden-xs hidden-print" onclick="window.print();"><span class="glyphicon glyphicon-print"> </span> <strong>Imprimir</strong></button>
 									<input type="button" id="btnLimpiarfiltros" name="limpiarFiltros" class="btn btn-primary btnLimpiarfiltros hidden-xs" value="Limpiar Filtros"></input>
 									<hr class="hidden-xs">
 									<div>Acciones&nbsp;</div>

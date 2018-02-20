@@ -65,6 +65,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		String direccion = (String) cliente.get("direccion").getAsString();
 		String telefono = (String) cliente.get("telefono").getAsString();
 		String email = (String) cliente.get("email").getAsString();
+		if(email.equals("")){email=null;};
 		int habilitado = (int) cliente.get("habilitado").getAsInt();
 		
 		try 

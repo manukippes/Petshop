@@ -50,13 +50,8 @@ public class DatosUsuario implements Serializable{
 			pstm.setInt(8, user.getDni());
 			pstm.setString(9, user.getDireccion());
 			pstm.setString(10, user.getTelefono());
-			if (user.getEmail().equals("")){
-				RandomString gen = new RandomString(12, ThreadLocalRandom.current());
-				String emailRandom = gen.nextString();
-				pstm.setString(11, emailRandom);
-			}else{
-				pstm.setString(11, user.getEmail());
-			}
+			pstm.setString(11, user.getEmail());
+			
 			
 			pstm.setInt(12, user.getLegajo());
 			pstm.setString(13, user.getTipoEmpleado());
@@ -151,7 +146,9 @@ public class DatosUsuario implements Serializable{
 					usuario.setDni(rs.getInt("dni"));
 					usuario.setDireccion(rs.getString("direccion"));
 					usuario.setTelefono(rs.getString("telefono"));
-					usuario.setEmail(rs.getString("email"));
+					String email = rs.getString("email");
+					if (email==null){email="";}
+					usuario.setEmail(email);
 					usuario.setLegajo(rs.getInt("legajo"));
 					usuario.setTipoEmpleado(rs.getString("tipoEmpleado"));
 					usuario.setMascotas(ctrlMascota.getMascotas(usuario));

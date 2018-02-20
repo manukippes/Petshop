@@ -64,7 +64,9 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 			
 			String idUsuario = (String) cliente.get("idUsuario").getAsString();
 			String usuario = (String) cliente.get("usuario").getAsString();
+			if(usuario.equals("")){usuario=null;};
 			String password = (String) cliente.get("password").getAsString();
+			if(password.equals("")){password=null;};
 			
 			String nombre = (String) cliente.get("nombre").getAsString();
 			String apellido = (String) cliente.get("apellido").getAsString();
@@ -76,11 +78,12 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 			String direccion = (String) cliente.get("direccion").getAsString();
 			String telefono = (String) cliente.get("telefono").getAsString();
 			String email = (String) cliente.get("email").getAsString();
+			if(email.equals("")){email=null;};
 			int habilitado = (int) cliente.get("habilitado").getAsInt();
 			
 			try {
 				usu.setIdUsuario(Integer.parseInt(idUsuario));
-				if(!usuario.equals("")){							//Si viene vacio estoy en el modulo de administracion
+				if(!(usuario==null)){							//Si viene vacio estoy en el modulo de administracion
 					usu.setUsuarioLogin(usuario);
 					usu.setPassword(password);
 				}else{

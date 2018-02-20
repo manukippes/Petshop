@@ -137,8 +137,8 @@ function filtrarTabla(){
 				"			<td>"+productos.stock+"</td>" +
 				"			<td class='col-sm-3 col-lg-2'>" +
 				"				<div class='input-group'>" +
-				"					<a class='btn btn-danger btnEliminarProducto' href='\'>Eliminar</a>" +
-				"					<a class='btn btn-primary' id='btnModificarProducto'  href='ModificarProducto?id="+productos.idProducto+"'>Modificar</a>" +
+				"					<a class='btn btn-danger btnEliminarProducto hidden-print' href='\'>Eliminar</a>" +
+				"					<a class='btn btn-primary hidden-print' id='btnModificarProducto'  href='ModificarProducto?id="+productos.idProducto+"'>Modificar</a>" +
 				"				</div>" +
 				"			</td>"
 				}).appendTo("table > tbody");		

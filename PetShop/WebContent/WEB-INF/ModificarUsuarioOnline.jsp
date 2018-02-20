@@ -23,7 +23,7 @@
 				<hr>
 				
 				<div class="container-fluid">
-					<form class="form" action="#" method="post" enctype="multipart/form-data" id="form_modificar	_cliente">
+					<form class="form" action="#" method="post" enctype="multipart/form-data" id="form_modificar_cliente">
 		            	
 		     			
 		            	<!-- Campo de modificacion / alta -->
@@ -68,14 +68,14 @@
 			            		<label class="sr-only">Nombre</label>
 							    <div class="col-lg-6 col-md-12" id="nombreGroup">
 							    	<small id="nombreHelp" class="form-text text-muted"><strong>Nombre*</strong></small>
-							    	<input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="nombreHelp" placeholder="Ingres&aacute; el nombre del cliente a dar de alta" value="<%= cli.getNombre() %>">
+							    	<input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="nombreHelp" placeholder="Ingres&aacute; tu nombre" value="<%= cli.getNombre() %>">
 								</div>
 								
 							<!-- Input de apellido -->
 								<label class="sr-only">Apellido</label>
 							    <div class="col-lg-6 col-md-12" id="apellidoGroup">
 							    	<small id="apellidoHelp" class="form-text text-muted"><strong>Apellido*</strong></small>
-							    	<input type="text" class="form-control" name="apellido" id="apellido" aria-describedby="apellidoHelp" placeholder="Ingres&aacute; el apellido del cliente a dar de alta" value="<%= cli.getApellido() %>">
+							    	<input type="text" class="form-control" name="apellido" id="apellido" aria-describedby="apellidoHelp" placeholder="Ingres&aacute; tu apellido" value="<%= cli.getApellido() %>">
 								</div>
 						</div>
 						<hr>
@@ -85,14 +85,14 @@
 			            		<label class="sr-only">DNI</label>
 							    <div class="col-lg-6 col-md-12" id="dniGroup">
 							    	<small id="precioHelp" class="form-text text-muted"><strong>Dni</strong></small>
-							    	<input type="text" class="form-control" name="dni" id="dni" aria-describedby="dniHelp" placeholder="Ingres&aacute; el dni del cliente a dar de alta" value="<%= cli.getDni() %>">
+							    	<input type="text" class="form-control" name="dni" id="dni" aria-describedby="dniHelp" placeholder="Ingres&aacute; tu dni" value="<%= cli.getDni() %>">
 								</div>
 								
 							<!-- Input de direccion -->
 								<label class="sr-only">Direcci&oacute;n</label>
 							    <div class="col-lg-6 col-md-12" id="direccionGroup">
 							    	<small id="direccionHelp" class="form-text text-muted"><strong>Direcci&oacute;n</strong></small>
-							    	<input type="text" min="0"class="form-control" name="direccion" id="direccion" aria-describedby="direccionHelp" placeholder="Ingres&aacute; la direcci&oacute;n del cliente a dar de alta" value="<%= cli.getDireccion() %>">
+							    	<input type="text" min="0"class="form-control" name="direccion" id="direccion" aria-describedby="direccionHelp" placeholder="Ingres&aacute; tu direcci&oacute;n" value="<%= cli.getDireccion() %>">
 								</div>
 						</div>
 						<hr>
@@ -102,14 +102,16 @@
 								<label class="sr-only">Tel&eacute;fono</label>
 							    <div class="col-lg-6 col-md-12" id="telefonoGroup">
 							    	<small id="direccionHelp" class="form-text text-muted"><strong>Tel&eacute;fono*</strong></small>
-							    	<input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingres&aacute; el tel&eacute;fono, sin guiones, del cliente a dar de alta" value="<%= cli.getTelefono() %>">
+							    	<input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="telefonoHelp" placeholder="Ingres&aacute; tu tel&eacute;fono, sin guiones" value="<%= cli.getTelefono() %>">
 								</div>
-						         	
+						     
 			            	<!-- Input de email-->
+			            	<%String emailUsuario = "";
+			            		if(cli.getEmail()!=null){emailUsuario = cli.getEmail();};%>
 			            		<label class="sr-only">Email</label>
 							    <div class="col-lg-6 col-md-12" id="emailGroup">
 							    	<small id="emailHelp" class="form-text text-muted"><strong>Email</strong></small>
-							    	<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Ingres&aacute; el email del cliente a dar de alta" value="<%= cli.getEmail() %>">
+							    	<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Ingres&aacute; tu email" value="<%=emailUsuario %>">
 								</div>
 						</div>
 						<hr>

@@ -10,55 +10,11 @@ function resaltarCampo(campo,nombre){
 	}
 }
 
-function validarEmail(){
-	
-	$('#completaremail').remove();
-	$("#emailGroup").removeClass("has-error");
-	
-	var validaMail= false;
-	
-	var email = $('#email').val();
-	
-	emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-    
-    if (emailRegex.test(email)) {
-    	validaMail=true;
-    } else {
-    	validaMail = false;
-    }
-    
-    if(validaMail){ 
-    	var parametro = { email : email }
-		var parametros = JSON.stringify(parametro);
-		
-		$.ajax({
-				url : "ValidarMail",
-				type : "post",
-				data :  {jsonData : parametros},
-				success : function(data){
-					if (data == 1)
-					{
-						$("#emailGroup").addClass("has-error");
-						$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
-						return false;
-					} 
-					else
-					{
-						//$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
-						return true;
-					}           
-				}
-		})
-    } else {
-    	$("#emailGroup").addClass("has-error");
-    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
-    	return false;
-    }
-}
+
 
 function validarEmailExistente(){
 	
-	$('#completaremail').remove();
+	$("#completaremail").remove();
 	$("#emailGroup").removeClass("has-error");
 	
 	var validaMail= false;
@@ -226,8 +182,11 @@ $(document).ready(function() {
 	
 	//------------------------CAMBIOS EN LOS INPUTS--------------------------------------//
 	$("#email").change(function(){
-		$('#completaremail').remove();
-		validarEmailExistente();
+		$("#completaremail").remove();
+		$("#emailGroup").removeClass("has-error");
+		if($("#email").val()!=""){
+			validarEmailExistente();
+		}
 	})	
 	
 	$("#usuario").change(function(){

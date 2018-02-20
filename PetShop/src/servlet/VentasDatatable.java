@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import entidades.LineaVenta;
+import entidades.Mascota;
+import entidades.Usuario;
 import entidades.Venta;
 
 /**
@@ -32,6 +34,9 @@ public class VentasDatatable extends HttpServlet {
 		
 		public void setVenta(Venta venta) {
 			ArrayList<LineaVenta> lineaVentaNull = new ArrayList<LineaVenta>();
+			Usuario usuarioTemp = venta.getUsuario();
+			usuarioTemp.setMascotas(new ArrayList<Mascota>());
+			venta.setUsuario(usuarioTemp);
 			venta.setLineas(null);
 			this.ventaList = venta;
 		}

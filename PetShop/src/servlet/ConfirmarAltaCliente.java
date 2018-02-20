@@ -52,8 +52,9 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		JsonObject cliente = (JsonObject) new JsonParser().parse(json);
 		
 		String usuario = (String) cliente.get("usuario").getAsString();
+		if(usuario.equals("")){usuario=null;};
 		String password = (String) cliente.get("password").getAsString();
-		
+		if(password.equals("")){password=null;};
 		String nombre = (String) cliente.get("nombre").getAsString();
 		String apellido = (String) cliente.get("apellido").getAsString();
 		String dniParametro = (String) cliente.get("dni").getAsString();
@@ -133,16 +134,16 @@ public class ConfirmarAltaCliente extends HttpServlet {
 								}
 							}
 							}
-						 System.out.println(usuario);
-						 if(!usuario.equals("")){
+						 
+						 if(!(usuario==null)){
 							 
-							 usu.setMascotas(mascotasUsuario);
+							usu.setMascotas(mascotasUsuario);
 							request.getSession().setAttribute("user", usu);
 						 }
 					} 
 					catch (Exception e) {
 						response.getWriter().println(0);
-						System.out.println("ERROR");
+						
 						e.printStackTrace();
 					}
 			}
@@ -154,8 +155,19 @@ public class ConfirmarAltaCliente extends HttpServlet {
 			 }
 		}
 		catch (MySQLIntegrityConstraintViolationException mailExistente) {
-			response.getWriter().println(3);
-			mailExistente.printStackTrace();
+			String respuesta = mailExistente.getMessage();		//DETERMINO EN QUE CAMPO FALLO LA UNIQUE ID
+			
+			if (respuesta.toLowerCase().contains(("usuarioLogin_UNIQUE").toLowerCase())){
+				response.getWriter().println(4);
+			}else{
+				if(respuesta.toLowerCase().contains(("email_UNIQUE").toLowerCase())){
+					response.getWriter().println(3);
+				}
+				
+			};
+			
+			//mailExistente.printStackTrace();
+			//System.out.println("ERROR DE MAIL");
 			
 		}
 

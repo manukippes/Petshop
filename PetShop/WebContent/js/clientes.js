@@ -461,17 +461,38 @@ $(document).ready(function() {
 							success : function(data){
 								if (data != 0){
 									
-									if (data == 1){
-										$("#btnHidden").click();
-										limpiarCampos();
-										setTimeout("$(location).attr('href','Ventas');",3500);
-									}
+									
 									if (data == 2){
 										alertError("ERROR AL GRABAR LAS MASCOTAS");
 									}
 									if (data == 3){
 										$("#emailGroup").addClass("has-error");
 										$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+										alertError("Algunos de los campos del formulario tienen errores");
+									}
+									if (data == 1){
+										swal ( {
+											 title : "Bien hecho!",
+											 text : "Cliente agregado exitosamente",
+											 icon : "success" , 
+											 buttons: {
+												 confirm: {
+													    text: "Aceptar",
+													    value: true,
+													    visible: true,
+													    className: "",
+													    closeModal: true
+													  },									  
+												  }
+											} )
+										.then((respuesta) => {
+											if(respuesta){
+												$(location).attr('href','Ventas');
+											}else{
+												$(location).attr('href','Ventas');	
+											}
+										})
+								
 									}
 								} else {
 									alertError("ERROR");
@@ -479,6 +500,9 @@ $(document).ready(function() {
 							}
 					})
 				}
+		else{
+			alertError("Algunos de los campos del formulario tienen errores");
+		}
 
 	})
 	///---------------------------------------------- MODIFICACION DE CLIENTE---------------------------------------------- ///
@@ -549,10 +573,27 @@ $(document).ready(function() {
 					success : function(data){
 						if (data == 1)
 						{
-							$("#btnHidden").click();
-						
-							//limpiarCampos();
-							setTimeout("$(location).attr('href','Ventas');",3500);
+							swal ( {
+								 title : "Bien hecho!",
+								 text : "Cliente modificado exitosamente",
+								 icon : "success" , 
+								 buttons: {
+									 confirm: {
+										    text: "Aceptar",
+										    value: true,
+										    visible: true,
+										    className: "",
+										    closeModal: true
+										  },									  
+									  }
+								} )
+							.then((respuesta) => {
+								if(respuesta){
+									$(location).attr('href','Ventas');
+								}else{
+									$(location).attr('href','Ventas');	
+								}
+							})
 							
 						} 
 						if (data == 2)

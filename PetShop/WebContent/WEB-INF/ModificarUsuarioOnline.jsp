@@ -279,53 +279,7 @@
 							</div>
 						</div>
 						
-						<a href="#confirmacionmodal" class='hidden' id='btnHidden' data-toggle='modal'>botonazo</a>
 						
-						<!-- PANEL MODAL CONFIRMACION -->
-						<div class="modal fade" id="confirmacionmodal">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<strong class="text-success"><span class="fa fa-check"></span> MODIFICACI&Oacute;N EXITOSA</strong>
-										
-									</div>
-									<div class="modal-body">
-										<div class="container-fluid">
-											<div class="form-horizontal form-group">
-												<br>
-												<div class="row-inline">
-													<div class="col-xs-12 col-sm-2 centrado">
-														<p><span class="fa fa-user-circle text-info" style="font-size:70px"></span></p>
-													</div>
-													<div class="col-xs-12 col-sm-10 align-middle">
-														<br>
-														<span class="text-success align-middle">Por favor aguard&aacute; un instante mientras actualizamos tus datos</span>
-													
-													</div>
-													<br>
-													<br>
-													<br>
-													<div id="barraProgreso" class="col-xs-12 col-sm-10">
-														<div class="progress ">
-															<div class="progress-bar progress-bar-success progress-bar-striped active " role="progressbar" style="width:100%;min-width:100%";>
-																<span class="">Guardando datos...</span>
-															</div>
-														</div>
-													</div>									
-															
-												</div>
-												<div class="row">
-													<br>
-													<br>
-												</div>
-																		
-												<br>
-											</div>
-										</div>								
-									</div>
-								</div>
-							</div>
-						</div>
 		            </form> 
 		        </div>
 		   	</div>

@@ -202,7 +202,8 @@ function validar(usuarioRegistrado){
 					$("#completarcontraseniaRepetir").remove();
 					$("#contraseniaGroup").addClass("has-error");
 					$("#contraseniaRepetirGroup").addClass("has-error");
-					
+					$("#contrasenia").val("")
+					$("#contraseniaRepetir").val("");
 					$("<small class='form-text text-muted text-danger' id='completarcontrasenia'>Las contrase&ntilde;as ingresadas no coinciden</small>").insertAfter("#contrasenia");
 					}
 			}else {
@@ -214,20 +215,34 @@ function validar(usuarioRegistrado){
 	} else {
 		resaltarCampo("usuario","Usuario");
 		}
-	$("#usuario").change(function(){
+	
+	
+	
+} 
 
+$(document).ready(function() {
+			
+	var agregar=true;
+	
+	//------------------------CAMBIOS EN LOS INPUTS--------------------------------------//
+	$("#email").change(function(){
+		$('#completaremail').remove();
+		validarEmailExistente();
+	})	
+	
+	$("#usuario").change(function(){
 		$('#usuarioGroup').removeClass("has-error");
 		$("#completarusuario").remove();
 		
 	})
 	$("#contrasenia").change(function(){
-
 		$('#contraseniaGroup').removeClass("has-error");
+		$('#contraseniaRepetirGroup').removeClass("has-error");
 		$("#completarcontrasenia").remove();
 		
 	})
 	$("#contraseniaRepetir").change(function(){
-
+		$('#contraseniaGroup').removeClass("has-error");
 		$('#contraseniaRepetirGroup').removeClass("has-error");
 		$("#completarcontraseniaRepetir").remove();
 		
@@ -258,17 +273,6 @@ function validar(usuarioRegistrado){
 		$("#completartelefono").remove();
 		
 	})
-	
-} 
-
-$(document).ready(function() {
-			
-			var agregar=true;
-			
-			$("#email").change(function(){
-				$('#completaremail').remove();
-				validarEmailExistente();
-			})			
 			
 			$(this).on("click", ".btnModificarMascota", function(e){
 			    e.preventDefault();
@@ -525,6 +529,7 @@ $(document).ready(function() {
 		
 		e.preventDefault();
 		$('#completaremail').remove();
+		$('#completarusuario').remove();
 		var resultado = validar(false);
 		
 		var arregloMascotas = [];
@@ -585,17 +590,44 @@ $(document).ready(function() {
 					data : {jsonData : parametros},
 					success : function(data){
 						if (data != 0){
-							if (data == 1){
-								$("#btnHidden").click();
-								limpiarCampos();
-								setTimeout("$(location).attr('href','PrimerIngreso');",3500);
-							}
+							
+							
 							if (data == 2){
-								alertError("ERROR AL GRABAR LAS MASCOTAS")
+								alertError("Algunos de los campos del formulario tienen errores");
 							}
-							if (data == 4){
+							if (data == 3){
 								$("#emailGroup").addClass("has-error");
 								$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+								alertError("Algunos de los campos del formulario tienen errores");
+							}
+							if (data == 4){
+								$("#usuarioGroup").addClass("has-error");
+								$("<small class='form-text text-muted text-danger' id='completarusuario'>El usuario ingresado ya se encuentra registrado</small>").insertAfter("#usuario");
+								alertError("Algunos de los campos del formulario tienen errores");
+							}
+							if (data == 1){
+								swal ( {
+									 title : "Bien hecho!",
+									 text : "Usuario creado exitosamente",
+									 icon : "success" , 
+									 buttons: {
+										 confirm: {
+											    text: "Aceptar",
+											    value: true,
+											    visible: true,
+											    className: "",
+											    closeModal: true
+											  },									  
+										  }
+									} )
+								.then((respuesta) => {
+									if(respuesta){
+										$(location).attr('href','PrimerIngreso');
+									}else{
+										$(location).attr('href','PrimerIngreso');	
+									}
+								})
+								
 							}
 						} else {
 							alertError("ERROR");
@@ -603,6 +635,8 @@ $(document).ready(function() {
 	                    
 					}
 			})
+		}else{
+			alertError("Algunos de los campos del formulario tienen errores");
 		}
 	})
 	
@@ -672,15 +706,34 @@ $(document).ready(function() {
 					success : function(data){
 						if (data == 1)
 						{
-							$("#btnHidden").click();
-						
-							limpiarCampos();
-							setTimeout("$(location).attr('href','VentaOnline');",3500);
+							swal ( {
+								 title : "Bien hecho!",
+								 text : "Usuario actualizado exitosamente",
+								 icon : "success" , 
+								 buttons: {
+									 confirm: {
+										    text: "Aceptar",
+										    value: true,
+										    visible: true,
+										    className: "",
+										    closeModal: true
+										  },									  
+									  }
+								} )
+							.then((respuesta) => {
+								if(respuesta){
+									$(location).attr('href','VentaOnline');
+								}else{
+									$(location).attr('href','VentaOnline');	
+								}
+							})
 							
 						} 
 						if (data == 2)
 						{
-							validarEmail();
+							$("#emailGroup").addClass("has-error");
+							$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+							alertError("Algunos de los campos del formulario tienen errores");
 						}
 						if (data==0){
 							alertError("ERROR");
@@ -688,6 +741,8 @@ $(document).ready(function() {
 	                    
 					}
 			})
+		} else{
+			alertError("Algunos de los campos del formulario tienen errores");
 		}
 	})
 	

@@ -42,6 +42,7 @@ function agregarProductoVenta(idProducto,cantidad){
 						},
 				success : function(respuesta){
 					
+					
 					$(location).attr('href',"Ventas");					//RECARGO LA PAGINA PARA ACTUALIZAR LA VENTA
 				}	
 			})
@@ -54,12 +55,15 @@ function agregarProductoVenta(idProducto,cantidad){
 
 function buscarProductosVenta(inputProducto){
 
+	$('#sinResultados').remove();
+	$("#cabeceraTablaBusqueda").addClass("hidden");
 	var parametro = {
 					inputProducto : inputProducto,		
 					};
 	$('#tabla > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
 	
 	$.post("buscaProductosVenta",$.param(parametro),function(responseJson){
+		var hayProductos=0;
 		$.each(responseJson,function(index, productos){
 			$('<tr>',{
 				'html' : "<td id='idProducto'>"+productos.idProducto+"</td>" +
@@ -75,8 +79,15 @@ function buscarProductosVenta(inputProducto){
 				"				</div>" +
 				"			</td>"
 				}).appendTo("#tabla > tbody");
-			
+			hayProductos++;
 			})
+		
+			if (hayProductos == 0){
+				$("<h4 class='form-text text-muted' id='sinResultados'>No se encontraron productos que coincidan con '"+inputProducto+"'</h4>").insertAfter("#tabla");
+			}else{
+				$("#cabeceraTablaBusqueda").removeClass("hidden");
+			}
+			
 		})
 	}
 
@@ -146,15 +157,11 @@ $(document).ready(function() {
 			data : {idProducto : idProducto
 					},
 			success : function(respuesta){
-				
+				$(location).attr('href',"Ventas");					//RECARGO LA PAGINA PARA ACTUALIZAR LA VENTA
 			}	
 		})
 		
-		
-		fila.remove();
-		calcularSubtotal();
-		
-		});
+	});
 	
 	//CAPTURO EL CLICK EN CONTINUAR (VENTA PASO 1)
 	$(document).on('click','#btnContinuar',function(e){

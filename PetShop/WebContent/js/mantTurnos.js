@@ -4,6 +4,9 @@
 
 function filtrarTabla(){
 	
+	$('#sinTurnos').remove();
+	var hayTurnos = 0;
+	
 	var dispositivo="";
 	if (screen.width < 768){
 		dispositivo="smartphone"
@@ -62,9 +65,11 @@ function filtrarTabla(){
 			if(turnos.estado!="Pendiente"){
 				botones="hidden";
 			}
+			
 			$('<tr>',{
 				'html' : " 	<td id='idTurno' class='hidden'>"+turnos.idTurno+"</td>" +
 				"			<td id='fecha'>"+turnos.fecha+"</td>" +
+				"			<td>"+turnos.hora+"</td>" +
 				"			<td id='estado'>"+turnos.estado+"</td>" +
 				"			<td id='cliente'>"+turnos.mascota.usuario.apellido+"</td>" +
 				"			<td id='mascota'>"+turnos.mascota.nombre+"</td>" +
@@ -78,7 +83,16 @@ function filtrarTabla(){
 				"				</div>" +
 				"			</td>"
 				}).appendTo("table > tbody");
+				hayTurnos++;
 			})
+		
+			alert(hayTurnos);
+		if (hayTurnos == 0){
+			$("<h4 class='form-text text-muted' id='sinTurnos'>No se encontraron turnos para los filtros ingresados</h4>").insertAfter("#tabla");
+		}else{
+			//no hay accion
+		}
+			
 		})
 	}
 

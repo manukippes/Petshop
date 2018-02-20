@@ -40,9 +40,9 @@
 				<div class="panel-heading" role="tab" id="heading1">
 					<h4 class="panel-title">
 						<div class="container">
-							<button href="#collapse1" data-toggle="collapse" data-parent="#accordion" class="col-xs-12 btn btn-default">
+							<a href="#collapse1" data-toggle="collapse" data-parent="#accordion" class="col-xs-12 btn btn-default">
 								<span>Filtrar Listado</span>
-							</button>
+							</a>
 						</div>	
 					</h4>
 				</div>
@@ -63,7 +63,7 @@
 		</div>
 			
 		<div class="table-responsive">
-			<table id="tabla" class="table table-striped table-hover">
+			<table id="tabla" class="table table-striped table-hover tablaResultados">
 				<thead>
 					<tr class="active">
 						<th>
@@ -113,6 +113,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				
 		 		</tbody>
 			</table>
 		</div>

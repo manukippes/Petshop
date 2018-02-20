@@ -135,13 +135,13 @@ function filtrarTabla(){
 				"					<a class='btn btn-primary' id='btnModificarProducto'  href='ModificarProducto?id="+productos.idProducto+"'>Modificar</a>" +
 				"				</div>" +
 				"			</td>"
-				}).appendTo("table > tbody");
-			
-			
+				}).appendTo("table > tbody");			
 			})
 		})
+		
+		var cantFilas = $("table tbody tr").length; 
+		alert (cantFilas);
 	}
-
 
 $(document).ready(function() {
 

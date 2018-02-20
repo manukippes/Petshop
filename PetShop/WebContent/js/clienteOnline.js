@@ -44,7 +44,7 @@ function validarEmail(){
 					} 
 					else
 					{
-						$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
+						//$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es correcto</small>").insertAfter("#email");
 						return true;
 					}           
 				}

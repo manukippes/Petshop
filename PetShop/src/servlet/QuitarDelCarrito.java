@@ -41,13 +41,17 @@ public class QuitarDelCarrito extends HttpServlet {
 		ArrayList<ArrayList<String>> productosVenta = (ArrayList<ArrayList<String>>) request.getSession().getAttribute("productosVenta");
 		
 		int i=0;
+		int encontrado=-1;
 		String idProducto = (String) request.getParameter("idProducto");
 	
 		for(ArrayList<String> prodcante : productosVenta){	 
 			if(prodcante.get(0).equals(idProducto)){
-				productosVenta.remove(i);
+				encontrado = i;
 			}
 			i++;
+		}
+		if(encontrado!=-1){
+			productosVenta.remove(encontrado);
 		}
 
 		request.getSession().removeAttribute("productosVenta");

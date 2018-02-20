@@ -705,7 +705,7 @@ $(document).ready(function() {
 			    }
 			    
 			    if(validaMail){ 
-			    	$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es v&aacute;lido</small>").insertAfter("#email");
+			    	//$("<small class='form-text text-muted text-success' id='completaremail'>El mail ingresado es v&aacute;lido</small>").insertAfter("#email");
 			    	
 			    } else {
 			    	$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");

@@ -64,13 +64,17 @@ function agregarProductoVenta(idProducto,cantidad){
 }
 
 function buscarProductosVenta(inputProducto){
-
+	
+	$('#sinResultados').remove();
+	$("#cabeceraTablaBusqueda").addClass("hidden");
 	var parametro = {
 					inputProducto : inputProducto,		
 					};
 	$('#tabla > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
 	
+	
 	$.post("buscaProductosVenta",$.param(parametro),function(responseJson){
+		var hayProductos = 0;
 		$.each(responseJson,function(index, productos){
 			$('<tr>',{
 				'html' : "	<td id='imagen'>" +
@@ -91,9 +95,16 @@ function buscarProductosVenta(inputProducto){
 				"				</div>" +
 				"			</td>"
 				}).appendTo("#tabla > tbody");
-			
+			hayProductos++;
 			})
+			
+			if (hayProductos == 0){
+				$("<h4 class='form-text text-muted' id='sinResultados'>No se encontraron productos que coincidan con '"+inputProducto+"'</h4>").insertAfter("#tabla");
+			}else{
+				$("#cabeceraTablaBusqueda").removeClass("hidden");
+			}
 		})
+		
 	}
 //////////////////////////
 

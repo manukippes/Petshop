@@ -44,11 +44,13 @@
 					</div>		
 				</div>
 				<hr>
-			
+				<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
+				ArrayList<ArrayList<String>> listado = (ArrayList<ArrayList<String>>) session.getAttribute("productosVenta");
+				int cantidad = listado.size();%>
 				<div class="table-responsive">
 					<table id="tabla" class="table table-striped table-hover">
 						<thead>
-							<tr class="active">
+							<tr class="active hidden" id="cabeceraTablaBusqueda">
 								<th>
 									<div class="idProducto">
 										<label class="sr-only">Id Producto</label>
@@ -82,18 +84,18 @@
 						
 				 		</tbody>
 					</table>
+					
+					<h5 class="form-text text-muted " id="sinResultados"> A&uacute;n no se ha buscado ning&uacute;n producto</h5>
 				</div>
 				<hr class="divisor">
 				<div class="input-group">
 					<h4>Productos de la venta actual</h4>
 				</div>
-				<%ControladorDeProducto ctrlProducto = new ControladorDeProducto();
-				ArrayList<ArrayList<String>> listado = (ArrayList<ArrayList<String>>) session.getAttribute("productosVenta");
-				int cantidad = listado.size();%>
+				
 				<div class="table-responsive">
 					<table id="tablaVentaActual" class="table table-striped table-hover tablaVentaActual">
 						<thead>
-							<tr class="active">
+							<tr class="active hidden" id="cabeceraTablaVentaActual">
 								<th>
 									<div class="idProducto">
 										<label class="sr-only">Id Producto</label>
@@ -146,7 +148,11 @@
 							<%} %>
 				 		</tbody>
 					</table>
+					<%String hidden = " hidden";
+					if (cantidad == 0){hidden = " ";}%>
+					<h5 class="form-text text-muted <%=hidden %>" id="sinProductos"> A&uacute;n no hay productos en la venta</h5>
 				</div>
+				
 				<div class="form-group row">
 					<label class="sr-only">Subtotal</label>
 				    <div class="col-sm-6 col-lg-4 pull-right">

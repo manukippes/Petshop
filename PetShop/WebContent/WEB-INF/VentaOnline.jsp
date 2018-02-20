@@ -46,7 +46,7 @@
 				<div class="table-responsive">
 					<table id="tabla" class="table table-striped">
 						<thead>
-							<tr class="active">
+							<tr class="active hidden" id="cabeceraTablaBusqueda">
 								<th>
 									<div class="imagen">
 										<label class="sr-only">Imagen</label>

@@ -79,17 +79,25 @@
 			<div class="table-responsive ">
 				<table id="tabla" class="table table-striped table-hover">
 					<thead>
-						<tr class="active hidden-print">
+					<tr class="active hidden-print">
 							<th class="hidden">
 								<div>Id Turno</div>
 							</th>
 							<th>
 								<div class="input group input-group-sm">
 									<div class="input group input-group-sm">
+										
 										<input type="date" id="filtrarFechaDesde" name="filtrarFechaDesde" title="Filtrar Fecha Desde" class="form-control hidden-xs" placeholder="Filtrar Fecha Desde"></input>
+										
+									</div>
+								</div>		
+							</th>
+							<th>
+								<div class="input group input-group-sm">
+									<div class="input group input-group-sm">
+										
 										<input type="date" id="filtrarFechaHasta" name="filtrarFechaHasta" title="Filtrar Fecha Hasta" class="form-control hidden-xs" placeholder="Filtrar Fecha Hasta"></input>
-										<hr class="hidden-xs">
-										<div>Fecha&nbsp;</div>
+										
 									</div>
 								</div>		
 							</th>
@@ -100,20 +108,17 @@
 							    	<option value="Realizado">Realizado</option>
 							    	<option value="Cancelado">Cancelado</option>
 							    </select>
-								<hr class="hidden-xs">
-								<span>Estado</span>
+								
 							</th>
 							<th id="apellidoGroup" class="input group input-group-sm">
 								<input type="text" id="filtrarApellido" name="filtrarApellido" class="form-control hidden-xs" title="Filtrar por apellido" placeholder="Filtrar Apellido"></input>
-								<hr class="hidden-xs">
-								<div>Apellido</div>
+								
 							</th>
 							<th>
 								<div>
 									<div class="input group input-group-sm">
 										<input type="text" id="filtrarMascota" name="filtrarMascota" class="form-control hidden-xs" title="Filtrar por nombre de mascota" placeholder="Filtrar Mascota"></input>
-										<hr class="hidden-xs">
-										<div>Mascota</div>
+										
 									</div>
 								</div>
 							</th>
@@ -121,8 +126,7 @@
 								<div class="">
 									<div class="input group input-group-sm">
 										<input type="text" id="filtrarDireccion" name="filtrarDireccion" title="Filtrar por direccion" class="form-control hidden-xs" placeholder="Filtrar Direccion"></input>
-										<hr class="hidden-xs">
-										<div>Direcci&oacute;n</div>
+										
 									</div>
 								</div>							
 							</th>
@@ -134,8 +138,7 @@
 									    	<option value="true">Si</option>
 									    	<option value="false">No</option>
 									    </select>
-										<hr class="hidden-xs">
-										<div>Transporte</div>
+										
 									</div>
 								</div>							
 							</th>
@@ -148,15 +151,76 @@
 								    	<option value="3">Banio con Corte</option>
 								    	<option value="4">Antipulgas</option>
 								    </select>
-									<hr class="hidden-xs">
-									<div class="inline">Servicio</div>
+									
 								</div>					
 							</th>
 							<th class="col-sm-3 col-lg-2"> 
 								<div>
 									<button class="btn btn-primary hidden-xs hidden-print" id="btnImprimir" onclick="window.print();"><h4><span class="glyphicon glyphicon-print"> </span> <strong>Imprimir</strong></h4></button>
 								</div>
-								<hr class="hidden-xs">
+								
+							</th>
+						</tr>
+						<tr class="active hidden-print">
+							<th class="hidden">
+								<div>Id Turno</div>
+							</th>
+							<th>
+								<div class="input group input-group-sm">
+									<div class="input group input-group-sm">
+										
+										<div>Fecha&nbsp;</div>
+									</div>
+								</div>		
+							</th>
+							<th>
+								<div class="input group input-group-sm">
+									<div class="input group input-group-sm">
+										
+										<div>Hora&nbsp;</div>
+									</div>
+								</div>		
+							</th>
+							<th id="estadoGroup" class="input group input-group-sm">
+								
+								<span>Estado</span>
+							</th>
+							<th id="apellidoGroup" class="input group input-group-sm">
+								
+								<div>Apellido</div>
+							</th>
+							<th>
+								<div>
+									<div class="input group input-group-sm">
+										
+										<div>Mascota</div>
+									</div>
+								</div>
+							</th>
+							<th>
+								<div class="">
+									<div class="input group input-group-sm">
+										
+										<div>Direcci&oacute;n</div>
+									</div>
+								</div>							
+							</th>
+							<th>
+								<div class="">
+									<div class="input group input-group-sm">
+										
+										<div>Transporte</div>
+									</div>
+								</div>							
+							</th>
+							<th>
+								<div class="input group input-group-sm">
+									
+									<div class="inline">Servicio</div>
+								</div>					
+							</th>
+							<th class="col-sm-3 col-lg-2"> 
+								
 								<div class="input-group">
 									<span>Acciones </span>
 								</div>
@@ -166,7 +230,7 @@
 					<tbody>
 		 			</tbody>
 				</table>
-			
+				<h4 class="form-text text-muted" id="sinTurnos">Para ver los turnos ingres&aacute; algun criterio de filtrado</h4>
 				</div>
 				
 				<div class="">

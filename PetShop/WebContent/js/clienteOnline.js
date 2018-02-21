@@ -499,13 +499,13 @@ $(document).ready(function() {
 			$.each(filas,function(i,fila) {
 				//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
 				if(i>0){
-					
-					var nombreMascota = fila.cells[0].innerHTML;
-					var tamanioMascota = fila.cells[1].innerHTML;
-					var pelajeMascota = fila.cells[2].innerHTML;
-					var fechaNacimientoMascota = fila.cells[3].innerHTML;
-					var observacionesMascota = fila.cells[5].innerHTML;
-					var elementoMascota = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
+					var idMascota = fila.cells[0].innerHTML;
+					var nombreMascota = fila.cells[1].innerHTML;
+					var tamanioMascota = fila.cells[2].innerHTML;
+					var pelajeMascota = fila.cells[3].innerHTML;
+					var fechaNacimientoMascota = fila.cells[4].innerHTML;
+					var observacionesMascota = fila.cells[6].innerHTML;
+					var elementoMascota = {idMascota,nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
 					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
 				}
 				

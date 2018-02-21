@@ -92,7 +92,6 @@
 											    <th>Pelaje</th>
 											    <th>Fecha de Nacimiento</th>
 											    <th>Quitar</th>
-											    <th class='hidden'></th>
 											</tr>
 										</thead>
   										<tbody>	
@@ -122,6 +121,10 @@
 									</div>
 									<div class="modal-body">
 										<div class="form-group row container-fluid">
+											<!-- Input de idMascota -->
+			            		
+							   					 <input type="text" class="hidden" name="idMascotaHidden" id="idMascotaHidden" aria-describedby="idMascotaHelp">
+										
 											<!-- Input de Nombre Mascota -->
 												<label class="sr-only">Nombre</label>
 											    <div class="col-lg-12 col-md-12" id="nombreMascotaGroup">
@@ -201,7 +204,7 @@
 										<hr class="hrModal">
 										<div class="form-group row container-fluid">
 											<div class="col-lg-12 col-md-12">
-												<button class="col-lg-3 col-md-12 btn btn-primary pull-right btnAgregarMascotaModal" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Agregar</h4></button>
+												<button class="col-lg-3 col-md-12 btn btn-primary pull-right btnAgregarMascotaModal" id="btnAgregarMascotaModal"><h4><span class="fa fa-paw"></span> Confirmar</h4></button>
 											</div>
 										</div>
 									</div>								

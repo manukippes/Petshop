@@ -123,6 +123,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 							
 							if(masco.getIdMascota()==0){
 								ctrlMascota.agregarMascota(masco);
+								mascotasUsuario.add(masco);
 								//System.out.println("SE AGREGA"+masco.getNombre());
 							}else{
 								

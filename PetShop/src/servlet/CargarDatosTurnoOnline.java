@@ -20,6 +20,7 @@ import entidades.Turno;
 import logica.ControladorDeMascota;
 import logica.ControladorDeServicio;
 import logica.ControladorDeTurno;
+import logica.ControladorDeVenta;
 
 /**
  * Servlet implementation class CargarDatosTurnoOnline
@@ -52,6 +53,7 @@ public class CargarDatosTurnoOnline extends HttpServlet {
 				
 				ControladorDeMascota ctrlMascota = new ControladorDeMascota();					//CONTROLADOR
 				ControladorDeServicio ctrlServicio = new ControladorDeServicio();				//CONTROLADOR
+				ControladorDeVenta ctrlVenta = new ControladorDeVenta();
 				Turno turnoActual = new Turno();												//TURNO NUEVO A CARGAR
 				
 				
@@ -100,14 +102,23 @@ public class CargarDatosTurnoOnline extends HttpServlet {
 					turnoActual.setEstado("Pendiente"); 								//ESTADO
 					
 					turnoActual.setObservaciones(observaciones); 									//OBSERVACIONES			
-										
-					request.getSession().setAttribute("turnoActual", turnoActual);
-					request.getSession().removeAttribute("turnoPendiente");
-					request.getSession().setAttribute("turnoPendiente", true);
+					
+					String fechaActual = ctrlVenta.getFechaActual();
+					java.util.Date fechaActualDate = df.parse(fechaActual);
+					java.sql.Date sqlFechaActual = new java.sql.Date(fechaActualDate.getTime());
+					
+					if (sqlFechaActual.before(sqlDate)||sqlFechaActual.equals(sqlDate)){
+						request.getSession().setAttribute("turnoActual", turnoActual);
+						request.getSession().removeAttribute("turnoPendiente");
+						request.getSession().setAttribute("turnoPendiente", true);
+						response.getWriter().println(1);
+					}else{
+						response.getWriter().println(2);
+					}
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
 				}	
 			}
 }

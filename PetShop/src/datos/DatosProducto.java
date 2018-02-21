@@ -489,11 +489,11 @@ public class DatosProducto implements Serializable{
 			//PRECIO DESDE
 			if(!parametros.get("precioDesde").equals("")){ 
 				if (i==0){
-					sql += " Where precio > ?";
+					sql += " Where precio >= ?";
 					campos.add("precioDesde");
 					i++;
 				}else{					
-					sql += " and precio > ?";
+					sql += " and precio >= ?";
 					campos.add("precioDesde");
 					i++;
 					}
@@ -501,11 +501,11 @@ public class DatosProducto implements Serializable{
 			//PRECIO HASTA
 			if(!parametros.get("precioHasta").equals("")){ 
 				if (i==0){
-					sql += " Where precio < ?";
+					sql += " Where precio <= ?";
 					campos.add("precioHasta");
 					i++;
 				}else{					
-					sql += " and precio < ?";
+					sql += " and precio <= ?";
 					campos.add("precioHasta");
 					i++;
 					}
@@ -513,11 +513,11 @@ public class DatosProducto implements Serializable{
 			//STOCK DESDE
 			if(!parametros.get("stockDesde").equals("")){ 
 				if (i==0){
-					sql += " Where stock > ?";
+					sql += " Where stock >= ?";
 					campos.add("stockDesde");
 					i++;
 				}else{					
-					sql += " and stock > ?";
+					sql += " and stock >= ?";
 					campos.add("stockDesde");
 					i++;
 					}
@@ -525,11 +525,11 @@ public class DatosProducto implements Serializable{
 			//STOCK HASTA
 			if(!parametros.get("stockHasta").equals("")){ 
 				if (i==0){
-					sql += " Where stock < ?";
+					sql += " Where stock <= ?";
 					campos.add("stockHasta");
 					i++;
 				}else{					
-					sql += " and stock < ?";
+					sql += " and stock <= ?";
 					campos.add("stockHasta");
 					i++;
 					}
@@ -560,6 +560,7 @@ public class DatosProducto implements Serializable{
 				}
 			}
 			//EJECUTO LA CONSULTA
+			
 			rs=pstm.executeQuery();
 			
 			if(rs!=null)

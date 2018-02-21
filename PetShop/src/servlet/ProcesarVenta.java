@@ -97,6 +97,10 @@ public class ProcesarVenta extends HttpServlet {
 			}else{
 				ventaActual.setUsuario(usuario);
 			}
+			Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("user");
+			if(usuarioSesion.getTipoUsuario().equals("Online")){
+				ventaActual.setUsuario(usuarioSesion);
+			}
 						
 			//CREO EL MEDIO DE PAGO
 			

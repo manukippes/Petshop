@@ -151,13 +151,15 @@ public class DatosTipoMascota implements Serializable{
 		
 		
 		try {
-			ps = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT idTipoMascota FROM tipo_Mascota WHERE pelo =? AND tamanio = ?");
+			ps = FactoryConnection.getinstancia().getConn().prepareStatement("SELECT * FROM tipo_Mascota WHERE pelo =? AND tamanio = ?");
 			ps.setString(1, pelaje);
 			ps.setString(2, tamanio);
 			rs = ps.executeQuery();
 			if(rs != null){
 				while(rs.next()){
 					tipoMas.setIdTipoMascota(rs.getInt("idTipoMascota"));
+					tipoMas.setPelo(rs.getString("pelo"));
+					tipoMas.setTamanio(rs.getString("tamanio"));
 				}
 			}
 		} catch (SQLException e) {

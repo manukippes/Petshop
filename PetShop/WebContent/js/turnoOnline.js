@@ -105,6 +105,7 @@ $(document).ready(function() {
 	$("#fechaSeleccionada").change(function(){
 		
 		$('#fechaGroup').removeClass("has-error");
+		$('#completarfecha').remove();
 		var fechaSeleccionada = $('#fechaSeleccionada').val();
 		if (fechaSeleccionada!=""){
 			$('#horario').prop('disabled',false);
@@ -193,7 +194,17 @@ $(document).ready(function() {
 				data : {jsonData : parametros},
 				success : function(respuesta){
 					//alertError(respuesta);
-					$(location).attr('href',"TurnoOnlinePaso2");
+					if (respuesta==1){
+						$(location).attr('href',"TurnoOnlinePaso2");
+					}
+					if (respuesta == 2){
+						$('#fechaGroup').addClass("has-error");
+						$("<small class='form-text text-danger' id='completarfecha'>La fecha ingresada no es valida</small>").insertAfter("#fechaSeleccionada");
+						alertError("La fecha ingresada debe ser igual o posterior al dia actual")
+					}else{
+						alertError("Error al cargar los datos, contacta a un administrador")
+					}
+					
 					
 				}
 			}); 
@@ -223,13 +234,15 @@ $(document).ready(function() {
 						
 					 .then((willDelete) => {
 						  if (willDelete) {
-							  $(location).attr('href','Turnos');
+							  $(location).attr('href','TurnoOnline');
 						  } else {
 							  alertError("No se pudo mostrar el popUp");
 						  }
 						});
 				
-				}else{
+				}					
+				else{
+				
 					alertError("Error al cargar el turno");
 				}
 			}

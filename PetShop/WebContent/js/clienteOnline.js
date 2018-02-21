@@ -233,119 +233,119 @@ $(document).ready(function() {
 		
 	})
 			
-			$(this).on("click", ".btnModificarMascota", function(e){
-			    e.preventDefault();
-			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
-				var fila =$(this).parent().parent().parent()
+	$(this).on("click", ".btnModificarMascota", function(e){
+	    e.preventDefault();
+	    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+		var fila =$(this).parent().parent().parent()
+		
+		agregar = false;	
+		
+		var idMascota = fila.find("#idMascota").text();
+		var nombreMascota = fila.find('#nombreMascota').text();
+		var tamanio = fila.find('#tamanio').text();
+		var pelaje = fila.find('#pelaje').text();
+		var fechaNacimiento = fila.find('#fechaNacimiento').text();
+		var observacion = fila.find('#observacion').text();
+		switch (tamanio){
+		case "Grande":
+			$('#btnPatitaGrande').addClass("icon-button-active");
+			break;
+		case "Mediano":
+			$('#btnPatitaMediana').addClass("icon-button-active");
+			break;
+		case "Chico":
+			$('#btnPatitaChica').addClass("icon-button-active");
+			break;
+		};
+		switch (pelaje){
+		case "Largo":
+			$('#btnTijeraGrande').addClass("icon-button-active");
+			break;
+		case "Corto":
+			$('#btnTijeraChica').addClass("icon-button-active");
+			break;
+		}
+		
+		$("#idMascotaHidden").val(idMascota);
+		$('.nombreMascota').val(nombreMascota);
+		$('#fechaNacimientoMascota').val(fechaNacimiento);
+		$('#observacionesMascota').val(observacion);
+		$('#btnAgregarMascota').click();
+		
+		
+		
+		
+	});	
+	//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
+	$(this).on("click","#btnPatitaGrande",function(e){
+		e.preventDefault();
+		$('#patitaGroup').removeClass("con-error");
+		$('#completartamanio').remove();
+		$('#btnPatitaGrande').addClass("icon-button-active");
+		$('#btnPatitaMediana').removeClass("icon-button-active");
+		$('#btnPatitaChica').removeClass("icon-button-active");
+		
+	})
+	
+	$(this).on("click","#btnPatitaMediana",function(e){
+		e.preventDefault();
+		$('#patitaGroup').removeClass("con-error");
+		$('#completartamanio').remove();
+		$('#btnPatitaGrande').removeClass("icon-button-active");
+		$('#btnPatitaMediana').addClass("icon-button-active");
+		$('#btnPatitaChica').removeClass("icon-button-active");
+		
+	})
+	
+	$(this).on("click","#btnPatitaChica",function(e){
+		e.preventDefault();
+		$('#patitaGroup').removeClass("con-error");
+		$('#completartamanio').remove();
+		$('#btnPatitaGrande').removeClass("icon-button-active");
+		$('#btnPatitaMediana').removeClass("icon-button-active");
+		$('#btnPatitaChica').addClass("icon-button-active");
+		
+	})
+	
+	$(this).on("click","#btnTijeraGrande",function(e){
+		e.preventDefault();
+		$('#pelajeGroup').removeClass("con-error");
+		$('#completarpelaje').remove();
+		$('#btnTijeraGrande').addClass("icon-button-active");
+		$('#btnTijeraChica').removeClass("icon-button-active");	
+	})
+	
+	$(this).on("click","#btnTijeraChica",function(e){
+		e.preventDefault();
+		$('#pelajeGroup').removeClass("con-error");
+		$('#completarpelaje').remove();
+		$('#btnTijeraGrande').removeClass("icon-button-active");
+		$('#btnTijeraChica').addClass("icon-button-active");
+	
+	})
+	
+	$(this).on("click", ".btnQuitarMascota", function(e){
+	    e.preventDefault();
+	   
+	    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+		var fila =$(this).parent().parent().parent()
+		var cantFilas = $("#tableMas tr").length; //OBTENGO LA CANTIDAD DE FILAS DE LA TABLA 
+		
+		if (cantFilas <= 1){
+			$('#tablaMascota').addClass("hidden");
+		}
 				
-				agregar = false;	
-				
-				var idMascota = fila.find("#idMascota").text();
-				var nombreMascota = fila.find('#nombreMascota').text();
-				var tamanio = fila.find('#tamanio').text();
-				var pelaje = fila.find('#pelaje').text();
-				var fechaNacimiento = fila.find('#fechaNacimiento').text();
-				var observacion = fila.find('#observacion').text();
-				switch (tamanio){
-				case "Grande":
-					$('#btnPatitaGrande').addClass("icon-button-active");
-					break;
-				case "Mediano":
-					$('#btnPatitaMediana').addClass("icon-button-active");
-					break;
-				case "Chico":
-					$('#btnPatitaChica').addClass("icon-button-active");
-					break;
-				};
-				switch (pelaje){
-				case "Largo":
-					$('#btnTijeraGrande').addClass("icon-button-active");
-					break;
-				case "Corto":
-					$('#btnTijeraChica').addClass("icon-button-active");
-					break;
-				}
-				
-				$("#idMascotaHidden").val(idMascota);
-				$('.nombreMascota').val(nombreMascota);
-				$('#fechaNacimientoMascota').val(fechaNacimiento);
-				$('#observacionesMascota').val(observacion);
-				$('#btnAgregarMascota').click();
-				
-				
-				
-				
-			});	
-			//PARA QUE QUEDE SELECCIONADO UN TAMANIO Y UN PELAJE////
-			$(this).on("click","#btnPatitaGrande",function(e){
-				e.preventDefault();
-				$('#patitaGroup').removeClass("con-error");
-				$('#completartamanio').remove();
-				$('#btnPatitaGrande').addClass("icon-button-active");
-				$('#btnPatitaMediana').removeClass("icon-button-active");
-				$('#btnPatitaChica').removeClass("icon-button-active");
-				
-			})
-			
-			$(this).on("click","#btnPatitaMediana",function(e){
-				e.preventDefault();
-				$('#patitaGroup').removeClass("con-error");
-				$('#completartamanio').remove();
-				$('#btnPatitaGrande').removeClass("icon-button-active");
-				$('#btnPatitaMediana').addClass("icon-button-active");
-				$('#btnPatitaChica').removeClass("icon-button-active");
-				
-			})
-			
-			$(this).on("click","#btnPatitaChica",function(e){
-				e.preventDefault();
-				$('#patitaGroup').removeClass("con-error");
-				$('#completartamanio').remove();
-				$('#btnPatitaGrande').removeClass("icon-button-active");
-				$('#btnPatitaMediana').removeClass("icon-button-active");
-				$('#btnPatitaChica').addClass("icon-button-active");
-				
-			})
-			
-			$(this).on("click","#btnTijeraGrande",function(e){
-				e.preventDefault();
-				$('#pelajeGroup').removeClass("con-error");
-				$('#completarpelaje').remove();
-				$('#btnTijeraGrande').addClass("icon-button-active");
-				$('#btnTijeraChica').removeClass("icon-button-active");	
-			})
-			
-			$(this).on("click","#btnTijeraChica",function(e){
-				e.preventDefault();
-				$('#pelajeGroup').removeClass("con-error");
-				$('#completarpelaje').remove();
-				$('#btnTijeraGrande').removeClass("icon-button-active");
-				$('#btnTijeraChica').addClass("icon-button-active");
-			
-			})
-			
-			$(this).on("click", ".btnQuitarMascota", function(e){
-			    e.preventDefault();
-			   
-			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
-				var fila =$(this).parent().parent().parent()
-				var cantFilas = $("#tableMas tr").length; //OBTENGO LA CANTIDAD DE FILAS DE LA TABLA 
-				
-				if (cantFilas <= 1){
-					$('#tablaMascota').addClass("hidden");
-				}
-						
-				var idMascota = fila.find('#idMascota').text();
-				
-				if(idMascota!=""){
-					fila.addClass("hidden");
-					fila.find('#nombreMascota').text("QuitarMascota");
-				}else{
+		var idMascota = fila.find('#idMascota').text();
+		
+		if(idMascota!=""){
+			fila.addClass("hidden");
+			fila.find('#nombreMascota').text("QuitarMascota");
+		}else{
 
-					fila.remove();
-				}
-				
-			});	
+			fila.remove();
+		}
+		
+	});	
 	
 	$(this).on("click", "#nombreMascotaGroup", function(e){
 	    $('#nombreMascotaGroup').removeClass("has-error"); 
@@ -499,13 +499,13 @@ $(document).ready(function() {
 			$.each(filas,function(i,fila) {
 				//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
 				if(i>0){
-					
-					var nombreMascota = fila.cells[0].innerHTML;
-					var tamanioMascota = fila.cells[1].innerHTML;
-					var pelajeMascota = fila.cells[2].innerHTML;
-					var fechaNacimientoMascota = fila.cells[3].innerHTML;
-					var observacionesMascota = fila.cells[5].innerHTML;
-					var elementoMascota = {nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
+					var idMascota = fila.cells[0].innerHTML;
+					var nombreMascota = fila.cells[1].innerHTML;
+					var tamanioMascota = fila.cells[2].innerHTML;
+					var pelajeMascota = fila.cells[3].innerHTML;
+					var fechaNacimientoMascota = fila.cells[4].innerHTML;
+					var observacionesMascota = fila.cells[6].innerHTML;
+					var elementoMascota = {idMascota,nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
 					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
 				}
 				

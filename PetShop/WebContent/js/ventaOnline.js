@@ -534,7 +534,7 @@ $(document).ready(function() {
 				if (!($('#idUsuario').val()=="")){
 					idUsuario = $('#idUsuario').val();
 				};
-				
+				alert(idUsuario);
 				//RECUPERO OBSERVACIONES
 				
 				var observaciones = $('#observaciones').val();

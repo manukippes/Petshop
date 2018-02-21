@@ -157,6 +157,7 @@ $(document).ready(function() {
 				agregar = false;	
 				
 				var idMascota = fila.find("#idMascota").text();
+				
 				var nombreMascota = fila.find('#nombreMascota').text();
 				var tamanio = fila.find('#tamanio').text();
 				var pelaje = fila.find('#pelaje').text();
@@ -247,11 +248,9 @@ $(document).ready(function() {
 	    	validaFecha = true;
 	    }
 		
-		
-		
 		var respuesta = false;
 		
-	    if(validaNombre){
+		if(validaNombre){
 	    	
 	    	if(validaTamanio){
 	    		
@@ -261,16 +260,16 @@ $(document).ready(function() {
 	    				 
 	    				 respuesta = true;	
 	    			 
-	    			 }else {alertError("Para agregar primero debes ingresar la fecha de nacimiento");
+	    			 }else {$("<small class='form-text text-muted text-danger' id='completarfechanacimiento'>Debes ingresar la fecha de nacimiento</small>").insertAfter("#fechaNacimientoMascota");
 	    			 	$('#fechaNacimientoMascotaGroup').addClass("has-error");}
 	    			 
-	    		 }else{alertError("Para agregar primero debes seleccionar un pelaje de la mascota");
+	    		 }else{$("<small class='form-text text-muted text-danger' id='completarpelaje'>Debes seleccionar un largo de pelaje</small>").insertAfter("#pelajeGroup");
 	    		 $('#pelajeGroup').addClass("con-error");}
 	    	
-	    	}else{alertError("Para agregar primero debes seleccionar un tamaño de la mascota");
+	    	}else{$("<small class='form-text text-muted text-danger' id='completartamanio'>Debes seleccionar un tama&ntilde;o</small>").insertAfter("#patitaGroup");
 	    	$('#patitaGroup').addClass("con-error");}
 			
-		}else {alertError("Para agregar primero debes ingresar un nombre");
+		}else {$("<small class='form-text text-muted text-danger' id='completarnombreMascota'>Debes ingresar un nombre para la mascota</small>").insertAfter("#nombreMascotaGroup");
 		$('#nombreMascotaGroup').addClass("has-error");}
 			
 		if (respuesta){			
@@ -298,6 +297,7 @@ $(document).ready(function() {
 			}
 			
 			if(agregar){
+				
 	        $('<tr>',{
 				'html' : "<td class='hidden' id='idMascota'></td>" +
 				"			<td id='nombreMascota'>"+nombre+"</td>" +
@@ -319,6 +319,7 @@ $(document).ready(function() {
 	        $('#agregarMascotaModificar').modal('toggle');
 	       
 			}else{
+				
 				
 				$('#agregarMascotaModificar').modal('toggle');
 				
@@ -348,7 +349,7 @@ $(document).ready(function() {
 				
 				
 			}
-			agregar = true;
+			
 			}
 		})
 		

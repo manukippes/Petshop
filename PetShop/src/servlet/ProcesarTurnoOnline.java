@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +15,7 @@ import com.google.gson.JsonParser;
 
 import entidades.Turno;
 import logica.ControladorDeTurno;
+import logica.ControladorDeVenta;
 
 /**
  * Servlet implementation class ProcesarTurnoOnline
@@ -45,11 +49,14 @@ public class ProcesarTurnoOnline extends HttpServlet {
 		
 		ControladorDeTurno ctrlTurno = new ControladorDeTurno();
 		
+		
 		//ALTA DE TURNO
 		Turno turnoActual = (Turno) request.getSession().getAttribute("turnoActual");
 		int resp = 0;
 					
+
 		try {
+			
 			if(ctrlTurno.agregarTurno(turnoActual)){
 				request.getSession().removeAttribute("turnoActual");
 				request.getSession().removeAttribute("turnoPendiente");
@@ -59,8 +66,9 @@ public class ProcesarTurnoOnline extends HttpServlet {
 			}else{
 				response.getWriter().println(resp);
 			}
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			response.getWriter().println(0);
 		}
 		
 	}

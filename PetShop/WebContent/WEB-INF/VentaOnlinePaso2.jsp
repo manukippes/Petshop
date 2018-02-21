@@ -183,6 +183,7 @@
 						    	<%} %>
 						    </select>
 						</div>
+						<p></p>
 						<div class="col-xs-6 col-sm-4" id="codigoSeguridadGroup">
 					    	<small id="codigoSeguridadHelp" class="form-text text-muted">Codigo de Seguridad</small>
 					    	<input type="text" class="form-control" name="codigoSeguridad" id="codigoSeguridad" aria-describedby="codigoSeguridadHelp" placeholder="Ingres&aacute; el c&oacute;digo de seguridad" required>

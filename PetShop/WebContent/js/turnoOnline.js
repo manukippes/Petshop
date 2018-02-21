@@ -223,7 +223,7 @@ $(document).ready(function() {
 						
 					 .then((willDelete) => {
 						  if (willDelete) {
-							  $(location).attr('href','Turnos');
+							  $(location).attr('href','TurnoOnline');
 						  } else {
 							  alertError("No se pudo mostrar el popUp");
 						  }

@@ -1,6 +1,39 @@
 /**
  * 
  */
+//VALIDAR QUE NUMERO DE TARJETA SEA SOLO NUMEROS
+	function validoNumeroTarjeta(){
+	    var numeroTarjeta = $('#numeroTarjeta').val();
+	    if(isNaN($(numeroTarjeta))){
+	    	return true;
+	    }else{
+	    	return false;
+	    }
+	}
+	
+	//VALIDAR QUE CODIGO DE SEGURIDAD SEA SOLO NUMEROS
+	function validoCodigoSeguridad (){
+	    var codigoSeguridad = $('#codigoSeguridad').val();
+	    if(isNaN($(codigoSeguridad))){
+	    	return true;
+	    }else{
+	    	return false;
+	    }
+	}
+	
+	//	QUITAR ALERTAS DE ERROR AL CAMPO	
+	$("#numeroTarjeta").change(function(){
+		$('#numeroTarjetaGroup').removeClass("has-error");
+		$("#validarNumeroTarjeta").remove();	
+	})
+	
+	//	QUITAR ALERTAS DE ERROR AL CAMPO	
+	$("#codigoSeguridad").change(function(){
+		$('#codigoSeguridadGroup').removeClass("has-error");
+		$("#validarCodigoSeguridad").remove();	
+	})
+	
+
 
 function calcularSubtotal(){
 	
@@ -461,6 +494,11 @@ $(document).ready(function() {
 		})
 	})
 
+	
+	
+	
+	
+	
 
 	//-----------------------------------CLICK EN BOTON FINALIZAR EN VENTAONLINE PASO2
 	
@@ -527,7 +565,10 @@ $(document).ready(function() {
 		
 		if(medioPagoValido){
 			//VALIDACION DE ENVIO
-			
+			var respuesta = validoNumeroTarjeta();
+		 if(respuesta){
+			 var respuesta2 = validoCodigoSeguridad();
+		  if(respuesta2){
 			if(direccionValida){
 				//VALIDACION DE USUARIO
 				var idUsuario ="0";
@@ -581,6 +622,15 @@ $(document).ready(function() {
 				$('#domicilioEnvioGroup').addClass("has-error");
 				$("<small class='form-text text-danger' id='completardomicilio'>Debes completar la direcci&oacute;n de env&iacute;o</small>").insertAfter("#domicilioEnvio");
 			}
+		  }else{
+			 $('#codigoTarjetaGroup').addClass("has-error");
+				$("<small class='form-text text-danger' id='validarCodigoTarjetaG'>Debes ingresar solo numeros para el campo Codigo de Tarjeta</small>").insertAfter("#codigoTarjeta");
+		  }
+		 }else{
+			 $('#numeroTarjetaGroup').addClass("has-error");
+				$("<small class='form-text text-danger' id='validarNumeroTarjeta'>Debes ingresar solo numeros para el campo Numero de Tarjeta</small>").insertAfter("#numeroTarjeta");
+			
+		 }
 		}	
 	})
 })

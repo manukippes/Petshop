@@ -175,6 +175,7 @@ public class DatosTurno implements Serializable{
 		
 			rs=pstm.executeQuery();
 			
+			
 			if(rs!=null)
 			{
 				while(rs.next())

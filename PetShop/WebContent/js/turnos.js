@@ -41,11 +41,13 @@ function validarDatosTurno(){
 	var validaCliente=false;
 	if($('#idUsuario').val()!=""){
 		validaCliente=true;
+
 	}else {
 		if($('#idUsuario').data("value")!=""){
 			validaCliente=true;
 		}
-	}
+	} //	nunca da false
+
 	
 	var validaMascota = false;
 	if($('#mascota').val()!="mascota"){
@@ -62,28 +64,36 @@ function validarDatosTurno(){
 								if(validaMascota){
 									resultado = true;
 												
-								}else{alertError("Debes seleccionar una mascota del cliente");
-								$('#mascotaGroup').addClass("has-error");}
+								}else{alertError("Por favor revis\u00e1 los datos ingresados");
+									$("<small class='form-text text-danger' id='completarmascota'>Debes seleccionar una de mascota del cliente</small>").insertAfter("#mascota");
+									$('#mascotaGroup').addClass("has-error");}
 						
-							}else{alertError("Debes seleccionar un cliente registrado");}
+							}else{alertError("Debes seleccionar un cliente registrado");
+							$("<small class='form-text text-danger' id='completarcliente'>Debes seleccionar un cliente</small>").insertAfter("#btnAgregarUnCliente");}
 					
-						}else{alertError("Debes seleccionar una frecuencia de repeticion");
+						}else{alertError("Debes seleccionar una frecuencia de repetici\u00f3n");
+						$("<small class='form-text text-danger' id='completarfrecuencia'>Debes seleccionar una frecuencia de repeticion</small>").insertAfter("#repetirRadioGroup");
 								$('#repetirRadioGroup').addClass("con-error");}
 				
-					}else{alertError("Debes seleccionar un horario disponible");
+					}else{alertError("Por favor revis\u00e1 los datos ingresados");
+							$("<small class='form-text text-danger' id='completarhorario'>Debes seleccionar un horario disponible</small>").insertAfter("#horario");
 							$('#horarioGroup').addClass("has-error");}
 					
-				}else{alertError("Debes seleccionar una fecha para el turno");
+				}else{alertError("Por favor revis\u00e1 los datos ingresados");
+						$("<small class='form-text text-danger' id='completarfecha'>Debes seleccionar una fecha para el turno</small>").insertAfter("#fechaSeleccionada");
 						$('#fechaGroup').addClass("has-error");}
 				
-			}else{alertError("Debes seleccionar un tipo de servicio");
+			}else{alertError("Por favor revis\u00e1 los datos ingresados");
+					$("<small class='form-text text-danger' id='completarservicio'>Debes seleccionar un tipo de servicio</small>").insertAfter("#servicio");
 					$('#servicioGroup').addClass("has-error");}
 			
-		}else{alertError("Debes seleccionar un largo del pelaje")
-				$('#pelajeGroup').addClass("con-error");}
+		}else{alertError("Por favor revis\u00e1 los datos ingresados");
+			$("<small class='form-text text-danger' id='completarpelaje'>Debes seleccionar un largo del pelaje</small>").insertAfter("#pelajeGroup");
+			$('#pelajeGroup').addClass("con-error");}
 		
-	}else{alertError("Debes seleccionar un tama\u00f1o de mascota");
-			$("#patitaGroup").addClass("con-error")}
+	}else{alertError("Por favor revis\u00e1 los datos ingresados");
+		$("<small class='form-text text-danger' id='completartamanio'>Debes seleccionar un tama\u00f1o de mascota</small>").insertAfter("#patitaGroup");
+		$("#patitaGroup").addClass("con-error")}
 return resultado;
 }
 
@@ -96,57 +106,61 @@ function cargarUsuario(usuario){
 
 $(document).ready(function() {
 		
+	$('#btnAgregarUnCliente').click(function(e){
+		$('#completarcliente').remove();
+	})
+	
 	$('#btnPatitaGrande').click(function(e){
 		e.preventDefault();
 		$('#patitaGroup').removeClass("con-error");
+		$('#completartamanio').remove();
 		$('#btnPatitaGrande').addClass("icon-button-active");
 		$('#btnPatitaMediana').removeClass("icon-button-active");
 		$('#btnPatitaChica').removeClass("icon-button-active");
-		
 	})
 
 	$('#btnPatitaMediana').click(function(e){
 		e.preventDefault();
 		$('#patitaGroup').removeClass("con-error");
+		$('#completartamanio').remove();
 		$('#btnPatitaGrande').removeClass("icon-button-active");
 		$('#btnPatitaMediana').addClass("icon-button-active");
 		$('#btnPatitaChica').removeClass("icon-button-active");
-		
 	})
 	
 	$('#btnPatitaChica').click(function(e){
 		e.preventDefault();
 		$('#patitaGroup').removeClass("con-error");
+		$('#completartamanio').remove();
 		$('#btnPatitaGrande').removeClass("icon-button-active");
 		$('#btnPatitaMediana').removeClass("icon-button-active");
 		$('#btnPatitaChica').addClass("icon-button-active");
-		
 	})
 
 	$('#btnTijeraGrande').click(function(e){
 		e.preventDefault();
 		$('#pelajeGroup').removeClass("con-error");
+		$('#completarpelaje').remove();
 		$('#btnTijeraGrande').addClass("icon-button-active");
-		$('#btnTijeraChica').removeClass("icon-button-active");
-
-		
+		$('#btnTijeraChica').removeClass("icon-button-active");		
 	})
 	
 	$('#btnTijeraChica').click(function(e){
 		e.preventDefault();
 		$('#pelajeGroup').removeClass("con-error");
+		$('#completarpelaje').remove();
 		$('#btnTijeraGrande').removeClass("icon-button-active");
 		$('#btnTijeraChica').addClass("icon-button-active");
 
 	})
 	
 	$("#servicio").change(function(){
-
+		$('#completarservicio').remove();
 		$('#servicioGroup').removeClass("has-error");
 	})
 	
 	$("#horario").change(function(){
-
+		$('#completarhorario').remove();
 		$('#horarioGroup').removeClass("has-error");
 	})
 	
@@ -161,12 +175,12 @@ $(document).ready(function() {
 	})
 	
 	$("#mascota").change(function(){
-
+		$('#completarmascota').remove();
 		$('#mascotaGroup').removeClass("has-error");
 	})
 	//CAPTURO el dia que se ingreso
 	$("#fechaSeleccionada").change(function(){
-		
+		$('#completarfecha').remove();
 		$('#fechaGroup').removeClass("has-error");
 		var fechaSeleccionada = $('#fechaSeleccionada').val();
 		if (fechaSeleccionada!=""){
@@ -206,9 +220,12 @@ $(document).ready(function() {
 					$('#mascota').empty();
 					$('#mascota').append($('<option value="mascota">El cliente no tiene mascotas registradas</option>'));
 					$('#mascota').prop("disabled",true);
+					$('#completarmascota').remove();
+					$('#mascotaGroup').removeClass("has-error");
 				}
 				else{
 					$('#mascota').prop("disabled",false);
+					
 				}
 			})
 		}

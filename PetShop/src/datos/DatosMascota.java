@@ -103,7 +103,7 @@ public class DatosMascota implements Serializable{
 		
 		try {
 			pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
-					"SELECT * FROM MASCOTA where idUsuario =? and estado=?");
+					"SELECT * FROM MASCOTA where idUsuario = ? and estado = ?");
 			pstm.setInt(1, cliente.getIdUsuario());
 			pstm.setInt(2, 1);
 			rs=pstm.executeQuery();

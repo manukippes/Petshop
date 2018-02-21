@@ -134,12 +134,17 @@
 										</tr>
 									</thead>
 									<tbody>
+									<%String email = "";
+									if(!(usuario.getEmail()==null)){
+										email=usuario.getEmail();
+									}
+									%>
 										<tr>
 											<td><%=usuario.getNombre() %></td>
 											<td><%=usuario.getApellido() %></td>
 											<td><%=usuario.getDireccion() %></td>
 											<td><%=usuario.getTelefono() %></td>
-											<td><%=usuario.getEmail() %></td>
+											<td><%=email%></td>
 										</tr>
 									</tbody>
 								</table>

@@ -48,19 +48,25 @@ function validarDatosTurno(){
 											
 						
 				
-					}else{alertError("Debes seleccionar una frecuencia de repeticion");
-							$('#repetirRadioGroup').addClass("con-error");}
+					}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+						$("<small class='form-text text-danger' id='completarfrecuencia'>Debes seleccionar una frecuencia de repeticion</small>").insertAfter("#repetirRadioGroup");
+						$('#repetirRadioGroup').addClass("con-error");}
 			
-				}else{alertError("Debes seleccionar un horario disponible");
-						$('#horarioGroup').addClass("has-error");}
+				}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+					$("<small class='form-text text-danger' id='completarhorario'>Debes seleccionar un horario disponible</small>").insertAfter("#horario");
+					$('#horarioGroup').addClass("has-error");}
 				
-			}else{alertError("Debes seleccionar una fecha para el turno");
-					$('#fechaGroup').addClass("has-error");}
+			}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+				$("<small class='form-text text-danger' id='completarfecha'>Debes seleccionar una fecha para el turno</small>").insertAfter("#fechaSeleccionada");
+				$('#fechaGroup').addClass("has-error");}
 			
-		}else{alertError("Debes seleccionar un tipo de servicio");
-				$('#servicioGroup').addClass("has-error");}
-	}else{alertError("Debes seleccionar una de tus mascotas");
-	$('#mascotaGroup').addClass("has-error");}
+		}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+			$("<small class='form-text text-danger' id='completarservicio'>Debes seleccionar un tipo de servicio</small>").insertAfter("#servicio");
+			$('#servicioGroup').addClass("has-error");}
+		
+	}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+		$("<small class='form-text text-danger' id='completarmascota'>Debes seleccionar una de tus mascotas</small>").insertAfter("#mascota");
+		$('#mascotaGroup').addClass("has-error");}
 		
 return resultado;
 }
@@ -78,12 +84,13 @@ $(document).ready(function() {
 		
 		
 	$("#servicio").change(function(){
-
+		$('#completarservicio').remove();
 		$('#servicioGroup').removeClass("has-error");
 	})
 	
 	$("#horario").change(function(){
 
+		$('#completarhorario').remove();
 		$('#horarioGroup').removeClass("has-error");
 	})
 	
@@ -94,11 +101,12 @@ $(document).ready(function() {
 	})
 	
 	$(".rbutton").click(function(){
+		$('#completarfrecuencia').remove();
 		$('#repetirRadioGroup').removeClass("con-error");		
 	})
 	
 	$("#mascota").change(function(){
-
+		$('#completarmascota').remove();
 		$('#mascotaGroup').removeClass("has-error");
 	})
 	//CAPTURO el dia que se ingreso

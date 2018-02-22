@@ -48,23 +48,24 @@ function validarDatosTurno(){
 											
 						
 				
-					}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+					}else{
+						alertError("Por favor revis\u00e1 los datos ingresados");
 						$("<small class='form-text text-danger' id='completarfrecuencia'>Debes seleccionar una frecuencia de repeticion</small>").insertAfter("#repetirRadioGroup");
 						$('#repetirRadioGroup').addClass("con-error");}
 			
-				}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+				}else{alertError("Por favor revis\u00e1 los datos ingresados");
 					$("<small class='form-text text-danger' id='completarhorario'>Debes seleccionar un horario disponible</small>").insertAfter("#horario");
 					$('#horarioGroup').addClass("has-error");}
 				
-			}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+			}else{alertError("Por favor revis\u00e1 los datos ingresados");
 				$("<small class='form-text text-danger' id='completarfecha'>Debes seleccionar una fecha para el turno</small>").insertAfter("#fechaSeleccionada");
 				$('#fechaGroup').addClass("has-error");}
 			
-		}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+		}else{alertError("Por favor revis\u00e1 los datos ingresados");
 			$("<small class='form-text text-danger' id='completarservicio'>Debes seleccionar un tipo de servicio</small>").insertAfter("#servicio");
 			$('#servicioGroup').addClass("has-error");}
 		
-	}else{alertError("Por favor revis\u00e1 los datos ingresados"");
+	}else{alertError("Por favor revis\u00e1 los datos ingresados");
 		$("<small class='form-text text-danger' id='completarmascota'>Debes seleccionar una de tus mascotas</small>").insertAfter("#mascota");
 		$('#mascotaGroup').addClass("has-error");}
 		

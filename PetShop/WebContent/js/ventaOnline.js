@@ -201,7 +201,7 @@ $(document).ready(function() {
 		}else{
 			
 			if(cantidad==0){
-				alertError("La cantidad m\u00EDnima de un producto es 0, sin\u00f3 pod\u00e9s eliminarlo de la venta");
+				alertError("La cantidad m\u00EDnima de un producto es 1, sin\u00f3 pod\u00e9s eliminarlo de la venta");
 				fila.find('.scrollCantidadProducto').val(1);
 							
 			} else{

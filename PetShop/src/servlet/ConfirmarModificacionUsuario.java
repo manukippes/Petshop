@@ -102,57 +102,43 @@ public class ConfirmarModificacionUsuario extends HttpServlet {
 				usu.setMascotas(new ArrayList<Mascota>());
 				usu = ctrlUsuario.modificarUsuario(usu);
 
-				JsonArray mascotas = (JsonArray) cliente.get("arregloMascotas").getAsJsonArray();
-				if(!(mascotas.isJsonNull())){
-					
-					 for (JsonElement obj : mascotas){
-						 
-						JsonObject gsonObj = obj.getAsJsonObject();
-						String idMasco = gsonObj.get("idMascota").getAsString();
-						String nombreMasco = gsonObj.get("nombreMascota").getAsString();
-						String tamanioMasco = gsonObj.get("tamanioMascota").getAsString();
-						String pelajeMasco = gsonObj.get("pelajeMascota").getAsString();
-						String fechaMasco = gsonObj.get("fechaNacimientoMascota").getAsString();
-						String observacionesMasco = gsonObj.get("observacionesMascota").getAsString();
-							
-					 	Mascota masco = new Mascota();
-					 	
-					 	int idMascotaActual=0;
-						if(!(idMasco.equals(""))){
-							idMascotaActual = Integer.parseInt(idMasco);
-						}
-					 	masco.setIdMascota(idMascotaActual);
-						masco.setNombre(nombreMasco);
-						
-						SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");			
-						Date fechaDate = fecha.parse(fechaMasco);
-						java.sql.Date sqlDate = new java.sql.Date(fechaDate.getTime());
-						masco.setFechaNacimiento(sqlDate);
-						
-						masco.setObservaciones(observacionesMasco);
-						
-						masco.setTipoMascota(ctrlTipoMascota.getTipoMascotaSegunTamanioPelaje(tamanioMasco, pelajeMasco));
-						
-						masco.setUsuario(usu);
-						
-						masco.setEstado(1);
-						
-						if(masco.getIdMascota()==0){
-							ctrlMascota.agregarMascota(masco);
-							//System.out.println("SE AGREGA"+masco.getNombre());
-						}else{
-							
-							if(masco.getNombre().equals("QuitarMascota")){
-								ctrlMascota.eliminarMascota(masco);
-								//System.out.println("SE ELIMINA"+masco.getNombre());
-							}else{
-								ctrlMascota.modificarMascota(masco);
-								//System.out.println("SE MODIFICA"+masco.getNombre());
-							}
+				//comprobar el listado de mascotas temporal contra las mascotas del usuario
+				
+				ArrayList<Mascota> mascotasTemp = (ArrayList<Mascota>) request.getSession().getAttribute("mascotasTemp");
+				ArrayList<Mascota> borrar = new ArrayList<Mascota>();			//ARREGLO DE MASCOTAS A BORRAR
+				ArrayList<Mascota> modificar = new ArrayList<Mascota>();		//ARREGLO DE MASCOTAS A MODIFICAR
+				ArrayList<Mascota> agregar = new ArrayList<Mascota>();			//ARREGLO DE MASCOTAS A AGREGAR
+				
+				for (Mascota mascota : mascotasTemp){
+					if (mascota.getIdMascota()==0){		//Las que no tienen id hay que agregarlas
+						mascota.setUsuario(usu);
+						agregar.add(mascota);
+					} else {
+						mascota.setUsuario(usu);		//Las que tienen id hay que eliminarlas
+						modificar.add(mascota);
+					}
+				}
+				ArrayList<Mascota> mascotasUsu = ctrlMascota.getMascotas(usu);	//Obtengo todas las mascotas actuales del usuario
+				
+				for (Mascota mascotaE : mascotasUsu){			//recorro las mascotas del usuario
+					Boolean encontrado=false;
+					for(Mascota masco : mascotasTemp){			//recorro las mascotas de mascotasTemp
+						if (masco.getIdMascota()==mascotaE.getIdMascota()){			
+							encontrado=true;							//si coincide pongo la bandera en true
 						}
 					}
-					 
-					
+					if (!encontrado){							//si no coincidio, entonces no estaba en las mascotasTemp
+						borrar.add(mascotaE);					//por lo que debe ser eliminada
+					}
+				}
+				for(Mascota agregarMascota : agregar){						//PERSISTO LOS CAMBIOS EN LA BD
+					ctrlMascota.agregarMascota(agregarMascota);
+				}
+				for(Mascota modificarMascota : modificar){
+					ctrlMascota.modificarMascota(modificarMascota);
+				}
+				for(Mascota borrarMascota : borrar){
+					ctrlMascota.eliminarMascota(borrarMascota);
 				}
 				
 				usu.setMascotas(ctrlMascota.getMascotas(usu));

@@ -63,6 +63,7 @@ public class DatosMascota implements Serializable{
 		
 		return true;
 	}
+	
 	public void modificarMascota(Mascota mascota) throws Exception
 	{
 		PreparedStatement pstm = null;
@@ -95,6 +96,7 @@ public class DatosMascota implements Serializable{
 		}
 		
 	}
+	
 	public ArrayList<Mascota> getMascotas(Usuario cliente) throws Exception{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -224,6 +226,7 @@ public class DatosMascota implements Serializable{
 		return respuesta;
 		
 	}
+	
 	public Boolean existeMascota(Mascota mascota) throws Exception{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;

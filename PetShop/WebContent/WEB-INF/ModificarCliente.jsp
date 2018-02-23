@@ -32,6 +32,8 @@
 		            	<% 
 		            	Usuario cli = ((Usuario) session.getAttribute("cliente")); 
 		            	ArrayList<Mascota> listadoMascota = cli.getMascotas();
+		            	request.getSession().removeAttribute("mascotasTemp");
+		            	request.getSession().setAttribute("mascotasTemp", listadoMascota);
 		            	%>
 		            		<!-- Input de idUsuario -->
 			            		<input type="text" class="hidden" name="idUsuario" id="idUsuario" aria-describedby="usuarioHelp" value="<%= cli.getIdUsuario() %>">
@@ -91,7 +93,7 @@
 						<div class="form-group row ">
 							<label class="sr-only">Mascota</label>
 							<div class="col-lg-3 col-md-12">
-								<a href="#agregarMascotaModificar" class="btn btn-primary form-control" id="btnAgregarMascota" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span> Agregar Mascota</a>
+								<a href="" class="btn btn-primary form-control" id="btnAgregarMascota" data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span> Agregar Mascota</a>
 							</div>
 								<div class="col-lg-9 col-md-12" id="MascotaGroup">	
 								<%String hidden = " hidden";if(!(listadoMascota.isEmpty()) || listadoMascota.size() != 0){hidden="";}%>
@@ -164,7 +166,7 @@
 												<label class="sr-only">Nombre</label>
 											    <div class="col-lg-12 col-md-12" id="nombreMascotaGroup">
 											    	<small id="nombreMascotaHelp" class="form-text text-muted"><strong>Nombre *</strong></small>
-											    	<input type="text" class="form-control nombreMascota" name="nombreMascota" id="nombreMascota" placeholder ="Ingres&aacute; el nombre de la mascota.">
+											    	<input type="text" class="form-control nombreMascota" name="nombreMascota" placeholder ="Ingres&aacute; el nombre de la mascota.">
 												</div>
 										</div>
 										<hr class="hrModal">

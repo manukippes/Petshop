@@ -27,6 +27,17 @@ function format ( d ) {
 	html+='</table>';
     return html;
 };
+
+function formatearFecha(fecha){
+	var fechaF = new Date(fecha);
+	var dia = fechaF.getDate();
+	if (dia <=9){dia = "0"+dia};
+	var mes = fechaF.getMonth()+1;
+	if (mes <=9){mes = "0"+mes};
+	var anio = fechaF.getFullYear();
+	fechaParseada = anio+"-"+mes+"-"+dia
+	return fechaParseada;
+}
 	
 
 $(document).ready(function() {
@@ -48,7 +59,7 @@ $(document).ready(function() {
 	            { "data": "ventaList.usuario.nombre" },
 	            { "data": "ventaList.usuario.apellido" },
 	            { "data": "ventaList.usuario.direccion" },
-	            { "data": "ventaList.fecha" },
+	            { "data": "formatearFecha(ventaList.fecha)" },
 	            { "data": "ventaList.estado" },
 	            { "data": "ventaList.medioPago.tipo" },
 	            { "data": "ventaList.total" },

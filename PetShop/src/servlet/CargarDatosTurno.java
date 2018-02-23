@@ -85,7 +85,9 @@ public class CargarDatosTurno extends HttpServlet {
 		turnoTemp.setIdTurno(idTurno);
 		
 		try {
-			turnoTemp = ctrlTurno.getTurno(turnoTemp);
+			if(idTurno!=0){
+				turnoTemp = ctrlTurno.getTurno(turnoTemp);
+			}
 			
 			//CREO LA MASCOTA
 			
@@ -118,7 +120,7 @@ public class CargarDatosTurno extends HttpServlet {
 			
 			turnoActual.setObservaciones(""); 									//OBSERVACIONES			
 				
-			if (proceso.equals("modificacion")){
+			if (idTurno!=0){
 				turnoActual.setIdTurno(idTurno);
 				turnoActual.setObservaciones(turnoTemp.getObservaciones());
 				request.getSession().removeAttribute("turnoActual");

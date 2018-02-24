@@ -79,6 +79,7 @@ public class CargarDatosTurno extends HttpServlet {
 		int idMascota = (int) campos.get("idMascota").getAsInt();
 		Boolean conRetiro = (Boolean) campos.get("conRetiro").getAsBoolean();
 		
+		
 		int idTurno = ((Turno) request.getSession().getAttribute("turnoActual")).getIdTurno();
 		ControladorDeTurno ctrlTurno = new ControladorDeTurno();
 		Turno turnoTemp = new Turno();

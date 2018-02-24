@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Turno;
+
 /**
  * Servlet implementation class Turnos
  */
@@ -36,6 +38,10 @@ public class Turnos extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		try {
+			Turno turnoActual = new Turno();
+			turnoActual.setIdTurno(0);
+			request.getSession().removeAttribute("turnoActual");
+			request.getSession().setAttribute("turnoActual", turnoActual);
 			
 			request.getRequestDispatcher("WEB-INF/Turnos.jsp").forward(request, response);
 				

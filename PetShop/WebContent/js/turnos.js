@@ -555,8 +555,4 @@ $(document).ready(function() {
 		}); 
 	})
 	
-	$('#volverPaso1').click(function(e){
-		e.preventDefault();
-		$(location).attr('href','Turnos');
-	})
 })

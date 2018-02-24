@@ -58,9 +58,10 @@ public class Start extends HttpServlet {
 				request.getSession().setAttribute("user", usuario); //crea o recupera una sesion si ya esta creada	
 				Turno turnoActual = new Turno();
 				turnoActual.setIdTurno(0);
+				request.getSession().setAttribute("turnoActual", turnoActual);
+				
 				ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
 				request.getSession().setAttribute("mascotasTemp", mascotas);
-				request.getSession().setAttribute("turnoActual", turnoActual);
 				request.getSession().setAttribute("turnoPendiente", false);
 				
 				ArrayList<ArrayList<String>> productosVenta = new ArrayList<ArrayList<String>>();

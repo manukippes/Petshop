@@ -73,7 +73,6 @@ public class ProcesarTurno extends HttpServlet {
 
 		String observaciones = (String) campos.get("observaciones").getAsString();
 		String proceso = (String) campos.get("proceso").getAsString();
-		int resp = 0;
 		
 		//ALTA DE TURNO
 		Turno turnoActual = (Turno) request.getSession().getAttribute("turnoActual");
@@ -87,12 +86,12 @@ public class ProcesarTurno extends HttpServlet {
 					request.getSession().removeAttribute("turnoActual");
 					request.getSession().removeAttribute("turnoPendiente");
 					request.getSession().setAttribute("turnoPendiente", false);
-					response.getWriter().println(true);
+					response.getWriter().println(1);
 				}else{
-					response.getWriter().println(false);
+					response.getWriter().println(0);
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				response.getWriter().println(0);
 			}
 			
 			
@@ -102,13 +101,12 @@ public class ProcesarTurno extends HttpServlet {
 					request.getSession().removeAttribute("turnoActual");
 					request.getSession().removeAttribute("turnoPendiente");
 					request.getSession().setAttribute("turnoPendiente", false);
-					resp = 1;
-					response.getWriter().println(resp);
+					response.getWriter().println(1);
 				}else{
-					response.getWriter().println(resp);
+					response.getWriter().println(0);
 				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				response.getWriter().println(0);
 			}
 		}
 		

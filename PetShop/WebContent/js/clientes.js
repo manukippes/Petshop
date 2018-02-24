@@ -1,6 +1,7 @@
 /**
  * 
  */
+//--------------------------------RESALTAR CAMPOS--------------------------------------------//
 function resaltarCampo(campo,nombre){
 	$("#"+campo+"Group").addClass("has-error");
 	$("#"+campo).focus();
@@ -8,6 +9,7 @@ function resaltarCampo(campo,nombre){
 		$("<small class='form-text text-muted text-danger' id='completar"+campo+"'>Debe completar el campo "+nombre+"</small>").insertAfter("#"+campo);
 	}
 }
+//-----------------------------------DAR FORMATO A LA FECHA DEL JSON---------------------------------------//
 function formatearFecha(fecha){
 	var fechaF = new Date(fecha);
 	var dia = fechaF.getDate();
@@ -19,6 +21,7 @@ function formatearFecha(fecha){
 	return fechaParseada;
 }
 
+//-----------------------------------VALIDAR SINTACTICAMENTE EMAIL---------------------------------------//
 function validarEmailExistente(){
 	
 	$('#completaremail').remove();
@@ -37,7 +40,6 @@ function validarEmailExistente(){
 		$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado no tiene un formato v&aacute;lido</small>").insertAfter("#email");
 	return false;
 	}
-    
 }
 
 //	-------------------------------------	VALIDAR DATOS DEL PANEL MODAL DE MASCOTA 	--------------------------------------//
@@ -99,9 +101,10 @@ function limpiarCampos(){
 	$('#tablaMascota').addClass("hidden");
 	$('#tableMas > tbody').html("");//ELIMINO LAS FILAS DE LA TABLA QUE EXISTE EN ESTE MOMENTO
 	$('#completaremail').remove();
-	valido = false;
-	
+	valido = false;	
 }
+
+
 
 //	------------------------------------LIMPIAR CAMPOS DEL PANEL MODAL	--------------------------------------------------//
 function limpiarCamposModal(){
@@ -119,8 +122,8 @@ function limpiarCamposModal(){
 		$("#idMascotaHidden").val("");			
 }
 
-///	------------------------ VALIDO QUE LOS DATOS OBLIGATORIOS DEL CLIENTE ESTEN COMPLETOS 	---------------------------------///
 
+///	------------------------ VALIDO QUE LOS DATOS OBLIGATORIOS DEL CLIENTE ESTEN COMPLETOS 	---------------------------------///
 function validar(usuarioRegistrado){
 
 	var nombre, apellido, telefono,telefonoValido,dniValido,emailValido;
@@ -163,38 +166,74 @@ function validar(usuarioRegistrado){
 							return true; 	
 						}
 						else {
-							return false
+							
+							return false;
+							
 						}
 						
 					}
 					else {
+						
 						$("#completartelefono").remove();
 						$("#telefonoGroup").addClass("has-error");
 						$("<small class='form-text text-muted text-danger' id='completartelefono'>Debes ingresar s&oacute;lo n&uacute;meros en el campo tel&eacute;fono</small>").insertAfter("#telefono");	
+					
 					}
 				}
 				else{
+					
 					resaltarCampo("telefono","Telefono");	
+				
 				}
 			}
 			else{
+				
 				$("#completardni").remove();
 				$("#dniGroup").addClass("has-error");
 				$("<small class='form-text text-muted text-danger' id='completardni'>Debes ingresar s&oacute;lo n&uacute;meros en el campo DNI</small>").insertAfter("#dni");
 				
 			}
 		} else {
-			resaltarCampo("apellido","Apellido")
+			
+			resaltarCampo("apellido","Apellido");
+			
 		}
 	} else {
+		
 		$("#nombreGroup").addClass("has-error");
 		$("#nombre").focus();
 		if(!($("#completarnombre").length)){
+			
 			$("<small class='form-text text-muted text-danger' id='completarnombre'>Debe completar el campo Nombre</small>").insertAfter("#nombre");
+		
 		}
+		
 	}
+	
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---------------------------------RECARGAR LA TABLA DE MASCOTAS--------------------------------//
 function recargarTablaMascotas(accion){
 	if(accion=="alta"){
 		linea = "";
@@ -248,15 +287,14 @@ $(document).ready(function() {
 	var tamanioAModificar="";
 	var pelajeAModificar="";
 	
-//---------AL CERRAR EL PANEL MODAL SE LIMPIA SU CONTENIDO	---------------//
+	//---------AL CERRAR EL PANEL MODAL SE LIMPIA SU CONTENIDO	---------------//
 	$(document).on("hide.bs.modal","#agregarMascotaModificar",function(){
 		limpiarCamposModal();
 		agregar = true;
 	})
 	
-//----------VALIDA SINTACTICAMENTE EL MAIL CUANDO CAMBIA -----------------//
+	//----------VALIDA SINTACTICAMENTE EL MAIL CUANDO CAMBIA -----------------//
 	$("#email").change(function(){
-		
 		$('#completaremail').remove();
 		$("#emailGroup").removeClass("has-error");
 		if($("#email").val()!=""){
@@ -267,50 +305,49 @@ $(document).ready(function() {
 //---------------------------------------BOTON MODIFICAR MASCOTA DE LA FILA DE LA TABLA----------------------------------------//
 	
 	$(this).on("click", ".btnModificarMascota", function(e){
-			    e.preventDefault();
-			    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
-				var fila =$(this).parent().parent().parent()
-				
-				agregar = false;	
-				
-				var idMascota = fila.find("#idMascota").text();
-				
-				var nombreMascota = fila.find('#nombreMascota').text();
-				var tamanio = fila.find('#tamanio').text();
-				var pelaje = fila.find('#pelaje').text();
-				var fechaNacimiento = fila.find('#fechaNacimiento').text();
-				var observacion = fila.find('#observacion').text();
-				switch (tamanio){
-					case "Grande":
-						$('#btnPatitaGrande').addClass("icon-button-active");
-						break;
-					case "Mediano":
-						$('#btnPatitaMediana').addClass("icon-button-active");
-						break;
-					case "Chico":
-						$('#btnPatitaChica').addClass("icon-button-active");
-						break;
-				};
-				switch (pelaje){
-					case "Largo":
-						$('#btnTijeraGrande').addClass("icon-button-active");
-						break;
-					case "Corto":
-						$('#btnTijeraChica').addClass("icon-button-active");
-						break;
-				}
-				//CARGO EL PANEL MODAL CON LOS DATOS OBTENIDOS DE LA TABLA
-				$("#idMascotaHidden").val(idMascota);
-				$('.nombreMascota').val(nombreMascota);
-				$('#fechaNacimientoMascota').val(fechaNacimiento);
-				$('#observacionesMascota').val(observacion);
-				$('#agregarMascotaModificar').modal('toggle');
-				nombreAModificar=nombreMascota;
-				tamanioAModificar=tamanio;
-				pelajeAModificar=pelaje;
-				
-				
-			});	
+	    e.preventDefault();
+	    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+		var fila =$(this).parent().parent().parent()
+		
+		agregar = false;	
+		
+		var idMascota = fila.find("#idMascota").text();
+		
+		var nombreMascota = fila.find('#nombreMascota').text();
+		var tamanio = fila.find('#tamanio').text();
+		var pelaje = fila.find('#pelaje').text();
+		var fechaNacimiento = fila.find('#fechaNacimiento').text();
+		var observacion = fila.find('#observacion').text();
+		switch (tamanio){
+			case "Grande":
+				$('#btnPatitaGrande').addClass("icon-button-active");
+				break;
+			case "Mediano":
+				$('#btnPatitaMediana').addClass("icon-button-active");
+				break;
+			case "Chico":
+				$('#btnPatitaChica').addClass("icon-button-active");
+				break;
+		};
+		switch (pelaje){
+			case "Largo":
+				$('#btnTijeraGrande').addClass("icon-button-active");
+				break;
+			case "Corto":
+				$('#btnTijeraChica').addClass("icon-button-active");
+				break;
+		}
+		//CARGO EL PANEL MODAL CON LOS DATOS OBTENIDOS DE LA TABLA
+		$("#idMascotaHidden").val(idMascota);
+		$('.nombreMascota').val(nombreMascota);
+		$('#fechaNacimientoMascota').val(fechaNacimiento);
+		$('#observacionesMascota').val(observacion);
+		$('#agregarMascotaModificar').modal('toggle');
+		nombreAModificar=nombreMascota;
+		tamanioAModificar=tamanio;
+		pelajeAModificar=pelaje;
+					
+	});	
 	
 
 	//----------------------------------------------BOTON CRUZ DE LA TABLA PARA ELIMINAR LA FILA-----------------------------------//
@@ -554,33 +591,14 @@ $(document).ready(function() {
 			alertError("Por favor revisa los datos ingresados")
 		}
 	})
+	
+	
+	
 	///---------------------------------------------- ALTA DE CLIENTE ----------------------------------------------///
 	$('#btnAgregarCliente').click(function(e){
 		e.preventDefault();
 		$('#completaremail').remove();
-		var resultado = validar(false);
-	
-		var arregloMascotas = [];
-		
-		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
-		var cantidad = filas.length; 
-		if (filas.length != 1){
-			$.each(filas,function(i,fila) {
-				//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
-				if(i>0){
-					var idMascota = fila.cells[0].innerHTML;
-					var nombreMascota = fila.cells[1].innerHTML;
-					var tamanioMascota = fila.cells[2].innerHTML;
-					var pelajeMascota = fila.cells[3].innerHTML;
-					var fechaNacimientoMascota = fila.cells[4].innerHTML;
-					var observacionesMascota = fila.cells[6].innerHTML;
-					var elementoMascota = {idMascota,nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
-					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
-				}
-				
-			})		
-		}
-		
+		var resultado = validar(false);	
 						
 		if(resultado)
 		{
@@ -607,59 +625,57 @@ $(document).ready(function() {
 						direccion : direccion,
 						telefono : telefono,
 						email : email,
-						habilitado : habilitado,
-						arregloMascotas : arregloMascotas	
+						habilitado : habilitado	
 					}
 					
 				
-					var parametros = JSON.stringify(parametro);
+			var parametros = JSON.stringify(parametro);
+			
+			
+			$.ajax({	
+				url : "ConfirmarAltaCliente",
+				type : "post",
+				data : {jsonData : parametros},
+				success : function(data){
+					if (data != 0){
+						
+						if (data == 2){
+							alertError("ERROR AL GRABAR LAS MASCOTAS");
+						}
+						if (data == 3){
+							$("#emailGroup").addClass("has-error");
+							$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
+							alertError("Algunos de los campos del formulario tienen errores");
+						}
+						if (data == 1){
+							swal ( {
+								 title : "Bien hecho!",
+								 text : "Cliente agregado exitosamente",
+								 icon : "success" , 
+								 buttons: {
+									 confirm: {
+										    text: "Aceptar",
+										    value: true,
+										    visible: true,
+										    className: "",
+										    closeModal: true
+										  },									  
+									  }
+								} )
+							.then((respuesta) => {
+								if(respuesta){
+									$(location).attr('href','Ventas');
+								}else{
+									$(location).attr('href','Ventas');	
+								}
+							})
 					
-					
-					$.ajax({
-							url : "ConfirmarAltaCliente",
-							type : "post",
-							data : {jsonData : parametros},
-							success : function(data){
-								if (data != 0){
-									
-									
-									if (data == 2){
-										alertError("ERROR AL GRABAR LAS MASCOTAS");
-									}
-									if (data == 3){
-										$("#emailGroup").addClass("has-error");
-										$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
-										alertError("Algunos de los campos del formulario tienen errores");
-									}
-									if (data == 1){
-										swal ( {
-											 title : "Bien hecho!",
-											 text : "Cliente agregado exitosamente",
-											 icon : "success" , 
-											 buttons: {
-												 confirm: {
-													    text: "Aceptar",
-													    value: true,
-													    visible: true,
-													    className: "",
-													    closeModal: true
-													  },									  
-												  }
-											} )
-										.then((respuesta) => {
-											if(respuesta){
-												$(location).attr('href','Ventas');
-											}else{
-												$(location).attr('href','Ventas');	
-											}
-										})
-								
-									}
-								} else {
-									alertError("ERROR");
-								}	
-							}
-					})
+						}
+					} else {
+						alertError("ERROR");
+					}	
+				}
+				})
 				}
 		else{
 			alertError("Algunos de los campos del formulario tienen errores");
@@ -678,26 +694,6 @@ $(document).ready(function() {
 		$('#completaremail').remove();
 		
 		var resultado = validar(true);
-		var arregloMascotas = [];
-		
-		var filas = $("#tableMas tr"); //OBTENGO UN ARREGLO DE LAS FILAS DE LA TABLA
-		var cantidad = filas.length; 
-		if (filas.length != 1){
-			$.each(filas,function(i,fila) {
-				//OBTENGO DE CADA MASCOTA NOMBRE TAMANIO PELAJE FECHA DE NACIMIENTO
-				if(i>0){
-					var idMascota = fila.cells[0].innerHTML;
-					var nombreMascota = fila.cells[1].innerHTML;
-					var tamanioMascota = fila.cells[2].innerHTML;
-					var pelajeMascota = fila.cells[3].innerHTML;
-					var fechaNacimientoMascota = fila.cells[4].innerHTML;
-					var observacionesMascota = fila.cells[6].innerHTML;
-					var elementoMascota = {idMascota,nombreMascota,tamanioMascota,pelajeMascota,fechaNacimientoMascota,observacionesMascota};
-					arregloMascotas.push(elementoMascota); //AGREGO EL ELEMENTO Y SU CANTIDAD AL ARREGLO DE ELEMENTOS
-				}
-				
-			})		
-		}
 		
 		if(resultado)
 		{
@@ -725,8 +721,8 @@ $(document).ready(function() {
 				direccion : direccion,
 				telefono : telefono,
 				email : email,
-				habilitado : habilitado,
-				arregloMascotas : arregloMascotas	
+				habilitado : habilitado
+				
 			}
 			
 		

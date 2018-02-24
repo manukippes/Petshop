@@ -59,7 +59,7 @@ $(document).ready(function() {
 	            { "data": "ventaList.usuario.nombre" },
 	            { "data": "ventaList.usuario.apellido" },
 	            { "data": "ventaList.usuario.direccion" },
-	            { "data": "formatearFecha(ventaList.fecha)" },
+	            { "data": "ventaList.fecha" },
 	            { "data": "ventaList.estado" },
 	            { "data": "ventaList.medioPago.tipo" },
 	            { "data": "ventaList.total" },

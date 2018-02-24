@@ -105,7 +105,7 @@
 											    <th>Tamaño</th>
 											    <th>Pelaje</th>
 											    <th>Fecha de Nacimiento</th>
-											    <th>Quitar</th>
+											    <th>Editar / Quitar</th>
 											    <th class='hidden'></th>
 											</tr>
 										</thead>
@@ -227,7 +227,7 @@
 											<!-- Input de Fecha de Nacimiento Mascota -->
 												<label class="sr-only">Fecha de Nacimiento</label>
 											    <div class="col-lg-4 col-md-12" id="fechaNacimientoMascotaGroup">
-											    	<small id="fechaNacimientoMascotaHelp" class="form-text text-muted"><strong>Fecha de Nacimiento</strong></small>
+											    	<small id="fechaNacimientoMascotaHelp" class="form-text text-muted"><strong>Fecha de Nacimiento *</strong></small>
 											    	<input type="date" class="form-control" name="fechaNacimientoMascota" id="fechaNacimientoMascota" aria-describedby="fechaNacimientoMascotaHelp">
 												</div>
 												

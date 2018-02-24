@@ -238,7 +238,8 @@ function recargarTablaMascotas(accion){
 	if(accion=="alta"){
 		linea = "";
 	}else{
-		linea = "<a class='btn btn-info btnModificarMascota' title='Editar mascota' href='\'><span class='fa fa-pencil'></span> </a>"
+		linea = "<a class='btn btn-info btnModificarMascota' title='Editar mascota' href='\'><span class='fa fa-pencil'></span> </a>";
+		accion="";
 	}
 	 $('.tableMas tbody').empty();
 	 $.post("ObtenerMascotasTemp",function(responseJson){
@@ -253,8 +254,8 @@ function recargarTablaMascotas(accion){
 						"			<td id='fechaNacimiento'>"+formatearFecha(mascotas.fechaNacimiento)+"</td>" +
 						"			<td class='col-sm-3 col-lg-2'>" +
 						"				<div class='input-group'>" +
-						"					<a class='btn btn-danger btnQuitarMascota' title='Quitar mascota' href='\'><span class='fa fa-times'></span> </a>" +
 						linea	+
+						"					<a class='btn btn-danger btnQuitarMascota"+accion+"' title='Quitar mascota' href='\'><span class='fa fa-times'></span> </a>" +
 						"				</div>" +
 						"			</td>"+
 						"			<td id='observacion' class='hidden'>"+mascotas.observaciones+"</td>"		
@@ -264,6 +265,8 @@ function recargarTablaMascotas(accion){
 			})
 			if(i>0){
 				$('#tablaMascota').removeClass("hidden");
+			}else{
+				$('#tablaMascota').addClass("hidden");
 			}
       })
 }
@@ -351,6 +354,55 @@ $(document).ready(function() {
 	
 
 	//----------------------------------------------BOTON CRUZ DE LA TABLA PARA ELIMINAR LA FILA-----------------------------------//
+	// CUANDO SE TRATA DE UN ALTA
+	$(this).on("click", ".btnQuitarMascotaalta", function(e){
+	    e.preventDefault();
+	   
+	    //OBTENGO LA FILA DE LA CUAL ESTA EL BOTON QUITAR
+		var fila =$(this).parent().parent().parent()
+		var cantFilas = $("#tableMas tr").length; //OBTENGO LA CANTIDAD DE FILAS DE LA TABLA 
+		
+		if (cantFilas <= 1){
+			$('#tablaMascota').addClass("hidden");
+		}
+		var idMascota = fila.find("#idMascota").text();
+		var nombre = fila.find("#nombreMascota").text();
+		var tamanio = fila.find("#tamanio").text();
+		var pelaje = fila.find("#pelaje").text();
+		var fechaNacimiento = fila.find("#fechaNacimiento").text();
+		var observacion = fila.find("#observacion").text();
+		
+		var parametro = {
+				
+				idMascota : idMascota,
+				nombre : nombre,
+				tamanio : tamanio,
+				pelaje : pelaje,
+				fechaNacimiento : fechaNacimiento,
+				observacion : observacion	
+			}
+		
+		var parametros = JSON.stringify(parametro);	
+		$.ajax({
+			url : "QuitarMascota",
+			type : "post",
+			data : {jsonData : parametros},
+			success : function(data){
+				if (data == 1){
+					//alertOk("Mascota eliminada correctamente, p");	
+			        recargarTablaMascotas("alta");
+				}
+				if (data == 0){
+					alertError("No se pudo eliminar la mascota")
+				}
+				
+			}
+		})
+		
+					
+	});	
+	//----------------------------------------------BOTON CRUZ DE LA TABLA PARA ELIMINAR LA FILA-----------------------------------//
+	// CUANDO SE TRATA DE UNA MODIFICACION
 	$(this).on("click", ".btnQuitarMascota", function(e){
 	    e.preventDefault();
 	   
@@ -386,7 +438,7 @@ $(document).ready(function() {
 			success : function(data){
 				if (data == 1){
 					//alertOk("Mascota eliminada correctamente, p");	
-			        recargarTablaMascotas();
+			        recargarTablaMascotas("");
 				}
 				if (data == 0){
 					alertError("No se pudo eliminar la mascota")
@@ -664,9 +716,9 @@ $(document).ready(function() {
 								} )
 							.then((respuesta) => {
 								if(respuesta){
-									$(location).attr('href','Ventas');
+									$(location).attr('href','Clientes');
 								}else{
-									$(location).attr('href','Ventas');	
+									$(location).attr('href','Clientes');	
 								}
 							})
 					
@@ -752,9 +804,9 @@ $(document).ready(function() {
 								} )
 							.then((respuesta) => {
 								if(respuesta){
-									$(location).attr('href','Ventas');
+									$(location).attr('href','Clientes');
 								}else{
-									$(location).attr('href','Ventas');	
+									$(location).attr('href','Clientes');	
 								}
 							})
 							

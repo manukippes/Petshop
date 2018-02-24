@@ -647,6 +647,11 @@ $(document).ready(function() {
 							$("<small class='form-text text-muted text-danger' id='completaremail'>El mail ingresado ya se encuentra registrado</small>").insertAfter("#email");
 							alertError("Algunos de los campos del formulario tienen errores");
 						}
+						if (data == 4){
+							$("#usuarioGroup").addClass("has-error");
+							$("<small class='form-text text-muted text-danger' id='completarusuario'>El usuario ingresado ya se encuentra registrado</small>").insertAfter("#usuario");
+							alertError("Algunos de los campos del formulario tienen errores");
+						}
 						if (data == 1){
 							swal ( {
 								 title : "Bien hecho!",

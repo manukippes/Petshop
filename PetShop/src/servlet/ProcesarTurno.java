@@ -76,10 +76,11 @@ public class ProcesarTurno extends HttpServlet {
 		
 		//ALTA DE TURNO
 		Turno turnoActual = (Turno) request.getSession().getAttribute("turnoActual");
+		turnoActual.setObservaciones(observaciones);								//OBSERVACIONES
 		
 		if(proceso.equals("alta")){
 			
-			turnoActual.setObservaciones(observaciones);								//OBSERVACIONES
+			
 			
 			try {
 				if(ctrlTurno.agregarTurno(turnoActual)){

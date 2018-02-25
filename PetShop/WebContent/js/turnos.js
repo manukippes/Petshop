@@ -543,7 +543,7 @@ $(document).ready(function() {
 						
 					 .then((willDelete) => {
 						  if (willDelete) {
-							  $(location).attr('href','Turnos');
+							  $(location).attr('href','MantenimientoTurnos');
 						  } else {
 							  alertError("No se pudo mostrar el popUp");
 						  }

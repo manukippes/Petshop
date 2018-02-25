@@ -65,10 +65,9 @@
 						    </select>
 						    <select class="form-control" name="filtrarServicioxs" id="filtrarServicioxs" aria-describedby="tipoServicioHelp" required>
 						    	<option value="filtrar">Filtrar por Servicio</option>
-						    	<option value="1">Banio</option>
+						    	<option value="1">Baño</option>
 						    	<option value="2">Corte</option>
-						    	<option value="3">Banio con Corte</option>
-						    	<option value="3">Antipulgas</option>
+						    	<option value="3">Baño con Corte</option>
 						    </select>
 						</div>
 					</div>
@@ -146,10 +145,9 @@
 								<div class="input group input-group-sm">
 									<select class="form-control hidden-xs" name="filtrarServicio" title="Filtrar Tipo de Servicio" id="filtrarServicio" aria-describedby="tipoServicioHelp" required>
 								    	<option value="filtrar">Filtrar por Servicio</option>
-								    	<option value="1">Banio</option>
+								    	<option value="1">Baño</option>
 								    	<option value="2">Corte</option>
-								    	<option value="3">Banio con Corte</option>
-								    	<option value="4">Antipulgas</option>
+								    	<option value="3">Baño con Corte</option>
 								    </select>
 									
 								</div>					

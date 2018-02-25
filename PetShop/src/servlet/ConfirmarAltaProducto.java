@@ -76,7 +76,7 @@ public class ConfirmarAltaProducto extends HttpServlet {
 			for (int i=0; i<items.size();i++){
 				FileItem item = (FileItem) items.get(i);
 				if (!item.isFormField()){
-					File archivo = new File("C:\\Users\\hugos\\git\\Petshop\\PetShop\\WebContent\\imgs\\productos\\"+item.getName());
+					File archivo = new File("D:\\Emmanuel\\"+item.getName());
 					item.write(archivo);
 					imgs.add("imgs/productos/"+item.getName());
 				}else{

@@ -39,9 +39,7 @@ public class AltaClienteOnline extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ArrayList<Mascota> mascotas = new ArrayList<Mascota>();
-		request.getSession().setAttribute("mascotasTemp", mascotas);
-		
+				
 		request.getRequestDispatcher("WEB-INF/AltaClienteOnline.jsp").forward(request, response);
 	}
 

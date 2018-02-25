@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import entidades.Usuario;
+import logica.ControladorDeUsuario;
+
 
 @WebServlet({ "/PrimerIngreso", "/primerIngreso", "/primeringreso" })
 public class PrimerIngreso extends HttpServlet {
@@ -27,11 +33,12 @@ public class PrimerIngreso extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Usuario usuario=new Usuario();
+		usuario = (Usuario) request.getSession().getAttribute("userOnline");
+		request.getSession().setAttribute("user", usuario);
 		ArrayList<ArrayList<String>> productosVenta = new ArrayList<ArrayList<String>>();
 		request.getSession().setAttribute("productosVenta", productosVenta);
 		request.getRequestDispatcher("WEB-INF/VentaOnline.jsp").forward(request, response);	
-		
-
 	}
 
 }

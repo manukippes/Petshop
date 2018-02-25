@@ -86,6 +86,7 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				mascota.setEstado(1);
 				ctrlMascota.agregarMascota(mascota);
 			}
+			request.getSession().setAttribute("userOnline", usu);
 			response.getWriter().println(1);
 		}
 		catch (MySQLIntegrityConstraintViolationException mailExistente) {

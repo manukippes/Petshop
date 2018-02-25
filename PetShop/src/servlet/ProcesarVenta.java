@@ -186,6 +186,7 @@ public class ProcesarVenta extends HttpServlet {
 				lineas.add(linea);												//AGREGO LA LINEA AL ARREGLO
 				
 				bandera = ctrlVenta.agregarLineaVenta(linea);					//AGREGO LA LINEA A LA BD
+				ctrlProducto.actualizarStock(prodActual, prodActual.getStock()-cantidad);
 			}		
 			ventaActual.setLineas(lineas);							//SETEO EL ARRAYLIST DE LINEAS EN LA VENTA
 			ventaActual.setTotal(total);							//SETEO EL TOTAL A LA VENTA

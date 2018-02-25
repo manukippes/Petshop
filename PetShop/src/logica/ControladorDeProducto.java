@@ -24,6 +24,7 @@ public class ControladorDeProducto implements Serializable{
 		//	Modificar un producto
 		//  Obtener productos con un parametro string
 		//	Obtener productos de una subcategoria con o sin stock
+		//  Actualizar el stock de un producto
 
 	public ArrayList<Categoria> getCategorias()throws ExcepcionEspecial, Exception{
 		
@@ -90,6 +91,9 @@ public class ControladorDeProducto implements Serializable{
 	
 	public ArrayList<Producto> getProductos(Subcategoria subcat, Boolean soloStock) throws Exception{
 		return baseProducto.getProductos(subcat,soloStock);
+	}
+	public Boolean actualizarStock(Producto producto, int cantidad) throws Exception{
+		return baseProducto.actualizarStock(producto,cantidad);
 	}
 }
 

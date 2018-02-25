@@ -29,6 +29,7 @@ public class DatosProducto implements Serializable{
 	// 						OBTENER PRODUCTOS FILTRADOS SEGUN CRITERIOS
 	//						OBTENER PRODUCTOS SEGUN UN STRING 
 	//						OBTENER PRODUCTOS DE UNA SUBCATEGORIA CON O SIN STOCK
+	//						ACTUALIZAR STOCK
 	
 	public Boolean agregarProducto (Producto producto) throws Exception
 	{
@@ -701,6 +702,37 @@ public class DatosProducto implements Serializable{
 				throw e;
 			}
 			return productos;
+		}
+	 public Boolean actualizarStock(Producto producto, int cantidad) throws Exception
+		{
+			PreparedStatement pstm = null;
+			Boolean bandera = false;
+					
+			try {
+				pstm = FactoryConnection.getinstancia().getConn().prepareStatement(
+						"UPDATE producto SET stock=? WHERE idProducto=?");
+				pstm.setInt(1, cantidad);
+				pstm.setInt(2, producto.getIdProducto());
+				
+				if(pstm.executeUpdate()==1){
+					bandera = true;
+				}
+			} 
+			catch (Exception e) 
+			{
+				throw e;
+			}
+			
+			finally
+			{
+				try {
+					if(pstm!=null)pstm.close();
+					FactoryConnection.getinstancia().releaseConn();
+				} catch (Exception e) {
+					throw e;
+				}	
+			}
+			return bandera;
 		}
 }
 	

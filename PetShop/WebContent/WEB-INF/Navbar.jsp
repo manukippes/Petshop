@@ -77,8 +77,8 @@
 					</button>
 					<a href="#" class="hidden-xs hidden-sm navbar-brand"><b>S</b>istema de <b>G</b>esti&oacute;n de <b>P</b>et <b>S</b>hops</a>
 					<span class="hidden-md hidden-lg navbar-brand negrita">SGPS</span>
+					<a class="navbar-brand pull-right visible-xs" href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span><small> Mi carrito </small><span class="badge" id="articulosCarrito"><%=cantidad %></span></a>
 				</div>
-				
 				
 				<div class="collapse navbar-collapse" id="navbar-1">
 					<ul class="nav navbar-nav">
@@ -87,7 +87,7 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 					
-						<li><a href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span> Mi Carrito <span class="badge" id="articulosCarrito"><%=cantidad %></span></a></li>
+						<li class="hidden-xs"><a href="#carrito" data-toggle="modal"> <span class="fa fa-shopping-cart"></span> Mi Carrito <span class="badge" id="articulosCarrito"><%=cantidad %></span></a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 								<span class="fa fa-user-circle"></span> <%= usuarioNavbar.getNombre() %> <span class="caret"></span>

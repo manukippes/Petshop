@@ -434,26 +434,33 @@ $(document).ready(function() {
 				url : "ProcesarVenta",
 				data : {jsonData : parametros},
 				success : function(respuesta){
-					if (respuesta == 1){
-						  swal ( {
-							  title : "Bien hecho!", 
-							  text : "Venta cargada Exitosamente", 
-							  icon : "success" , 
-							  buttons: {
-								    cancel: false,
-								    confirm: true,
-								  },
+					if(respuesta!=0){					//VALOR CERO CORRESPONDE A UNA EXCEPTION
+						if (respuesta == 1){
+							  swal ( {
+								  title : "Bien hecho!", 
+								  text : "Venta cargada Exitosamente", 
+								  icon : "success" , 
+								  buttons: {
+									    cancel: false,
+									    confirm: true,
+								 },
 							} )
-							
-						 .then((willDelete) => {
-							  if (willDelete) {
-								  $(location).attr('href','Ventas');
-							  } else {
-								  alertError("No se pudo mostrar el popUp");
-							  }
+								
+							 .then((willDelete) => {
+								  if (willDelete) {
+									  $(location).attr('href','Ventas');
+								  } else {
+									  alertError("No se pudo mostrar el popUp");
+								  }
 							});
+						}
+						
+						if (respuesta==2){
+							alertError("La cantidad ingresada supera el stock disponible")
+						}
+						
 					}else{
-						alertError("Error al cargar la venta");
+						alertError("Error al cargar la venta, contact\u00e1 a un administrador")
 					}
 				}
 			}); 

@@ -83,7 +83,8 @@ public class ProcesarVenta extends HttpServlet {
 		int resp = 0;
 		
 		//CREAR LOS PARAMETROS NECESARIOS PARA AGREGAR UNA VENTA A LA BD
-		boolean bandera;		//VALIDACION DE OPERACION EXITOSA
+		boolean bandera=true;		//VALIDACION DE OPERACION EXITOSA, LA BANDERA ES SIEMPRE TRUE
+		Boolean resultado=true;
 		Double total = 0.0;		//TOTAL DE LA VENTA NECESARIO PARA CREARLA
 		
 		
@@ -155,6 +156,7 @@ public class ProcesarVenta extends HttpServlet {
 				bandera = true;
 			}else{
 				bandera = false;
+				resp=0;
 			}
 			
 			//CREO LAS LINEAS DE VENTA Y SE LAS AGREGO AL ARREGO DE LINEAS DE VENTA DE LA CLASE
@@ -185,15 +187,31 @@ public class ProcesarVenta extends HttpServlet {
 				linea.setTipoMascotaServicio(tmascserv);						//SETEO EL TIPOMASCOTASERVICIO
 				lineas.add(linea);												//AGREGO LA LINEA AL ARREGLO
 				
-				bandera = ctrlVenta.agregarLineaVenta(linea);					//AGREGO LA LINEA A LA BD
+				resultado = ctrlVenta.agregarLineaVenta(linea);					//AGREGO LA LINEA A LA BD
+				if(!resultado){
+					bandera=false;
+					resp=0;
+				}
+				if (prodActual.getStock()-cantidad>=0){
+					ctrlProducto.actualizarStock(prodActual, prodActual.getStock()-cantidad);	//ACTUALIZO EL STOCK EN LA BD
+				}else{
+					resp=2;	//NO HAY SUFICIENTE STOCK DISPONIBLE
+					bandera = false;
+				}
+				
 			}		
 			ventaActual.setLineas(lineas);							//SETEO EL ARRAYLIST DE LINEAS EN LA VENTA
 			ventaActual.setTotal(total);							//SETEO EL TOTAL A LA VENTA
 			
-			bandera = ctrlVenta.modificarVenta(ventaActual);		//UNA VEZ CARGADAS TODAS LAS FILAS ACTUALIZO EL TOTAL DE LA VENTA
+			resultado = ctrlVenta.modificarVenta(ventaActual);		//UNA VEZ CARGADAS TODAS LAS FILAS ACTUALIZO EL TOTAL DE LA VENTA
+			
+			if(!resultado){ 										//SOLO SI NO SE PUDO MODIFICAR CAMBIO LA BANDERA
+				bandera=false;
+				resp=0;
+			}
 			
 			if(bandera){
-				resp = 1;
+				resp=1;
 				request.getSession().removeAttribute("productosVenta");
 				productosVenta = new ArrayList<ArrayList<String>>();
 				request.getSession().setAttribute("productosVenta", productosVenta);
@@ -203,7 +221,8 @@ public class ProcesarVenta extends HttpServlet {
 			}
 				
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			resp=0;
+			response.getWriter().println(resp);
 			e.printStackTrace();
 		}	
 	}

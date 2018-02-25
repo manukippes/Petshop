@@ -85,8 +85,8 @@ public class ConfirmarAltaCliente extends HttpServlet {
 				mascota.setUsuario(usu);
 				mascota.setEstado(1);
 				ctrlMascota.agregarMascota(mascota);
-				response.getWriter().println(1);
 			}
+			response.getWriter().println(1);
 		}
 		catch (MySQLIntegrityConstraintViolationException mailExistente) {
 			String respuesta = mailExistente.getMessage();		//DETERMINO EN QUE CAMPO FALLO LA UNIQUE ID
@@ -104,8 +104,6 @@ public class ConfirmarAltaCliente extends HttpServlet {
 		response.getWriter().println(0);
 		e1.printStackTrace();
 		}
-		
-		
 		
 	}
 }

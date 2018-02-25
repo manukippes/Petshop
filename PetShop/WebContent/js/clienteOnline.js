@@ -720,9 +720,9 @@ $(document).ready(function() {
 								} )
 							.then((respuesta) => {
 								if(respuesta){
-									$(location).attr('href','VentaOnline');
+									$(location).attr('href','PrimerIngreso');
 								}else{
-									$(location).attr('href','VentaOnline');	
+									$(location).attr('href','PrimerIngreso');	
 								}
 							})
 					
